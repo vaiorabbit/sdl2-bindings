@@ -37,34 +37,8 @@ module SDL2
   @@sdl2_import_done = false
 
   # Load native library.
-  def self.load_lib(lib = nil, path = nil, guess: true)
-    if lib == nil && guess
-      lib = case OpenGL.get_platform
-            when :OPENGL_PLATFORM_WINDOWS
-              'SDL2.dll'
-            when :OPENGL_PLATFORM_MACOSX
-              'libSDL2.dylib'
-            else
-              'libSDL2.so'
-            end
-    end
-
-    if path == nil && guess
-      path = case OpenGL.get_platform
-             when :OPENGL_PLATFORM_WINDOWS
-               Dir.pwd
-             when :OPENGL_PLATFORM_MACOSX
-               '/usr/local/lib'
-             else
-               '/usr/local/lib'
-             end
-    end
-
-    if path
-      dlload (path + '/' + lib)
-    else
-      dlload (lib)
-    end
+  def self.load_lib(libpath)
+    dlload(libpath)
     import_symbols() unless @@sdl2_import_done
   end
 
