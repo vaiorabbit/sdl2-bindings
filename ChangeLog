@@ -1,3 +1,7 @@
+2015-09-21  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/events.rb, lib/timer.rb: Added.
+
 2015-09-19  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Project started.

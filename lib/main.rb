@@ -1,5 +1,7 @@
 module SDL2
 
+  extend Fiddle::Importer
+
   SDL_INIT_TIMER          = 0x00000001
   SDL_INIT_AUDIO          = 0x00000010
   SDL_INIT_VIDEO          = 0x00000020  # SDL_INIT_VIDEO implies SDL_INIT_EVENTS

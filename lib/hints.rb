@@ -1,5 +1,7 @@
 module SDL2
 
+  extend Fiddle::Importer
+
   SDL_HINT_RENDER_DRIVER = "SDL_RENDER_DRIVER"
 
   # SDL_HintPriority
