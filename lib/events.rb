@@ -1,4 +1,3 @@
-require 'pp'
 module SDL2
 
   extend Fiddle::Importer
@@ -109,7 +108,8 @@ module SDL2
     "unsigned char repeat",
     "unsigned char padding2",
     "unsigned char padding3",
-    # SDL_Keysym keysym
+    # [NOTE] Fiddle::Importer.struct disallows to write struct member directly.
+    #        So the member keysym (SDL_Keysym) is decomposed into these elements:
     "int keysym_scancode",
     "int keysym_sym",
     "unsigned short keysym_mod",
@@ -117,21 +117,23 @@ module SDL2
 
   # Keyboard text editing event structure (event.edit.*)
   SDL_TEXTEDITINGEVENT_TEXT_SIZE = 32
+
   SDL_TextEditingEvent = struct([
     "unsigned int type",
     "unsigned int timestamp",
     "unsigned int windowID",
-    "char text[SDL_TEXTEDITINGEVENT_TEXT_SIZE]",
+    "char text[32]", # 32 == SDL_TEXTEDITINGEVENT_TEXT_SIZE
     "int start",
     "int length"])
 
   # Keyboard text input event structure (event.text.*)
   SDL_TEXTINPUTEVENT_TEXT_SIZE = 32
+
   SDL_TextInputEvent = struct([
     "unsigned int type",
     "unsigned int timestamp",
     "unsigned int windowID",
-    "char text[SDL_TEXTINPUTEVENT_TEXT_SIZE]"])
+    "char text[32]"]) # SDL_TEXTINPUTEVENT_TEXT_SIZE
 
   # SDL_eventaction
   SDL_ADDEVENT  = 0
@@ -143,6 +145,52 @@ module SDL2
   SDL_IGNORE  =  0
   SDL_DISABLE =  0
   SDL_ENABLE  =  1
+
+
+  class SDL_Event
+
+    attr_accessor :entity
+
+    def initialize
+      #
+      # sizeof(union SDL_Event) == 56 (SDL 2.0.3)
+      #
+      @entity = Fiddle::Pointer.malloc(56)
+    end
+
+    def to_ptr
+      @entity
+    end
+
+    def type
+      @entity[0, 4].unpack('I')[0]
+    end
+
+    def timestamp
+      @entity[4, 4].unpack('I')[0]
+    end
+
+    def common
+      SDL_CommonEvent.new(@entity)
+    end
+
+    def window
+      SDL_WindowEvent.new(@entity)
+    end
+
+    def key
+      SDL_KeyboardEvent.new(@entity)
+    end
+
+    def edit
+      SDL_TextEditingEvent.new(@entity)
+    end
+
+    def text
+      SDL_TextInputEvent.new(@entity)
+    end
+
+  end
 
   def self.import_events_symbols
     # function
@@ -164,12 +212,10 @@ module SDL2
     # TODO : SDL_EventFilter
 
     extern 'unsigned char SDL_EventState(unsigned int, int)'
+
     # TODO : #define SDL_GetEventState(type) SDL_EventState(type, SDL_QUERY)
 
     extern 'unsigned int SDL_RegisterEvents(int)'
-
-    # pp SDL_TextEditingEvent.entity_class.methods
-    
   end
 
 end
