@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 require 'fiddle/import'
 require_relative 'main'
+require_relative 'blendmode'
+require_relative 'clipboard'
 require_relative 'error'
 require_relative 'events'
 require_relative 'hints'
@@ -52,6 +54,8 @@ module SDL2
   def self.import_symbols
 
     self.import_main_symbols
+    self.import_blendmode_symbols
+    self.import_clipboard_symbols
     self.import_error_symbols
     self.import_events_symbols
     self.import_hints_symbols
