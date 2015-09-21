@@ -4,6 +4,7 @@ require_relative 'main'
 require_relative 'events'
 require_relative 'hints'
 require_relative 'timer'
+require_relative 'video'
 
 module SDL2
 
@@ -52,6 +53,7 @@ module SDL2
     self.import_events_symbols
     self.import_hints_symbols
     self.import_timer_symbols
+    self.import_video_symbols
 
     @@sdl2_import_done = true
   end
