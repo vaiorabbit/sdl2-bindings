@@ -4,10 +4,14 @@ require_relative 'main'
 require_relative 'blendmode'
 require_relative 'clipboard'
 require_relative 'error'
+require_relative 'filesystem'
 require_relative 'events'
 require_relative 'hints'
 require_relative 'keyboard'
+require_relative 'platform'
+require_relative 'rect'
 require_relative 'timer'
+require_relative 'version'
 require_relative 'video'
 
 module SDL2
@@ -58,12 +62,40 @@ module SDL2
     self.import_clipboard_symbols
     self.import_error_symbols
     self.import_events_symbols
+    self.import_filesystem_symbols
     self.import_hints_symbols
     self.import_keyboard_symbols
+    self.import_platform_symbols
+    self.import_rect_symbols
     self.import_timer_symbols
+    self.import_version_symbols
     self.import_video_symbols
 
     @@sdl2_import_done = true
   end
 
 end
+
+=begin
+sdl2-bindings : Yet another SDL2 wrapper for Ruby
+Copyright (c) 2015 vaiorabbit <http://twitter.com/vaiorabbit>
+
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+    1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+
+    2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+
+    3. This notice may not be removed or altered from any source
+    distribution.
+=end
