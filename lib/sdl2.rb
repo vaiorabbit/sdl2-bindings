@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'fiddle/import'
 require_relative 'main'
+require_relative 'error'
 require_relative 'events'
 require_relative 'hints'
 require_relative 'keyboard'
@@ -51,6 +52,7 @@ module SDL2
   def self.import_symbols
 
     self.import_main_symbols
+    self.import_error_symbols
     self.import_events_symbols
     self.import_hints_symbols
     self.import_keyboard_symbols
