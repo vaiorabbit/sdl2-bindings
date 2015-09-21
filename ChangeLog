@@ -5,6 +5,7 @@
 	* lib/error.rb: Added.
 	* lib/blendmode.rb, lib/clipboard.rb, lib/filesystem.rb, lib/version.rb: Added.
 	* lib/platform.rb, lib/rect.rb, lib/mouse.rb: Added.
+	* lib/messagebox.rb: Added.
 
 2015-09-19  vaiorabbit  <http://twitter.com/vaiorabbit>
 

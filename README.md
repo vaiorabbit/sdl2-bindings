@@ -8,8 +8,8 @@
 
 ## Features ##
 
-*   Uses Fiddle (One of the Ruby standard libraries that wraps libffi)
-    *   You don't need to build C extension library
+*   Based on Fiddle (Ruby standard library)
+    *   There's no need to build C extension library
 
 
 ## License ##
