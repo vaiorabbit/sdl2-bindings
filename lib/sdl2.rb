@@ -8,6 +8,7 @@ require_relative 'filesystem'
 require_relative 'events'
 require_relative 'hints'
 require_relative 'keyboard'
+require_relative 'mouse'
 require_relative 'platform'
 require_relative 'rect'
 require_relative 'timer'
@@ -65,6 +66,7 @@ module SDL2
     self.import_filesystem_symbols
     self.import_hints_symbols
     self.import_keyboard_symbols
+    self.import_mouse_symbols
     self.import_platform_symbols
     self.import_rect_symbols
     self.import_timer_symbols
