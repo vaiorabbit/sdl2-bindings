@@ -3,6 +3,7 @@ require 'fiddle/import'
 require_relative 'main'
 require_relative 'events'
 require_relative 'hints'
+require_relative 'keyboard'
 require_relative 'timer'
 require_relative 'video'
 
@@ -52,6 +53,7 @@ module SDL2
     self.import_main_symbols
     self.import_events_symbols
     self.import_hints_symbols
+    self.import_keyboard_symbols
     self.import_timer_symbols
     self.import_video_symbols
 

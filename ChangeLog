@@ -1,6 +1,7 @@
 2015-09-21  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/events.rb, lib/timer.rb, lib/video.rb: Added.
+	* lib/keyboard.rb, lib/keycode.rb, lib/scancode.rb: Added.
 
 2015-09-19  vaiorabbit  <http://twitter.com/vaiorabbit>
 
