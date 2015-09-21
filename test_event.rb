@@ -8,19 +8,21 @@ if __FILE__ == $0
   success = SDL_Init(SDL_INIT_EVERYTHING)
   exit if success < 0
 
-  fpsdelay = 1000 / 30;
+  fpsdelay = 100;
 
-
-  safety = 0
-  event = Fiddle.malloc(1024)
+  count = 0
+  event = SDL_Event.new
   done = false
   while not done
     while SDL_PollEvent(event) != 0
-      p event
+      # 'type' and 'timestamp' are common members for all SDL Event structs.
+      event_type = event.common.type
+      event_timestamp = event.common.timestamp
+      puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
     end
-    safety += 1
-    p safety
-    done = true if safety >= 100
+
+    count += 1
+    done = true if count >= 100
     SDL_Delay(fpsdelay)
   end
 

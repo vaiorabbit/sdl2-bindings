@@ -10,7 +10,7 @@ if __FILE__ == $0
 
   WINDOW_W = 320
   WINDOW_H = 240
-  window = SDL_CreateWindow("1st Window", 0, 0, WINDOW_W, WINDOW_H, 0)
+  window = SDL_CreateWindow("1st SDL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
 
   fpsdelay = 100;
 
