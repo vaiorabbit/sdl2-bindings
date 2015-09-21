@@ -7,9 +7,7 @@ if __FILE__ == $0
   SDL2.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
   SDL_SetMainReady()
   success = SDL_Init(SDL_INIT_EVERYTHING)
-  puts "SDL_Init : #{success == 0 ? 'Success' : 'Failed'}"
   exit if success != 0
-  # p SDL_INIT_EVERYTHING.to_s(16)
 
   # SDL_ShowSimpleMessageBox
   success = SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
@@ -18,16 +16,16 @@ if __FILE__ == $0
                                      nil)
 
   # SDL_ShowMessageBox
-  buttons = Fiddle::Pointer.malloc(SDL_MessageBoxButtonData.size * 2)
-  button = SDL_MessageBoxButtonData.new(buttons.to_i + 0)
-  button.flags = SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT
-  button.buttonid = 0
-  button.text = "OK"
+  buttons =  Fiddle::Pointer.malloc(SDL_MessageBoxButtonData.size * 2)
+  button = [SDL_MessageBoxButtonData.new(buttons.to_i + 0), SDL_MessageBoxButtonData.new(buttons.to_i + SDL_MessageBoxButtonData.size)]
 
-  button = SDL_MessageBoxButtonData.new(buttons.to_i + SDL_MessageBoxButtonData.size)
-  button.flags = SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT
-  button.buttonid = 1
-  button.text = "Cancel"
+  button[0].flags = SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT
+  button[0].buttonid = 0
+  button[0].text = "OK"
+
+  button[1].flags = SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT
+  button[1].buttonid = 1
+  button[1].text = "Cancel"
 
   data = SDL_MessageBoxData.malloc
   data.flags = SDL_MESSAGEBOX_INFORMATION
