@@ -10,6 +10,7 @@ require_relative 'hints'
 require_relative 'keyboard'
 require_relative 'messagebox'
 require_relative 'mouse'
+require_relative 'pixels'
 require_relative 'platform'
 require_relative 'rect'
 require_relative 'timer'
@@ -71,6 +72,7 @@ module SDL2
     self.import_keyboard_symbols
     self.import_messagebox_symbols
     self.import_mouse_symbols
+    self.import_pixels_symbols
     self.import_platform_symbols
     self.import_rect_symbols
     self.import_timer_symbols

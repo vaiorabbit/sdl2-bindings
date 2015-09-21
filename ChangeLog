@@ -1,3 +1,7 @@
+2015-09-22  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/pixels.rb: Added.
+
 2015-09-21  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/events.rb, lib/timer.rb, lib/video.rb: Added.
@@ -5,7 +9,7 @@
 	* lib/error.rb: Added.
 	* lib/blendmode.rb, lib/clipboard.rb, lib/filesystem.rb, lib/version.rb: Added.
 	* lib/platform.rb, lib/rect.rb, lib/mouse.rb: Added.
-	* lib/messagebox.rb: Added.
+	* lib/messagebox.rb, lib/pixels.rb: Added.
 
 2015-09-19  vaiorabbit  <http://twitter.com/vaiorabbit>
 
