@@ -23,6 +23,13 @@ if __FILE__ == $0
       event_type = event.common.type
       event_timestamp = event.common.timestamp
       puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
+
+      case event_type
+      when SDL_KEYDOWN
+        if event.key.keysym_sym == SDLK_SPACE
+          puts "\tSPACE key pressed."
+        end
+      end
     end
 
     count += 1
