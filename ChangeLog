@@ -1,6 +1,6 @@
 2015-09-22  vaiorabbit  <http://twitter.com/vaiorabbit>
 
-	* lib/pixels.rb: Added.
+	* lib/pixels.rb, lib/gamecontroller.rb: Added.
 
 2015-09-21  vaiorabbit  <http://twitter.com/vaiorabbit>
 
