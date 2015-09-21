@@ -135,6 +135,146 @@ module SDL2
     "unsigned int windowID",
     "char text[32]"]) # SDL_TEXTINPUTEVENT_TEXT_SIZE
 
+  SDL_MouseMotionEvent = struct(["unsigned int type",
+                                 "unsigned int timestamp",
+                                 "unsigned int windowID",
+                                 "unsigned int which",
+                                 "unsigned int state",
+                                 "int x",
+                                 "int y",
+                                 "int xrel",
+                                 "int yrel"])
+
+  SDL_MouseButtonEvent = struct(["unsigned int type",
+                                 "unsigned int timestamp",
+                                 "unsigned int windowID",
+                                 "unsigned int which",
+                                 "unsigned char button",
+                                 "unsigned char state",
+                                 "unsigned char clicks",
+                                 "unsigned char padding1",
+                                 "int x",
+                                 "int y"])
+
+  SDL_MouseWheelEvent = struct(["unsigned int type",
+                                "unsigned int timestamp",
+                                "unsigned int windowID",
+                                "unsigned int which",
+                                "int x",
+                                "int y"])
+
+  SDL_JoyAxisEvent = struct(["unsigned int type",
+                             "unsigned int timestamp",
+                             "int which", # SDL_JoystickID => int
+                             "unsigned char axis",
+                             "unsigned char padding1",
+                             "unsigned char padding2",
+                             "unsigned char padding3",
+                             "short value",
+                             "unsigned short padding4"])
+
+  SDL_JoyBallEvent = struct(["unsigned int type",
+                             "unsigned int timestamp",
+                             "int which", # SDL_JoystickID => int
+                             "unsigned char ball",
+                             "unsigned char padding1",
+                             "unsigned char padding2",
+                             "unsigned char padding3",
+                             "short xrel",
+                             "short yrel"])
+
+  SDL_JoyHatEvent = struct(["unsigned int type",
+                            "unsigned int timestamp",
+                            "int which", # SDL_JoystickID => int
+                            "unsigned char hat",
+                            "unsigned char value",
+                            "unsigned char padding1",
+                            "unsigned char padding2"])
+
+  SDL_JoyButtonEvent = struct(["unsigned int type",
+                               "unsigned int timestamp",
+                               "int which", # SDL_JoystickID => int
+                               "unsigned char button",
+                               "unsigned char state",
+                               "unsigned char padding1",
+                               "unsigned char padding2"])
+
+  SDL_JoyDeviceEvent = struct(["unsigned int type",
+                               "unsigned int timestamp",
+                               "int which"])
+
+  SDL_ControllerAxisEvent = struct(["unsigned int type",
+                                    "unsigned int timestamp",
+                                    "int which", # SDL_JoystickID => int
+                                    "unsigned char axis",
+                                    "unsigned char padding1",
+                                    "unsigned char padding2",
+                                    "unsigned char padding3",
+                                    "short value",
+                                    "unsigned short padding4"])
+
+  SDL_ControllerButtonEvent = struct(["unsigned int type",
+                                      "unsigned int timestamp",
+                                      "int which", # SDL_JoystickID => int
+                                      "unsigned char button",
+                                      "unsigned char state",
+                                      "unsigned char padding1",
+                                      "unsigned char padding2"])
+
+  SDL_ControllerDeviceEvent = struct(["unsigned int type",
+                                      "unsigned int timestamp",
+                                      "int which"])
+
+  SDL_TouchFingerEvent = struct(["unsigned int type",
+                                 "unsigned int timestamp",
+                                 "long touchId", # SDL_TouchID => long
+                                 "long fingerId", # SDL_FingerID => long
+                                 "float x",
+                                 "float y",
+                                 "float dx",
+                                 "float dy",
+                                 "float pressure"])
+
+  SDL_MultiGestureEvent = struct(["unsigned int type",
+                                  "unsigned int timesmtamp",
+                                  "long touchId", # SDL_TouchID => long
+                                  "float dTheta",
+                                  "float dDist",
+                                  "float x",
+                                  "float y",
+                                  "unsigned short numFingers",
+                                  "unsigned short padding"])
+
+  SDL_DollarGestureEvent = struct(["unsigned int type",
+                                   "unsigned int timesmtamp",
+                                   "long touchId", # SDL_TouchID => long
+                                   "long gestureId", # SDL_GestureID => long
+                                   "unsigned int numFingers",
+                                   "float error",
+                                   "float x",
+                                   "float y"])
+
+  SDL_DropEvent = struct(["unsigned int type",
+                          "unsigned int timesmtamp",
+                          "char* file"])
+
+  SDL_QuitEvent = struct(["unsigned int type",
+                          "unsigned int timesmtamp"])
+
+  SDL_OSEvent = struct(["unsigned int type",
+                        "unsigned int timesmtamp"])
+
+  SDL_UserEvent = struct(["unsigned int type",
+                          "unsigned int timesmtamp",
+                          "unsigned int windowID",
+                          "int code",
+                          "void* data1",
+                          "void* data2"])
+
+  SDL_SysWMEvent = struct(["unsigned int type",
+                           "unsigned int timesmtamp",
+                           "SDL_SysWMmsg* msg"])
+
   # SDL_eventaction
   SDL_ADDEVENT  = 0
   SDL_PEEKEVENT = 1
@@ -170,26 +310,29 @@ module SDL2
       @entity[4, 4].unpack('I')[0]
     end
 
-    def common
-      SDL_CommonEvent.new(@entity)
-    end
-
-    def window
-      SDL_WindowEvent.new(@entity)
-    end
-
-    def key
-      SDL_KeyboardEvent.new(@entity)
-    end
-
-    def edit
-      SDL_TextEditingEvent.new(@entity)
-    end
-
-    def text
-      SDL_TextInputEvent.new(@entity)
-    end
-
+    def common; SDL_CommonEvent.new(@entity); end
+    def window; SDL_WindowEvent.new(@entity); end
+    def key; SDL_KeyboardEvent.new(@entity); end
+    def edit; SDL_TextEditingEvent.new(@entity); end
+    def text; SDL_TextInputEvent.new(@entity); end
+    def motion; SDL_MouseMotionEvent.new(@entiry); end
+    def button; SDL_MouseButtonEvent.new(@entiry); end
+    def wheel; SDL_MouseWheelEvent.new(@entiry); end
+    def jaxis; SDL_JoyAxisEvent.new(@entiry); end
+    def jball; SDL_JoyBallEvent.new(@entiry); end
+    def jhat; SDL_JoyHatEvent.new(@entiry); end
+    def jbutton; SDL_JoyButtonEvent.new(@entiry); end
+    def jdevice; SDL_JoyDeviceEvent.new(@entiry); end
+    def caxis; SDL_ControllerAxisEvent.new(@entiry); end
+    def cbutton; SDL_ControllerButtonEvent.new(@entiry); end
+    def cdevice; SDL_ControllerDeviceEvent.new(@entiry); end
+    def quit; SDL_QuitEvent.new(@entiry); end
+    def user; SDL_UserEvent.new(@entiry); end
+    def syswm; SDL_SysWMEvent.new(@entiry); end
+    def tfinger; SDL_TouchFingerEvent.new(@entiry); end
+    def mgesture; SDL_MultiGestureEvent.new(@entiry); end
+    def dgesture; SDL_DollarGestureEvent.new(@entiry); end
+    def drop; SDL_DropEvent.new(@entiry); end
   end
 
   def self.import_events_symbols
