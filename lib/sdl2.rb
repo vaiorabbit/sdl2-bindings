@@ -70,6 +70,20 @@ module SDL2
   end
 
 
+=begin # Using callback functionality may cause interpreter crash.
+  @@sdl2_cb_signature = {
+    :SDL_TimerCallback => "unsigned int SDL_TimerCallback(unsigned int, void*)",
+  }
+
+  def self.create_callback( sym, proc=nil, &blk )
+    if block_given?
+      return bind( @@sdl2_cb_signature[sym], nil, &blk )
+    else
+      return bind( @@sdl2_cb_signature[sym], nil, &proc )
+    end
+  end
+=end
+
   def self.import_symbols
 
     self.import_main_symbols
