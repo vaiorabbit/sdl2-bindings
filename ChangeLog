@@ -1,7 +1,7 @@
 2015-09-22  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/pixels.rb, lib/gamecontroller.rb, lib/joystick.rb: Added.
-	* lib/rwops.rb, lib/syswm.rb, lib/surface.rb: Added.
+	* lib/rwops.rb, lib/syswm.rb, lib/surface.rb, lib/render.rb: Added.
 
 2015-09-21  vaiorabbit  <http://twitter.com/vaiorabbit>
 
