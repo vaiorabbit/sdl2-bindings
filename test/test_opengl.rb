@@ -112,6 +112,8 @@ if __FILE__ == $0
   WINDOW_H = 360
   window = SDL_CreateWindow("OpenGL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, SDL_WINDOW_OPENGL)
 
+  ratio = WINDOW_W.to_f / WINDOW_H
+
   context = SDL_GL_CreateContext(window)
 
   SDL_GL_SetSwapInterval(1)
@@ -119,6 +121,7 @@ if __FILE__ == $0
   glViewport( 0, 0, WINDOW_W, WINDOW_H )
   glMatrixMode( GL_PROJECTION )
   glLoadIdentity( )
+  glOrtho(-ratio, ratio, -1.0, 1.0, -1.0, 1.0)
   glMatrixMode( GL_MODELVIEW )
   glLoadIdentity( )
 
@@ -126,8 +129,8 @@ if __FILE__ == $0
   glDepthFunc(GL_LESS)
   glShadeModel(GL_SMOOTH)
 
-  w_buf = '    '
-  h_buf = '    '
+  # w_buf = '    '
+  # h_buf = '    '
 
   event = SDL_Event.new
   done = false
