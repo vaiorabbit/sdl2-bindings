@@ -21,12 +21,18 @@
 	*   Fiddle cannot handle variadic functions like printf.
 		1.  SDL_SetError
 
-*   Some struct/union members are decomposed into primitive types. Fiddle::Importer.struct disallows to write struct member directly.
+*   Some struct/union members are decomposed/aggregated into other primitive types. Fiddle::Importer.struct disallows to write struct member directly.
 	1.  SDL_Event#key (SDL_Keysym)
 	2.  SDL_Surface#clip_rect (SDL_Rect)
+	3.  SDL_GameControllerButtonBind#value.button, axis, etc. are aggregated into 'int value[2]'.
 
 *   SDL's callback functions are not imported. Using them often cause interpreter crash.
 	1.  SDL_AddTimer, SDL_RemoveTimer, etc.
+
+
+## Tested Environment ##
+
+*   SDL 2.0.3 (Installed via Homebrew), Mac OS X 10.10.5, ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-darwin14]
 
 
 ## License ##
