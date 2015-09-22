@@ -15,6 +15,7 @@ require_relative 'mouse'
 require_relative 'pixels'
 require_relative 'platform'
 require_relative 'rect'
+require_relative 'rwops'
 require_relative 'timer'
 require_relative 'version'
 require_relative 'video'
@@ -79,6 +80,7 @@ module SDL2
     self.import_pixels_symbols
     self.import_platform_symbols
     self.import_rect_symbols
+    self.import_rwops_symbols
     self.import_timer_symbols
     self.import_version_symbols
     self.import_video_symbols
