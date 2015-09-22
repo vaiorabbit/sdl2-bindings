@@ -8,6 +8,7 @@ require_relative 'events'
 require_relative 'filesystem'
 require_relative 'gamecontroller'
 require_relative 'hints'
+require_relative 'joystick'
 require_relative 'keyboard'
 require_relative 'messagebox'
 require_relative 'mouse'
@@ -71,6 +72,7 @@ module SDL2
     self.import_filesystem_symbols
     self.import_hints_symbols
     self.import_gamecontroller_symbols
+    self.import_joystick_symbols
     self.import_keyboard_symbols
     self.import_messagebox_symbols
     self.import_mouse_symbols

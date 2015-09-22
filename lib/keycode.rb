@@ -12,7 +12,7 @@ module SDL2
   SDLK_UNKNOWN = 0
 
   SDLK_RETURN = '\r'.ord
-  SDLK_ESCAPE = '\033'.ord
+  SDLK_ESCAPE = 033
   SDLK_BACKSPACE = '\b'.ord
   SDLK_TAB = '\t'.ord
   SDLK_SPACE = ' '.ord
@@ -103,7 +103,7 @@ module SDL2
   SDLK_INSERT = scancode_to_keycode(SDL_SCANCODE_INSERT)
   SDLK_HOME = scancode_to_keycode(SDL_SCANCODE_HOME)
   SDLK_PAGEUP = scancode_to_keycode(SDL_SCANCODE_PAGEUP)
-  SDLK_DELETE = '\177'.ord
+  SDLK_DELETE = 177 # '\177'
   SDLK_END = scancode_to_keycode(SDL_SCANCODE_END)
   SDLK_PAGEDOWN = scancode_to_keycode(SDL_SCANCODE_PAGEDOWN)
   SDLK_RIGHT = scancode_to_keycode(SDL_SCANCODE_RIGHT)
