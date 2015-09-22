@@ -104,7 +104,7 @@ if __FILE__ == $0
       end
     end
     move_sprite(renderer)
-    SDL_Delay(1)
+    SDL_Delay(10)
   end
 
   SDL_DestroyRenderer(renderer)
