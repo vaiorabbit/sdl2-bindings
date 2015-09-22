@@ -16,6 +16,7 @@ require_relative 'pixels'
 require_relative 'platform'
 require_relative 'rect'
 require_relative 'rwops'
+require_relative 'surface'
 require_relative 'syswm'
 require_relative 'timer'
 require_relative 'version'
@@ -82,6 +83,7 @@ module SDL2
     self.import_platform_symbols
     self.import_rect_symbols
     self.import_rwops_symbols
+    self.import_surface_symbols
     self.import_syswm_symbols
     self.import_timer_symbols
     self.import_version_symbols
