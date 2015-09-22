@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'fiddle/import'
 require_relative 'main'
+require_relative 'audio'
 require_relative 'blendmode'
 require_relative 'clipboard'
 require_relative 'cpuinfo'
@@ -22,6 +23,7 @@ require_relative 'rwops'
 require_relative 'surface'
 require_relative 'syswm'
 require_relative 'timer'
+require_relative 'touch'
 require_relative 'version'
 require_relative 'video'
 
@@ -71,6 +73,7 @@ module SDL2
   def self.import_symbols
 
     self.import_main_symbols
+    self.import_audio_symbols
     self.import_blendmode_symbols
     self.import_clipboard_symbols
     self.import_cpuinfo_symbols
@@ -92,6 +95,7 @@ module SDL2
     self.import_surface_symbols
     self.import_syswm_symbols
     self.import_timer_symbols
+    self.import_touch_symbols
     self.import_version_symbols
     self.import_video_symbols
 

@@ -2,7 +2,7 @@
 
 	* lib/pixels.rb, lib/gamecontroller.rb, lib/joystick.rb: Added.
 	* lib/rwops.rb, lib/syswm.rb, lib/surface.rb, lib/render.rb: Added.
-	* lib/cpuinfo.rb, lib/gesture.rb: Added.
+	* lib/cpuinfo.rb, lib/gesture.rb, lib/touch.rb, lib/audio.rb: Added.
 
 2015-09-21  vaiorabbit  <http://twitter.com/vaiorabbit>
 

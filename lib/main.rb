@@ -12,6 +12,15 @@ module SDL2
   SDL_INIT_NOPARACHUTE    = 0x00100000  # Don't catch fatal signals
   SDL_INIT_EVERYTHING     = (SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER)
 
+  # SDL_endian.h
+  SDL_LIL_ENDIAN = 1234
+  SDL_BIG_ENDIAN = 4321
+  if [0xFF00].pack('S') == [0xFF00].pack('n')
+    self.const_set("SDL_BYTEORDER", SDL_BIG_ENDIAN)
+  else
+    self.const_set("SDL_BYTEORDER", SDL_LIL_ENDIAN)
+  end
+
   def self.import_main_symbols
     # function
     extern 'void SDL_SetMainReady()'
