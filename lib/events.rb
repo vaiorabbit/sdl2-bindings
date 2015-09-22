@@ -315,24 +315,24 @@ module SDL2
     def key; SDL_KeyboardEvent.new(@entity); end
     def edit; SDL_TextEditingEvent.new(@entity); end
     def text; SDL_TextInputEvent.new(@entity); end
-    def motion; SDL_MouseMotionEvent.new(@entiry); end
-    def button; SDL_MouseButtonEvent.new(@entiry); end
-    def wheel; SDL_MouseWheelEvent.new(@entiry); end
-    def jaxis; SDL_JoyAxisEvent.new(@entiry); end
-    def jball; SDL_JoyBallEvent.new(@entiry); end
-    def jhat; SDL_JoyHatEvent.new(@entiry); end
-    def jbutton; SDL_JoyButtonEvent.new(@entiry); end
-    def jdevice; SDL_JoyDeviceEvent.new(@entiry); end
-    def caxis; SDL_ControllerAxisEvent.new(@entiry); end
-    def cbutton; SDL_ControllerButtonEvent.new(@entiry); end
-    def cdevice; SDL_ControllerDeviceEvent.new(@entiry); end
-    def quit; SDL_QuitEvent.new(@entiry); end
-    def user; SDL_UserEvent.new(@entiry); end
-    def syswm; SDL_SysWMEvent.new(@entiry); end
-    def tfinger; SDL_TouchFingerEvent.new(@entiry); end
-    def mgesture; SDL_MultiGestureEvent.new(@entiry); end
-    def dgesture; SDL_DollarGestureEvent.new(@entiry); end
-    def drop; SDL_DropEvent.new(@entiry); end
+    def motion; SDL_MouseMotionEvent.new(@entity); end
+    def button; SDL_MouseButtonEvent.new(@entity); end
+    def wheel; SDL_MouseWheelEvent.new(@entity); end
+    def jaxis; SDL_JoyAxisEvent.new(@entity); end
+    def jball; SDL_JoyBallEvent.new(@entity); end
+    def jhat; SDL_JoyHatEvent.new(@entity); end
+    def jbutton; SDL_JoyButtonEvent.new(@entity); end
+    def jdevice; SDL_JoyDeviceEvent.new(@entity); end
+    def caxis; SDL_ControllerAxisEvent.new(@entity); end
+    def cbutton; SDL_ControllerButtonEvent.new(@entity); end
+    def cdevice; SDL_ControllerDeviceEvent.new(@entity); end
+    def quit; SDL_QuitEvent.new(@entity); end
+    def user; SDL_UserEvent.new(@entity); end
+    def syswm; SDL_SysWMEvent.new(@entity); end
+    def tfinger; SDL_TouchFingerEvent.new(@entity); end
+    def mgesture; SDL_MultiGestureEvent.new(@entity); end
+    def dgesture; SDL_DollarGestureEvent.new(@entity); end
+    def drop; SDL_DropEvent.new(@entity); end
   end
 
   def self.import_events_symbols
