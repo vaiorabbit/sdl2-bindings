@@ -72,7 +72,7 @@ if __FILE__ == $0
   success = SDL_Init(SDL_INIT_EVERYTHING)
   exit if success < 0
 
-  window = SDL_CreateWindow("OpenGL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
+  window = SDL_CreateWindow("Minimal Sprite Test via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
 
   renderer = SDL_CreateRenderer(window, -1, 0)
 
