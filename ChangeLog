@@ -1,3 +1,7 @@
+2015-09-28  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/sdl2_mixer.rb: Added.
+
 2015-09-22  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/pixels.rb, lib/gamecontroller.rb, lib/joystick.rb: Added.

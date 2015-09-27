@@ -27,6 +27,8 @@ require_relative 'touch'
 require_relative 'version'
 require_relative 'video'
 
+require_relative 'sdl2_mixer'
+
 module SDL2
 
   extend Fiddle::Importer
@@ -62,10 +64,13 @@ module SDL2
   @@sdl2_import_done = false
 
   # Load native library.
-  def self.load_lib(libpath)
+  def self.load_lib(libpath, mixer_libpath: nil)
     unless @@sdl2_import_done
       dlload(libpath)
       import_symbols()
+    end
+    if mixer_libpath != nil
+      load_mixer_lib(mixer_libpath)
     end
   end
 
