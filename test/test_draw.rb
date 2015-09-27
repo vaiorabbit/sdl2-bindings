@@ -100,11 +100,9 @@ if __FILE__ == $0
 
   WINDOW_W = 640
   WINDOW_H = 360
-  window = SDL_CreateWindow("OpenGL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, SDL_WINDOW_OPENGL)
+  window = SDL_CreateWindow("RenderDrawPoint/RenderDrawLine/RenderFillRect", 0, 0, WINDOW_W, WINDOW_H, SDL_WINDOW_OPENGL)
 
   renderer = SDL_CreateRenderer(window, -1, 0)
-
-  ratio = WINDOW_W.to_f / WINDOW_H
 
   event = SDL_Event.new
 
