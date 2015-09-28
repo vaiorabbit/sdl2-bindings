@@ -12,7 +12,7 @@ if __FILE__ == $0
   success = SDL_Init(SDL_INIT_EVERYTHING)
   exit if success < 0
 
-  window = SDL_CreateWindow("Minimal Sprite Test via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
+  window = SDL_CreateWindow("Minimal SDL_Image Test via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
 
   renderer = SDL_CreateRenderer(window, -1, 0)
 
@@ -20,14 +20,15 @@ if __FILE__ == $0
 
   rwops = SDL_RWFromFile(ARGV[0], "rb")
 
-  p IMG_isPNG(rwops)
+  puts "PNG?: #{IMG_isPNG(rwops) == 1 ? 'true' : 'false'}"
 
   texture = IMG_LoadTexture_RW(renderer, rwops, 1) # 1 == freesrc : close src automatically
+  wh = 300
   pos = SDL_Rect.malloc
-  pos.x = 0
-  pos.y = 0
-  pos.w = 200
-  pos.h = 200
+  pos.x = (WINDOW_W - wh) / 2
+  pos.y = (WINDOW_H - wh) / 2
+  pos.w = wh
+  pos.h = wh
 
   SDL_RenderCopy(renderer, texture, nil, pos)
 
@@ -55,18 +56,6 @@ if __FILE__ == $0
     SDL_Delay(10)
   end
 
-=begin
-  Mix_Init(MIX_INIT_FLAC|MIX_INIT_MOD|MIX_INIT_MP3|MIX_INIT_OGG)
-  Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 512)
-
-  rwops = SDL_RWFromFile(ARGV[0], "rb")
-  wave = Mix_LoadWAV_RW(rwops, 1)
-  Mix_FadeInChannelTimed(0, wave, 0, 600, -1)
-  while Mix_Playing(0) != 0
-    sleep 1
-  end
-  Mix_Quit()
-=end
   IMG_Quit()
   SDL_DestroyRenderer(renderer)
   SDL_DestroyWindow(window)
