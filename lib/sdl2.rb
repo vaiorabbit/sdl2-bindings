@@ -29,6 +29,7 @@ require_relative 'video'
 
 require_relative 'sdl2_image'
 require_relative 'sdl2_mixer'
+require_relative 'sdl2_ttf'
 
 module SDL2
 
@@ -65,7 +66,7 @@ module SDL2
   @@sdl2_import_done = false
 
   # Load native library.
-  def self.load_lib(libpath, image_libpath: nil, mixer_libpath: nil)
+  def self.load_lib(libpath, image_libpath: nil, mixer_libpath: nil, ttf_libpath: nil)
     unless @@sdl2_import_done
       dlload(libpath)
       import_symbols()
@@ -75,6 +76,9 @@ module SDL2
     end
     if image_libpath != nil
       load_image_lib(image_libpath)
+    end
+    if ttf_libpath != nil
+      load_ttf_lib(ttf_libpath)
     end
   end
 
