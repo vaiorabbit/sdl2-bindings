@@ -48,6 +48,7 @@ if __FILE__ == $0
 
 #  surface = SDL2::TTF_RenderUTF8_Solid(font, "志於道、據於徳、依於仁、游於藝", fg)
   surface = SDL2::TTF_RenderUTF8_Shaded(font, "志於道、據於徳、依於仁、游於藝", fg, bg)
+
   texture = SDL_CreateTextureFromSurface(renderer, surface)
 
   SDL_SetRenderDrawColor(renderer, bg.r, bg.g, bg.b, bg.a)
