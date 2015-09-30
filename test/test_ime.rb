@@ -48,8 +48,9 @@ def init_app
   $markedRect.w = (WINDOW_W - 2 * $markedRect.x)
   $markedRect.h = 50
 
-  $text = "こんにちは"
+  $text = ""
   $markedText = ""
+  $cursor = 0 # FIX : TEST
 
   TTF_Init()
   rwops = SDL_RWFromFile(ARGV[0], "rb")
@@ -89,7 +90,7 @@ def redraw_internal(renderer)
     w = w_buf.unpack("L")[0]
     h = h_buf.unpack("L")[0]
   end
-
+p w
   $markedRect.x = $textRect.x + w
   $markedRect.w = $textRect.w - w
   if $markedRect.w < 0
@@ -111,6 +112,9 @@ def redraw_internal(renderer)
 
   unless $markedText.empty?
     if $cursor != 0
+      SDL2.TTF_SizeUTF8($font, $markedText[$cursor..-1], w_buf, 0)
+      w = w_buf.unpack("L")[0]
+      cursorRect.x += w
     end
     textSur = SDL_Surface.new( SDL2.TTF_RenderUTF8_Blended($font, $markedText, $textColor) )
     dest = SDL_Rect.malloc
@@ -124,10 +128,22 @@ def redraw_internal(renderer)
 
     SDL_RenderCopy(renderer, texture, nil, dest)
     SDL_DestroyTexture(texture)
+
+    underlineRect = SDL_Rect.malloc
+    underlineRect.x = $markedRect.x
+    underlineRect.y += (h - 2)
+    underlineRect.h = 2
+    underlineRect.w = w
+
+    SDL_SetRenderDrawColor(renderer, 0,0,0,0)
+    SDL_RenderFillRect(renderer, $markedRect)
   end
 
+  SDL_SetRenderDrawColor(renderer, 0,0,0,0)
+  SDL_RenderFillRect(renderer, cursorRect)
 
-  underlineRect = SDL_Rect.malloc
+  SDL_SetTextInputRect($markedRect)
+
 end
 
 def redraw(renderer)
@@ -150,11 +166,6 @@ if __FILE__ == $0
   renderer = SDL_CreateRenderer(window, -1, 0)
 
   init_app()
-
-
-  surface = SDL2::TTF_RenderUTF8_Shaded($font, "志於道、據於徳、依於仁、游於藝", $lineColor, $backColor)
-
-  texture = SDL_CreateTextureFromSurface(renderer, surface)
 
   SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE)
   SDL_SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF)
@@ -182,7 +193,22 @@ if __FILE__ == $0
         end
 
       when SDL_TEXTINPUT
+        if event.text.text[0] == "\0".ord || event.text.text[0] == "\n".ord || $markedRect.w < 0
+          next
+        end
+        term = event.text.text.find_index(0)
+        appended = event.text.text[0...term].pack("c*")
+        printf("Keyboard: text input \"%s\"\n", appended)
+        $text.concat(appended)
+        $markedText = ""
+        redraw(renderer)
       when SDL_TEXTEDITING
+        term = event.edit.text.find_index(0)
+        editing = event.edit.text[0...term].pack("c*")
+        printf("text editing \"%s\", selected range (%d, %d)\n", editing, event.edit.start, event.edit.length)
+        $markedText = editing
+        $cursor = event.edit.start
+        redraw(renderer)
       end
     end
 
