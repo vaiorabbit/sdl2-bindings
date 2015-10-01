@@ -36,17 +36,18 @@ def init_app
   $textColor.b = 0
   $textColor.a = 255
 
+  box_height = 50
   $textRect = SDL_Rect.malloc
   $textRect.x = 100
-  $textRect.y = 100
+  $textRect.y = WINDOW_H / 2 - box_height / 2
   $textRect.w = WINDOW_W - 2 * $textRect.x
-  $textRect.h = 50
+  $textRect.h = box_height
 
   $markedRect = SDL_Rect.malloc
-  $markedRect.x = 100
-  $markedRect.y = 100
-  $markedRect.w = (WINDOW_W - 2 * $markedRect.x)
-  $markedRect.h = 50
+  $markedRect.x = $textRect.x
+  $markedRect.y = $textRect.y
+  $markedRect.w = $textRect.w
+  $markedRect.h = $textRect.h
 
   $text = ""
   $markedText = ""
@@ -90,7 +91,7 @@ def redraw_internal(renderer)
     w = w_buf.unpack("L")[0]
     h = h_buf.unpack("L")[0]
   end
-p w
+
   $markedRect.x = $textRect.x + w
   $markedRect.w = $textRect.w - w
   if $markedRect.w < 0
@@ -112,17 +113,19 @@ p w
 
   unless $markedText.empty?
     if $cursor != 0
-      SDL2.TTF_SizeUTF8($font, $markedText[$cursor..-1], w_buf, 0)
+      SDL2.TTF_SizeUTF8($font, $markedText, w_buf, 0)
       w = w_buf.unpack("L")[0]
       cursorRect.x += w
     end
     textSur = SDL_Surface.new( SDL2.TTF_RenderUTF8_Blended($font, $markedText, $textColor) )
     dest = SDL_Rect.malloc
-    dest.x = $textRect.x
-    dest.y = $textRect.y
+    dest.x = $markedRect.x
+    dest.y = $markedRect.y
     dest.w = textSur.w
     dest.h = textSur.h
-
+    SDL2.TTF_SizeUTF8($font, $markedText, w_buf, h_buf)
+    w = w_buf.unpack("L")[0]
+    h = h_buf.unpack("L")[0]
     texture = SDL_CreateTextureFromSurface(renderer, textSur)
     SDL_FreeSurface(textSur)
 
@@ -131,12 +134,13 @@ p w
 
     underlineRect = SDL_Rect.malloc
     underlineRect.x = $markedRect.x
+    underlineRect.y = $markedRect.y
     underlineRect.y += (h - 2)
     underlineRect.h = 2
     underlineRect.w = w
 
     SDL_SetRenderDrawColor(renderer, 0,0,0,0)
-    SDL_RenderFillRect(renderer, $markedRect)
+    SDL_RenderFillRect(renderer, underlineRect)
   end
 
   SDL_SetRenderDrawColor(renderer, 0,0,0,0)
@@ -182,14 +186,16 @@ if __FILE__ == $0
       # puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
       case event_type
       when SDL_KEYDOWN
-#        p "\r".to_s, event.key.keysym_sym, event.key.keysym_scancode.to_s(2) #, '\t'.ord.to_s(16)
+        # p "\r".to_s, event.key.keysym_sym, event.key.keysym_scancode.to_s(2) #, '\t'.ord.to_s(16)
         case event.key.keysym_sym
         when SDLK_ESCAPE
           done = true
         when SDLK_RETURN
-          $text = ""
+          # $text = ""
           redraw(renderer)
         when SDLK_BACKSPACE
+          $text.chop!
+          redraw(renderer)
         end
 
       when SDL_TEXTINPUT
@@ -197,15 +203,15 @@ if __FILE__ == $0
           next
         end
         term = event.text.text.find_index(0)
-        appended = event.text.text[0...term].pack("c*")
-        printf("Keyboard: text input \"%s\"\n", appended)
+        appended = event.text.text[0...term].pack("c*").force_encoding("UTF-8")
+        # printf("Keyboard: text input \"%s\"\n", appended)
         $text.concat(appended)
         $markedText = ""
         redraw(renderer)
       when SDL_TEXTEDITING
         term = event.edit.text.find_index(0)
-        editing = event.edit.text[0...term].pack("c*")
-        printf("text editing \"%s\", selected range (%d, %d)\n", editing, event.edit.start, event.edit.length)
+        editing = event.edit.text[0...term].pack("c*").force_encoding("UTF-8")
+        # printf("text editing \"%s\", selected range (%d, %d)\n", editing, event.edit.start, event.edit.length)
         $markedText = editing
         $cursor = event.edit.start
         redraw(renderer)
