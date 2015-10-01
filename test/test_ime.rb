@@ -1,4 +1,5 @@
 # coding: utf-8
+# Ref.: /SDL2-2.0.3/test/testime.c
 require_relative '../lib/sdl2'
 require_relative '../lib/sdl2_ttf'
 
