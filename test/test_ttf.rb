@@ -1,4 +1,5 @@
 # coding: utf-8
+# Usage : $ ruby test_ttf.rb ./GenShinGothic-Normal.ttf
 require_relative '../lib/sdl2'
 require_relative '../lib/sdl2_ttf'
 
@@ -8,7 +9,7 @@ WINDOW_W = 640
 WINDOW_H = 360
 
 if __FILE__ == $0
-  SDL2.load_lib('libSDL2.dylib', ttf_libpath: 'libSDL2_ttf.dylib' ) # '/usr/local/lib/libSDL2.dylib'
+  SDL2.load_lib('/usr/local/lib/libSDL2.dylib', ttf_libpath: '/usr/local/lib/libSDL2_ttf.dylib' ) # '/usr/local/lib/libSDL2.dylib'
   SDL_SetMainReady()
   success = SDL_Init(SDL_INIT_EVERYTHING)
   exit if success < 0

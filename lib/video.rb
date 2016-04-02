@@ -168,7 +168,7 @@ module SDL2
     extern 'float SDL_GetWindowBrightness(SDL_Window*)'
     extern 'int SDL_SetWindowGammaRamp(SDL_Window*, const unsigned short*, const unsigned short*, const unsigned short*)'
     extern 'int SDL_GetWindowGammaRamp(SDL_Window*, unsigned short*, unsigned short*, unsigned short*)'
-    extern 'int SDL_SetWindowHitTest(SDL_Window*, SDL_HitTest, void*)' rescue $stderr.puts "[Warning] Failed to import SDL_SetWindowHitTest (Available since SDL 2.0.4)."
+  # extern 'int SDL_SetWindowHitTest(SDL_Window*, SDL_HitTest, void*)' rescue $stderr.puts "[Warning] Failed to import SDL_SetWindowHitTest (Available since SDL 2.0.4)." # [TODO] SDL_HitTest callback
     extern 'void SDL_DestroyWindow(SDL_Window*)'
     extern 'int SDL_IsScreenSaverEnabled()'
     extern 'void SDL_EnableScreenSaver()'

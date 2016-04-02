@@ -132,7 +132,7 @@ module SDL2
 
     extern 'void SDL_MixAudioFormat(unsigned char*, const unsigned char*, SDL_AudioFormat, unsigned int, int)'
 
-    extern 'int SDLCALL SDL_QueueAudio(SDL_AudioDeviceID, const void*, unsigned int)' rescue $stderr.puts "[Warning] Failed to import SDL_QueueAudio (Available since SDL 2.0.4)."
+    extern 'int SDL_QueueAudio(SDL_AudioDeviceID, const void*, unsigned int)' rescue $stderr.puts "[Warning] Failed to import SDL_QueueAudio (Available since SDL 2.0.4)."
     extern 'unsigned int SDL_GetQueuedAudioSize(SDL_AudioDeviceID)' rescue $stderr.puts "[Warning] Failed to import SDL_GetQueuedAudioSize (Available since SDL 2.0.4)."
     extern 'void SDL_ClearQueuedAudio(SDL_AudioDeviceID)' rescue $stderr.puts "[Warning] Failed to import SDL_ClearQueuedAudio (Available since SDL 2.0.4)."
 
