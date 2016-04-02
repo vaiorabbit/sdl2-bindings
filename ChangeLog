@@ -1,3 +1,11 @@
+2016-04-02  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/version.rb: Added SDL_MAJOR_VERSION, etc.
+
+2015-09-29  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/sdl2_ttf.rb: Added.
+
 2015-09-28  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/sdl2_image.rb: Added.
