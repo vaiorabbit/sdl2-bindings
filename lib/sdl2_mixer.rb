@@ -5,6 +5,10 @@ module SDL2
 
   extend Fiddle::Importer
 
+  SDL_MIXER_MAJOR_VERSION = 2
+  SDL_MIXER_MINOR_VERSION = 0
+  SDL_MIXER_PATCHLEVEL    = 1
+
   # MIX_InitFlags
   MIX_INIT_FLAC        = 0x00000001
   MIX_INIT_MOD         = 0x00000002

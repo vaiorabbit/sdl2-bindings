@@ -5,6 +5,10 @@ module SDL2
 
   extend Fiddle::Importer
 
+  SDL_IMAGE_MAJOR_VERSION = 2
+  SDL_IMAGE_MINOR_VERSION = 0
+  SDL_IMAGE_PATCHLEVEL    = 1
+
   # IMG_InitFlags
   IMG_INIT_JPG  = 0x00000001
   IMG_INIT_PNG  = 0x00000002

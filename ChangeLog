@@ -1,3 +1,7 @@
+2016-04-03  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/sdl2_gfx.rb, test/test_gfx.rb: Added.
+
 2016-04-02  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Added SDL 2.0.4 features.

@@ -5,6 +5,10 @@ module SDL2
 
   extend Fiddle::Importer
 
+  SDL_TTF_MAJOR_VERSION  = 2
+  SDL_TTF_MINOR_VERSION  = 0
+  SDL_TTF_PATCHLEVEL     = 13
+
   # ZERO WIDTH NO-BREAKSPACE (Unicode byte order mark) */
   UNICODE_BOM_NATIVE = 0xFEFF
   UNICODE_BOM_SWAPPED = 0xFFFE
