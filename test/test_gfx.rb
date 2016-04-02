@@ -34,8 +34,16 @@ if __FILE__ == $0
 
     SDL_SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF)
     SDL_RenderClear(renderer)
-#    SDL_RenderCopy(renderer, texture, nil, pos)
+
     pixelColor(renderer, 100, 100, 0xFFFFFFFF)
+    pixelRGBA(renderer, 101, 100, 0xFF, 0x00, 0x00, 0xFF)
+
+    hlineColor(renderer, 0, 100, 50, 0xFFFFFFFF)
+    vlineColor(renderer, 50, 0, 100, 0xFFFF00FF)
+
+    rectangleColor(renderer, 5, 5, 95, 95, 0xFF00FFFF)
+    rectangleRGBA(renderer, 10, 10, 90, 90, 0, 0, 0xFF, 0xFF)
+
     SDL_RenderPresent(renderer)
 
     SDL_Delay(10)
