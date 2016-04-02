@@ -4,6 +4,16 @@ module SDL2
 
   SDL_JoystickGUID = struct(["unsigned char data[16]"])
 
+  # [Warning] Available since SDL 2.0.4
+  # enum SDL_JoystickPowerLevel
+  SDL_JOYSTICK_POWER_UNKNOWN = -1
+  SDL_JOYSTICK_POWER_EMPTY   = 0
+  SDL_JOYSTICK_POWER_LOW     = 1
+  SDL_JOYSTICK_POWER_MEDIUM  = 2
+  SDL_JOYSTICK_POWER_FULL    = 3
+  SDL_JOYSTICK_POWER_WIRED   = 4
+  SDL_JOYSTICK_POWER_MAX     = 5
+
   # Hat positions
   SDL_HAT_CENTERED    = 0x00
   SDL_HAT_UP          = 0x01

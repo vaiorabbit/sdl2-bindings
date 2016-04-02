@@ -63,6 +63,7 @@ module SDL2
     extern 'void SDL_RenderGetViewport(SDL_Renderer*, SDL_Rect*)'
     extern 'int SDL_RenderSetClipRect(SDL_Renderer*, const SDL_Rect*)'
     extern 'void SDL_RenderGetClipRect(SDL_Renderer*, SDL_Rect*)'
+    extern 'int SDL_RenderIsClipEnabled(SDL_Renderer*)' rescue $stderr.puts "[Warning] Failed to import SDL_RenderIsClipEnabled (Available since SDL 2.0.4)."
     extern 'int SDL_RenderSetScale(SDL_Renderer*, float, float)'
     extern 'void SDL_RenderGetScale(SDL_Renderer*, float*, float*)'
     extern 'int SDL_SetRenderDrawColor(SDL_Renderer*, unsigned char, unsigned char, unsigned char, unsigned char)'

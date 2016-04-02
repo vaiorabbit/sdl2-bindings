@@ -10,6 +10,11 @@ module SDL2
                      "int w",
                      "int h"])
 
+  # [Warning] Available since SDL 2.0.4
+  def SDL_PointInRect(p, r) # p : SDL_Point* (Fiddle::Pointer), r : SDL_Rect* (Fiddle::Pointer)
+    return ( (p.x >= r.x) && (p.x < (r.x + r.w)) && (p.y >= r.y) && (p.y < (r.y + r.h)) ) ? 1 : 0;
+  end
+
   def SDL_RectEmpty(r) # r : SDL_Rect* (Fiddle::Pointer)
     return (!r.null? || (r.w <= 0) || (r.h <= 0)) ? 1 : 0
   end

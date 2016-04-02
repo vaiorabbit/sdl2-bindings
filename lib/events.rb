@@ -32,6 +32,7 @@ module SDL2
   SDL_KEYUP          = 0x301
   SDL_TEXTEDITING    = 0x302
   SDL_TEXTINPUT      = 0x303
+  SDL_KEYMAPCHANGED  = 0x304 # [Warning] Available since SDL 2.0.4
 
   #  Mouse events
   SDL_MOUSEMOTION     = 0x400
@@ -72,8 +73,13 @@ module SDL2
   #  Drag and drop events
   SDL_DROPFILE = 0x1000
 
+  #  Audio hotplug events
+  SDL_AUDIODEVICEADDED   = 0x1100 # [Warning] Available since SDL 2.0.4
+  SDL_AUDIODEVICEREMOVED = 0x1101 # [Warning] Available since SDL 2.0.4
+
   #  Render events
   SDL_RENDER_TARGETS_RESET = 0x2000
+  SDL_RENDER_DEVICE_RESET  = 0x2001 # [Warning] Available since SDL 2.0.4
 
   SDL_USEREVENT = 0x8000
 
@@ -161,7 +167,8 @@ module SDL2
                                 "unsigned int windowID",
                                 "unsigned int which",
                                 "int x",
-                                "int y"])
+                                "int y",
+                                "unsigned int direction"]) # [Warning] 'direction' is available since SDL 2.0.4
 
   SDL_JoyAxisEvent = struct(["unsigned int type",
                              "unsigned int timestamp",
@@ -225,14 +232,22 @@ module SDL2
                                       "unsigned int timestamp",
                                       "int which"])
 
+  SDL_AudioDeviceEvent = struct(["unsigned int type",
+                                 "unsigned int timestamp",
+                                 "unsigned int which",
+                                 "unsigned char iscapture",
+                                 "unsigned char padding1",
+                                 "unsigned char padding2",
+                                 "unsigned char padding3"]) # [Warning] SDL_AudioDeviceEvent is available since SDL 2.0.4
+
   SDL_TouchFingerEvent = struct(["unsigned int type",
                                  "unsigned int timestamp",
                                  "long touchId", # SDL_TouchID => long
                                  "long fingerId", # SDL_FingerID => long
                                  "float x",
                                  "float y",
-                                 "float dx",
-                                 "float dy",
+                                 "float dx", # [Warning] SDL 2.0.3 => [0...1], SDL 2.0.4 => [-1...1]
+                                 "float dy", # [Warning] SDL 2.0.3 => [0...1], SDL 2.0.4 => [-1...1]
                                  "float pressure"])
 
   SDL_MultiGestureEvent = struct(["unsigned int type",
@@ -326,6 +341,7 @@ module SDL2
     def caxis; SDL_ControllerAxisEvent.new(@entity); end
     def cbutton; SDL_ControllerButtonEvent.new(@entity); end
     def cdevice; SDL_ControllerDeviceEvent.new(@entity); end
+    def adevice; SDL_AudioDeviceEvent.new(@entity); end # [Warning] Available since SDL 2.0.4
     def quit; SDL_QuitEvent.new(@entity); end
     def user; SDL_UserEvent.new(@entity); end
     def syswm; SDL_SysWMEvent.new(@entity); end

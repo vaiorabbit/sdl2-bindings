@@ -1,5 +1,6 @@
 2016-04-02  vaiorabbit  <http://twitter.com/vaiorabbit>
 
+	* Added SDL 2.0.4 features.
 	* lib/version.rb: Added SDL_MAJOR_VERSION, etc.
 
 2015-09-29  vaiorabbit  <http://twitter.com/vaiorabbit>

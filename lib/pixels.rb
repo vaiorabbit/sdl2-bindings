@@ -87,13 +87,43 @@ module SDL2
       (pixeltype(format) == SDL_PIXELTYPE_INDEX8)))
   end
 
-  def self.ispixelformat_alpha(format)
+  def self.ispixelformat_alpha_old(format) # [Warning] SDL 2.0.3
     (!ispixelformat_fourcc(format) &&
      ((pixelorder(format) == SDL_PACKEDORDER_ARGB) ||
       (pixelorder(format) == SDL_PACKEDORDER_RGBA) ||
       (pixelorder(format) == SDL_PACKEDORDER_ABGR) ||
       (pixelorder(format) == SDL_PACKEDORDER_BGRA)))
   end
+
+  def self.ispixelformat_packed(format) # [Warning] Available since SDL 2.0.4
+    (!ispixelformat_fourcc(format) && 
+     ((pixeltype(format) == SDL_PIXELTYPE_PACKED8)  ||
+      (pixeltype(format) == SDL_PIXELTYPE_PACKED16) ||
+      (pixeltype(format) == SDL_PIXELTYPE_PACKED32)))
+  end
+
+  def self.ispixelformat_array(format) # [Warning] Available since SDL 2.0.4
+    (!ispixelformat_fourcc(format) &&
+     ((pixeltype(format) == SDL_PIXELTYPE_ARRAYU8)  ||
+      (pixeltype(format) == SDL_PIXELTYPE_ARRAYU16) ||
+      (pixeltype(format) == SDL_PIXELTYPE_ARRAYU32) ||
+      (pixeltype(format) == SDL_PIXELTYPE_ARRAYF16) ||
+      (pixeltype(format) == SDL_PIXELTYPE_ARRAYF32)))
+  end
+
+  def self.ispixelformat_alpha(format) # [Warning] Available since SDL 2.0.4
+    ((!ispixelformat_fourcc(format) &&
+      ((pixelorder(format) == SDL_PACKEDORDER_ARGB) ||
+       (pixelorder(format) == SDL_PACKEDORDER_RGBA) ||
+       (pixelorder(format) == SDL_PACKEDORDER_ABGR) ||
+       (pixelorder(format) == SDL_PACKEDORDER_BGRA))) ||
+     (ispixelformat_array(format) &&
+      ((pixelorder(format) == SDL_ARRAYORDER_ARGB) ||
+       (pixelorder(format) == SDL_ARRAYORDER_RGBA) ||
+       (pixelorder(format) == SDL_ARRAYORDER_ABGR) ||
+       (pixelorder(format) == SDL_ARRAYORDER_BGRA))))
+  end
+
 
   def self.ispixelformat_fourcc(format)
     ((format) && (pixelflag(format) != 1))
@@ -137,6 +167,8 @@ module SDL2
   SDL_PIXELFORMAT_YUY2 = pixelfourcc('Y', 'U', 'Y', '2')
   SDL_PIXELFORMAT_UYVY = pixelfourcc('U', 'Y', 'V', 'Y')
   SDL_PIXELFORMAT_YVYU = pixelfourcc('Y', 'V', 'Y', 'U')
+  SDL_PIXELFORMAT_NV12 = pixelfourcc('N', 'V', '1', '2') # [Warning] Available since SDL 2.0.4
+  SDL_PIXELFORMAT_NV21 = pixelfourcc('N', 'V', '2', '1') # [Warning] Available since SDL 2.0.4
 
 
   SDL_Color = struct(["unsigned char r",

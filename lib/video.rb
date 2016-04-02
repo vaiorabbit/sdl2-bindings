@@ -23,6 +23,7 @@ module SDL2
   SDL_WINDOW_FULLSCREEN_DESKTOP = ( SDL_WINDOW_FULLSCREEN | 0x00001000 )
   SDL_WINDOW_FOREIGN            = 0x00000800
   SDL_WINDOW_ALLOW_HIGHDPI      = 0x00002000
+  SDL_WINDOW_MOUSE_CAPTURE      = 0x00004000 # [Warning] Available since SDL 2.0.4
 
   SDL_WINDOWPOS_UNDEFINED_MASK  =  0x1FFF0000
   def self.SDL_WINDOWPOS_UNDEFINED_DISPLAY(x);  (SDL_WINDOWPOS_UNDEFINED_MASK|(x)); end
@@ -76,6 +77,7 @@ module SDL2
   SDL_GL_CONTEXT_PROFILE_MASK       = 21
   SDL_GL_SHARE_WITH_CURRENT_CONTEXT = 22
   SDL_GL_FRAMEBUFFER_SRGB_CAPABLE   = 23
+  SDL_GL_CONTEXT_RELEASE_BEHAVIOR   = 24 # [Warning] Available since SDL 2.0.4
 
   # SDL_GLprofile
   SDL_GL_CONTEXT_PROFILE_CORE           = 0x0001
@@ -87,6 +89,24 @@ module SDL2
   SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = 0x0002
   SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG      = 0x0004
   SDL_GL_CONTEXT_RESET_ISOLATION_FLAG    = 0x0008
+
+  # [Warning] Available since SDL 2.0.4
+  # SDL_GLcontextReleaseFlag
+  SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE   = 0x0000
+  SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH  = 0x0001
+
+  # [Warning] Available since SDL 2.0.4
+  # SDL_HitTestResult
+  SDL_HITTEST_NORMAL             = 0
+  SDL_HITTEST_DRAGGABLE          = 1
+  SDL_HITTEST_RESIZE_TOPLEFT     = 2
+  SDL_HITTEST_RESIZE_TOP         = 3
+  SDL_HITTEST_RESIZE_TOPRIGHT    = 4
+  SDL_HITTEST_RESIZE_RIGHT       = 5
+  SDL_HITTEST_RESIZE_BOTTOMRIGHT = 6
+  SDL_HITTEST_RESIZE_BOTTOM      = 7
+  SDL_HITTEST_RESIZE_BOTTOMLEFT  = 8
+  SDL_HITTEST_RESIZE_LEFT        = 9
 
 
   def self.import_video_symbols
@@ -102,6 +122,7 @@ module SDL2
     extern 'int SDL_GetNumVideoDisplays()'
     extern 'const char* SDL_GetDisplayName(int)'
     extern 'int SDL_GetDisplayBounds(int, SDL_Rect*)'
+    extern 'int SDL_GetDisplayDPI(int, float*, float*, float*)' rescue $stderr.puts "[Warning] Failed to import SDL_GetDisplayDPI (Available since SDL 2.0.4)."
     extern 'int SDL_GetNumDisplayModes(int)'
     extern 'int SDL_GetDisplayMode(int, int, SDL_DisplayMode*)'
     extern 'int SDL_GetDesktopDisplayMode(int, SDL_DisplayMode*)'
@@ -142,10 +163,12 @@ module SDL2
     extern 'int SDL_UpdateWindowSurfaceRects(SDL_Window*, const SDL_Rect*, int)'
     extern 'void SDL_SetWindowGrab(SDL_Window*, int)'
     extern 'int SDL_GetWindowGrab(SDL_Window*)'
+    extern 'SDL_Window* SDL_GetGrabbedWindow()' rescue $stderr.puts "[Warning] Failed to import SDL_GetGrabbedWindow (Available since SDL 2.0.4)."
     extern 'int SDL_SetWindowBrightness(SDL_Window*, float)'
     extern 'float SDL_GetWindowBrightness(SDL_Window*)'
     extern 'int SDL_SetWindowGammaRamp(SDL_Window*, const unsigned short*, const unsigned short*, const unsigned short*)'
     extern 'int SDL_GetWindowGammaRamp(SDL_Window*, unsigned short*, unsigned short*, unsigned short*)'
+    extern 'int SDL_SetWindowHitTest(SDL_Window*, SDL_HitTest, void*)' rescue $stderr.puts "[Warning] Failed to import SDL_SetWindowHitTest (Available since SDL 2.0.4)."
     extern 'void SDL_DestroyWindow(SDL_Window*)'
     extern 'int SDL_IsScreenSaverEnabled()'
     extern 'void SDL_EnableScreenSaver()'

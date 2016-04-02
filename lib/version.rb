@@ -8,7 +8,7 @@ module SDL2
 
   SDL_MAJOR_VERSION   = 2
   SDL_MINOR_VERSION   = 0
-  SDL_PATCHLEVEL      = 3
+  SDL_PATCHLEVEL      = 4
 
   def self.import_version_symbols
     # function

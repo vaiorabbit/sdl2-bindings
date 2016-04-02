@@ -20,6 +20,11 @@ module SDL2
   SDL_SYSTEM_CURSOR_HAND      = 11
   SDL_NUM_SYSTEM_CURSORS      = 12
 
+  # [Warning] Available since SDL 2.0.4
+  # SDL_MouseWheelDirection
+  SDL_MOUSEWHEEL_NORMAL  = 0
+  SDL_MOUSEWHEEL_FLIPPED = 1
+
   def self.sdl_button(x); (1 << ((x)-1)); end
   SDL_BUTTON_LEFT     = 1
   SDL_BUTTON_MIDDLE   = 2
@@ -36,9 +41,12 @@ module SDL2
     # function
     extern 'SDL_Window* SDL_GetMouseFocus()'
     extern 'unsigned int SDL_GetMouseState(int*, int*)'
+    extern 'unsigned int SDL_GetGlobalMouseState(int*, int*)' rescue $stderr.puts "[Warning] Failed to import SDL_GetGlobalMouseState (Available since SDL 2.0.4)."
     extern 'unsigned int SDL_GetRelativeMouseState(int*, int*)'
     extern 'void SDL_WarpMouseInWindow(SDL_Window*, int, int)'
+    extern 'int SDL_WarpMouseGlobal(int, int)' rescue $stderr.puts "[Warning] Failed to import SDL_WarpMouseGlobal (Available since SDL 2.0.4)."
     extern 'int SDL_SetRelativeMouseMode(int)'
+    extern 'int SDL_CaptureMouse(int)' rescue $stderr.puts "[Warning] Failed to import SDL_CaptureMouse (Available since SDL 2.0.4)."
     extern 'int SDL_GetRelativeMouseMode()'
     extern 'SDL_Cursor* SDL_CreateCursor(const unsigned char*, const unsigned char*, int, int, int, int)'
     extern 'SDL_Cursor* SDL_CreateColorCursor(SDL_Surface*, int, int)'

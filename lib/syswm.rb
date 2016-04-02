@@ -12,6 +12,7 @@ module SDL2
   SDL_SYSWM_WAYLAND  = 6
   SDL_SYSWM_MIR      = 7
   SDL_SYSWM_WINRT    = 8
+  SDL_SYSWM_ANDROID  = 9 # [Warning] Available since SDL 2.0.4
 
   def self.import_syswm_symbols
     # function

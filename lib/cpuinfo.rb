@@ -16,6 +16,7 @@ module SDL2
     extern 'int SDL_HasSSE41()'
     extern 'int SDL_HasSSE42()'
     extern 'int SDL_HasAVX()'
+    extern 'int SDL_HasAVX2()' rescue $stderr.puts "[Warning] Failed to import SDL_HasAVX2 (Available since SDL 2.0.4)."
     extern 'int SDL_GetSystemRAM()'
   end
 
