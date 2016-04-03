@@ -163,8 +163,48 @@ module SDL2
     extern 'int stringRGBA(SDL_Renderer*, short, short, const char*, unsigned char, unsigned char, unsigned char, unsigned char)'
 
     # SDL2_imageFilter
+    extern 'int SDL_imageFilterMMXdetect()'
+
+    extern 'void SDL_imageFilterMMXoff()'
+    extern 'void SDL_imageFilterMMXon()'
+
+    extern 'int SDL_imageFilterAdd(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterMean(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterSub(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterAbsDiff(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterMult(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterMultNor(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterMultDivby2(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterMultDivby4(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterBitAnd(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterBitOr(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterDiv(unsigned char*, unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterBitNegation(unsigned char*, unsigned char*, unsigned int)'
+    extern 'int SDL_imageFilterAddByte(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterAddUint(unsigned char*, unsigned char*, unsigned int, unsigned int)'
+    extern 'int SDL_imageFilterAddByteToHalf(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterSubByte(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterSubUint(unsigned char*, unsigned char*, unsigned int, unsigned int)'
+    extern 'int SDL_imageFilterShiftRight(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterShiftRightUint(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterMultByByte(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterShiftRightAndMultByByte(unsigned char*, unsigned char*, unsigned int, unsigned char, unsigned char)'
+    extern 'int SDL_imageFilterShiftLeftByte(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterShiftLeftUint(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterShiftLeft(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterBinarizeUsingThreshold(unsigned char*, unsigned char*, unsigned int, unsigned char)'
+    extern 'int SDL_imageFilterClipToRange(unsigned char*, unsigned char*, unsigned int, unsigned char, unsigned char)'
+    extern 'int SDL_imageFilterNormalizeLinear(unsigned char *Src, unsigned char*, unsigned int, int, int, int, int)'
 
     # SDL2_rotozoom
+    extern 'SDL_Surface* rotozoomSurface(SDL_Surface*, double, double, int)'
+    extern 'SDL_Surface* rotozoomSurfaceXY(SDL_Surface*, double, double, double, int)'
+    extern 'void rotozoomSurfaceSize(int, int, double, double, int*, int*)'
+    extern 'void rotozoomSurfaceSizeXY(int, int, double, double, double, int*, int*)'
+    extern 'SDL_Surface* zoomSurface(SDL_Surface*, double, double, int)'
+    extern 'void zoomSurfaceSize(int, int, double, double, int*, int*)'
+    extern 'SDL_Surface* shrinkSurface(SDL_Surface*, int, int)'
+    extern 'SDL_Surface* rotateSurface90Degrees(SDL_Surface*, int)'
 
     @@sdl2gfx_import_done = true
   end

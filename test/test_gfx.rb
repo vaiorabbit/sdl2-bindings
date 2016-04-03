@@ -49,6 +49,11 @@ if __FILE__ == $0
     SDL_Delay(10)
   end
 
+  p SDL_imageFilterMMXdetect()
+  SDL_imageFilterMMXoff()
+  SDL_imageFilterMMXon()
+
+
   SDL_DestroyRenderer(renderer)
   SDL_DestroyWindow(window)
   SDL_Quit()

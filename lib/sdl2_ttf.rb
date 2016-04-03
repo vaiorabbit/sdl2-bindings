@@ -252,7 +252,7 @@ end
 
 =begin
 sdl2-bindings : Yet another SDL2 wrapper for Ruby
-Copyright (c) 2015 vaiorabbit <http://twitter.com/vaiorabbit>
+Copyright (c) 2015-2016 vaiorabbit <http://twitter.com/vaiorabbit>
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
