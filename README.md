@@ -32,7 +32,14 @@
 
 ## Tested Environment ##
 
-*   SDL 2.0.3 (Installed via Homebrew), Mac OS X 10.10.5, ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-darwin14]
+*   [2015-09-19] SDL 2.0.3 (Installed via Homebrew)
+    *   Mac OS X 10.10.5, ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-darwin14]
+*   [2016-04-03] SDL 2.0.4 (Installed via Homebrew)
+    *   Mac OS X 10.11.4, ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin15]
+    *   sdl2_gfx : 1.0.1
+    *   sdl2_image : 2.0.1
+    *   sdl2_mixer : 2.0.1
+    *   sdl2_ttf : 2.0.13
 
 
 ## License ##
@@ -40,7 +47,7 @@
 The zlib/libpng License ( http://opensource.org/licenses/Zlib ).
 
     sdl2-bindings : Yet another SDL2 wrapper for Ruby
-    Copyright (c) 2015 vaiorabbit <http://twitter.com/vaiorabbit>
+    Copyright (c) 2015-2016 vaiorabbit <http://twitter.com/vaiorabbit>
 
     This software is provided 'as-is', without any express or implied
     warranty. In no event will the authors be held liable for any damages
