@@ -1,160 +1,157 @@
-# -*- coding: utf-8 -*-
-require 'fiddle/import'
-require_relative 'main'
-require_relative 'audio'
-require_relative 'blendmode'
-require_relative 'clipboard'
-require_relative 'cpuinfo'
-require_relative 'error'
-require_relative 'events'
-require_relative 'filesystem'
-require_relative 'gamecontroller'
-require_relative 'gesture'
-require_relative 'hints'
-require_relative 'joystick'
-require_relative 'keyboard'
-require_relative 'messagebox'
-require_relative 'mouse'
-require_relative 'pixels'
-require_relative 'platform'
-require_relative 'rect'
-require_relative 'render'
-require_relative 'rwops'
-require_relative 'surface'
-require_relative 'syswm'
-require_relative 'timer'
-require_relative 'touch'
-require_relative 'version'
-require_relative 'video'
+# Ruby-SDL2 : Yet another SDL2 wrapper for Ruby
+#
+# * https://github.com/vaiorabbit/sdl2-bindings
 
-require_relative 'sdl2_image'
-require_relative 'sdl2_mixer'
-require_relative 'sdl2_ttf'
-require_relative 'sdl2_gfx'
+require 'ffi'
+require_relative 'sdl2_main.rb'
+require_relative 'sdl2_audio.rb'
+require_relative 'sdl2_blendmode.rb'
+require_relative 'sdl2_clipboard.rb'
+require_relative 'sdl2_cpuinfo.rb'
+require_relative 'sdl2_error.rb'
+require_relative 'sdl2_events.rb'
+require_relative 'sdl2_filesystem.rb'
+require_relative 'sdl2_gamecontroller.rb'
+require_relative 'sdl2_gesture.rb'
+require_relative 'sdl2_haptic.rb'
+require_relative 'sdl2_hints.rb'
+require_relative 'sdl2_joystick.rb'
+require_relative 'sdl2_keyboard.rb'
+require_relative 'sdl2_keycode.rb'
+require_relative 'sdl2_log.rb'
+require_relative 'sdl2_messagebox.rb'
+require_relative 'sdl2_mouse.rb'
+require_relative 'sdl2_pixels.rb'
+require_relative 'sdl2_platform.rb'
+require_relative 'sdl2_power.rb'
+require_relative 'sdl2_rect.rb'
+require_relative 'sdl2_render.rb'
+require_relative 'sdl2_rwops.rb'
+require_relative 'sdl2_scancode.rb'
+require_relative 'sdl2_shape.rb'
+require_relative 'sdl2_surface.rb'
+require_relative 'sdl2_timer.rb'
+require_relative 'sdl2_touch.rb'
+require_relative 'sdl2_version.rb'
+require_relative 'sdl2_video.rb'
+require_relative 'sdl2_vulkan.rb'
+
+require_relative 'sdl2_framerate.rb'
+require_relative 'sdl2_gfxPrimitives.rb'
+require_relative 'sdl2_image.rb'
+require_relative 'sdl2_rotozoom.rb'
+require_relative 'sdl2_imageFilter.rb'
+require_relative 'sdl2_ttf.rb'
 
 module SDL2
-
-  extend Fiddle::Importer
-
-  #
-  # Fiddle's default 'extern' stores all methods into local variable '@func_map', that makes difficult to 'include SDL2'.
-  # So I override it and replace '@func_map' into 'SDL2_FUNCTIONS_MAP'.
-  # Ref.: /lib/ruby/2.0.0/fiddle/import.rb
-  #
-  SDL2_FUNCTIONS_MAP = {}
-  def self.extern(signature, *opts)
-    symname, ctype, argtype = parse_signature(signature, @type_alias)
-    opt = parse_bind_options(opts)
-    f = import_function(symname, ctype, argtype, opt[:call_type])
-    name = symname.gsub(/@.+/,'')
-    SDL2_FUNCTIONS_MAP[name] = f
-    begin
-      /^(.+?):(\d+)/ =~ caller.first
-      file, line = $1, $2.to_i
-    rescue
-      file, line = __FILE__, __LINE__+3
-    end
-    args_str="*args"
-    module_eval(<<-EOS, file, line)
-      def #{name}(*args, &block)
-        SDL2_FUNCTIONS_MAP['#{name}'].call(*args,&block)
-      end
-    EOS
-    module_function(name)
-    f
-  end
+  extend FFI::Library
 
   @@sdl2_import_done = false
+  def self.load_lib(libpath, image_libpath: nil, ttf_libpath: nil, gfx_libpath: nil)
 
-  # Load native library.
-  def self.load_lib(libpath, image_libpath: nil, mixer_libpath: nil, ttf_libpath: nil, gfx_libpath: nil)
     unless @@sdl2_import_done
-      dlload(libpath)
-      import_symbols()
+      # Ref.: Using Multiple and Alternate Libraries
+      # https://github.com/ffi/ffi/wiki/Using-Multiple-and-Alternate-Libraries
+      lib_paths = [libpath, image_libpath, ttf_libpath, gfx_libpath].compact
+
+      ffi_lib_flags :now, :global
+      ffi_lib *lib_paths
+      setup_symbols()
+
+      if image_libpath != nil
+        setup_image_symbols()
+      end
+
+      if ttf_libpath != nil
+        setup_ttf_symbols()
+      end
+
+      if gfx_libpath != nil
+        setup_gfx_framerate_symbols()
+        setup_gfx_primitives_symbols()
+        setup_gfx_imagefilter_symbols()
+        setup_gfx_rotozoom_symbols()
+      end
     end
-    if mixer_libpath != nil
-      load_mixer_lib(mixer_libpath)
-    end
-    if image_libpath != nil
-      load_image_lib(image_libpath)
-    end
-    if ttf_libpath != nil
-      load_ttf_lib(ttf_libpath)
-    end
-    if gfx_libpath != nil
-      load_gfx_lib(gfx_libpath)
-    end
+
   end
 
-
-=begin # Using callback functionality may cause interpreter crash.
-  @@sdl2_cb_signature = {
-    :SDL_TimerCallback => "unsigned int SDL_TimerCallback(unsigned int, void*)",
-  }
-
-  def self.create_callback( sym, proc=nil, &blk )
-    if block_given?
-      return bind( @@sdl2_cb_signature[sym], nil, &blk )
-    else
-      return bind( @@sdl2_cb_signature[sym], nil, &proc )
-    end
-  end
-=end
-
-  def self.import_symbols
-
-    self.import_main_symbols
-    self.import_audio_symbols
-    self.import_blendmode_symbols
-    self.import_clipboard_symbols
-    self.import_cpuinfo_symbols
-    self.import_error_symbols
-    self.import_events_symbols
-    self.import_filesystem_symbols
-    self.import_hints_symbols
-    self.import_gamecontroller_symbols
-    self.import_gesture_symbols
-    self.import_joystick_symbols
-    self.import_keyboard_symbols
-    self.import_messagebox_symbols
-    self.import_mouse_symbols
-    self.import_pixels_symbols
-    self.import_platform_symbols
-    self.import_rect_symbols
-    self.import_render_symbols
-    self.import_rwops_symbols
-    self.import_surface_symbols
-    self.import_syswm_symbols
-    self.import_timer_symbols
-    self.import_touch_symbols
-    self.import_version_symbols
-    self.import_video_symbols
-
-    @@sdl2_import_done = true
+  def self.setup_symbols()
+    setup_main_symbols()
+    setup_audio_symbols()
+    setup_blendmode_symbols()
+    setup_clipboard_symbols()
+    setup_cpuinfo_symbols()
+    setup_error_symbols()
+    setup_events_symbols()
+    setup_filesystem_symbols()
+    setup_gamecontroller_symbols()
+    setup_gesture_symbols()
+    setup_haptic_symbols()
+    setup_hints_symbols()
+    setup_joystick_symbols()
+    setup_keyboard_symbols()
+    setup_keycode_symbols()
+    setup_log_symbols()
+    setup_messagebox_symbols()
+    setup_mouse_symbols()
+    setup_pixels_symbols()
+    setup_platform_symbols()
+    setup_power_symbols()
+    setup_rect_symbols()
+    setup_render_symbols()
+    setup_rwops_symbols()
+    setup_scancode_symbols()
+    setup_shape_symbols()
+    setup_surface_symbols()
+    setup_timer_symbols()
+    setup_touch_symbols()
+    setup_version_symbols()
+    setup_video_symbols()
+    setup_vulkan_symbols()
   end
 
 end
 
-=begin
-sdl2-bindings : Yet another SDL2 wrapper for Ruby
-Copyright (c) 2015-2016 vaiorabbit <http://twitter.com/vaiorabbit>
 
-This software is provided 'as-is', without any express or implied
-warranty. In no event will the authors be held liable for any damages
-arising from the use of this software.
+if __FILE__ == $0
+#  SDL2.load_lib('libSDL2.dylib')
+#  p SDL2.SDL_Init(SDL2::SDL_INIT_EVERYTHING)
+  SDL2.load_lib('libSDL2.dylib',
+                gfx_libpath: '/usr/local/lib/libSDL2_gfx.dylib'
+               )
+  #SDL2.SDL_SetMainReady()
+  success = SDL2.SDL_Init(SDL2::SDL_INIT_EVERYTHING)
+  exit if success < 0
 
-Permission is granted to anyone to use this software for any purpose,
-including commercial applications, and to alter it and redistribute it
-freely, subject to the following restrictions:
+  WINDOW_W = 320
+  WINDOW_H = 240
+  window = SDL2.SDL_CreateWindow("1st SDL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
 
-    1. The origin of this software must not be misrepresented; you must not
-    claim that you wrote the original software. If you use this software
-    in a product, an acknowledgment in the product documentation would be
-    appreciated but is not required.
+  fpsdelay = 100;
 
-    2. Altered source versions must be plainly marked as such, and must not be
-    misrepresented as being the original software.
+  count = 0
+  event = SDL2::SDL_Event.new
+  done = false
+  while not done
+    while SDL2.SDL_PollEvent(event) != 0
+      # 'type' and 'timestamp' are common members for all SDL Event structs.
+      event_type = event[:common][:type]
+      event_timestamp = event[:common][:timestamp]
+      puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
 
-    3. This notice may not be removed or altered from any source
-    distribution.
-=end
+      case event_type
+      when SDL2::SDL_KEYDOWN
+        if event[:key][:keysym][:sym] == SDL2::SDLK_SPACE
+          puts "\tSPACE key pressed."
+        end
+      end
+    end
+
+    count += 1
+    done = true if count >= 100
+    SDL2.SDL_Delay(fpsdelay)
+  end
+
+  SDL2.SDL_Quit()
+end

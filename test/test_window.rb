@@ -1,10 +1,9 @@
-require_relative 'lib/sdl2'
+require_relative '../lib/sdl2'
 
 include SDL2
 
 if __FILE__ == $0
   SDL2.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
-  SDL_SetMainReady()
   success = SDL_Init(SDL_INIT_EVERYTHING)
   exit if success < 0
 
@@ -20,13 +19,13 @@ if __FILE__ == $0
   while not done
     while SDL_PollEvent(event) != 0
       # 'type' and 'timestamp' are common members for all SDL Event structs.
-      event_type = event.common.type
-      event_timestamp = event.common.timestamp
+      event_type = event[:common][:type]
+      event_timestamp = event[:common][:timestamp]
       puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
 
       case event_type
       when SDL_KEYDOWN
-        if event.key.keysym_sym == SDLK_SPACE
+        if event[:key][:keysym][:sym] == SDL2::SDLK_SPACE
           puts "\tSPACE key pressed."
         end
       end

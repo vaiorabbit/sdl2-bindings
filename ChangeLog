@@ -1,3 +1,9 @@
+2019-08-24  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* Added SDL 2.0.10 features.
+	* Added generator. Binding codes are generated semi-automatically.
+	* Now depends on Ruby/FFI. Note that some codes in 'test' directory are still not usable.
+
 2016-04-03  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/sdl2_gfx.rb, test/test_gfx.rb: Added.
