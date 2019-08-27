@@ -35,6 +35,7 @@ python generate_SDL_vulkan.py > ../lib/sdl2_vulkan.rb
 
 python generate_SDL_ttf.py > ../lib/sdl2_ttf.rb
 python generate_SDL_image.py > ../lib/sdl2_image.rb
+python generate_SDL_mixer.py > ../lib/sdl2_mixer.rb
 python generate_SDL2_gfxPrimitives.py > ../lib/sdl2_gfxPrimitives.rb
 python generate_SDL2_rotozoom.py > ../lib/sdl2_rotozoom.rb
 python generate_SDL2_imageFilter.py > ../lib/sdl2_imageFilter.rb

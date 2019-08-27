@@ -1,3 +1,7 @@
+2019-08-27  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/sdl2_mixer.rb: Added (experimental)
+
 2019-08-24  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Added SDL 2.0.10 features.

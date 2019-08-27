@@ -48,6 +48,7 @@
 
     "SDL_ttf.h",
     "SDL_image.h",
+    "SDL_mixer.h",
     "SDL2_framerate.h",
     "SDL2_gfxPrimitives.h",
     "SDL2_imageFilter.h",

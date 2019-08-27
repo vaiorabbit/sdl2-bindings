@@ -42,17 +42,18 @@ require_relative 'sdl2_image.rb'
 require_relative 'sdl2_rotozoom.rb'
 require_relative 'sdl2_imageFilter.rb'
 require_relative 'sdl2_ttf.rb'
+require_relative 'sdl2_mixer.rb'
 
 module SDL2
   extend FFI::Library
 
   @@sdl2_import_done = false
-  def self.load_lib(libpath, image_libpath: nil, ttf_libpath: nil, gfx_libpath: nil)
+  def self.load_lib(libpath, image_libpath: nil, ttf_libpath: nil, mixer_libpath: nil, gfx_libpath: nil)
 
     unless @@sdl2_import_done
       # Ref.: Using Multiple and Alternate Libraries
       # https://github.com/ffi/ffi/wiki/Using-Multiple-and-Alternate-Libraries
-      lib_paths = [libpath, image_libpath, ttf_libpath, gfx_libpath].compact
+      lib_paths = [libpath, image_libpath, ttf_libpath, mixer_libpath, gfx_libpath].compact
 
       ffi_lib_flags :now, :global
       ffi_lib *lib_paths
@@ -64,6 +65,10 @@ module SDL2
 
       if ttf_libpath != nil
         setup_ttf_symbols()
+      end
+
+      if mixer_libpath != nil
+        setup_mixer_symbols()
       end
 
       if gfx_libpath != nil
