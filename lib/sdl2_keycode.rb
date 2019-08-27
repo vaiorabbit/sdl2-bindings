@@ -278,6 +278,19 @@ module SDL2
   # Function
 
   def self.setup_keycode_symbols()
+    keycode_symbols = [
+    ]
+    keycode_args = {
+    }
+    keycode_retvals = {
+    }
+    keycode_symbols.each do |sym|
+      begin
+        attach_function sym, keycode_args[sym], keycode_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

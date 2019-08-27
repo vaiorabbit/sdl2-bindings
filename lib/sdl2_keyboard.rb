@@ -32,22 +32,67 @@ module SDL2
   # Function
 
   def self.setup_keyboard_symbols()
-      attach_function :SDL_GetKeyboardFocus, [], :pointer
-      attach_function :SDL_GetKeyboardState, [:pointer], :pointer
-      attach_function :SDL_GetModState, [], :int
-      attach_function :SDL_SetModState, [:int], :void
-      attach_function :SDL_GetKeyFromScancode, [:int], :int
-      attach_function :SDL_GetScancodeFromKey, [:int], :int
-      attach_function :SDL_GetScancodeName, [:int], :pointer
-      attach_function :SDL_GetScancodeFromName, [:pointer], :int
-      attach_function :SDL_GetKeyName, [:int], :pointer
-      attach_function :SDL_GetKeyFromName, [:pointer], :int
-      attach_function :SDL_StartTextInput, [], :void
-      attach_function :SDL_IsTextInputActive, [], :int
-      attach_function :SDL_StopTextInput, [], :void
-      attach_function :SDL_SetTextInputRect, [:pointer], :void
-      attach_function :SDL_HasScreenKeyboardSupport, [], :int
-      attach_function :SDL_IsScreenKeyboardShown, [:pointer], :int
+    keyboard_symbols = [
+      :SDL_GetKeyboardFocus,
+      :SDL_GetKeyboardState,
+      :SDL_GetModState,
+      :SDL_SetModState,
+      :SDL_GetKeyFromScancode,
+      :SDL_GetScancodeFromKey,
+      :SDL_GetScancodeName,
+      :SDL_GetScancodeFromName,
+      :SDL_GetKeyName,
+      :SDL_GetKeyFromName,
+      :SDL_StartTextInput,
+      :SDL_IsTextInputActive,
+      :SDL_StopTextInput,
+      :SDL_SetTextInputRect,
+      :SDL_HasScreenKeyboardSupport,
+      :SDL_IsScreenKeyboardShown,
+    ]
+    keyboard_args = {
+      :SDL_GetKeyboardFocus => [], 
+      :SDL_GetKeyboardState => [:pointer], 
+      :SDL_GetModState => [], 
+      :SDL_SetModState => [:int], 
+      :SDL_GetKeyFromScancode => [:int], 
+      :SDL_GetScancodeFromKey => [:int], 
+      :SDL_GetScancodeName => [:int], 
+      :SDL_GetScancodeFromName => [:pointer], 
+      :SDL_GetKeyName => [:int], 
+      :SDL_GetKeyFromName => [:pointer], 
+      :SDL_StartTextInput => [], 
+      :SDL_IsTextInputActive => [], 
+      :SDL_StopTextInput => [], 
+      :SDL_SetTextInputRect => [:pointer], 
+      :SDL_HasScreenKeyboardSupport => [], 
+      :SDL_IsScreenKeyboardShown => [:pointer], 
+    }
+    keyboard_retvals = {
+      :SDL_GetKeyboardFocus => :pointer,
+      :SDL_GetKeyboardState => :pointer,
+      :SDL_GetModState => :int,
+      :SDL_SetModState => :void,
+      :SDL_GetKeyFromScancode => :int,
+      :SDL_GetScancodeFromKey => :int,
+      :SDL_GetScancodeName => :pointer,
+      :SDL_GetScancodeFromName => :int,
+      :SDL_GetKeyName => :pointer,
+      :SDL_GetKeyFromName => :int,
+      :SDL_StartTextInput => :void,
+      :SDL_IsTextInputActive => :int,
+      :SDL_StopTextInput => :void,
+      :SDL_SetTextInputRect => :void,
+      :SDL_HasScreenKeyboardSupport => :int,
+      :SDL_IsScreenKeyboardShown => :int,
+    }
+    keyboard_symbols.each do |sym|
+      begin
+        attach_function sym, keyboard_args[sym], keyboard_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

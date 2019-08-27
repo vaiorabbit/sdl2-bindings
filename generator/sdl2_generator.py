@@ -146,19 +146,45 @@ def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", table
     print("", file = sys.stdout)
 
     # function
+
     print(indent + "# Function")
     print("", file = sys.stdout)
     print(indent + "def self.setup_%s_symbols()" % module_name , file = sys.stdout)
-    indent = "    "
+    indent = "  "
+    print(indent + "  %s_symbols = [" % module_name, file = sys.stdout)
     for func_name, func_info in ctx.decl_functions.items():
         if func_info == None:
             continue
-        print(indent + "  attach_function :%s, [" % func_name, file = sys.stdout, end='')
+        print(indent + "    :%s," % func_name, file = sys.stdout)
+    print(indent + "  ]", file = sys.stdout)
+
+    print(indent + "  %s_args = {" % module_name, file = sys.stdout)
+    for func_name, func_info in ctx.decl_functions.items():
+        if func_info == None:
+            continue
+        print(indent + "    :%s => [" % func_name, file = sys.stdout, end='')
         if len(func_info.args) > 0:
             args_str = list(map((lambda t: str(t.type_kind)), func_info.args))
             print(', '.join(args_str), file = sys.stdout, end='')
-        print("], ", file = sys.stdout, end='')
-        print(str(func_info.retval.type_kind), file = sys.stdout)
+        print("], ", file = sys.stdout)
+    print(indent + "  }", file = sys.stdout)
+
+    print(indent + "  %s_retvals = {" % module_name, file = sys.stdout)
+    for func_name, func_info in ctx.decl_functions.items():
+        if func_info == None:
+            continue
+        print(indent + "    :%s => %s," % (func_name, str(func_info.retval.type_kind)), file = sys.stdout)
+    print(indent + "  }", file = sys.stdout)
+
+
+    print(indent +
+      """  {mod_name}_symbols.each do |sym|
+      begin
+        attach_function sym, {mod_name}_args[sym], {mod_name}_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{s}.")
+      end""".format(mod_name=module_name, s="{sym} (#{error})"))
+    print(indent + "  end", file = sys.stdout)
 
     indent = "  "
     print(indent + "end", file = sys.stdout)

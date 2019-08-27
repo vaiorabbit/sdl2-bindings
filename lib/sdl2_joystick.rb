@@ -60,44 +60,133 @@ module SDL2
   # Function
 
   def self.setup_joystick_symbols()
-      attach_function :SDL_LockJoysticks, [], :void
-      attach_function :SDL_UnlockJoysticks, [], :void
-      attach_function :SDL_NumJoysticks, [], :int
-      attach_function :SDL_JoystickNameForIndex, [:int], :pointer
-      attach_function :SDL_JoystickGetDevicePlayerIndex, [:int], :int
-      attach_function :SDL_JoystickGetDeviceGUID, [:int], SDL_JoystickGUID
-      attach_function :SDL_JoystickGetDeviceVendor, [:int], :ushort
-      attach_function :SDL_JoystickGetDeviceProduct, [:int], :ushort
-      attach_function :SDL_JoystickGetDeviceProductVersion, [:int], :ushort
-      attach_function :SDL_JoystickGetDeviceType, [:int], :int
-      attach_function :SDL_JoystickGetDeviceInstanceID, [:int], :int
-      attach_function :SDL_JoystickOpen, [:int], :pointer
-      attach_function :SDL_JoystickFromInstanceID, [:int], :pointer
-      attach_function :SDL_JoystickName, [:pointer], :pointer
-      attach_function :SDL_JoystickGetPlayerIndex, [:pointer], :int
-      attach_function :SDL_JoystickGetGUID, [:pointer], SDL_JoystickGUID
-      attach_function :SDL_JoystickGetVendor, [:pointer], :ushort
-      attach_function :SDL_JoystickGetProduct, [:pointer], :ushort
-      attach_function :SDL_JoystickGetProductVersion, [:pointer], :ushort
-      attach_function :SDL_JoystickGetType, [:pointer], :int
-      attach_function :SDL_JoystickGetGUIDString, [SDL_JoystickGUID, :pointer, :int], :void
-      attach_function :SDL_JoystickGetGUIDFromString, [:pointer], SDL_JoystickGUID
-      attach_function :SDL_JoystickGetAttached, [:pointer], :int
-      attach_function :SDL_JoystickInstanceID, [:pointer], :int
-      attach_function :SDL_JoystickNumAxes, [:pointer], :int
-      attach_function :SDL_JoystickNumBalls, [:pointer], :int
-      attach_function :SDL_JoystickNumHats, [:pointer], :int
-      attach_function :SDL_JoystickNumButtons, [:pointer], :int
-      attach_function :SDL_JoystickUpdate, [], :void
-      attach_function :SDL_JoystickEventState, [:int], :int
-      attach_function :SDL_JoystickGetAxis, [:pointer, :int], :short
-      attach_function :SDL_JoystickGetAxisInitialState, [:pointer, :int, :pointer], :int
-      attach_function :SDL_JoystickGetHat, [:pointer, :int], :uchar
-      attach_function :SDL_JoystickGetBall, [:pointer, :int, :pointer, :pointer], :int
-      attach_function :SDL_JoystickGetButton, [:pointer, :int], :uchar
-      attach_function :SDL_JoystickRumble, [:pointer, :ushort, :ushort, :uint], :int
-      attach_function :SDL_JoystickClose, [:pointer], :void
-      attach_function :SDL_JoystickCurrentPowerLevel, [:pointer], :int
+    joystick_symbols = [
+      :SDL_LockJoysticks,
+      :SDL_UnlockJoysticks,
+      :SDL_NumJoysticks,
+      :SDL_JoystickNameForIndex,
+      :SDL_JoystickGetDevicePlayerIndex,
+      :SDL_JoystickGetDeviceGUID,
+      :SDL_JoystickGetDeviceVendor,
+      :SDL_JoystickGetDeviceProduct,
+      :SDL_JoystickGetDeviceProductVersion,
+      :SDL_JoystickGetDeviceType,
+      :SDL_JoystickGetDeviceInstanceID,
+      :SDL_JoystickOpen,
+      :SDL_JoystickFromInstanceID,
+      :SDL_JoystickName,
+      :SDL_JoystickGetPlayerIndex,
+      :SDL_JoystickGetGUID,
+      :SDL_JoystickGetVendor,
+      :SDL_JoystickGetProduct,
+      :SDL_JoystickGetProductVersion,
+      :SDL_JoystickGetType,
+      :SDL_JoystickGetGUIDString,
+      :SDL_JoystickGetGUIDFromString,
+      :SDL_JoystickGetAttached,
+      :SDL_JoystickInstanceID,
+      :SDL_JoystickNumAxes,
+      :SDL_JoystickNumBalls,
+      :SDL_JoystickNumHats,
+      :SDL_JoystickNumButtons,
+      :SDL_JoystickUpdate,
+      :SDL_JoystickEventState,
+      :SDL_JoystickGetAxis,
+      :SDL_JoystickGetAxisInitialState,
+      :SDL_JoystickGetHat,
+      :SDL_JoystickGetBall,
+      :SDL_JoystickGetButton,
+      :SDL_JoystickRumble,
+      :SDL_JoystickClose,
+      :SDL_JoystickCurrentPowerLevel,
+    ]
+    joystick_args = {
+      :SDL_LockJoysticks => [], 
+      :SDL_UnlockJoysticks => [], 
+      :SDL_NumJoysticks => [], 
+      :SDL_JoystickNameForIndex => [:int], 
+      :SDL_JoystickGetDevicePlayerIndex => [:int], 
+      :SDL_JoystickGetDeviceGUID => [:int], 
+      :SDL_JoystickGetDeviceVendor => [:int], 
+      :SDL_JoystickGetDeviceProduct => [:int], 
+      :SDL_JoystickGetDeviceProductVersion => [:int], 
+      :SDL_JoystickGetDeviceType => [:int], 
+      :SDL_JoystickGetDeviceInstanceID => [:int], 
+      :SDL_JoystickOpen => [:int], 
+      :SDL_JoystickFromInstanceID => [:int], 
+      :SDL_JoystickName => [:pointer], 
+      :SDL_JoystickGetPlayerIndex => [:pointer], 
+      :SDL_JoystickGetGUID => [:pointer], 
+      :SDL_JoystickGetVendor => [:pointer], 
+      :SDL_JoystickGetProduct => [:pointer], 
+      :SDL_JoystickGetProductVersion => [:pointer], 
+      :SDL_JoystickGetType => [:pointer], 
+      :SDL_JoystickGetGUIDString => [SDL_JoystickGUID, :pointer, :int], 
+      :SDL_JoystickGetGUIDFromString => [:pointer], 
+      :SDL_JoystickGetAttached => [:pointer], 
+      :SDL_JoystickInstanceID => [:pointer], 
+      :SDL_JoystickNumAxes => [:pointer], 
+      :SDL_JoystickNumBalls => [:pointer], 
+      :SDL_JoystickNumHats => [:pointer], 
+      :SDL_JoystickNumButtons => [:pointer], 
+      :SDL_JoystickUpdate => [], 
+      :SDL_JoystickEventState => [:int], 
+      :SDL_JoystickGetAxis => [:pointer, :int], 
+      :SDL_JoystickGetAxisInitialState => [:pointer, :int, :pointer], 
+      :SDL_JoystickGetHat => [:pointer, :int], 
+      :SDL_JoystickGetBall => [:pointer, :int, :pointer, :pointer], 
+      :SDL_JoystickGetButton => [:pointer, :int], 
+      :SDL_JoystickRumble => [:pointer, :ushort, :ushort, :uint], 
+      :SDL_JoystickClose => [:pointer], 
+      :SDL_JoystickCurrentPowerLevel => [:pointer], 
+    }
+    joystick_retvals = {
+      :SDL_LockJoysticks => :void,
+      :SDL_UnlockJoysticks => :void,
+      :SDL_NumJoysticks => :int,
+      :SDL_JoystickNameForIndex => :pointer,
+      :SDL_JoystickGetDevicePlayerIndex => :int,
+      :SDL_JoystickGetDeviceGUID => SDL_JoystickGUID,
+      :SDL_JoystickGetDeviceVendor => :ushort,
+      :SDL_JoystickGetDeviceProduct => :ushort,
+      :SDL_JoystickGetDeviceProductVersion => :ushort,
+      :SDL_JoystickGetDeviceType => :int,
+      :SDL_JoystickGetDeviceInstanceID => :int,
+      :SDL_JoystickOpen => :pointer,
+      :SDL_JoystickFromInstanceID => :pointer,
+      :SDL_JoystickName => :pointer,
+      :SDL_JoystickGetPlayerIndex => :int,
+      :SDL_JoystickGetGUID => SDL_JoystickGUID,
+      :SDL_JoystickGetVendor => :ushort,
+      :SDL_JoystickGetProduct => :ushort,
+      :SDL_JoystickGetProductVersion => :ushort,
+      :SDL_JoystickGetType => :int,
+      :SDL_JoystickGetGUIDString => :void,
+      :SDL_JoystickGetGUIDFromString => SDL_JoystickGUID,
+      :SDL_JoystickGetAttached => :int,
+      :SDL_JoystickInstanceID => :int,
+      :SDL_JoystickNumAxes => :int,
+      :SDL_JoystickNumBalls => :int,
+      :SDL_JoystickNumHats => :int,
+      :SDL_JoystickNumButtons => :int,
+      :SDL_JoystickUpdate => :void,
+      :SDL_JoystickEventState => :int,
+      :SDL_JoystickGetAxis => :short,
+      :SDL_JoystickGetAxisInitialState => :int,
+      :SDL_JoystickGetHat => :uchar,
+      :SDL_JoystickGetBall => :int,
+      :SDL_JoystickGetButton => :uchar,
+      :SDL_JoystickRumble => :int,
+      :SDL_JoystickClose => :void,
+      :SDL_JoystickCurrentPowerLevel => :int,
+    }
+    joystick_symbols.each do |sym|
+      begin
+        attach_function sym, joystick_args[sym], joystick_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

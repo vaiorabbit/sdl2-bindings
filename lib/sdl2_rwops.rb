@@ -105,34 +105,103 @@ module SDL2
   # Function
 
   def self.setup_rwops_symbols()
-      attach_function :SDL_RWFromFile, [:pointer, :pointer], :pointer
-      attach_function :SDL_RWFromFP, [:pointer, :int], :pointer
-      attach_function :SDL_RWFromMem, [:pointer, :int], :pointer
-      attach_function :SDL_RWFromConstMem, [:pointer, :int], :pointer
-      attach_function :SDL_AllocRW, [], :pointer
-      attach_function :SDL_FreeRW, [:pointer], :void
-      attach_function :SDL_RWsize, [:pointer], :long_long
-      attach_function :SDL_RWseek, [:pointer, :long_long, :int], :long_long
-      attach_function :SDL_RWtell, [:pointer], :long_long
-      attach_function :SDL_RWread, [:pointer, :pointer, :ulong, :ulong], :size_t
-      attach_function :SDL_RWwrite, [:pointer, :pointer, :ulong, :ulong], :size_t
-      attach_function :SDL_RWclose, [:pointer], :int
-      attach_function :SDL_LoadFile_RW, [:pointer, :pointer, :int], :pointer
-      attach_function :SDL_LoadFile, [:pointer, :pointer], :pointer
-      attach_function :SDL_ReadU8, [:pointer], :uchar
-      attach_function :SDL_ReadLE16, [:pointer], :ushort
-      attach_function :SDL_ReadBE16, [:pointer], :ushort
-      attach_function :SDL_ReadLE32, [:pointer], :uint
-      attach_function :SDL_ReadBE32, [:pointer], :uint
-      attach_function :SDL_ReadLE64, [:pointer], :ulong_long
-      attach_function :SDL_ReadBE64, [:pointer], :ulong_long
-      attach_function :SDL_WriteU8, [:pointer, :uchar], :size_t
-      attach_function :SDL_WriteLE16, [:pointer, :ushort], :size_t
-      attach_function :SDL_WriteBE16, [:pointer, :ushort], :size_t
-      attach_function :SDL_WriteLE32, [:pointer, :uint], :size_t
-      attach_function :SDL_WriteBE32, [:pointer, :uint], :size_t
-      attach_function :SDL_WriteLE64, [:pointer, :ulong_long], :size_t
-      attach_function :SDL_WriteBE64, [:pointer, :ulong_long], :size_t
+    rwops_symbols = [
+      :SDL_RWFromFile,
+      :SDL_RWFromFP,
+      :SDL_RWFromMem,
+      :SDL_RWFromConstMem,
+      :SDL_AllocRW,
+      :SDL_FreeRW,
+      :SDL_RWsize,
+      :SDL_RWseek,
+      :SDL_RWtell,
+      :SDL_RWread,
+      :SDL_RWwrite,
+      :SDL_RWclose,
+      :SDL_LoadFile_RW,
+      :SDL_LoadFile,
+      :SDL_ReadU8,
+      :SDL_ReadLE16,
+      :SDL_ReadBE16,
+      :SDL_ReadLE32,
+      :SDL_ReadBE32,
+      :SDL_ReadLE64,
+      :SDL_ReadBE64,
+      :SDL_WriteU8,
+      :SDL_WriteLE16,
+      :SDL_WriteBE16,
+      :SDL_WriteLE32,
+      :SDL_WriteBE32,
+      :SDL_WriteLE64,
+      :SDL_WriteBE64,
+    ]
+    rwops_args = {
+      :SDL_RWFromFile => [:pointer, :pointer], 
+      :SDL_RWFromFP => [:pointer, :int], 
+      :SDL_RWFromMem => [:pointer, :int], 
+      :SDL_RWFromConstMem => [:pointer, :int], 
+      :SDL_AllocRW => [], 
+      :SDL_FreeRW => [:pointer], 
+      :SDL_RWsize => [:pointer], 
+      :SDL_RWseek => [:pointer, :long_long, :int], 
+      :SDL_RWtell => [:pointer], 
+      :SDL_RWread => [:pointer, :pointer, :ulong, :ulong], 
+      :SDL_RWwrite => [:pointer, :pointer, :ulong, :ulong], 
+      :SDL_RWclose => [:pointer], 
+      :SDL_LoadFile_RW => [:pointer, :pointer, :int], 
+      :SDL_LoadFile => [:pointer, :pointer], 
+      :SDL_ReadU8 => [:pointer], 
+      :SDL_ReadLE16 => [:pointer], 
+      :SDL_ReadBE16 => [:pointer], 
+      :SDL_ReadLE32 => [:pointer], 
+      :SDL_ReadBE32 => [:pointer], 
+      :SDL_ReadLE64 => [:pointer], 
+      :SDL_ReadBE64 => [:pointer], 
+      :SDL_WriteU8 => [:pointer, :uchar], 
+      :SDL_WriteLE16 => [:pointer, :ushort], 
+      :SDL_WriteBE16 => [:pointer, :ushort], 
+      :SDL_WriteLE32 => [:pointer, :uint], 
+      :SDL_WriteBE32 => [:pointer, :uint], 
+      :SDL_WriteLE64 => [:pointer, :ulong_long], 
+      :SDL_WriteBE64 => [:pointer, :ulong_long], 
+    }
+    rwops_retvals = {
+      :SDL_RWFromFile => :pointer,
+      :SDL_RWFromFP => :pointer,
+      :SDL_RWFromMem => :pointer,
+      :SDL_RWFromConstMem => :pointer,
+      :SDL_AllocRW => :pointer,
+      :SDL_FreeRW => :void,
+      :SDL_RWsize => :long_long,
+      :SDL_RWseek => :long_long,
+      :SDL_RWtell => :long_long,
+      :SDL_RWread => :size_t,
+      :SDL_RWwrite => :size_t,
+      :SDL_RWclose => :int,
+      :SDL_LoadFile_RW => :pointer,
+      :SDL_LoadFile => :pointer,
+      :SDL_ReadU8 => :uchar,
+      :SDL_ReadLE16 => :ushort,
+      :SDL_ReadBE16 => :ushort,
+      :SDL_ReadLE32 => :uint,
+      :SDL_ReadBE32 => :uint,
+      :SDL_ReadLE64 => :ulong_long,
+      :SDL_ReadBE64 => :ulong_long,
+      :SDL_WriteU8 => :size_t,
+      :SDL_WriteLE16 => :size_t,
+      :SDL_WriteBE16 => :size_t,
+      :SDL_WriteLE32 => :size_t,
+      :SDL_WriteBE32 => :size_t,
+      :SDL_WriteLE64 => :size_t,
+      :SDL_WriteBE64 => :size_t,
+    }
+    rwops_symbols.each do |sym|
+      begin
+        attach_function sym, rwops_args[sym], rwops_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

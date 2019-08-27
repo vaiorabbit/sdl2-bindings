@@ -24,25 +24,76 @@ module SDL2
   # Function
 
   def self.setup_cpuinfo_symbols()
-      attach_function :SDL_GetCPUCount, [], :int
-      attach_function :SDL_GetCPUCacheLineSize, [], :int
-      attach_function :SDL_HasRDTSC, [], :int
-      attach_function :SDL_HasAltiVec, [], :int
-      attach_function :SDL_HasMMX, [], :int
-      attach_function :SDL_Has3DNow, [], :int
-      attach_function :SDL_HasSSE, [], :int
-      attach_function :SDL_HasSSE2, [], :int
-      attach_function :SDL_HasSSE3, [], :int
-      attach_function :SDL_HasSSE41, [], :int
-      attach_function :SDL_HasSSE42, [], :int
-      attach_function :SDL_HasAVX, [], :int
-      attach_function :SDL_HasAVX2, [], :int
-      attach_function :SDL_HasAVX512F, [], :int
-      attach_function :SDL_HasNEON, [], :int
-      attach_function :SDL_GetSystemRAM, [], :int
-      attach_function :SDL_SIMDGetAlignment, [], :size_t
-      attach_function :SDL_SIMDAlloc, [:ulong], :pointer
-      attach_function :SDL_SIMDFree, [:pointer], :void
+    cpuinfo_symbols = [
+      :SDL_GetCPUCount,
+      :SDL_GetCPUCacheLineSize,
+      :SDL_HasRDTSC,
+      :SDL_HasAltiVec,
+      :SDL_HasMMX,
+      :SDL_Has3DNow,
+      :SDL_HasSSE,
+      :SDL_HasSSE2,
+      :SDL_HasSSE3,
+      :SDL_HasSSE41,
+      :SDL_HasSSE42,
+      :SDL_HasAVX,
+      :SDL_HasAVX2,
+      :SDL_HasAVX512F,
+      :SDL_HasNEON,
+      :SDL_GetSystemRAM,
+      :SDL_SIMDGetAlignment,
+      :SDL_SIMDAlloc,
+      :SDL_SIMDFree,
+    ]
+    cpuinfo_args = {
+      :SDL_GetCPUCount => [], 
+      :SDL_GetCPUCacheLineSize => [], 
+      :SDL_HasRDTSC => [], 
+      :SDL_HasAltiVec => [], 
+      :SDL_HasMMX => [], 
+      :SDL_Has3DNow => [], 
+      :SDL_HasSSE => [], 
+      :SDL_HasSSE2 => [], 
+      :SDL_HasSSE3 => [], 
+      :SDL_HasSSE41 => [], 
+      :SDL_HasSSE42 => [], 
+      :SDL_HasAVX => [], 
+      :SDL_HasAVX2 => [], 
+      :SDL_HasAVX512F => [], 
+      :SDL_HasNEON => [], 
+      :SDL_GetSystemRAM => [], 
+      :SDL_SIMDGetAlignment => [], 
+      :SDL_SIMDAlloc => [:ulong], 
+      :SDL_SIMDFree => [:pointer], 
+    }
+    cpuinfo_retvals = {
+      :SDL_GetCPUCount => :int,
+      :SDL_GetCPUCacheLineSize => :int,
+      :SDL_HasRDTSC => :int,
+      :SDL_HasAltiVec => :int,
+      :SDL_HasMMX => :int,
+      :SDL_Has3DNow => :int,
+      :SDL_HasSSE => :int,
+      :SDL_HasSSE2 => :int,
+      :SDL_HasSSE3 => :int,
+      :SDL_HasSSE41 => :int,
+      :SDL_HasSSE42 => :int,
+      :SDL_HasAVX => :int,
+      :SDL_HasAVX2 => :int,
+      :SDL_HasAVX512F => :int,
+      :SDL_HasNEON => :int,
+      :SDL_GetSystemRAM => :int,
+      :SDL_SIMDGetAlignment => :size_t,
+      :SDL_SIMDAlloc => :pointer,
+      :SDL_SIMDFree => :void,
+    }
+    cpuinfo_symbols.each do |sym|
+      begin
+        attach_function sym, cpuinfo_args[sym], cpuinfo_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

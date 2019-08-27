@@ -79,36 +79,109 @@ module SDL2
   # Function
 
   def self.setup_gamecontroller_symbols()
-      attach_function :SDL_GameControllerAddMappingsFromRW, [:pointer, :int], :int
-      attach_function :SDL_GameControllerAddMapping, [:pointer], :int
-      attach_function :SDL_GameControllerNumMappings, [], :int
-      attach_function :SDL_GameControllerMappingForIndex, [:int], :pointer
-      attach_function :SDL_GameControllerMappingForGUID, [SDL_JoystickGUID], :pointer
-      attach_function :SDL_GameControllerMapping, [:pointer], :pointer
-      attach_function :SDL_IsGameController, [:int], :int
-      attach_function :SDL_GameControllerNameForIndex, [:int], :pointer
-      attach_function :SDL_GameControllerMappingForDeviceIndex, [:int], :pointer
-      attach_function :SDL_GameControllerOpen, [:int], :pointer
-      attach_function :SDL_GameControllerFromInstanceID, [:int], :pointer
-      attach_function :SDL_GameControllerName, [:pointer], :pointer
-      attach_function :SDL_GameControllerGetPlayerIndex, [:pointer], :int
-      attach_function :SDL_GameControllerGetVendor, [:pointer], :ushort
-      attach_function :SDL_GameControllerGetProduct, [:pointer], :ushort
-      attach_function :SDL_GameControllerGetProductVersion, [:pointer], :ushort
-      attach_function :SDL_GameControllerGetAttached, [:pointer], :int
-      attach_function :SDL_GameControllerGetJoystick, [:pointer], :pointer
-      attach_function :SDL_GameControllerEventState, [:int], :int
-      attach_function :SDL_GameControllerUpdate, [], :void
-      attach_function :SDL_GameControllerGetAxisFromString, [:pointer], :int
-      attach_function :SDL_GameControllerGetStringForAxis, [:int], :pointer
-      attach_function :SDL_GameControllerGetBindForAxis, [:pointer, :int], SDL_GameControllerButtonBind
-      attach_function :SDL_GameControllerGetAxis, [:pointer, :int], :short
-      attach_function :SDL_GameControllerGetButtonFromString, [:pointer], :int
-      attach_function :SDL_GameControllerGetStringForButton, [:int], :pointer
-      attach_function :SDL_GameControllerGetBindForButton, [:pointer, :int], SDL_GameControllerButtonBind
-      attach_function :SDL_GameControllerGetButton, [:pointer, :int], :uchar
-      attach_function :SDL_GameControllerRumble, [:pointer, :ushort, :ushort, :uint], :int
-      attach_function :SDL_GameControllerClose, [:pointer], :void
+    gamecontroller_symbols = [
+      :SDL_GameControllerAddMappingsFromRW,
+      :SDL_GameControllerAddMapping,
+      :SDL_GameControllerNumMappings,
+      :SDL_GameControllerMappingForIndex,
+      :SDL_GameControllerMappingForGUID,
+      :SDL_GameControllerMapping,
+      :SDL_IsGameController,
+      :SDL_GameControllerNameForIndex,
+      :SDL_GameControllerMappingForDeviceIndex,
+      :SDL_GameControllerOpen,
+      :SDL_GameControllerFromInstanceID,
+      :SDL_GameControllerName,
+      :SDL_GameControllerGetPlayerIndex,
+      :SDL_GameControllerGetVendor,
+      :SDL_GameControllerGetProduct,
+      :SDL_GameControllerGetProductVersion,
+      :SDL_GameControllerGetAttached,
+      :SDL_GameControllerGetJoystick,
+      :SDL_GameControllerEventState,
+      :SDL_GameControllerUpdate,
+      :SDL_GameControllerGetAxisFromString,
+      :SDL_GameControllerGetStringForAxis,
+      :SDL_GameControllerGetBindForAxis,
+      :SDL_GameControllerGetAxis,
+      :SDL_GameControllerGetButtonFromString,
+      :SDL_GameControllerGetStringForButton,
+      :SDL_GameControllerGetBindForButton,
+      :SDL_GameControllerGetButton,
+      :SDL_GameControllerRumble,
+      :SDL_GameControllerClose,
+    ]
+    gamecontroller_args = {
+      :SDL_GameControllerAddMappingsFromRW => [:pointer, :int], 
+      :SDL_GameControllerAddMapping => [:pointer], 
+      :SDL_GameControllerNumMappings => [], 
+      :SDL_GameControllerMappingForIndex => [:int], 
+      :SDL_GameControllerMappingForGUID => [SDL_JoystickGUID], 
+      :SDL_GameControllerMapping => [:pointer], 
+      :SDL_IsGameController => [:int], 
+      :SDL_GameControllerNameForIndex => [:int], 
+      :SDL_GameControllerMappingForDeviceIndex => [:int], 
+      :SDL_GameControllerOpen => [:int], 
+      :SDL_GameControllerFromInstanceID => [:int], 
+      :SDL_GameControllerName => [:pointer], 
+      :SDL_GameControllerGetPlayerIndex => [:pointer], 
+      :SDL_GameControllerGetVendor => [:pointer], 
+      :SDL_GameControllerGetProduct => [:pointer], 
+      :SDL_GameControllerGetProductVersion => [:pointer], 
+      :SDL_GameControllerGetAttached => [:pointer], 
+      :SDL_GameControllerGetJoystick => [:pointer], 
+      :SDL_GameControllerEventState => [:int], 
+      :SDL_GameControllerUpdate => [], 
+      :SDL_GameControllerGetAxisFromString => [:pointer], 
+      :SDL_GameControllerGetStringForAxis => [:int], 
+      :SDL_GameControllerGetBindForAxis => [:pointer, :int], 
+      :SDL_GameControllerGetAxis => [:pointer, :int], 
+      :SDL_GameControllerGetButtonFromString => [:pointer], 
+      :SDL_GameControllerGetStringForButton => [:int], 
+      :SDL_GameControllerGetBindForButton => [:pointer, :int], 
+      :SDL_GameControllerGetButton => [:pointer, :int], 
+      :SDL_GameControllerRumble => [:pointer, :ushort, :ushort, :uint], 
+      :SDL_GameControllerClose => [:pointer], 
+    }
+    gamecontroller_retvals = {
+      :SDL_GameControllerAddMappingsFromRW => :int,
+      :SDL_GameControllerAddMapping => :int,
+      :SDL_GameControllerNumMappings => :int,
+      :SDL_GameControllerMappingForIndex => :pointer,
+      :SDL_GameControllerMappingForGUID => :pointer,
+      :SDL_GameControllerMapping => :pointer,
+      :SDL_IsGameController => :int,
+      :SDL_GameControllerNameForIndex => :pointer,
+      :SDL_GameControllerMappingForDeviceIndex => :pointer,
+      :SDL_GameControllerOpen => :pointer,
+      :SDL_GameControllerFromInstanceID => :pointer,
+      :SDL_GameControllerName => :pointer,
+      :SDL_GameControllerGetPlayerIndex => :int,
+      :SDL_GameControllerGetVendor => :ushort,
+      :SDL_GameControllerGetProduct => :ushort,
+      :SDL_GameControllerGetProductVersion => :ushort,
+      :SDL_GameControllerGetAttached => :int,
+      :SDL_GameControllerGetJoystick => :pointer,
+      :SDL_GameControllerEventState => :int,
+      :SDL_GameControllerUpdate => :void,
+      :SDL_GameControllerGetAxisFromString => :int,
+      :SDL_GameControllerGetStringForAxis => :pointer,
+      :SDL_GameControllerGetBindForAxis => SDL_GameControllerButtonBind,
+      :SDL_GameControllerGetAxis => :short,
+      :SDL_GameControllerGetButtonFromString => :int,
+      :SDL_GameControllerGetStringForButton => :pointer,
+      :SDL_GameControllerGetBindForButton => SDL_GameControllerButtonBind,
+      :SDL_GameControllerGetButton => :uchar,
+      :SDL_GameControllerRumble => :int,
+      :SDL_GameControllerClose => :void,
+    }
+    gamecontroller_symbols.each do |sym|
+      begin
+        attach_function sym, gamecontroller_args[sym], gamecontroller_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

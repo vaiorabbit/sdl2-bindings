@@ -45,23 +45,70 @@ module SDL2
   # Function
 
   def self.setup_mouse_symbols()
-      attach_function :SDL_GetMouseFocus, [], :pointer
-      attach_function :SDL_GetMouseState, [:pointer, :pointer], :uint
-      attach_function :SDL_GetGlobalMouseState, [:pointer, :pointer], :uint
-      attach_function :SDL_GetRelativeMouseState, [:pointer, :pointer], :uint
-      attach_function :SDL_WarpMouseInWindow, [:pointer, :int, :int], :void
-      attach_function :SDL_WarpMouseGlobal, [:int, :int], :int
-      attach_function :SDL_SetRelativeMouseMode, [:int], :int
-      attach_function :SDL_CaptureMouse, [:int], :int
-      attach_function :SDL_GetRelativeMouseMode, [], :int
-      attach_function :SDL_CreateCursor, [:pointer, :pointer, :int, :int, :int, :int], :pointer
-      attach_function :SDL_CreateColorCursor, [:pointer, :int, :int], :pointer
-      attach_function :SDL_CreateSystemCursor, [:int], :pointer
-      attach_function :SDL_SetCursor, [:pointer], :void
-      attach_function :SDL_GetCursor, [], :pointer
-      attach_function :SDL_GetDefaultCursor, [], :pointer
-      attach_function :SDL_FreeCursor, [:pointer], :void
-      attach_function :SDL_ShowCursor, [:int], :int
+    mouse_symbols = [
+      :SDL_GetMouseFocus,
+      :SDL_GetMouseState,
+      :SDL_GetGlobalMouseState,
+      :SDL_GetRelativeMouseState,
+      :SDL_WarpMouseInWindow,
+      :SDL_WarpMouseGlobal,
+      :SDL_SetRelativeMouseMode,
+      :SDL_CaptureMouse,
+      :SDL_GetRelativeMouseMode,
+      :SDL_CreateCursor,
+      :SDL_CreateColorCursor,
+      :SDL_CreateSystemCursor,
+      :SDL_SetCursor,
+      :SDL_GetCursor,
+      :SDL_GetDefaultCursor,
+      :SDL_FreeCursor,
+      :SDL_ShowCursor,
+    ]
+    mouse_args = {
+      :SDL_GetMouseFocus => [], 
+      :SDL_GetMouseState => [:pointer, :pointer], 
+      :SDL_GetGlobalMouseState => [:pointer, :pointer], 
+      :SDL_GetRelativeMouseState => [:pointer, :pointer], 
+      :SDL_WarpMouseInWindow => [:pointer, :int, :int], 
+      :SDL_WarpMouseGlobal => [:int, :int], 
+      :SDL_SetRelativeMouseMode => [:int], 
+      :SDL_CaptureMouse => [:int], 
+      :SDL_GetRelativeMouseMode => [], 
+      :SDL_CreateCursor => [:pointer, :pointer, :int, :int, :int, :int], 
+      :SDL_CreateColorCursor => [:pointer, :int, :int], 
+      :SDL_CreateSystemCursor => [:int], 
+      :SDL_SetCursor => [:pointer], 
+      :SDL_GetCursor => [], 
+      :SDL_GetDefaultCursor => [], 
+      :SDL_FreeCursor => [:pointer], 
+      :SDL_ShowCursor => [:int], 
+    }
+    mouse_retvals = {
+      :SDL_GetMouseFocus => :pointer,
+      :SDL_GetMouseState => :uint,
+      :SDL_GetGlobalMouseState => :uint,
+      :SDL_GetRelativeMouseState => :uint,
+      :SDL_WarpMouseInWindow => :void,
+      :SDL_WarpMouseGlobal => :int,
+      :SDL_SetRelativeMouseMode => :int,
+      :SDL_CaptureMouse => :int,
+      :SDL_GetRelativeMouseMode => :int,
+      :SDL_CreateCursor => :pointer,
+      :SDL_CreateColorCursor => :pointer,
+      :SDL_CreateSystemCursor => :pointer,
+      :SDL_SetCursor => :void,
+      :SDL_GetCursor => :pointer,
+      :SDL_GetDefaultCursor => :pointer,
+      :SDL_FreeCursor => :void,
+      :SDL_ShowCursor => :int,
+    }
+    mouse_symbols.each do |sym|
+      begin
+        attach_function sym, mouse_args[sym], mouse_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

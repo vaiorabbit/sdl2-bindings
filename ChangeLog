@@ -1,3 +1,7 @@
+2019-08-28  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* Exception-safety
+
 2019-08-27  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/sdl2_mixer.rb: Added (experimental)

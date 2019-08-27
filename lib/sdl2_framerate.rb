@@ -33,11 +33,34 @@ module SDL2
   # Function
 
   def self.setup_gfx_framerate_symbols()
-      attach_function :SDL_initFramerate, [:pointer], :void
-      attach_function :SDL_setFramerate, [:pointer, :uint], :int
-      attach_function :SDL_getFramerate, [:pointer], :int
-      attach_function :SDL_getFramecount, [:pointer], :int
-      attach_function :SDL_framerateDelay, [:pointer], :uint
+    gfx_framerate_symbols = [
+      :SDL_initFramerate,
+      :SDL_setFramerate,
+      :SDL_getFramerate,
+      :SDL_getFramecount,
+      :SDL_framerateDelay,
+    ]
+    gfx_framerate_args = {
+      :SDL_initFramerate => [:pointer], 
+      :SDL_setFramerate => [:pointer, :uint], 
+      :SDL_getFramerate => [:pointer], 
+      :SDL_getFramecount => [:pointer], 
+      :SDL_framerateDelay => [:pointer], 
+    }
+    gfx_framerate_retvals = {
+      :SDL_initFramerate => :void,
+      :SDL_setFramerate => :int,
+      :SDL_getFramerate => :int,
+      :SDL_getFramecount => :int,
+      :SDL_framerateDelay => :uint,
+    }
+    gfx_framerate_symbols.each do |sym|
+      begin
+        attach_function sym, gfx_framerate_args[sym], gfx_framerate_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

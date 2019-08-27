@@ -53,29 +53,33 @@ module SDL2
     unless @@sdl2_import_done
       # Ref.: Using Multiple and Alternate Libraries
       # https://github.com/ffi/ffi/wiki/Using-Multiple-and-Alternate-Libraries
-      lib_paths = [libpath, image_libpath, ttf_libpath, mixer_libpath, gfx_libpath].compact
+      begin
+        lib_paths = [libpath, image_libpath, ttf_libpath, mixer_libpath, gfx_libpath].compact
 
-      ffi_lib_flags :now, :global
-      ffi_lib *lib_paths
-      setup_symbols()
+        ffi_lib_flags :now, :global
+        ffi_lib *lib_paths
+        setup_symbols()
 
-      if image_libpath != nil
-        setup_image_symbols()
-      end
+        if image_libpath != nil
+          setup_image_symbols()
+        end
 
-      if ttf_libpath != nil
-        setup_ttf_symbols()
-      end
+        if ttf_libpath != nil
+          setup_ttf_symbols()
+        end
 
-      if mixer_libpath != nil
-        setup_mixer_symbols()
-      end
+        if mixer_libpath != nil
+          setup_mixer_symbols()
+        end
 
-      if gfx_libpath != nil
-        setup_gfx_framerate_symbols()
-        setup_gfx_primitives_symbols()
-        setup_gfx_imagefilter_symbols()
-        setup_gfx_rotozoom_symbols()
+        if gfx_libpath != nil
+          setup_gfx_framerate_symbols()
+          setup_gfx_primitives_symbols()
+          setup_gfx_imagefilter_symbols()
+          setup_gfx_rotozoom_symbols()
+        end
+      rescue => error
+        puts error
       end
     end
 

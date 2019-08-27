@@ -51,75 +51,226 @@ module SDL2
   # Function
 
   def self.setup_render_symbols()
-      attach_function :SDL_GetNumRenderDrivers, [], :int
-      attach_function :SDL_GetRenderDriverInfo, [:int, :pointer], :int
-      attach_function :SDL_CreateWindowAndRenderer, [:int, :int, :uint, :pointer, :pointer], :int
-      attach_function :SDL_CreateRenderer, [:pointer, :int, :uint], :pointer
-      attach_function :SDL_CreateSoftwareRenderer, [:pointer], :pointer
-      attach_function :SDL_GetRenderer, [:pointer], :pointer
-      attach_function :SDL_GetRendererInfo, [:pointer, :pointer], :int
-      attach_function :SDL_GetRendererOutputSize, [:pointer, :pointer, :pointer], :int
-      attach_function :SDL_CreateTexture, [:pointer, :uint, :int, :int, :int], :pointer
-      attach_function :SDL_CreateTextureFromSurface, [:pointer, :pointer], :pointer
-      attach_function :SDL_QueryTexture, [:pointer, :pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_SetTextureColorMod, [:pointer, :uchar, :uchar, :uchar], :int
-      attach_function :SDL_GetTextureColorMod, [:pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_SetTextureAlphaMod, [:pointer, :uchar], :int
-      attach_function :SDL_GetTextureAlphaMod, [:pointer, :pointer], :int
-      attach_function :SDL_SetTextureBlendMode, [:pointer, :int], :int
-      attach_function :SDL_GetTextureBlendMode, [:pointer, :pointer], :int
-      attach_function :SDL_UpdateTexture, [:pointer, :pointer, :pointer, :int], :int
-      attach_function :SDL_UpdateYUVTexture, [:pointer, :pointer, :pointer, :int, :pointer, :int, :pointer, :int], :int
-      attach_function :SDL_LockTexture, [:pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_UnlockTexture, [:pointer], :void
-      attach_function :SDL_RenderTargetSupported, [:pointer], :int
-      attach_function :SDL_SetRenderTarget, [:pointer, :pointer], :int
-      attach_function :SDL_GetRenderTarget, [:pointer], :pointer
-      attach_function :SDL_RenderSetLogicalSize, [:pointer, :int, :int], :int
-      attach_function :SDL_RenderGetLogicalSize, [:pointer, :pointer, :pointer], :void
-      attach_function :SDL_RenderSetIntegerScale, [:pointer, :int], :int
-      attach_function :SDL_RenderGetIntegerScale, [:pointer], :int
-      attach_function :SDL_RenderSetViewport, [:pointer, :pointer], :int
-      attach_function :SDL_RenderGetViewport, [:pointer, :pointer], :void
-      attach_function :SDL_RenderSetClipRect, [:pointer, :pointer], :int
-      attach_function :SDL_RenderGetClipRect, [:pointer, :pointer], :void
-      attach_function :SDL_RenderIsClipEnabled, [:pointer], :int
-      attach_function :SDL_RenderSetScale, [:pointer, :float, :float], :int
-      attach_function :SDL_RenderGetScale, [:pointer, :pointer, :pointer], :void
-      attach_function :SDL_SetRenderDrawColor, [:pointer, :uchar, :uchar, :uchar, :uchar], :int
-      attach_function :SDL_GetRenderDrawColor, [:pointer, :pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_SetRenderDrawBlendMode, [:pointer, :int], :int
-      attach_function :SDL_GetRenderDrawBlendMode, [:pointer, :pointer], :int
-      attach_function :SDL_RenderClear, [:pointer], :int
-      attach_function :SDL_RenderDrawPoint, [:pointer, :int, :int], :int
-      attach_function :SDL_RenderDrawPoints, [:pointer, :pointer, :int], :int
-      attach_function :SDL_RenderDrawLine, [:pointer, :int, :int, :int, :int], :int
-      attach_function :SDL_RenderDrawLines, [:pointer, :pointer, :int], :int
-      attach_function :SDL_RenderDrawRect, [:pointer, :pointer], :int
-      attach_function :SDL_RenderDrawRects, [:pointer, :pointer, :int], :int
-      attach_function :SDL_RenderFillRect, [:pointer, :pointer], :int
-      attach_function :SDL_RenderFillRects, [:pointer, :pointer, :int], :int
-      attach_function :SDL_RenderCopy, [:pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_RenderCopyEx, [:pointer, :pointer, :pointer, :pointer, :double, :pointer, :int], :int
-      attach_function :SDL_RenderDrawPointF, [:pointer, :float, :float], :int
-      attach_function :SDL_RenderDrawPointsF, [:pointer, :pointer, :int], :int
-      attach_function :SDL_RenderDrawLineF, [:pointer, :float, :float, :float, :float], :int
-      attach_function :SDL_RenderDrawLinesF, [:pointer, :pointer, :int], :int
-      attach_function :SDL_RenderDrawRectF, [:pointer, :pointer], :int
-      attach_function :SDL_RenderDrawRectsF, [:pointer, :pointer, :int], :int
-      attach_function :SDL_RenderFillRectF, [:pointer, :pointer], :int
-      attach_function :SDL_RenderFillRectsF, [:pointer, :pointer, :int], :int
-      attach_function :SDL_RenderCopyF, [:pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_RenderCopyExF, [:pointer, :pointer, :pointer, :pointer, :double, :pointer, :int], :int
-      attach_function :SDL_RenderReadPixels, [:pointer, :pointer, :uint, :pointer, :int], :int
-      attach_function :SDL_RenderPresent, [:pointer], :void
-      attach_function :SDL_DestroyTexture, [:pointer], :void
-      attach_function :SDL_DestroyRenderer, [:pointer], :void
-      attach_function :SDL_RenderFlush, [:pointer], :int
-      attach_function :SDL_GL_BindTexture, [:pointer, :pointer, :pointer], :int
-      attach_function :SDL_GL_UnbindTexture, [:pointer], :int
-      attach_function :SDL_RenderGetMetalLayer, [:pointer], :pointer
-      attach_function :SDL_RenderGetMetalCommandEncoder, [:pointer], :pointer
+    render_symbols = [
+      :SDL_GetNumRenderDrivers,
+      :SDL_GetRenderDriverInfo,
+      :SDL_CreateWindowAndRenderer,
+      :SDL_CreateRenderer,
+      :SDL_CreateSoftwareRenderer,
+      :SDL_GetRenderer,
+      :SDL_GetRendererInfo,
+      :SDL_GetRendererOutputSize,
+      :SDL_CreateTexture,
+      :SDL_CreateTextureFromSurface,
+      :SDL_QueryTexture,
+      :SDL_SetTextureColorMod,
+      :SDL_GetTextureColorMod,
+      :SDL_SetTextureAlphaMod,
+      :SDL_GetTextureAlphaMod,
+      :SDL_SetTextureBlendMode,
+      :SDL_GetTextureBlendMode,
+      :SDL_UpdateTexture,
+      :SDL_UpdateYUVTexture,
+      :SDL_LockTexture,
+      :SDL_UnlockTexture,
+      :SDL_RenderTargetSupported,
+      :SDL_SetRenderTarget,
+      :SDL_GetRenderTarget,
+      :SDL_RenderSetLogicalSize,
+      :SDL_RenderGetLogicalSize,
+      :SDL_RenderSetIntegerScale,
+      :SDL_RenderGetIntegerScale,
+      :SDL_RenderSetViewport,
+      :SDL_RenderGetViewport,
+      :SDL_RenderSetClipRect,
+      :SDL_RenderGetClipRect,
+      :SDL_RenderIsClipEnabled,
+      :SDL_RenderSetScale,
+      :SDL_RenderGetScale,
+      :SDL_SetRenderDrawColor,
+      :SDL_GetRenderDrawColor,
+      :SDL_SetRenderDrawBlendMode,
+      :SDL_GetRenderDrawBlendMode,
+      :SDL_RenderClear,
+      :SDL_RenderDrawPoint,
+      :SDL_RenderDrawPoints,
+      :SDL_RenderDrawLine,
+      :SDL_RenderDrawLines,
+      :SDL_RenderDrawRect,
+      :SDL_RenderDrawRects,
+      :SDL_RenderFillRect,
+      :SDL_RenderFillRects,
+      :SDL_RenderCopy,
+      :SDL_RenderCopyEx,
+      :SDL_RenderDrawPointF,
+      :SDL_RenderDrawPointsF,
+      :SDL_RenderDrawLineF,
+      :SDL_RenderDrawLinesF,
+      :SDL_RenderDrawRectF,
+      :SDL_RenderDrawRectsF,
+      :SDL_RenderFillRectF,
+      :SDL_RenderFillRectsF,
+      :SDL_RenderCopyF,
+      :SDL_RenderCopyExF,
+      :SDL_RenderReadPixels,
+      :SDL_RenderPresent,
+      :SDL_DestroyTexture,
+      :SDL_DestroyRenderer,
+      :SDL_RenderFlush,
+      :SDL_GL_BindTexture,
+      :SDL_GL_UnbindTexture,
+      :SDL_RenderGetMetalLayer,
+      :SDL_RenderGetMetalCommandEncoder,
+    ]
+    render_args = {
+      :SDL_GetNumRenderDrivers => [], 
+      :SDL_GetRenderDriverInfo => [:int, :pointer], 
+      :SDL_CreateWindowAndRenderer => [:int, :int, :uint, :pointer, :pointer], 
+      :SDL_CreateRenderer => [:pointer, :int, :uint], 
+      :SDL_CreateSoftwareRenderer => [:pointer], 
+      :SDL_GetRenderer => [:pointer], 
+      :SDL_GetRendererInfo => [:pointer, :pointer], 
+      :SDL_GetRendererOutputSize => [:pointer, :pointer, :pointer], 
+      :SDL_CreateTexture => [:pointer, :uint, :int, :int, :int], 
+      :SDL_CreateTextureFromSurface => [:pointer, :pointer], 
+      :SDL_QueryTexture => [:pointer, :pointer, :pointer, :pointer, :pointer], 
+      :SDL_SetTextureColorMod => [:pointer, :uchar, :uchar, :uchar], 
+      :SDL_GetTextureColorMod => [:pointer, :pointer, :pointer, :pointer], 
+      :SDL_SetTextureAlphaMod => [:pointer, :uchar], 
+      :SDL_GetTextureAlphaMod => [:pointer, :pointer], 
+      :SDL_SetTextureBlendMode => [:pointer, :int], 
+      :SDL_GetTextureBlendMode => [:pointer, :pointer], 
+      :SDL_UpdateTexture => [:pointer, :pointer, :pointer, :int], 
+      :SDL_UpdateYUVTexture => [:pointer, :pointer, :pointer, :int, :pointer, :int, :pointer, :int], 
+      :SDL_LockTexture => [:pointer, :pointer, :pointer, :pointer], 
+      :SDL_UnlockTexture => [:pointer], 
+      :SDL_RenderTargetSupported => [:pointer], 
+      :SDL_SetRenderTarget => [:pointer, :pointer], 
+      :SDL_GetRenderTarget => [:pointer], 
+      :SDL_RenderSetLogicalSize => [:pointer, :int, :int], 
+      :SDL_RenderGetLogicalSize => [:pointer, :pointer, :pointer], 
+      :SDL_RenderSetIntegerScale => [:pointer, :int], 
+      :SDL_RenderGetIntegerScale => [:pointer], 
+      :SDL_RenderSetViewport => [:pointer, :pointer], 
+      :SDL_RenderGetViewport => [:pointer, :pointer], 
+      :SDL_RenderSetClipRect => [:pointer, :pointer], 
+      :SDL_RenderGetClipRect => [:pointer, :pointer], 
+      :SDL_RenderIsClipEnabled => [:pointer], 
+      :SDL_RenderSetScale => [:pointer, :float, :float], 
+      :SDL_RenderGetScale => [:pointer, :pointer, :pointer], 
+      :SDL_SetRenderDrawColor => [:pointer, :uchar, :uchar, :uchar, :uchar], 
+      :SDL_GetRenderDrawColor => [:pointer, :pointer, :pointer, :pointer, :pointer], 
+      :SDL_SetRenderDrawBlendMode => [:pointer, :int], 
+      :SDL_GetRenderDrawBlendMode => [:pointer, :pointer], 
+      :SDL_RenderClear => [:pointer], 
+      :SDL_RenderDrawPoint => [:pointer, :int, :int], 
+      :SDL_RenderDrawPoints => [:pointer, :pointer, :int], 
+      :SDL_RenderDrawLine => [:pointer, :int, :int, :int, :int], 
+      :SDL_RenderDrawLines => [:pointer, :pointer, :int], 
+      :SDL_RenderDrawRect => [:pointer, :pointer], 
+      :SDL_RenderDrawRects => [:pointer, :pointer, :int], 
+      :SDL_RenderFillRect => [:pointer, :pointer], 
+      :SDL_RenderFillRects => [:pointer, :pointer, :int], 
+      :SDL_RenderCopy => [:pointer, :pointer, :pointer, :pointer], 
+      :SDL_RenderCopyEx => [:pointer, :pointer, :pointer, :pointer, :double, :pointer, :int], 
+      :SDL_RenderDrawPointF => [:pointer, :float, :float], 
+      :SDL_RenderDrawPointsF => [:pointer, :pointer, :int], 
+      :SDL_RenderDrawLineF => [:pointer, :float, :float, :float, :float], 
+      :SDL_RenderDrawLinesF => [:pointer, :pointer, :int], 
+      :SDL_RenderDrawRectF => [:pointer, :pointer], 
+      :SDL_RenderDrawRectsF => [:pointer, :pointer, :int], 
+      :SDL_RenderFillRectF => [:pointer, :pointer], 
+      :SDL_RenderFillRectsF => [:pointer, :pointer, :int], 
+      :SDL_RenderCopyF => [:pointer, :pointer, :pointer, :pointer], 
+      :SDL_RenderCopyExF => [:pointer, :pointer, :pointer, :pointer, :double, :pointer, :int], 
+      :SDL_RenderReadPixels => [:pointer, :pointer, :uint, :pointer, :int], 
+      :SDL_RenderPresent => [:pointer], 
+      :SDL_DestroyTexture => [:pointer], 
+      :SDL_DestroyRenderer => [:pointer], 
+      :SDL_RenderFlush => [:pointer], 
+      :SDL_GL_BindTexture => [:pointer, :pointer, :pointer], 
+      :SDL_GL_UnbindTexture => [:pointer], 
+      :SDL_RenderGetMetalLayer => [:pointer], 
+      :SDL_RenderGetMetalCommandEncoder => [:pointer], 
+    }
+    render_retvals = {
+      :SDL_GetNumRenderDrivers => :int,
+      :SDL_GetRenderDriverInfo => :int,
+      :SDL_CreateWindowAndRenderer => :int,
+      :SDL_CreateRenderer => :pointer,
+      :SDL_CreateSoftwareRenderer => :pointer,
+      :SDL_GetRenderer => :pointer,
+      :SDL_GetRendererInfo => :int,
+      :SDL_GetRendererOutputSize => :int,
+      :SDL_CreateTexture => :pointer,
+      :SDL_CreateTextureFromSurface => :pointer,
+      :SDL_QueryTexture => :int,
+      :SDL_SetTextureColorMod => :int,
+      :SDL_GetTextureColorMod => :int,
+      :SDL_SetTextureAlphaMod => :int,
+      :SDL_GetTextureAlphaMod => :int,
+      :SDL_SetTextureBlendMode => :int,
+      :SDL_GetTextureBlendMode => :int,
+      :SDL_UpdateTexture => :int,
+      :SDL_UpdateYUVTexture => :int,
+      :SDL_LockTexture => :int,
+      :SDL_UnlockTexture => :void,
+      :SDL_RenderTargetSupported => :int,
+      :SDL_SetRenderTarget => :int,
+      :SDL_GetRenderTarget => :pointer,
+      :SDL_RenderSetLogicalSize => :int,
+      :SDL_RenderGetLogicalSize => :void,
+      :SDL_RenderSetIntegerScale => :int,
+      :SDL_RenderGetIntegerScale => :int,
+      :SDL_RenderSetViewport => :int,
+      :SDL_RenderGetViewport => :void,
+      :SDL_RenderSetClipRect => :int,
+      :SDL_RenderGetClipRect => :void,
+      :SDL_RenderIsClipEnabled => :int,
+      :SDL_RenderSetScale => :int,
+      :SDL_RenderGetScale => :void,
+      :SDL_SetRenderDrawColor => :int,
+      :SDL_GetRenderDrawColor => :int,
+      :SDL_SetRenderDrawBlendMode => :int,
+      :SDL_GetRenderDrawBlendMode => :int,
+      :SDL_RenderClear => :int,
+      :SDL_RenderDrawPoint => :int,
+      :SDL_RenderDrawPoints => :int,
+      :SDL_RenderDrawLine => :int,
+      :SDL_RenderDrawLines => :int,
+      :SDL_RenderDrawRect => :int,
+      :SDL_RenderDrawRects => :int,
+      :SDL_RenderFillRect => :int,
+      :SDL_RenderFillRects => :int,
+      :SDL_RenderCopy => :int,
+      :SDL_RenderCopyEx => :int,
+      :SDL_RenderDrawPointF => :int,
+      :SDL_RenderDrawPointsF => :int,
+      :SDL_RenderDrawLineF => :int,
+      :SDL_RenderDrawLinesF => :int,
+      :SDL_RenderDrawRectF => :int,
+      :SDL_RenderDrawRectsF => :int,
+      :SDL_RenderFillRectF => :int,
+      :SDL_RenderFillRectsF => :int,
+      :SDL_RenderCopyF => :int,
+      :SDL_RenderCopyExF => :int,
+      :SDL_RenderReadPixels => :int,
+      :SDL_RenderPresent => :void,
+      :SDL_DestroyTexture => :void,
+      :SDL_DestroyRenderer => :void,
+      :SDL_RenderFlush => :int,
+      :SDL_GL_BindTexture => :int,
+      :SDL_GL_UnbindTexture => :int,
+      :SDL_RenderGetMetalLayer => :pointer,
+      :SDL_RenderGetMetalCommandEncoder => :pointer,
+    }
+    render_symbols.each do |sym|
+      begin
+        attach_function sym, render_args[sym], render_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

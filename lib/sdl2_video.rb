@@ -140,89 +140,268 @@ module SDL2
   # Function
 
   def self.setup_video_symbols()
-      attach_function :SDL_GetNumVideoDrivers, [], :int
-      attach_function :SDL_GetVideoDriver, [:int], :pointer
-      attach_function :SDL_VideoInit, [:pointer], :int
-      attach_function :SDL_VideoQuit, [], :void
-      attach_function :SDL_GetCurrentVideoDriver, [], :pointer
-      attach_function :SDL_GetNumVideoDisplays, [], :int
-      attach_function :SDL_GetDisplayName, [:int], :pointer
-      attach_function :SDL_GetDisplayBounds, [:int, :pointer], :int
-      attach_function :SDL_GetDisplayUsableBounds, [:int, :pointer], :int
-      attach_function :SDL_GetDisplayDPI, [:int, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_GetDisplayOrientation, [:int], :int
-      attach_function :SDL_GetNumDisplayModes, [:int], :int
-      attach_function :SDL_GetDisplayMode, [:int, :int, :pointer], :int
-      attach_function :SDL_GetDesktopDisplayMode, [:int, :pointer], :int
-      attach_function :SDL_GetCurrentDisplayMode, [:int, :pointer], :int
-      attach_function :SDL_GetClosestDisplayMode, [:int, :pointer, :pointer], :pointer
-      attach_function :SDL_GetWindowDisplayIndex, [:pointer], :int
-      attach_function :SDL_SetWindowDisplayMode, [:pointer, :pointer], :int
-      attach_function :SDL_GetWindowDisplayMode, [:pointer, :pointer], :int
-      attach_function :SDL_GetWindowPixelFormat, [:pointer], :uint
-      attach_function :SDL_CreateWindow, [:pointer, :int, :int, :int, :int, :uint], :pointer
-      attach_function :SDL_CreateWindowFrom, [:pointer], :pointer
-      attach_function :SDL_GetWindowID, [:pointer], :uint
-      attach_function :SDL_GetWindowFromID, [:uint], :pointer
-      attach_function :SDL_GetWindowFlags, [:pointer], :uint
-      attach_function :SDL_SetWindowTitle, [:pointer, :pointer], :void
-      attach_function :SDL_GetWindowTitle, [:pointer], :pointer
-      attach_function :SDL_SetWindowIcon, [:pointer, :pointer], :void
-      attach_function :SDL_SetWindowData, [:pointer, :pointer, :pointer], :pointer
-      attach_function :SDL_GetWindowData, [:pointer, :pointer], :pointer
-      attach_function :SDL_SetWindowPosition, [:pointer, :int, :int], :void
-      attach_function :SDL_GetWindowPosition, [:pointer, :pointer, :pointer], :void
-      attach_function :SDL_SetWindowSize, [:pointer, :int, :int], :void
-      attach_function :SDL_GetWindowSize, [:pointer, :pointer, :pointer], :void
-      attach_function :SDL_GetWindowBordersSize, [:pointer, :pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_SetWindowMinimumSize, [:pointer, :int, :int], :void
-      attach_function :SDL_GetWindowMinimumSize, [:pointer, :pointer, :pointer], :void
-      attach_function :SDL_SetWindowMaximumSize, [:pointer, :int, :int], :void
-      attach_function :SDL_GetWindowMaximumSize, [:pointer, :pointer, :pointer], :void
-      attach_function :SDL_SetWindowBordered, [:pointer, :int], :void
-      attach_function :SDL_SetWindowResizable, [:pointer, :int], :void
-      attach_function :SDL_ShowWindow, [:pointer], :void
-      attach_function :SDL_HideWindow, [:pointer], :void
-      attach_function :SDL_RaiseWindow, [:pointer], :void
-      attach_function :SDL_MaximizeWindow, [:pointer], :void
-      attach_function :SDL_MinimizeWindow, [:pointer], :void
-      attach_function :SDL_RestoreWindow, [:pointer], :void
-      attach_function :SDL_SetWindowFullscreen, [:pointer, :uint], :int
-      attach_function :SDL_GetWindowSurface, [:pointer], :pointer
-      attach_function :SDL_UpdateWindowSurface, [:pointer], :int
-      attach_function :SDL_UpdateWindowSurfaceRects, [:pointer, :pointer, :int], :int
-      attach_function :SDL_SetWindowGrab, [:pointer, :int], :void
-      attach_function :SDL_GetWindowGrab, [:pointer], :int
-      attach_function :SDL_GetGrabbedWindow, [], :pointer
-      attach_function :SDL_SetWindowBrightness, [:pointer, :float], :int
-      attach_function :SDL_GetWindowBrightness, [:pointer], :float
-      attach_function :SDL_SetWindowOpacity, [:pointer, :float], :int
-      attach_function :SDL_GetWindowOpacity, [:pointer, :pointer], :int
-      attach_function :SDL_SetWindowModalFor, [:pointer, :pointer], :int
-      attach_function :SDL_SetWindowInputFocus, [:pointer], :int
-      attach_function :SDL_SetWindowGammaRamp, [:pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_GetWindowGammaRamp, [:pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_SetWindowHitTest, [:pointer, :pointer, :pointer], :int
-      attach_function :SDL_DestroyWindow, [:pointer], :void
-      attach_function :SDL_IsScreenSaverEnabled, [], :int
-      attach_function :SDL_EnableScreenSaver, [], :void
-      attach_function :SDL_DisableScreenSaver, [], :void
-      attach_function :SDL_GL_LoadLibrary, [:pointer], :int
-      attach_function :SDL_GL_GetProcAddress, [:pointer], :pointer
-      attach_function :SDL_GL_UnloadLibrary, [], :void
-      attach_function :SDL_GL_ExtensionSupported, [:pointer], :int
-      attach_function :SDL_GL_ResetAttributes, [], :void
-      attach_function :SDL_GL_SetAttribute, [:int, :int], :int
-      attach_function :SDL_GL_GetAttribute, [:int, :pointer], :int
-      attach_function :SDL_GL_CreateContext, [:pointer], :pointer
-      attach_function :SDL_GL_MakeCurrent, [:pointer, :pointer], :int
-      attach_function :SDL_GL_GetCurrentWindow, [], :pointer
-      attach_function :SDL_GL_GetCurrentContext, [], :pointer
-      attach_function :SDL_GL_GetDrawableSize, [:pointer, :pointer, :pointer], :void
-      attach_function :SDL_GL_SetSwapInterval, [:int], :int
-      attach_function :SDL_GL_GetSwapInterval, [], :int
-      attach_function :SDL_GL_SwapWindow, [:pointer], :void
-      attach_function :SDL_GL_DeleteContext, [:pointer], :void
+    video_symbols = [
+      :SDL_GetNumVideoDrivers,
+      :SDL_GetVideoDriver,
+      :SDL_VideoInit,
+      :SDL_VideoQuit,
+      :SDL_GetCurrentVideoDriver,
+      :SDL_GetNumVideoDisplays,
+      :SDL_GetDisplayName,
+      :SDL_GetDisplayBounds,
+      :SDL_GetDisplayUsableBounds,
+      :SDL_GetDisplayDPI,
+      :SDL_GetDisplayOrientation,
+      :SDL_GetNumDisplayModes,
+      :SDL_GetDisplayMode,
+      :SDL_GetDesktopDisplayMode,
+      :SDL_GetCurrentDisplayMode,
+      :SDL_GetClosestDisplayMode,
+      :SDL_GetWindowDisplayIndex,
+      :SDL_SetWindowDisplayMode,
+      :SDL_GetWindowDisplayMode,
+      :SDL_GetWindowPixelFormat,
+      :SDL_CreateWindow,
+      :SDL_CreateWindowFrom,
+      :SDL_GetWindowID,
+      :SDL_GetWindowFromID,
+      :SDL_GetWindowFlags,
+      :SDL_SetWindowTitle,
+      :SDL_GetWindowTitle,
+      :SDL_SetWindowIcon,
+      :SDL_SetWindowData,
+      :SDL_GetWindowData,
+      :SDL_SetWindowPosition,
+      :SDL_GetWindowPosition,
+      :SDL_SetWindowSize,
+      :SDL_GetWindowSize,
+      :SDL_GetWindowBordersSize,
+      :SDL_SetWindowMinimumSize,
+      :SDL_GetWindowMinimumSize,
+      :SDL_SetWindowMaximumSize,
+      :SDL_GetWindowMaximumSize,
+      :SDL_SetWindowBordered,
+      :SDL_SetWindowResizable,
+      :SDL_ShowWindow,
+      :SDL_HideWindow,
+      :SDL_RaiseWindow,
+      :SDL_MaximizeWindow,
+      :SDL_MinimizeWindow,
+      :SDL_RestoreWindow,
+      :SDL_SetWindowFullscreen,
+      :SDL_GetWindowSurface,
+      :SDL_UpdateWindowSurface,
+      :SDL_UpdateWindowSurfaceRects,
+      :SDL_SetWindowGrab,
+      :SDL_GetWindowGrab,
+      :SDL_GetGrabbedWindow,
+      :SDL_SetWindowBrightness,
+      :SDL_GetWindowBrightness,
+      :SDL_SetWindowOpacity,
+      :SDL_GetWindowOpacity,
+      :SDL_SetWindowModalFor,
+      :SDL_SetWindowInputFocus,
+      :SDL_SetWindowGammaRamp,
+      :SDL_GetWindowGammaRamp,
+      :SDL_SetWindowHitTest,
+      :SDL_DestroyWindow,
+      :SDL_IsScreenSaverEnabled,
+      :SDL_EnableScreenSaver,
+      :SDL_DisableScreenSaver,
+      :SDL_GL_LoadLibrary,
+      :SDL_GL_GetProcAddress,
+      :SDL_GL_UnloadLibrary,
+      :SDL_GL_ExtensionSupported,
+      :SDL_GL_ResetAttributes,
+      :SDL_GL_SetAttribute,
+      :SDL_GL_GetAttribute,
+      :SDL_GL_CreateContext,
+      :SDL_GL_MakeCurrent,
+      :SDL_GL_GetCurrentWindow,
+      :SDL_GL_GetCurrentContext,
+      :SDL_GL_GetDrawableSize,
+      :SDL_GL_SetSwapInterval,
+      :SDL_GL_GetSwapInterval,
+      :SDL_GL_SwapWindow,
+      :SDL_GL_DeleteContext,
+    ]
+    video_args = {
+      :SDL_GetNumVideoDrivers => [], 
+      :SDL_GetVideoDriver => [:int], 
+      :SDL_VideoInit => [:pointer], 
+      :SDL_VideoQuit => [], 
+      :SDL_GetCurrentVideoDriver => [], 
+      :SDL_GetNumVideoDisplays => [], 
+      :SDL_GetDisplayName => [:int], 
+      :SDL_GetDisplayBounds => [:int, :pointer], 
+      :SDL_GetDisplayUsableBounds => [:int, :pointer], 
+      :SDL_GetDisplayDPI => [:int, :pointer, :pointer, :pointer], 
+      :SDL_GetDisplayOrientation => [:int], 
+      :SDL_GetNumDisplayModes => [:int], 
+      :SDL_GetDisplayMode => [:int, :int, :pointer], 
+      :SDL_GetDesktopDisplayMode => [:int, :pointer], 
+      :SDL_GetCurrentDisplayMode => [:int, :pointer], 
+      :SDL_GetClosestDisplayMode => [:int, :pointer, :pointer], 
+      :SDL_GetWindowDisplayIndex => [:pointer], 
+      :SDL_SetWindowDisplayMode => [:pointer, :pointer], 
+      :SDL_GetWindowDisplayMode => [:pointer, :pointer], 
+      :SDL_GetWindowPixelFormat => [:pointer], 
+      :SDL_CreateWindow => [:pointer, :int, :int, :int, :int, :uint], 
+      :SDL_CreateWindowFrom => [:pointer], 
+      :SDL_GetWindowID => [:pointer], 
+      :SDL_GetWindowFromID => [:uint], 
+      :SDL_GetWindowFlags => [:pointer], 
+      :SDL_SetWindowTitle => [:pointer, :pointer], 
+      :SDL_GetWindowTitle => [:pointer], 
+      :SDL_SetWindowIcon => [:pointer, :pointer], 
+      :SDL_SetWindowData => [:pointer, :pointer, :pointer], 
+      :SDL_GetWindowData => [:pointer, :pointer], 
+      :SDL_SetWindowPosition => [:pointer, :int, :int], 
+      :SDL_GetWindowPosition => [:pointer, :pointer, :pointer], 
+      :SDL_SetWindowSize => [:pointer, :int, :int], 
+      :SDL_GetWindowSize => [:pointer, :pointer, :pointer], 
+      :SDL_GetWindowBordersSize => [:pointer, :pointer, :pointer, :pointer, :pointer], 
+      :SDL_SetWindowMinimumSize => [:pointer, :int, :int], 
+      :SDL_GetWindowMinimumSize => [:pointer, :pointer, :pointer], 
+      :SDL_SetWindowMaximumSize => [:pointer, :int, :int], 
+      :SDL_GetWindowMaximumSize => [:pointer, :pointer, :pointer], 
+      :SDL_SetWindowBordered => [:pointer, :int], 
+      :SDL_SetWindowResizable => [:pointer, :int], 
+      :SDL_ShowWindow => [:pointer], 
+      :SDL_HideWindow => [:pointer], 
+      :SDL_RaiseWindow => [:pointer], 
+      :SDL_MaximizeWindow => [:pointer], 
+      :SDL_MinimizeWindow => [:pointer], 
+      :SDL_RestoreWindow => [:pointer], 
+      :SDL_SetWindowFullscreen => [:pointer, :uint], 
+      :SDL_GetWindowSurface => [:pointer], 
+      :SDL_UpdateWindowSurface => [:pointer], 
+      :SDL_UpdateWindowSurfaceRects => [:pointer, :pointer, :int], 
+      :SDL_SetWindowGrab => [:pointer, :int], 
+      :SDL_GetWindowGrab => [:pointer], 
+      :SDL_GetGrabbedWindow => [], 
+      :SDL_SetWindowBrightness => [:pointer, :float], 
+      :SDL_GetWindowBrightness => [:pointer], 
+      :SDL_SetWindowOpacity => [:pointer, :float], 
+      :SDL_GetWindowOpacity => [:pointer, :pointer], 
+      :SDL_SetWindowModalFor => [:pointer, :pointer], 
+      :SDL_SetWindowInputFocus => [:pointer], 
+      :SDL_SetWindowGammaRamp => [:pointer, :pointer, :pointer, :pointer], 
+      :SDL_GetWindowGammaRamp => [:pointer, :pointer, :pointer, :pointer], 
+      :SDL_SetWindowHitTest => [:pointer, :pointer, :pointer], 
+      :SDL_DestroyWindow => [:pointer], 
+      :SDL_IsScreenSaverEnabled => [], 
+      :SDL_EnableScreenSaver => [], 
+      :SDL_DisableScreenSaver => [], 
+      :SDL_GL_LoadLibrary => [:pointer], 
+      :SDL_GL_GetProcAddress => [:pointer], 
+      :SDL_GL_UnloadLibrary => [], 
+      :SDL_GL_ExtensionSupported => [:pointer], 
+      :SDL_GL_ResetAttributes => [], 
+      :SDL_GL_SetAttribute => [:int, :int], 
+      :SDL_GL_GetAttribute => [:int, :pointer], 
+      :SDL_GL_CreateContext => [:pointer], 
+      :SDL_GL_MakeCurrent => [:pointer, :pointer], 
+      :SDL_GL_GetCurrentWindow => [], 
+      :SDL_GL_GetCurrentContext => [], 
+      :SDL_GL_GetDrawableSize => [:pointer, :pointer, :pointer], 
+      :SDL_GL_SetSwapInterval => [:int], 
+      :SDL_GL_GetSwapInterval => [], 
+      :SDL_GL_SwapWindow => [:pointer], 
+      :SDL_GL_DeleteContext => [:pointer], 
+    }
+    video_retvals = {
+      :SDL_GetNumVideoDrivers => :int,
+      :SDL_GetVideoDriver => :pointer,
+      :SDL_VideoInit => :int,
+      :SDL_VideoQuit => :void,
+      :SDL_GetCurrentVideoDriver => :pointer,
+      :SDL_GetNumVideoDisplays => :int,
+      :SDL_GetDisplayName => :pointer,
+      :SDL_GetDisplayBounds => :int,
+      :SDL_GetDisplayUsableBounds => :int,
+      :SDL_GetDisplayDPI => :int,
+      :SDL_GetDisplayOrientation => :int,
+      :SDL_GetNumDisplayModes => :int,
+      :SDL_GetDisplayMode => :int,
+      :SDL_GetDesktopDisplayMode => :int,
+      :SDL_GetCurrentDisplayMode => :int,
+      :SDL_GetClosestDisplayMode => :pointer,
+      :SDL_GetWindowDisplayIndex => :int,
+      :SDL_SetWindowDisplayMode => :int,
+      :SDL_GetWindowDisplayMode => :int,
+      :SDL_GetWindowPixelFormat => :uint,
+      :SDL_CreateWindow => :pointer,
+      :SDL_CreateWindowFrom => :pointer,
+      :SDL_GetWindowID => :uint,
+      :SDL_GetWindowFromID => :pointer,
+      :SDL_GetWindowFlags => :uint,
+      :SDL_SetWindowTitle => :void,
+      :SDL_GetWindowTitle => :pointer,
+      :SDL_SetWindowIcon => :void,
+      :SDL_SetWindowData => :pointer,
+      :SDL_GetWindowData => :pointer,
+      :SDL_SetWindowPosition => :void,
+      :SDL_GetWindowPosition => :void,
+      :SDL_SetWindowSize => :void,
+      :SDL_GetWindowSize => :void,
+      :SDL_GetWindowBordersSize => :int,
+      :SDL_SetWindowMinimumSize => :void,
+      :SDL_GetWindowMinimumSize => :void,
+      :SDL_SetWindowMaximumSize => :void,
+      :SDL_GetWindowMaximumSize => :void,
+      :SDL_SetWindowBordered => :void,
+      :SDL_SetWindowResizable => :void,
+      :SDL_ShowWindow => :void,
+      :SDL_HideWindow => :void,
+      :SDL_RaiseWindow => :void,
+      :SDL_MaximizeWindow => :void,
+      :SDL_MinimizeWindow => :void,
+      :SDL_RestoreWindow => :void,
+      :SDL_SetWindowFullscreen => :int,
+      :SDL_GetWindowSurface => :pointer,
+      :SDL_UpdateWindowSurface => :int,
+      :SDL_UpdateWindowSurfaceRects => :int,
+      :SDL_SetWindowGrab => :void,
+      :SDL_GetWindowGrab => :int,
+      :SDL_GetGrabbedWindow => :pointer,
+      :SDL_SetWindowBrightness => :int,
+      :SDL_GetWindowBrightness => :float,
+      :SDL_SetWindowOpacity => :int,
+      :SDL_GetWindowOpacity => :int,
+      :SDL_SetWindowModalFor => :int,
+      :SDL_SetWindowInputFocus => :int,
+      :SDL_SetWindowGammaRamp => :int,
+      :SDL_GetWindowGammaRamp => :int,
+      :SDL_SetWindowHitTest => :int,
+      :SDL_DestroyWindow => :void,
+      :SDL_IsScreenSaverEnabled => :int,
+      :SDL_EnableScreenSaver => :void,
+      :SDL_DisableScreenSaver => :void,
+      :SDL_GL_LoadLibrary => :int,
+      :SDL_GL_GetProcAddress => :pointer,
+      :SDL_GL_UnloadLibrary => :void,
+      :SDL_GL_ExtensionSupported => :int,
+      :SDL_GL_ResetAttributes => :void,
+      :SDL_GL_SetAttribute => :int,
+      :SDL_GL_GetAttribute => :int,
+      :SDL_GL_CreateContext => :pointer,
+      :SDL_GL_MakeCurrent => :int,
+      :SDL_GL_GetCurrentWindow => :pointer,
+      :SDL_GL_GetCurrentContext => :pointer,
+      :SDL_GL_GetDrawableSize => :void,
+      :SDL_GL_SetSwapInterval => :int,
+      :SDL_GL_GetSwapInterval => :int,
+      :SDL_GL_SwapWindow => :void,
+      :SDL_GL_DeleteContext => :void,
+    }
+    video_symbols.each do |sym|
+      begin
+        attach_function sym, video_args[sym], video_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

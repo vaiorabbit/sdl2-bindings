@@ -23,14 +23,43 @@ module SDL2
   # Function
 
   def self.setup_gfx_rotozoom_symbols()
-      attach_function :rotozoomSurface, [:pointer, :double, :double, :int], :pointer
-      attach_function :rotozoomSurfaceXY, [:pointer, :double, :double, :double, :int], :pointer
-      attach_function :rotozoomSurfaceSize, [:int, :int, :double, :double, :pointer, :pointer], :void
-      attach_function :rotozoomSurfaceSizeXY, [:int, :int, :double, :double, :double, :pointer, :pointer], :void
-      attach_function :zoomSurface, [:pointer, :double, :double, :int], :pointer
-      attach_function :zoomSurfaceSize, [:int, :int, :double, :double, :pointer, :pointer], :void
-      attach_function :shrinkSurface, [:pointer, :int, :int], :pointer
-      attach_function :rotateSurface90Degrees, [:pointer, :int], :pointer
+    gfx_rotozoom_symbols = [
+      :rotozoomSurface,
+      :rotozoomSurfaceXY,
+      :rotozoomSurfaceSize,
+      :rotozoomSurfaceSizeXY,
+      :zoomSurface,
+      :zoomSurfaceSize,
+      :shrinkSurface,
+      :rotateSurface90Degrees,
+    ]
+    gfx_rotozoom_args = {
+      :rotozoomSurface => [:pointer, :double, :double, :int], 
+      :rotozoomSurfaceXY => [:pointer, :double, :double, :double, :int], 
+      :rotozoomSurfaceSize => [:int, :int, :double, :double, :pointer, :pointer], 
+      :rotozoomSurfaceSizeXY => [:int, :int, :double, :double, :double, :pointer, :pointer], 
+      :zoomSurface => [:pointer, :double, :double, :int], 
+      :zoomSurfaceSize => [:int, :int, :double, :double, :pointer, :pointer], 
+      :shrinkSurface => [:pointer, :int, :int], 
+      :rotateSurface90Degrees => [:pointer, :int], 
+    }
+    gfx_rotozoom_retvals = {
+      :rotozoomSurface => :pointer,
+      :rotozoomSurfaceXY => :pointer,
+      :rotozoomSurfaceSize => :void,
+      :rotozoomSurfaceSizeXY => :void,
+      :zoomSurface => :pointer,
+      :zoomSurfaceSize => :void,
+      :shrinkSurface => :pointer,
+      :rotateSurface90Degrees => :pointer,
+    }
+    gfx_rotozoom_symbols.each do |sym|
+      begin
+        attach_function sym, gfx_rotozoom_args[sym], gfx_rotozoom_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

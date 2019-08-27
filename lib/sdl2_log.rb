@@ -53,20 +53,61 @@ module SDL2
   # Function
 
   def self.setup_log_symbols()
-      attach_function :SDL_LogSetAllPriority, [:int], :void
-      attach_function :SDL_LogSetPriority, [:int, :int], :void
-      attach_function :SDL_LogGetPriority, [:int], :int
-      attach_function :SDL_LogResetPriorities, [], :void
-      attach_function :SDL_Log, [:pointer], :void
-      attach_function :SDL_LogVerbose, [:int, :pointer], :void
-      attach_function :SDL_LogDebug, [:int, :pointer], :void
-      attach_function :SDL_LogInfo, [:int, :pointer], :void
-      attach_function :SDL_LogWarn, [:int, :pointer], :void
-      attach_function :SDL_LogError, [:int, :pointer], :void
-      attach_function :SDL_LogCritical, [:int, :pointer], :void
-      attach_function :SDL_LogMessage, [:int, :int, :pointer], :void
-      attach_function :SDL_LogGetOutputFunction, [:pointer, :pointer], :void
-      attach_function :SDL_LogSetOutputFunction, [:pointer, :pointer], :void
+    log_symbols = [
+      :SDL_LogSetAllPriority,
+      :SDL_LogSetPriority,
+      :SDL_LogGetPriority,
+      :SDL_LogResetPriorities,
+      :SDL_Log,
+      :SDL_LogVerbose,
+      :SDL_LogDebug,
+      :SDL_LogInfo,
+      :SDL_LogWarn,
+      :SDL_LogError,
+      :SDL_LogCritical,
+      :SDL_LogMessage,
+      :SDL_LogGetOutputFunction,
+      :SDL_LogSetOutputFunction,
+    ]
+    log_args = {
+      :SDL_LogSetAllPriority => [:int], 
+      :SDL_LogSetPriority => [:int, :int], 
+      :SDL_LogGetPriority => [:int], 
+      :SDL_LogResetPriorities => [], 
+      :SDL_Log => [:pointer], 
+      :SDL_LogVerbose => [:int, :pointer], 
+      :SDL_LogDebug => [:int, :pointer], 
+      :SDL_LogInfo => [:int, :pointer], 
+      :SDL_LogWarn => [:int, :pointer], 
+      :SDL_LogError => [:int, :pointer], 
+      :SDL_LogCritical => [:int, :pointer], 
+      :SDL_LogMessage => [:int, :int, :pointer], 
+      :SDL_LogGetOutputFunction => [:pointer, :pointer], 
+      :SDL_LogSetOutputFunction => [:pointer, :pointer], 
+    }
+    log_retvals = {
+      :SDL_LogSetAllPriority => :void,
+      :SDL_LogSetPriority => :void,
+      :SDL_LogGetPriority => :int,
+      :SDL_LogResetPriorities => :void,
+      :SDL_Log => :void,
+      :SDL_LogVerbose => :void,
+      :SDL_LogDebug => :void,
+      :SDL_LogInfo => :void,
+      :SDL_LogWarn => :void,
+      :SDL_LogError => :void,
+      :SDL_LogCritical => :void,
+      :SDL_LogMessage => :void,
+      :SDL_LogGetOutputFunction => :void,
+      :SDL_LogSetOutputFunction => :void,
+    }
+    log_symbols.each do |sym|
+      begin
+        attach_function sym, log_args[sym], log_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

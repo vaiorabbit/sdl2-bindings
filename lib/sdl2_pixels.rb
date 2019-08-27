@@ -151,20 +151,61 @@ module SDL2
   # Function
 
   def self.setup_pixels_symbols()
-      attach_function :SDL_GetPixelFormatName, [:uint], :pointer
-      attach_function :SDL_PixelFormatEnumToMasks, [:uint, :pointer, :pointer, :pointer, :pointer, :pointer], :int
-      attach_function :SDL_MasksToPixelFormatEnum, [:int, :uint, :uint, :uint, :uint], :uint
-      attach_function :SDL_AllocFormat, [:uint], :pointer
-      attach_function :SDL_FreeFormat, [:pointer], :void
-      attach_function :SDL_AllocPalette, [:int], :pointer
-      attach_function :SDL_SetPixelFormatPalette, [:pointer, :pointer], :int
-      attach_function :SDL_SetPaletteColors, [:pointer, :pointer, :int, :int], :int
-      attach_function :SDL_FreePalette, [:pointer], :void
-      attach_function :SDL_MapRGB, [:pointer, :uchar, :uchar, :uchar], :uint
-      attach_function :SDL_MapRGBA, [:pointer, :uchar, :uchar, :uchar, :uchar], :uint
-      attach_function :SDL_GetRGB, [:uint, :pointer, :pointer, :pointer, :pointer], :void
-      attach_function :SDL_GetRGBA, [:uint, :pointer, :pointer, :pointer, :pointer, :pointer], :void
-      attach_function :SDL_CalculateGammaRamp, [:float, :pointer], :void
+    pixels_symbols = [
+      :SDL_GetPixelFormatName,
+      :SDL_PixelFormatEnumToMasks,
+      :SDL_MasksToPixelFormatEnum,
+      :SDL_AllocFormat,
+      :SDL_FreeFormat,
+      :SDL_AllocPalette,
+      :SDL_SetPixelFormatPalette,
+      :SDL_SetPaletteColors,
+      :SDL_FreePalette,
+      :SDL_MapRGB,
+      :SDL_MapRGBA,
+      :SDL_GetRGB,
+      :SDL_GetRGBA,
+      :SDL_CalculateGammaRamp,
+    ]
+    pixels_args = {
+      :SDL_GetPixelFormatName => [:uint], 
+      :SDL_PixelFormatEnumToMasks => [:uint, :pointer, :pointer, :pointer, :pointer, :pointer], 
+      :SDL_MasksToPixelFormatEnum => [:int, :uint, :uint, :uint, :uint], 
+      :SDL_AllocFormat => [:uint], 
+      :SDL_FreeFormat => [:pointer], 
+      :SDL_AllocPalette => [:int], 
+      :SDL_SetPixelFormatPalette => [:pointer, :pointer], 
+      :SDL_SetPaletteColors => [:pointer, :pointer, :int, :int], 
+      :SDL_FreePalette => [:pointer], 
+      :SDL_MapRGB => [:pointer, :uchar, :uchar, :uchar], 
+      :SDL_MapRGBA => [:pointer, :uchar, :uchar, :uchar, :uchar], 
+      :SDL_GetRGB => [:uint, :pointer, :pointer, :pointer, :pointer], 
+      :SDL_GetRGBA => [:uint, :pointer, :pointer, :pointer, :pointer, :pointer], 
+      :SDL_CalculateGammaRamp => [:float, :pointer], 
+    }
+    pixels_retvals = {
+      :SDL_GetPixelFormatName => :pointer,
+      :SDL_PixelFormatEnumToMasks => :int,
+      :SDL_MasksToPixelFormatEnum => :uint,
+      :SDL_AllocFormat => :pointer,
+      :SDL_FreeFormat => :void,
+      :SDL_AllocPalette => :pointer,
+      :SDL_SetPixelFormatPalette => :int,
+      :SDL_SetPaletteColors => :int,
+      :SDL_FreePalette => :void,
+      :SDL_MapRGB => :uint,
+      :SDL_MapRGBA => :uint,
+      :SDL_GetRGB => :void,
+      :SDL_GetRGBA => :void,
+      :SDL_CalculateGammaRamp => :void,
+    }
+    pixels_symbols.each do |sym|
+      begin
+        attach_function sym, pixels_args[sym], pixels_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

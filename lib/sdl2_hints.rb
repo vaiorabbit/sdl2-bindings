@@ -28,13 +28,40 @@ module SDL2
   # Function
 
   def self.setup_hints_symbols()
-      attach_function :SDL_SetHintWithPriority, [:pointer, :pointer, :int], :int
-      attach_function :SDL_SetHint, [:pointer, :pointer], :int
-      attach_function :SDL_GetHint, [:pointer], :pointer
-      attach_function :SDL_GetHintBoolean, [:pointer, :int], :int
-      attach_function :SDL_AddHintCallback, [:pointer, :pointer, :pointer], :void
-      attach_function :SDL_DelHintCallback, [:pointer, :pointer, :pointer], :void
-      attach_function :SDL_ClearHints, [], :void
+    hints_symbols = [
+      :SDL_SetHintWithPriority,
+      :SDL_SetHint,
+      :SDL_GetHint,
+      :SDL_GetHintBoolean,
+      :SDL_AddHintCallback,
+      :SDL_DelHintCallback,
+      :SDL_ClearHints,
+    ]
+    hints_args = {
+      :SDL_SetHintWithPriority => [:pointer, :pointer, :int], 
+      :SDL_SetHint => [:pointer, :pointer], 
+      :SDL_GetHint => [:pointer], 
+      :SDL_GetHintBoolean => [:pointer, :int], 
+      :SDL_AddHintCallback => [:pointer, :pointer, :pointer], 
+      :SDL_DelHintCallback => [:pointer, :pointer, :pointer], 
+      :SDL_ClearHints => [], 
+    }
+    hints_retvals = {
+      :SDL_SetHintWithPriority => :int,
+      :SDL_SetHint => :int,
+      :SDL_GetHint => :pointer,
+      :SDL_GetHintBoolean => :int,
+      :SDL_AddHintCallback => :void,
+      :SDL_DelHintCallback => :void,
+      :SDL_ClearHints => :void,
+    }
+    hints_symbols.each do |sym|
+      begin
+        attach_function sym, hints_args[sym], hints_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

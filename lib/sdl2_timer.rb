@@ -25,12 +25,37 @@ module SDL2
   # Function
 
   def self.setup_timer_symbols()
-      attach_function :SDL_GetTicks, [], :uint
-      attach_function :SDL_GetPerformanceCounter, [], :ulong_long
-      attach_function :SDL_GetPerformanceFrequency, [], :ulong_long
-      attach_function :SDL_Delay, [:uint], :void
-      attach_function :SDL_AddTimer, [:uint, :pointer, :pointer], :int
-      attach_function :SDL_RemoveTimer, [:int], :int
+    timer_symbols = [
+      :SDL_GetTicks,
+      :SDL_GetPerformanceCounter,
+      :SDL_GetPerformanceFrequency,
+      :SDL_Delay,
+      :SDL_AddTimer,
+      :SDL_RemoveTimer,
+    ]
+    timer_args = {
+      :SDL_GetTicks => [], 
+      :SDL_GetPerformanceCounter => [], 
+      :SDL_GetPerformanceFrequency => [], 
+      :SDL_Delay => [:uint], 
+      :SDL_AddTimer => [:uint, :pointer, :pointer], 
+      :SDL_RemoveTimer => [:int], 
+    }
+    timer_retvals = {
+      :SDL_GetTicks => :uint,
+      :SDL_GetPerformanceCounter => :ulong_long,
+      :SDL_GetPerformanceFrequency => :ulong_long,
+      :SDL_Delay => :void,
+      :SDL_AddTimer => :int,
+      :SDL_RemoveTimer => :int,
+    }
+    timer_symbols.each do |sym|
+      begin
+        attach_function sym, timer_args[sym], timer_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

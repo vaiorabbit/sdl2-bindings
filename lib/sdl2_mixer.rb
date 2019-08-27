@@ -57,82 +57,247 @@ module SDL2
   # Function
 
   def self.setup_mixer_symbols()
-      attach_function :Mix_Linked_Version, [], :pointer
-      attach_function :Mix_Init, [:int], :int
-      attach_function :Mix_Quit, [], :void
-      attach_function :Mix_OpenAudio, [:int, :ushort, :int, :int], :int
-      attach_function :Mix_OpenAudioDevice, [:int, :ushort, :int, :int, :pointer, :int], :int
-      attach_function :Mix_AllocateChannels, [:int], :int
-      attach_function :Mix_QuerySpec, [:pointer, :pointer, :pointer], :int
-      attach_function :Mix_LoadWAV_RW, [:pointer, :int], :pointer
-      attach_function :Mix_LoadMUS, [:pointer], :pointer
-      attach_function :Mix_LoadMUS_RW, [:pointer, :int], :pointer
-      attach_function :Mix_LoadMUSType_RW, [:pointer, :int, :int], :pointer
-      attach_function :Mix_QuickLoad_WAV, [:pointer], :pointer
-      attach_function :Mix_QuickLoad_RAW, [:pointer, :uint], :pointer
-      attach_function :Mix_FreeChunk, [:pointer], :void
-      attach_function :Mix_FreeMusic, [:pointer], :void
-      attach_function :Mix_GetNumChunkDecoders, [], :int
-      attach_function :Mix_GetChunkDecoder, [:int], :pointer
-      attach_function :Mix_HasChunkDecoder, [:pointer], :int
-      attach_function :Mix_GetNumMusicDecoders, [], :int
-      attach_function :Mix_GetMusicDecoder, [:int], :pointer
-      attach_function :Mix_HasMusicDecoder, [:pointer], :int
-      attach_function :Mix_GetMusicType, [:pointer], :int
-      attach_function :Mix_SetPostMix, [:pointer, :pointer], :void
-      attach_function :Mix_HookMusic, [:pointer, :pointer], :void
-      attach_function :Mix_HookMusicFinished, [:pointer], :void
-      attach_function :Mix_GetMusicHookData, [], :pointer
-      attach_function :Mix_ChannelFinished, [:pointer], :void
-      attach_function :Mix_RegisterEffect, [:int, :pointer, :pointer, :pointer], :int
-      attach_function :Mix_UnregisterEffect, [:int, :pointer], :int
-      attach_function :Mix_UnregisterAllEffects, [:int], :int
-      attach_function :Mix_SetPanning, [:int, :uchar, :uchar], :int
-      attach_function :Mix_SetPosition, [:int, :short, :uchar], :int
-      attach_function :Mix_SetDistance, [:int, :uchar], :int
-      attach_function :Mix_SetReverseStereo, [:int, :int], :int
-      attach_function :Mix_ReserveChannels, [:int], :int
-      attach_function :Mix_GroupChannel, [:int, :int], :int
-      attach_function :Mix_GroupChannels, [:int, :int, :int], :int
-      attach_function :Mix_GroupAvailable, [:int], :int
-      attach_function :Mix_GroupCount, [:int], :int
-      attach_function :Mix_GroupOldest, [:int], :int
-      attach_function :Mix_GroupNewer, [:int], :int
-      attach_function :Mix_PlayChannelTimed, [:int, :pointer, :int, :int], :int
-      attach_function :Mix_PlayMusic, [:pointer, :int], :int
-      attach_function :Mix_FadeInMusic, [:pointer, :int, :int], :int
-      attach_function :Mix_FadeInMusicPos, [:pointer, :int, :int, :double], :int
-      attach_function :Mix_FadeInChannelTimed, [:int, :pointer, :int, :int, :int], :int
-      attach_function :Mix_Volume, [:int, :int], :int
-      attach_function :Mix_VolumeChunk, [:pointer, :int], :int
-      attach_function :Mix_VolumeMusic, [:int], :int
-      attach_function :Mix_HaltChannel, [:int], :int
-      attach_function :Mix_HaltGroup, [:int], :int
-      attach_function :Mix_HaltMusic, [], :int
-      attach_function :Mix_ExpireChannel, [:int, :int], :int
-      attach_function :Mix_FadeOutChannel, [:int, :int], :int
-      attach_function :Mix_FadeOutGroup, [:int, :int], :int
-      attach_function :Mix_FadeOutMusic, [:int], :int
-      attach_function :Mix_FadingMusic, [], :int
-      attach_function :Mix_FadingChannel, [:int], :int
-      attach_function :Mix_Pause, [:int], :void
-      attach_function :Mix_Resume, [:int], :void
-      attach_function :Mix_Paused, [:int], :int
-      attach_function :Mix_PauseMusic, [], :void
-      attach_function :Mix_ResumeMusic, [], :void
-      attach_function :Mix_RewindMusic, [], :void
-      attach_function :Mix_PausedMusic, [], :int
-      attach_function :Mix_SetMusicPosition, [:double], :int
-      attach_function :Mix_Playing, [:int], :int
-      attach_function :Mix_PlayingMusic, [], :int
-      attach_function :Mix_SetMusicCMD, [:pointer], :int
-      attach_function :Mix_SetSynchroValue, [:int], :int
-      attach_function :Mix_GetSynchroValue, [], :int
-      attach_function :Mix_SetSoundFonts, [:pointer], :int
-      attach_function :Mix_GetSoundFonts, [], :pointer
-      attach_function :Mix_EachSoundFont, [:pointer, :pointer], :int
-      attach_function :Mix_GetChunk, [:int], :pointer
-      attach_function :Mix_CloseAudio, [], :void
+    mixer_symbols = [
+      :Mix_Linked_Version,
+      :Mix_Init,
+      :Mix_Quit,
+      :Mix_OpenAudio,
+      :Mix_OpenAudioDevice,
+      :Mix_AllocateChannels,
+      :Mix_QuerySpec,
+      :Mix_LoadWAV_RW,
+      :Mix_LoadMUS,
+      :Mix_LoadMUS_RW,
+      :Mix_LoadMUSType_RW,
+      :Mix_QuickLoad_WAV,
+      :Mix_QuickLoad_RAW,
+      :Mix_FreeChunk,
+      :Mix_FreeMusic,
+      :Mix_GetNumChunkDecoders,
+      :Mix_GetChunkDecoder,
+      :Mix_HasChunkDecoder,
+      :Mix_GetNumMusicDecoders,
+      :Mix_GetMusicDecoder,
+      :Mix_HasMusicDecoder,
+      :Mix_GetMusicType,
+      :Mix_SetPostMix,
+      :Mix_HookMusic,
+      :Mix_HookMusicFinished,
+      :Mix_GetMusicHookData,
+      :Mix_ChannelFinished,
+      :Mix_RegisterEffect,
+      :Mix_UnregisterEffect,
+      :Mix_UnregisterAllEffects,
+      :Mix_SetPanning,
+      :Mix_SetPosition,
+      :Mix_SetDistance,
+      :Mix_SetReverseStereo,
+      :Mix_ReserveChannels,
+      :Mix_GroupChannel,
+      :Mix_GroupChannels,
+      :Mix_GroupAvailable,
+      :Mix_GroupCount,
+      :Mix_GroupOldest,
+      :Mix_GroupNewer,
+      :Mix_PlayChannelTimed,
+      :Mix_PlayMusic,
+      :Mix_FadeInMusic,
+      :Mix_FadeInMusicPos,
+      :Mix_FadeInChannelTimed,
+      :Mix_Volume,
+      :Mix_VolumeChunk,
+      :Mix_VolumeMusic,
+      :Mix_HaltChannel,
+      :Mix_HaltGroup,
+      :Mix_HaltMusic,
+      :Mix_ExpireChannel,
+      :Mix_FadeOutChannel,
+      :Mix_FadeOutGroup,
+      :Mix_FadeOutMusic,
+      :Mix_FadingMusic,
+      :Mix_FadingChannel,
+      :Mix_Pause,
+      :Mix_Resume,
+      :Mix_Paused,
+      :Mix_PauseMusic,
+      :Mix_ResumeMusic,
+      :Mix_RewindMusic,
+      :Mix_PausedMusic,
+      :Mix_SetMusicPosition,
+      :Mix_Playing,
+      :Mix_PlayingMusic,
+      :Mix_SetMusicCMD,
+      :Mix_SetSynchroValue,
+      :Mix_GetSynchroValue,
+      :Mix_SetSoundFonts,
+      :Mix_GetSoundFonts,
+      :Mix_EachSoundFont,
+      :Mix_GetChunk,
+      :Mix_CloseAudio,
+    ]
+    mixer_args = {
+      :Mix_Linked_Version => [], 
+      :Mix_Init => [:int], 
+      :Mix_Quit => [], 
+      :Mix_OpenAudio => [:int, :ushort, :int, :int], 
+      :Mix_OpenAudioDevice => [:int, :ushort, :int, :int, :pointer, :int], 
+      :Mix_AllocateChannels => [:int], 
+      :Mix_QuerySpec => [:pointer, :pointer, :pointer], 
+      :Mix_LoadWAV_RW => [:pointer, :int], 
+      :Mix_LoadMUS => [:pointer], 
+      :Mix_LoadMUS_RW => [:pointer, :int], 
+      :Mix_LoadMUSType_RW => [:pointer, :int, :int], 
+      :Mix_QuickLoad_WAV => [:pointer], 
+      :Mix_QuickLoad_RAW => [:pointer, :uint], 
+      :Mix_FreeChunk => [:pointer], 
+      :Mix_FreeMusic => [:pointer], 
+      :Mix_GetNumChunkDecoders => [], 
+      :Mix_GetChunkDecoder => [:int], 
+      :Mix_HasChunkDecoder => [:pointer], 
+      :Mix_GetNumMusicDecoders => [], 
+      :Mix_GetMusicDecoder => [:int], 
+      :Mix_HasMusicDecoder => [:pointer], 
+      :Mix_GetMusicType => [:pointer], 
+      :Mix_SetPostMix => [:pointer, :pointer], 
+      :Mix_HookMusic => [:pointer, :pointer], 
+      :Mix_HookMusicFinished => [:pointer], 
+      :Mix_GetMusicHookData => [], 
+      :Mix_ChannelFinished => [:pointer], 
+      :Mix_RegisterEffect => [:int, :pointer, :pointer, :pointer], 
+      :Mix_UnregisterEffect => [:int, :pointer], 
+      :Mix_UnregisterAllEffects => [:int], 
+      :Mix_SetPanning => [:int, :uchar, :uchar], 
+      :Mix_SetPosition => [:int, :short, :uchar], 
+      :Mix_SetDistance => [:int, :uchar], 
+      :Mix_SetReverseStereo => [:int, :int], 
+      :Mix_ReserveChannels => [:int], 
+      :Mix_GroupChannel => [:int, :int], 
+      :Mix_GroupChannels => [:int, :int, :int], 
+      :Mix_GroupAvailable => [:int], 
+      :Mix_GroupCount => [:int], 
+      :Mix_GroupOldest => [:int], 
+      :Mix_GroupNewer => [:int], 
+      :Mix_PlayChannelTimed => [:int, :pointer, :int, :int], 
+      :Mix_PlayMusic => [:pointer, :int], 
+      :Mix_FadeInMusic => [:pointer, :int, :int], 
+      :Mix_FadeInMusicPos => [:pointer, :int, :int, :double], 
+      :Mix_FadeInChannelTimed => [:int, :pointer, :int, :int, :int], 
+      :Mix_Volume => [:int, :int], 
+      :Mix_VolumeChunk => [:pointer, :int], 
+      :Mix_VolumeMusic => [:int], 
+      :Mix_HaltChannel => [:int], 
+      :Mix_HaltGroup => [:int], 
+      :Mix_HaltMusic => [], 
+      :Mix_ExpireChannel => [:int, :int], 
+      :Mix_FadeOutChannel => [:int, :int], 
+      :Mix_FadeOutGroup => [:int, :int], 
+      :Mix_FadeOutMusic => [:int], 
+      :Mix_FadingMusic => [], 
+      :Mix_FadingChannel => [:int], 
+      :Mix_Pause => [:int], 
+      :Mix_Resume => [:int], 
+      :Mix_Paused => [:int], 
+      :Mix_PauseMusic => [], 
+      :Mix_ResumeMusic => [], 
+      :Mix_RewindMusic => [], 
+      :Mix_PausedMusic => [], 
+      :Mix_SetMusicPosition => [:double], 
+      :Mix_Playing => [:int], 
+      :Mix_PlayingMusic => [], 
+      :Mix_SetMusicCMD => [:pointer], 
+      :Mix_SetSynchroValue => [:int], 
+      :Mix_GetSynchroValue => [], 
+      :Mix_SetSoundFonts => [:pointer], 
+      :Mix_GetSoundFonts => [], 
+      :Mix_EachSoundFont => [:pointer, :pointer], 
+      :Mix_GetChunk => [:int], 
+      :Mix_CloseAudio => [], 
+    }
+    mixer_retvals = {
+      :Mix_Linked_Version => :pointer,
+      :Mix_Init => :int,
+      :Mix_Quit => :void,
+      :Mix_OpenAudio => :int,
+      :Mix_OpenAudioDevice => :int,
+      :Mix_AllocateChannels => :int,
+      :Mix_QuerySpec => :int,
+      :Mix_LoadWAV_RW => :pointer,
+      :Mix_LoadMUS => :pointer,
+      :Mix_LoadMUS_RW => :pointer,
+      :Mix_LoadMUSType_RW => :pointer,
+      :Mix_QuickLoad_WAV => :pointer,
+      :Mix_QuickLoad_RAW => :pointer,
+      :Mix_FreeChunk => :void,
+      :Mix_FreeMusic => :void,
+      :Mix_GetNumChunkDecoders => :int,
+      :Mix_GetChunkDecoder => :pointer,
+      :Mix_HasChunkDecoder => :int,
+      :Mix_GetNumMusicDecoders => :int,
+      :Mix_GetMusicDecoder => :pointer,
+      :Mix_HasMusicDecoder => :int,
+      :Mix_GetMusicType => :int,
+      :Mix_SetPostMix => :void,
+      :Mix_HookMusic => :void,
+      :Mix_HookMusicFinished => :void,
+      :Mix_GetMusicHookData => :pointer,
+      :Mix_ChannelFinished => :void,
+      :Mix_RegisterEffect => :int,
+      :Mix_UnregisterEffect => :int,
+      :Mix_UnregisterAllEffects => :int,
+      :Mix_SetPanning => :int,
+      :Mix_SetPosition => :int,
+      :Mix_SetDistance => :int,
+      :Mix_SetReverseStereo => :int,
+      :Mix_ReserveChannels => :int,
+      :Mix_GroupChannel => :int,
+      :Mix_GroupChannels => :int,
+      :Mix_GroupAvailable => :int,
+      :Mix_GroupCount => :int,
+      :Mix_GroupOldest => :int,
+      :Mix_GroupNewer => :int,
+      :Mix_PlayChannelTimed => :int,
+      :Mix_PlayMusic => :int,
+      :Mix_FadeInMusic => :int,
+      :Mix_FadeInMusicPos => :int,
+      :Mix_FadeInChannelTimed => :int,
+      :Mix_Volume => :int,
+      :Mix_VolumeChunk => :int,
+      :Mix_VolumeMusic => :int,
+      :Mix_HaltChannel => :int,
+      :Mix_HaltGroup => :int,
+      :Mix_HaltMusic => :int,
+      :Mix_ExpireChannel => :int,
+      :Mix_FadeOutChannel => :int,
+      :Mix_FadeOutGroup => :int,
+      :Mix_FadeOutMusic => :int,
+      :Mix_FadingMusic => :int,
+      :Mix_FadingChannel => :int,
+      :Mix_Pause => :void,
+      :Mix_Resume => :void,
+      :Mix_Paused => :int,
+      :Mix_PauseMusic => :void,
+      :Mix_ResumeMusic => :void,
+      :Mix_RewindMusic => :void,
+      :Mix_PausedMusic => :int,
+      :Mix_SetMusicPosition => :int,
+      :Mix_Playing => :int,
+      :Mix_PlayingMusic => :int,
+      :Mix_SetMusicCMD => :int,
+      :Mix_SetSynchroValue => :int,
+      :Mix_GetSynchroValue => :int,
+      :Mix_SetSoundFonts => :int,
+      :Mix_GetSoundFonts => :pointer,
+      :Mix_EachSoundFont => :int,
+      :Mix_GetChunk => :pointer,
+      :Mix_CloseAudio => :void,
+    }
+    mixer_symbols.each do |sym|
+      begin
+        attach_function sym, mixer_args[sym], mixer_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

@@ -159,36 +159,109 @@ module SDL2
   # Function
 
   def self.setup_haptic_symbols()
-      attach_function :SDL_NumHaptics, [], :int
-      attach_function :SDL_HapticName, [:int], :pointer
-      attach_function :SDL_HapticOpen, [:int], :pointer
-      attach_function :SDL_HapticOpened, [:int], :int
-      attach_function :SDL_HapticIndex, [:pointer], :int
-      attach_function :SDL_MouseIsHaptic, [], :int
-      attach_function :SDL_HapticOpenFromMouse, [], :pointer
-      attach_function :SDL_JoystickIsHaptic, [:pointer], :int
-      attach_function :SDL_HapticOpenFromJoystick, [:pointer], :pointer
-      attach_function :SDL_HapticClose, [:pointer], :void
-      attach_function :SDL_HapticNumEffects, [:pointer], :int
-      attach_function :SDL_HapticNumEffectsPlaying, [:pointer], :int
-      attach_function :SDL_HapticQuery, [:pointer], :uint
-      attach_function :SDL_HapticNumAxes, [:pointer], :int
-      attach_function :SDL_HapticEffectSupported, [:pointer, :pointer], :int
-      attach_function :SDL_HapticNewEffect, [:pointer, :pointer], :int
-      attach_function :SDL_HapticUpdateEffect, [:pointer, :int, :pointer], :int
-      attach_function :SDL_HapticRunEffect, [:pointer, :int, :uint], :int
-      attach_function :SDL_HapticStopEffect, [:pointer, :int], :int
-      attach_function :SDL_HapticDestroyEffect, [:pointer, :int], :void
-      attach_function :SDL_HapticGetEffectStatus, [:pointer, :int], :int
-      attach_function :SDL_HapticSetGain, [:pointer, :int], :int
-      attach_function :SDL_HapticSetAutocenter, [:pointer, :int], :int
-      attach_function :SDL_HapticPause, [:pointer], :int
-      attach_function :SDL_HapticUnpause, [:pointer], :int
-      attach_function :SDL_HapticStopAll, [:pointer], :int
-      attach_function :SDL_HapticRumbleSupported, [:pointer], :int
-      attach_function :SDL_HapticRumbleInit, [:pointer], :int
-      attach_function :SDL_HapticRumblePlay, [:pointer, :float, :uint], :int
-      attach_function :SDL_HapticRumbleStop, [:pointer], :int
+    haptic_symbols = [
+      :SDL_NumHaptics,
+      :SDL_HapticName,
+      :SDL_HapticOpen,
+      :SDL_HapticOpened,
+      :SDL_HapticIndex,
+      :SDL_MouseIsHaptic,
+      :SDL_HapticOpenFromMouse,
+      :SDL_JoystickIsHaptic,
+      :SDL_HapticOpenFromJoystick,
+      :SDL_HapticClose,
+      :SDL_HapticNumEffects,
+      :SDL_HapticNumEffectsPlaying,
+      :SDL_HapticQuery,
+      :SDL_HapticNumAxes,
+      :SDL_HapticEffectSupported,
+      :SDL_HapticNewEffect,
+      :SDL_HapticUpdateEffect,
+      :SDL_HapticRunEffect,
+      :SDL_HapticStopEffect,
+      :SDL_HapticDestroyEffect,
+      :SDL_HapticGetEffectStatus,
+      :SDL_HapticSetGain,
+      :SDL_HapticSetAutocenter,
+      :SDL_HapticPause,
+      :SDL_HapticUnpause,
+      :SDL_HapticStopAll,
+      :SDL_HapticRumbleSupported,
+      :SDL_HapticRumbleInit,
+      :SDL_HapticRumblePlay,
+      :SDL_HapticRumbleStop,
+    ]
+    haptic_args = {
+      :SDL_NumHaptics => [], 
+      :SDL_HapticName => [:int], 
+      :SDL_HapticOpen => [:int], 
+      :SDL_HapticOpened => [:int], 
+      :SDL_HapticIndex => [:pointer], 
+      :SDL_MouseIsHaptic => [], 
+      :SDL_HapticOpenFromMouse => [], 
+      :SDL_JoystickIsHaptic => [:pointer], 
+      :SDL_HapticOpenFromJoystick => [:pointer], 
+      :SDL_HapticClose => [:pointer], 
+      :SDL_HapticNumEffects => [:pointer], 
+      :SDL_HapticNumEffectsPlaying => [:pointer], 
+      :SDL_HapticQuery => [:pointer], 
+      :SDL_HapticNumAxes => [:pointer], 
+      :SDL_HapticEffectSupported => [:pointer, :pointer], 
+      :SDL_HapticNewEffect => [:pointer, :pointer], 
+      :SDL_HapticUpdateEffect => [:pointer, :int, :pointer], 
+      :SDL_HapticRunEffect => [:pointer, :int, :uint], 
+      :SDL_HapticStopEffect => [:pointer, :int], 
+      :SDL_HapticDestroyEffect => [:pointer, :int], 
+      :SDL_HapticGetEffectStatus => [:pointer, :int], 
+      :SDL_HapticSetGain => [:pointer, :int], 
+      :SDL_HapticSetAutocenter => [:pointer, :int], 
+      :SDL_HapticPause => [:pointer], 
+      :SDL_HapticUnpause => [:pointer], 
+      :SDL_HapticStopAll => [:pointer], 
+      :SDL_HapticRumbleSupported => [:pointer], 
+      :SDL_HapticRumbleInit => [:pointer], 
+      :SDL_HapticRumblePlay => [:pointer, :float, :uint], 
+      :SDL_HapticRumbleStop => [:pointer], 
+    }
+    haptic_retvals = {
+      :SDL_NumHaptics => :int,
+      :SDL_HapticName => :pointer,
+      :SDL_HapticOpen => :pointer,
+      :SDL_HapticOpened => :int,
+      :SDL_HapticIndex => :int,
+      :SDL_MouseIsHaptic => :int,
+      :SDL_HapticOpenFromMouse => :pointer,
+      :SDL_JoystickIsHaptic => :int,
+      :SDL_HapticOpenFromJoystick => :pointer,
+      :SDL_HapticClose => :void,
+      :SDL_HapticNumEffects => :int,
+      :SDL_HapticNumEffectsPlaying => :int,
+      :SDL_HapticQuery => :uint,
+      :SDL_HapticNumAxes => :int,
+      :SDL_HapticEffectSupported => :int,
+      :SDL_HapticNewEffect => :int,
+      :SDL_HapticUpdateEffect => :int,
+      :SDL_HapticRunEffect => :int,
+      :SDL_HapticStopEffect => :int,
+      :SDL_HapticDestroyEffect => :void,
+      :SDL_HapticGetEffectStatus => :int,
+      :SDL_HapticSetGain => :int,
+      :SDL_HapticSetAutocenter => :int,
+      :SDL_HapticPause => :int,
+      :SDL_HapticUnpause => :int,
+      :SDL_HapticStopAll => :int,
+      :SDL_HapticRumbleSupported => :int,
+      :SDL_HapticRumbleInit => :int,
+      :SDL_HapticRumblePlay => :int,
+      :SDL_HapticRumbleStop => :int,
+    }
+    haptic_symbols.each do |sym|
+      begin
+        attach_function sym, haptic_args[sym], haptic_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end

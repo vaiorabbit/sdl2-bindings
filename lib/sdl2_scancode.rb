@@ -268,6 +268,19 @@ module SDL2
   # Function
 
   def self.setup_scancode_symbols()
+    scancode_symbols = [
+    ]
+    scancode_args = {
+    }
+    scancode_retvals = {
+    }
+    scancode_symbols.each do |sym|
+      begin
+        attach_function sym, scancode_args[sym], scancode_retvals[sym]
+      rescue FFI::NotFoundError => error
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+      end
+    end
   end
 
 end
