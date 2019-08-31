@@ -1,11 +1,10 @@
 # coding: utf-8
-require_relative 'lib/sdl2'
+require_relative '../lib/sdl2'
 
 include SDL2
 
 if __FILE__ == $0
-  SDL2.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
-  SDL_SetMainReady()
+  SDL2.load_lib('/usr/local/lib/libSDL2.dylib')
   success = SDL_Init(SDL_INIT_EVERYTHING)
   exit if success != 0
 
@@ -16,25 +15,25 @@ if __FILE__ == $0
                                      nil)
 
   # SDL_ShowMessageBox
-  buttons =  Fiddle::Pointer.malloc(SDL_MessageBoxButtonData.size * 2)
-  button = [SDL_MessageBoxButtonData.new(buttons.to_i + 0), SDL_MessageBoxButtonData.new(buttons.to_i + SDL_MessageBoxButtonData.size)]
+  buttons = FFI::MemoryPointer.new(SDL_MessageBoxButtonData, 2)
+  button = [SDL_MessageBoxButtonData.new(buttons[0]), SDL_MessageBoxButtonData.new(buttons[1])]
 
-  button[0].flags = SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT
-  button[0].buttonid = 0
-  button[0].text = "OK"
+  button[0][:flags] = SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT
+  button[0][:buttonid] = 0
+  button[0][:text] = FFI::MemoryPointer.from_string("OK")
 
-  button[1].flags = SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT
-  button[1].buttonid = 1
-  button[1].text = "Cancel"
+  button[1][:flags] = SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT
+  button[1][:buttonid] = 1
+  button[1][:text] = FFI::MemoryPointer.from_string("Cancel")
 
-  data = SDL_MessageBoxData.malloc
-  data.flags = SDL_MESSAGEBOX_INFORMATION
-  data.window = nil
-  data.title = "Custom MessageBox"
-  data.message = "カスタマイズされたメッセージボックスの利用例です。"
-  data.numbuttons = 2
-  data.buttons = buttons
-  data.colorScheme = nil
+  data = SDL_MessageBoxData.new
+  data[:flags] = SDL_MESSAGEBOX_INFORMATION
+  data[:window] = nil
+  data[:title] = FFI::MemoryPointer.from_string("Custom MessageBox")
+  data[:message] = FFI::MemoryPointer.from_string("カスタマイズされたメッセージボックスの利用例です。")
+  data[:numbuttons] = 2
+  data[:buttons] = buttons
+  data[:colorScheme] = nil
 
   success = SDL_ShowMessageBox(data, buttons)
 
