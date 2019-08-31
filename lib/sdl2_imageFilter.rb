@@ -23,7 +23,7 @@ module SDL2
   # Function
 
   def self.setup_gfx_imagefilter_symbols()
-    gfx_imagefilter_symbols = [
+    symbols = [
       :SDL_imageFilterMMXdetect,
       :SDL_imageFilterMMXoff,
       :SDL_imageFilterMMXon,
@@ -55,39 +55,39 @@ module SDL2
       :SDL_imageFilterClipToRange,
       :SDL_imageFilterNormalizeLinear,
     ]
-    gfx_imagefilter_args = {
-      :SDL_imageFilterMMXdetect => [], 
-      :SDL_imageFilterMMXoff => [], 
-      :SDL_imageFilterMMXon => [], 
-      :SDL_imageFilterAdd => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterMean => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterSub => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterAbsDiff => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterMult => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterMultNor => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterMultDivby2 => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterMultDivby4 => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterBitAnd => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterBitOr => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterDiv => [:pointer, :pointer, :pointer, :uint], 
-      :SDL_imageFilterBitNegation => [:pointer, :pointer, :uint], 
-      :SDL_imageFilterAddByte => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterAddUint => [:pointer, :pointer, :uint, :uint], 
-      :SDL_imageFilterAddByteToHalf => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterSubByte => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterSubUint => [:pointer, :pointer, :uint, :uint], 
-      :SDL_imageFilterShiftRight => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterShiftRightUint => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterMultByByte => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterShiftRightAndMultByByte => [:pointer, :pointer, :uint, :uchar, :uchar], 
-      :SDL_imageFilterShiftLeftByte => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterShiftLeftUint => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterShiftLeft => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterBinarizeUsingThreshold => [:pointer, :pointer, :uint, :uchar], 
-      :SDL_imageFilterClipToRange => [:pointer, :pointer, :uint, :uchar, :uchar], 
-      :SDL_imageFilterNormalizeLinear => [:pointer, :pointer, :uint, :int, :int, :int, :int], 
+    args = {
+      :SDL_imageFilterMMXdetect => [],
+      :SDL_imageFilterMMXoff => [],
+      :SDL_imageFilterMMXon => [],
+      :SDL_imageFilterAdd => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterMean => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterSub => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterAbsDiff => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterMult => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterMultNor => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterMultDivby2 => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterMultDivby4 => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterBitAnd => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterBitOr => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterDiv => [:pointer, :pointer, :pointer, :uint],
+      :SDL_imageFilterBitNegation => [:pointer, :pointer, :uint],
+      :SDL_imageFilterAddByte => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterAddUint => [:pointer, :pointer, :uint, :uint],
+      :SDL_imageFilterAddByteToHalf => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterSubByte => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterSubUint => [:pointer, :pointer, :uint, :uint],
+      :SDL_imageFilterShiftRight => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterShiftRightUint => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterMultByByte => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterShiftRightAndMultByByte => [:pointer, :pointer, :uint, :uchar, :uchar],
+      :SDL_imageFilterShiftLeftByte => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterShiftLeftUint => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterShiftLeft => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterBinarizeUsingThreshold => [:pointer, :pointer, :uint, :uchar],
+      :SDL_imageFilterClipToRange => [:pointer, :pointer, :uint, :uchar, :uchar],
+      :SDL_imageFilterNormalizeLinear => [:pointer, :pointer, :uint, :int, :int, :int, :int],
     }
-    gfx_imagefilter_retvals = {
+    retvals = {
       :SDL_imageFilterMMXdetect => :int,
       :SDL_imageFilterMMXoff => :void,
       :SDL_imageFilterMMXon => :void,
@@ -119,9 +119,9 @@ module SDL2
       :SDL_imageFilterClipToRange => :int,
       :SDL_imageFilterNormalizeLinear => :int,
     }
-    gfx_imagefilter_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, gfx_imagefilter_args[sym], gfx_imagefilter_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

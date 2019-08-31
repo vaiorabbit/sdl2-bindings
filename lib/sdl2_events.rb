@@ -429,7 +429,7 @@ module SDL2
   # Function
 
   def self.setup_events_symbols()
-    events_symbols = [
+    symbols = [
       :SDL_PumpEvents,
       :SDL_PeepEvents,
       :SDL_HasEvent,
@@ -448,26 +448,26 @@ module SDL2
       :SDL_EventState,
       :SDL_RegisterEvents,
     ]
-    events_args = {
-      :SDL_PumpEvents => [], 
-      :SDL_PeepEvents => [:pointer, :int, :int, :uint, :uint], 
-      :SDL_HasEvent => [:uint], 
-      :SDL_HasEvents => [:uint, :uint], 
-      :SDL_FlushEvent => [:uint], 
-      :SDL_FlushEvents => [:uint, :uint], 
-      :SDL_PollEvent => [:pointer], 
-      :SDL_WaitEvent => [:pointer], 
-      :SDL_WaitEventTimeout => [:pointer, :int], 
-      :SDL_PushEvent => [:pointer], 
-      :SDL_SetEventFilter => [:pointer, :pointer], 
-      :SDL_GetEventFilter => [:pointer, :pointer], 
-      :SDL_AddEventWatch => [:pointer, :pointer], 
-      :SDL_DelEventWatch => [:pointer, :pointer], 
-      :SDL_FilterEvents => [:pointer, :pointer], 
-      :SDL_EventState => [:uint, :int], 
-      :SDL_RegisterEvents => [:int], 
+    args = {
+      :SDL_PumpEvents => [],
+      :SDL_PeepEvents => [:pointer, :int, :int, :uint, :uint],
+      :SDL_HasEvent => [:uint],
+      :SDL_HasEvents => [:uint, :uint],
+      :SDL_FlushEvent => [:uint],
+      :SDL_FlushEvents => [:uint, :uint],
+      :SDL_PollEvent => [:pointer],
+      :SDL_WaitEvent => [:pointer],
+      :SDL_WaitEventTimeout => [:pointer, :int],
+      :SDL_PushEvent => [:pointer],
+      :SDL_SetEventFilter => [:pointer, :pointer],
+      :SDL_GetEventFilter => [:pointer, :pointer],
+      :SDL_AddEventWatch => [:pointer, :pointer],
+      :SDL_DelEventWatch => [:pointer, :pointer],
+      :SDL_FilterEvents => [:pointer, :pointer],
+      :SDL_EventState => [:uint, :int],
+      :SDL_RegisterEvents => [:int],
     }
-    events_retvals = {
+    retvals = {
       :SDL_PumpEvents => :void,
       :SDL_PeepEvents => :int,
       :SDL_HasEvent => :int,
@@ -486,9 +486,9 @@ module SDL2
       :SDL_EventState => :uchar,
       :SDL_RegisterEvents => :uint,
     }
-    events_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, events_args[sym], events_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

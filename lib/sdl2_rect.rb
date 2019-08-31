@@ -68,30 +68,30 @@ module SDL2
   # Function
 
   def self.setup_rect_symbols()
-    rect_symbols = [
+    symbols = [
       :SDL_HasIntersection,
       :SDL_IntersectRect,
       :SDL_UnionRect,
       :SDL_EnclosePoints,
       :SDL_IntersectRectAndLine,
     ]
-    rect_args = {
-      :SDL_HasIntersection => [:pointer, :pointer], 
-      :SDL_IntersectRect => [:pointer, :pointer, :pointer], 
-      :SDL_UnionRect => [:pointer, :pointer, :pointer], 
-      :SDL_EnclosePoints => [:pointer, :int, :pointer, :pointer], 
-      :SDL_IntersectRectAndLine => [:pointer, :pointer, :pointer, :pointer, :pointer], 
+    args = {
+      :SDL_HasIntersection => [:pointer, :pointer],
+      :SDL_IntersectRect => [:pointer, :pointer, :pointer],
+      :SDL_UnionRect => [:pointer, :pointer, :pointer],
+      :SDL_EnclosePoints => [:pointer, :int, :pointer, :pointer],
+      :SDL_IntersectRectAndLine => [:pointer, :pointer, :pointer, :pointer, :pointer],
     }
-    rect_retvals = {
+    retvals = {
       :SDL_HasIntersection => :int,
       :SDL_IntersectRect => :int,
       :SDL_UnionRect => :void,
       :SDL_EnclosePoints => :int,
       :SDL_IntersectRectAndLine => :int,
     }
-    rect_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, rect_args[sym], rect_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

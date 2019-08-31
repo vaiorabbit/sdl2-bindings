@@ -52,7 +52,7 @@ module SDL2
   # Function
 
   def self.setup_surface_symbols()
-    surface_symbols = [
+    symbols = [
       :SDL_CreateRGBSurface,
       :SDL_CreateRGBSurfaceWithFormat,
       :SDL_CreateRGBSurfaceFrom,
@@ -90,45 +90,45 @@ module SDL2
       :SDL_GetYUVConversionMode,
       :SDL_GetYUVConversionModeForResolution,
     ]
-    surface_args = {
-      :SDL_CreateRGBSurface => [:uint, :int, :int, :int, :uint, :uint, :uint, :uint], 
-      :SDL_CreateRGBSurfaceWithFormat => [:uint, :int, :int, :int, :uint], 
-      :SDL_CreateRGBSurfaceFrom => [:pointer, :int, :int, :int, :int, :uint, :uint, :uint, :uint], 
-      :SDL_CreateRGBSurfaceWithFormatFrom => [:pointer, :int, :int, :int, :int, :uint], 
-      :SDL_FreeSurface => [:pointer], 
-      :SDL_SetSurfacePalette => [:pointer, :pointer], 
-      :SDL_LockSurface => [:pointer], 
-      :SDL_UnlockSurface => [:pointer], 
-      :SDL_LoadBMP_RW => [:pointer, :int], 
-      :SDL_SaveBMP_RW => [:pointer, :pointer, :int], 
-      :SDL_SetSurfaceRLE => [:pointer, :int], 
-      :SDL_SetColorKey => [:pointer, :int, :uint], 
-      :SDL_HasColorKey => [:pointer], 
-      :SDL_GetColorKey => [:pointer, :pointer], 
-      :SDL_SetSurfaceColorMod => [:pointer, :uchar, :uchar, :uchar], 
-      :SDL_GetSurfaceColorMod => [:pointer, :pointer, :pointer, :pointer], 
-      :SDL_SetSurfaceAlphaMod => [:pointer, :uchar], 
-      :SDL_GetSurfaceAlphaMod => [:pointer, :pointer], 
-      :SDL_SetSurfaceBlendMode => [:pointer, :int], 
-      :SDL_GetSurfaceBlendMode => [:pointer, :pointer], 
-      :SDL_SetClipRect => [:pointer, :pointer], 
-      :SDL_GetClipRect => [:pointer, :pointer], 
-      :SDL_DuplicateSurface => [:pointer], 
-      :SDL_ConvertSurface => [:pointer, :pointer, :uint], 
-      :SDL_ConvertSurfaceFormat => [:pointer, :uint, :uint], 
-      :SDL_ConvertPixels => [:int, :int, :uint, :pointer, :int, :uint, :pointer, :int], 
-      :SDL_FillRect => [:pointer, :pointer, :uint], 
-      :SDL_FillRects => [:pointer, :pointer, :int, :uint], 
-      :SDL_UpperBlit => [:pointer, :pointer, :pointer, :pointer], 
-      :SDL_LowerBlit => [:pointer, :pointer, :pointer, :pointer], 
-      :SDL_SoftStretch => [:pointer, :pointer, :pointer, :pointer], 
-      :SDL_UpperBlitScaled => [:pointer, :pointer, :pointer, :pointer], 
-      :SDL_LowerBlitScaled => [:pointer, :pointer, :pointer, :pointer], 
-      :SDL_SetYUVConversionMode => [:int], 
-      :SDL_GetYUVConversionMode => [], 
-      :SDL_GetYUVConversionModeForResolution => [:int, :int], 
+    args = {
+      :SDL_CreateRGBSurface => [:uint, :int, :int, :int, :uint, :uint, :uint, :uint],
+      :SDL_CreateRGBSurfaceWithFormat => [:uint, :int, :int, :int, :uint],
+      :SDL_CreateRGBSurfaceFrom => [:pointer, :int, :int, :int, :int, :uint, :uint, :uint, :uint],
+      :SDL_CreateRGBSurfaceWithFormatFrom => [:pointer, :int, :int, :int, :int, :uint],
+      :SDL_FreeSurface => [:pointer],
+      :SDL_SetSurfacePalette => [:pointer, :pointer],
+      :SDL_LockSurface => [:pointer],
+      :SDL_UnlockSurface => [:pointer],
+      :SDL_LoadBMP_RW => [:pointer, :int],
+      :SDL_SaveBMP_RW => [:pointer, :pointer, :int],
+      :SDL_SetSurfaceRLE => [:pointer, :int],
+      :SDL_SetColorKey => [:pointer, :int, :uint],
+      :SDL_HasColorKey => [:pointer],
+      :SDL_GetColorKey => [:pointer, :pointer],
+      :SDL_SetSurfaceColorMod => [:pointer, :uchar, :uchar, :uchar],
+      :SDL_GetSurfaceColorMod => [:pointer, :pointer, :pointer, :pointer],
+      :SDL_SetSurfaceAlphaMod => [:pointer, :uchar],
+      :SDL_GetSurfaceAlphaMod => [:pointer, :pointer],
+      :SDL_SetSurfaceBlendMode => [:pointer, :int],
+      :SDL_GetSurfaceBlendMode => [:pointer, :pointer],
+      :SDL_SetClipRect => [:pointer, :pointer],
+      :SDL_GetClipRect => [:pointer, :pointer],
+      :SDL_DuplicateSurface => [:pointer],
+      :SDL_ConvertSurface => [:pointer, :pointer, :uint],
+      :SDL_ConvertSurfaceFormat => [:pointer, :uint, :uint],
+      :SDL_ConvertPixels => [:int, :int, :uint, :pointer, :int, :uint, :pointer, :int],
+      :SDL_FillRect => [:pointer, :pointer, :uint],
+      :SDL_FillRects => [:pointer, :pointer, :int, :uint],
+      :SDL_UpperBlit => [:pointer, :pointer, :pointer, :pointer],
+      :SDL_LowerBlit => [:pointer, :pointer, :pointer, :pointer],
+      :SDL_SoftStretch => [:pointer, :pointer, :pointer, :pointer],
+      :SDL_UpperBlitScaled => [:pointer, :pointer, :pointer, :pointer],
+      :SDL_LowerBlitScaled => [:pointer, :pointer, :pointer, :pointer],
+      :SDL_SetYUVConversionMode => [:int],
+      :SDL_GetYUVConversionMode => [],
+      :SDL_GetYUVConversionModeForResolution => [:int, :int],
     }
-    surface_retvals = {
+    retvals = {
       :SDL_CreateRGBSurface => :pointer,
       :SDL_CreateRGBSurfaceWithFormat => :pointer,
       :SDL_CreateRGBSurfaceFrom => :pointer,
@@ -166,9 +166,9 @@ module SDL2
       :SDL_GetYUVConversionMode => :int,
       :SDL_GetYUVConversionModeForResolution => :int,
     }
-    surface_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, surface_args[sym], surface_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

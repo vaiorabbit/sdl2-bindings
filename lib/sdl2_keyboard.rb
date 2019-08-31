@@ -32,7 +32,7 @@ module SDL2
   # Function
 
   def self.setup_keyboard_symbols()
-    keyboard_symbols = [
+    symbols = [
       :SDL_GetKeyboardFocus,
       :SDL_GetKeyboardState,
       :SDL_GetModState,
@@ -50,25 +50,25 @@ module SDL2
       :SDL_HasScreenKeyboardSupport,
       :SDL_IsScreenKeyboardShown,
     ]
-    keyboard_args = {
-      :SDL_GetKeyboardFocus => [], 
-      :SDL_GetKeyboardState => [:pointer], 
-      :SDL_GetModState => [], 
-      :SDL_SetModState => [:int], 
-      :SDL_GetKeyFromScancode => [:int], 
-      :SDL_GetScancodeFromKey => [:int], 
-      :SDL_GetScancodeName => [:int], 
-      :SDL_GetScancodeFromName => [:pointer], 
-      :SDL_GetKeyName => [:int], 
-      :SDL_GetKeyFromName => [:pointer], 
-      :SDL_StartTextInput => [], 
-      :SDL_IsTextInputActive => [], 
-      :SDL_StopTextInput => [], 
-      :SDL_SetTextInputRect => [:pointer], 
-      :SDL_HasScreenKeyboardSupport => [], 
-      :SDL_IsScreenKeyboardShown => [:pointer], 
+    args = {
+      :SDL_GetKeyboardFocus => [],
+      :SDL_GetKeyboardState => [:pointer],
+      :SDL_GetModState => [],
+      :SDL_SetModState => [:int],
+      :SDL_GetKeyFromScancode => [:int],
+      :SDL_GetScancodeFromKey => [:int],
+      :SDL_GetScancodeName => [:int],
+      :SDL_GetScancodeFromName => [:pointer],
+      :SDL_GetKeyName => [:int],
+      :SDL_GetKeyFromName => [:pointer],
+      :SDL_StartTextInput => [],
+      :SDL_IsTextInputActive => [],
+      :SDL_StopTextInput => [],
+      :SDL_SetTextInputRect => [:pointer],
+      :SDL_HasScreenKeyboardSupport => [],
+      :SDL_IsScreenKeyboardShown => [:pointer],
     }
-    keyboard_retvals = {
+    retvals = {
       :SDL_GetKeyboardFocus => :pointer,
       :SDL_GetKeyboardState => :pointer,
       :SDL_GetModState => :int,
@@ -86,9 +86,9 @@ module SDL2
       :SDL_HasScreenKeyboardSupport => :int,
       :SDL_IsScreenKeyboardShown => :int,
     }
-    keyboard_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, keyboard_args[sym], keyboard_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

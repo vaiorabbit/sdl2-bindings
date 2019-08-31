@@ -45,7 +45,7 @@ module SDL2
   # Function
 
   def self.setup_mouse_symbols()
-    mouse_symbols = [
+    symbols = [
       :SDL_GetMouseFocus,
       :SDL_GetMouseState,
       :SDL_GetGlobalMouseState,
@@ -64,26 +64,26 @@ module SDL2
       :SDL_FreeCursor,
       :SDL_ShowCursor,
     ]
-    mouse_args = {
-      :SDL_GetMouseFocus => [], 
-      :SDL_GetMouseState => [:pointer, :pointer], 
-      :SDL_GetGlobalMouseState => [:pointer, :pointer], 
-      :SDL_GetRelativeMouseState => [:pointer, :pointer], 
-      :SDL_WarpMouseInWindow => [:pointer, :int, :int], 
-      :SDL_WarpMouseGlobal => [:int, :int], 
-      :SDL_SetRelativeMouseMode => [:int], 
-      :SDL_CaptureMouse => [:int], 
-      :SDL_GetRelativeMouseMode => [], 
-      :SDL_CreateCursor => [:pointer, :pointer, :int, :int, :int, :int], 
-      :SDL_CreateColorCursor => [:pointer, :int, :int], 
-      :SDL_CreateSystemCursor => [:int], 
-      :SDL_SetCursor => [:pointer], 
-      :SDL_GetCursor => [], 
-      :SDL_GetDefaultCursor => [], 
-      :SDL_FreeCursor => [:pointer], 
-      :SDL_ShowCursor => [:int], 
+    args = {
+      :SDL_GetMouseFocus => [],
+      :SDL_GetMouseState => [:pointer, :pointer],
+      :SDL_GetGlobalMouseState => [:pointer, :pointer],
+      :SDL_GetRelativeMouseState => [:pointer, :pointer],
+      :SDL_WarpMouseInWindow => [:pointer, :int, :int],
+      :SDL_WarpMouseGlobal => [:int, :int],
+      :SDL_SetRelativeMouseMode => [:int],
+      :SDL_CaptureMouse => [:int],
+      :SDL_GetRelativeMouseMode => [],
+      :SDL_CreateCursor => [:pointer, :pointer, :int, :int, :int, :int],
+      :SDL_CreateColorCursor => [:pointer, :int, :int],
+      :SDL_CreateSystemCursor => [:int],
+      :SDL_SetCursor => [:pointer],
+      :SDL_GetCursor => [],
+      :SDL_GetDefaultCursor => [],
+      :SDL_FreeCursor => [:pointer],
+      :SDL_ShowCursor => [:int],
     }
-    mouse_retvals = {
+    retvals = {
       :SDL_GetMouseFocus => :pointer,
       :SDL_GetMouseState => :uint,
       :SDL_GetGlobalMouseState => :uint,
@@ -102,9 +102,9 @@ module SDL2
       :SDL_FreeCursor => :void,
       :SDL_ShowCursor => :int,
     }
-    mouse_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, mouse_args[sym], mouse_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

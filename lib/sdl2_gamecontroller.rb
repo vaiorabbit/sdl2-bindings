@@ -79,7 +79,7 @@ module SDL2
   # Function
 
   def self.setup_gamecontroller_symbols()
-    gamecontroller_symbols = [
+    symbols = [
       :SDL_GameControllerAddMappingsFromRW,
       :SDL_GameControllerAddMapping,
       :SDL_GameControllerNumMappings,
@@ -111,39 +111,39 @@ module SDL2
       :SDL_GameControllerRumble,
       :SDL_GameControllerClose,
     ]
-    gamecontroller_args = {
-      :SDL_GameControllerAddMappingsFromRW => [:pointer, :int], 
-      :SDL_GameControllerAddMapping => [:pointer], 
-      :SDL_GameControllerNumMappings => [], 
-      :SDL_GameControllerMappingForIndex => [:int], 
-      :SDL_GameControllerMappingForGUID => [SDL_JoystickGUID], 
-      :SDL_GameControllerMapping => [:pointer], 
-      :SDL_IsGameController => [:int], 
-      :SDL_GameControllerNameForIndex => [:int], 
-      :SDL_GameControllerMappingForDeviceIndex => [:int], 
-      :SDL_GameControllerOpen => [:int], 
-      :SDL_GameControllerFromInstanceID => [:int], 
-      :SDL_GameControllerName => [:pointer], 
-      :SDL_GameControllerGetPlayerIndex => [:pointer], 
-      :SDL_GameControllerGetVendor => [:pointer], 
-      :SDL_GameControllerGetProduct => [:pointer], 
-      :SDL_GameControllerGetProductVersion => [:pointer], 
-      :SDL_GameControllerGetAttached => [:pointer], 
-      :SDL_GameControllerGetJoystick => [:pointer], 
-      :SDL_GameControllerEventState => [:int], 
-      :SDL_GameControllerUpdate => [], 
-      :SDL_GameControllerGetAxisFromString => [:pointer], 
-      :SDL_GameControllerGetStringForAxis => [:int], 
-      :SDL_GameControllerGetBindForAxis => [:pointer, :int], 
-      :SDL_GameControllerGetAxis => [:pointer, :int], 
-      :SDL_GameControllerGetButtonFromString => [:pointer], 
-      :SDL_GameControllerGetStringForButton => [:int], 
-      :SDL_GameControllerGetBindForButton => [:pointer, :int], 
-      :SDL_GameControllerGetButton => [:pointer, :int], 
-      :SDL_GameControllerRumble => [:pointer, :ushort, :ushort, :uint], 
-      :SDL_GameControllerClose => [:pointer], 
+    args = {
+      :SDL_GameControllerAddMappingsFromRW => [:pointer, :int],
+      :SDL_GameControllerAddMapping => [:pointer],
+      :SDL_GameControllerNumMappings => [],
+      :SDL_GameControllerMappingForIndex => [:int],
+      :SDL_GameControllerMappingForGUID => [SDL_JoystickGUID],
+      :SDL_GameControllerMapping => [:pointer],
+      :SDL_IsGameController => [:int],
+      :SDL_GameControllerNameForIndex => [:int],
+      :SDL_GameControllerMappingForDeviceIndex => [:int],
+      :SDL_GameControllerOpen => [:int],
+      :SDL_GameControllerFromInstanceID => [:int],
+      :SDL_GameControllerName => [:pointer],
+      :SDL_GameControllerGetPlayerIndex => [:pointer],
+      :SDL_GameControllerGetVendor => [:pointer],
+      :SDL_GameControllerGetProduct => [:pointer],
+      :SDL_GameControllerGetProductVersion => [:pointer],
+      :SDL_GameControllerGetAttached => [:pointer],
+      :SDL_GameControllerGetJoystick => [:pointer],
+      :SDL_GameControllerEventState => [:int],
+      :SDL_GameControllerUpdate => [],
+      :SDL_GameControllerGetAxisFromString => [:pointer],
+      :SDL_GameControllerGetStringForAxis => [:int],
+      :SDL_GameControllerGetBindForAxis => [:pointer, :int],
+      :SDL_GameControllerGetAxis => [:pointer, :int],
+      :SDL_GameControllerGetButtonFromString => [:pointer],
+      :SDL_GameControllerGetStringForButton => [:int],
+      :SDL_GameControllerGetBindForButton => [:pointer, :int],
+      :SDL_GameControllerGetButton => [:pointer, :int],
+      :SDL_GameControllerRumble => [:pointer, :ushort, :ushort, :uint],
+      :SDL_GameControllerClose => [:pointer],
     }
-    gamecontroller_retvals = {
+    retvals = {
       :SDL_GameControllerAddMappingsFromRW => :int,
       :SDL_GameControllerAddMapping => :int,
       :SDL_GameControllerNumMappings => :int,
@@ -175,9 +175,9 @@ module SDL2
       :SDL_GameControllerRumble => :int,
       :SDL_GameControllerClose => :void,
     }
-    gamecontroller_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, gamecontroller_args[sym], gamecontroller_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

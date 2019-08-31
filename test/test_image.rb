@@ -7,8 +7,7 @@ WINDOW_W = 640
 WINDOW_H = 360
 
 if __FILE__ == $0
-  SDL2.load_lib('libSDL2.dylib', image_libpath: 'libSDL2_image.dylib' ) # '/usr/local/lib/libSDL2.dylib'
-  SDL_SetMainReady()
+  SDL2.load_lib('/usr/local/lib/libSDL2.dylib', image_libpath: '/usr/local/lib/libSDL2_image.dylib' ) # '/usr/local/lib/libSDL2.dylib'
   success = SDL_Init(SDL_INIT_EVERYTHING)
   exit if success < 0
 
@@ -24,11 +23,12 @@ if __FILE__ == $0
 
   texture = IMG_LoadTexture_RW(renderer, rwops, 1) # 1 == freesrc : close src automatically
   wh = 300
-  pos = SDL_Rect.malloc
-  pos.x = (WINDOW_W - wh) / 2
-  pos.y = (WINDOW_H - wh) / 2
-  pos.w = wh
-  pos.h = wh
+  pos = SDL_Rect.new
+  pos[:x] = (WINDOW_W - wh) / 2
+  pos[:y] = (WINDOW_H - wh) / 2
+  pos[:w] = wh
+  pos[:h] = wh
+  pp pos[:x], pos[:y], pos[:w], pos[:h]
 
   SDL_RenderCopy(renderer, texture, nil, pos)
 
@@ -37,12 +37,12 @@ if __FILE__ == $0
   while not done
     while SDL_PollEvent(event) != 0
       # 'type' and 'timestamp' are common members for all SDL Event structs.
-      event_type = event.common.type
+      event_type = event[:common][:type]
       # event_timestamp = event.common.timestamp
       # puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
       case event_type
       when SDL_KEYDOWN
-        if event.key.keysym_sym == SDLK_ESCAPE
+        if event[:key][:keysym][:sym] == SDLK_ESCAPE
           done = true
         end
       end

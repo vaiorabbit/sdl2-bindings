@@ -82,35 +82,17 @@ def sanitize(ctx):
 
 ####################################################################################################
 
-def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", table_prefix = "SDL2_", typedef_prefix="", typedef_postfix=""):
-
-    print(prefix, file = sys.stdout)
-
-    print("module SDL2")
-
-    indent = "  "
-
-    print(indent + "extend FFI::Library")
-
-    # macro
-    print(indent + "# Define/Macro")
-    print("", file = sys.stdout)
+def generate_macrodefine(ctx, indent = ""):
     for macro_name, macro_value in ctx.decl_macros.items():
         if macro_value != None:
             print(indent + "%s = %s" % (macro_name, macro_value[0]), file = sys.stdout)
-    print("", file = sys.stdout)
 
-    # enum
-    print(indent + "# Enum")
-    print("", file = sys.stdout)
+def generate_enum(ctx, indent = ""):
     for enum_name, enum_value in ctx.decl_enums.items():
         for enum in enum_value:
             print(indent + "%s = %s" % (enum[0], enum[1]), file = sys.stdout)
-    print("", file = sys.stdout)
 
-    # typedef
-    print(indent + "# Typedef")
-    print("", file = sys.stdout)
+def generate_typedef(ctx, indent = "", typedef_prefix="", typedef_postfix=""):
     if typedef_prefix != "":
         print(typedef_prefix, file = sys.stdout)
     for typedef_name, typedef_info in ctx.decl_typedefs.items():
@@ -126,11 +108,8 @@ def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", table
         print(indent + typedef_line, file = sys.stdout)
     if typedef_postfix != "":
         print(typedef_postfix, file = sys.stdout)
-    print("", file = sys.stdout)
 
-    # struct/union
-    print(indent + "# Struct")
-    print("", file = sys.stdout)
+def generate_structunion(ctx, indent = ""):
     for struct_name, struct_info in ctx.decl_structs.items():
         if struct_info == None:
             continue
@@ -143,22 +122,18 @@ def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", table
                 print(indent + "    :%s, [%s, %s]," % (field.element_name, field.type_kind, field.element_count), file = sys.stdout)
         print(indent + "  )", file = sys.stdout)
         print(indent + "end\n", file = sys.stdout)
-    print("", file = sys.stdout)
 
-    # function
-
-    print(indent + "# Function")
-    print("", file = sys.stdout)
+def generate_function(ctx, indent = "", module_name = ""):
     print(indent + "def self.setup_%s_symbols()" % module_name , file = sys.stdout)
     indent = "  "
-    print(indent + "  %s_symbols = [" % module_name, file = sys.stdout)
+    print(indent + "  symbols = [", file = sys.stdout)
     for func_name, func_info in ctx.decl_functions.items():
         if func_info == None:
             continue
         print(indent + "    :%s," % func_name, file = sys.stdout)
     print(indent + "  ]", file = sys.stdout)
 
-    print(indent + "  %s_args = {" % module_name, file = sys.stdout)
+    print(indent + "  args = {", file = sys.stdout)
     for func_name, func_info in ctx.decl_functions.items():
         if func_info == None:
             continue
@@ -166,29 +141,62 @@ def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", table
         if len(func_info.args) > 0:
             args_str = list(map((lambda t: str(t.type_kind)), func_info.args))
             print(', '.join(args_str), file = sys.stdout, end='')
-        print("], ", file = sys.stdout)
+        print("],", file = sys.stdout)
     print(indent + "  }", file = sys.stdout)
 
-    print(indent + "  %s_retvals = {" % module_name, file = sys.stdout)
+    print(indent + "  retvals = {", file = sys.stdout)
     for func_name, func_info in ctx.decl_functions.items():
         if func_info == None:
             continue
         print(indent + "    :%s => %s," % (func_name, str(func_info.retval.type_kind)), file = sys.stdout)
     print(indent + "  }", file = sys.stdout)
 
-
     print(indent +
-      """  {mod_name}_symbols.each do |sym|
+      """  symbols.each do |sym|
       begin
-        attach_function sym, {mod_name}_args[sym], {mod_name}_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{s}.")
-      end""".format(mod_name=module_name, s="{sym} (#{error})"))
+      end""".format(s="{sym} (#{error})"))
     print(indent + "  end", file = sys.stdout)
 
     indent = "  "
     print(indent + "end", file = sys.stdout)
 
+
+def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", table_prefix = "SDL2_", typedef_prefix="", typedef_postfix=""):
+
+    print(prefix, file = sys.stdout)
+
+    print("module SDL2")
+
+    indent = "  "
+
+    print(indent + "extend FFI::Library")
+
+    # macro
+    print(indent + "# Define/Macro\n", file = sys.stdout)
+    generate_macrodefine(ctx, indent)
+    print("", file = sys.stdout)
+
+    # enum
+    print(indent + "# Enum\n", file = sys.stdout)
+    generate_enum(ctx, indent)
+    print("", file = sys.stdout)
+
+    # typedef
+    print(indent + "# Typedef\n", file = sys.stdout)
+    generate_typedef(ctx, indent, typedef_prefix, typedef_postfix)
+    print("", file = sys.stdout)
+
+    # struct/union
+    print(indent + "# Struct\n", file = sys.stdout)
+    generate_structunion(ctx, indent)
+    print("", file = sys.stdout)
+
+    # function
+    print(indent + "# Function\n", file = sys.stdout)
+    generate_function(ctx, indent, module_name)
     print(postfix, file = sys.stdout)
 
 if __name__ == "__main__":

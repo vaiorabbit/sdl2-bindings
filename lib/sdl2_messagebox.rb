@@ -71,21 +71,21 @@ module SDL2
   # Function
 
   def self.setup_messagebox_symbols()
-    messagebox_symbols = [
+    symbols = [
       :SDL_ShowMessageBox,
       :SDL_ShowSimpleMessageBox,
     ]
-    messagebox_args = {
-      :SDL_ShowMessageBox => [:pointer, :pointer], 
-      :SDL_ShowSimpleMessageBox => [:uint, :pointer, :pointer, :pointer], 
+    args = {
+      :SDL_ShowMessageBox => [:pointer, :pointer],
+      :SDL_ShowSimpleMessageBox => [:uint, :pointer, :pointer, :pointer],
     }
-    messagebox_retvals = {
+    retvals = {
       :SDL_ShowMessageBox => :int,
       :SDL_ShowSimpleMessageBox => :int,
     }
-    messagebox_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, messagebox_args[sym], messagebox_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

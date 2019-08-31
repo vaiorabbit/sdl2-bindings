@@ -29,18 +29,18 @@ module SDL2
   # Function
 
   def self.setup_power_symbols()
-    power_symbols = [
+    symbols = [
       :SDL_GetPowerInfo,
     ]
-    power_args = {
-      :SDL_GetPowerInfo => [:pointer, :pointer], 
+    args = {
+      :SDL_GetPowerInfo => [:pointer, :pointer],
     }
-    power_retvals = {
+    retvals = {
       :SDL_GetPowerInfo => :int,
     }
-    power_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, power_args[sym], power_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

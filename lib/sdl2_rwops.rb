@@ -105,7 +105,7 @@ module SDL2
   # Function
 
   def self.setup_rwops_symbols()
-    rwops_symbols = [
+    symbols = [
       :SDL_RWFromFile,
       :SDL_RWFromFP,
       :SDL_RWFromMem,
@@ -135,37 +135,37 @@ module SDL2
       :SDL_WriteLE64,
       :SDL_WriteBE64,
     ]
-    rwops_args = {
-      :SDL_RWFromFile => [:pointer, :pointer], 
-      :SDL_RWFromFP => [:pointer, :int], 
-      :SDL_RWFromMem => [:pointer, :int], 
-      :SDL_RWFromConstMem => [:pointer, :int], 
-      :SDL_AllocRW => [], 
-      :SDL_FreeRW => [:pointer], 
-      :SDL_RWsize => [:pointer], 
-      :SDL_RWseek => [:pointer, :long_long, :int], 
-      :SDL_RWtell => [:pointer], 
-      :SDL_RWread => [:pointer, :pointer, :ulong, :ulong], 
-      :SDL_RWwrite => [:pointer, :pointer, :ulong, :ulong], 
-      :SDL_RWclose => [:pointer], 
-      :SDL_LoadFile_RW => [:pointer, :pointer, :int], 
-      :SDL_LoadFile => [:pointer, :pointer], 
-      :SDL_ReadU8 => [:pointer], 
-      :SDL_ReadLE16 => [:pointer], 
-      :SDL_ReadBE16 => [:pointer], 
-      :SDL_ReadLE32 => [:pointer], 
-      :SDL_ReadBE32 => [:pointer], 
-      :SDL_ReadLE64 => [:pointer], 
-      :SDL_ReadBE64 => [:pointer], 
-      :SDL_WriteU8 => [:pointer, :uchar], 
-      :SDL_WriteLE16 => [:pointer, :ushort], 
-      :SDL_WriteBE16 => [:pointer, :ushort], 
-      :SDL_WriteLE32 => [:pointer, :uint], 
-      :SDL_WriteBE32 => [:pointer, :uint], 
-      :SDL_WriteLE64 => [:pointer, :ulong_long], 
-      :SDL_WriteBE64 => [:pointer, :ulong_long], 
+    args = {
+      :SDL_RWFromFile => [:pointer, :pointer],
+      :SDL_RWFromFP => [:pointer, :int],
+      :SDL_RWFromMem => [:pointer, :int],
+      :SDL_RWFromConstMem => [:pointer, :int],
+      :SDL_AllocRW => [],
+      :SDL_FreeRW => [:pointer],
+      :SDL_RWsize => [:pointer],
+      :SDL_RWseek => [:pointer, :long_long, :int],
+      :SDL_RWtell => [:pointer],
+      :SDL_RWread => [:pointer, :pointer, :ulong, :ulong],
+      :SDL_RWwrite => [:pointer, :pointer, :ulong, :ulong],
+      :SDL_RWclose => [:pointer],
+      :SDL_LoadFile_RW => [:pointer, :pointer, :int],
+      :SDL_LoadFile => [:pointer, :pointer],
+      :SDL_ReadU8 => [:pointer],
+      :SDL_ReadLE16 => [:pointer],
+      :SDL_ReadBE16 => [:pointer],
+      :SDL_ReadLE32 => [:pointer],
+      :SDL_ReadBE32 => [:pointer],
+      :SDL_ReadLE64 => [:pointer],
+      :SDL_ReadBE64 => [:pointer],
+      :SDL_WriteU8 => [:pointer, :uchar],
+      :SDL_WriteLE16 => [:pointer, :ushort],
+      :SDL_WriteBE16 => [:pointer, :ushort],
+      :SDL_WriteLE32 => [:pointer, :uint],
+      :SDL_WriteBE32 => [:pointer, :uint],
+      :SDL_WriteLE64 => [:pointer, :ulong_long],
+      :SDL_WriteBE64 => [:pointer, :ulong_long],
     }
-    rwops_retvals = {
+    retvals = {
       :SDL_RWFromFile => :pointer,
       :SDL_RWFromFP => :pointer,
       :SDL_RWFromMem => :pointer,
@@ -195,9 +195,9 @@ module SDL2
       :SDL_WriteLE64 => :size_t,
       :SDL_WriteBE64 => :size_t,
     }
-    rwops_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, rwops_args[sym], rwops_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

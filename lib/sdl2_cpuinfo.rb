@@ -24,7 +24,7 @@ module SDL2
   # Function
 
   def self.setup_cpuinfo_symbols()
-    cpuinfo_symbols = [
+    symbols = [
       :SDL_GetCPUCount,
       :SDL_GetCPUCacheLineSize,
       :SDL_HasRDTSC,
@@ -45,28 +45,28 @@ module SDL2
       :SDL_SIMDAlloc,
       :SDL_SIMDFree,
     ]
-    cpuinfo_args = {
-      :SDL_GetCPUCount => [], 
-      :SDL_GetCPUCacheLineSize => [], 
-      :SDL_HasRDTSC => [], 
-      :SDL_HasAltiVec => [], 
-      :SDL_HasMMX => [], 
-      :SDL_Has3DNow => [], 
-      :SDL_HasSSE => [], 
-      :SDL_HasSSE2 => [], 
-      :SDL_HasSSE3 => [], 
-      :SDL_HasSSE41 => [], 
-      :SDL_HasSSE42 => [], 
-      :SDL_HasAVX => [], 
-      :SDL_HasAVX2 => [], 
-      :SDL_HasAVX512F => [], 
-      :SDL_HasNEON => [], 
-      :SDL_GetSystemRAM => [], 
-      :SDL_SIMDGetAlignment => [], 
-      :SDL_SIMDAlloc => [:ulong], 
-      :SDL_SIMDFree => [:pointer], 
+    args = {
+      :SDL_GetCPUCount => [],
+      :SDL_GetCPUCacheLineSize => [],
+      :SDL_HasRDTSC => [],
+      :SDL_HasAltiVec => [],
+      :SDL_HasMMX => [],
+      :SDL_Has3DNow => [],
+      :SDL_HasSSE => [],
+      :SDL_HasSSE2 => [],
+      :SDL_HasSSE3 => [],
+      :SDL_HasSSE41 => [],
+      :SDL_HasSSE42 => [],
+      :SDL_HasAVX => [],
+      :SDL_HasAVX2 => [],
+      :SDL_HasAVX512F => [],
+      :SDL_HasNEON => [],
+      :SDL_GetSystemRAM => [],
+      :SDL_SIMDGetAlignment => [],
+      :SDL_SIMDAlloc => [:ulong],
+      :SDL_SIMDFree => [:pointer],
     }
-    cpuinfo_retvals = {
+    retvals = {
       :SDL_GetCPUCount => :int,
       :SDL_GetCPUCacheLineSize => :int,
       :SDL_HasRDTSC => :int,
@@ -87,9 +87,9 @@ module SDL2
       :SDL_SIMDAlloc => :pointer,
       :SDL_SIMDFree => :void,
     }
-    cpuinfo_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, cpuinfo_args[sym], cpuinfo_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

@@ -7,7 +7,7 @@ def print_devices(iscapture)
   typestr = iscapture ? "capture" : "output"
   n = SDL_GetNumAudioDevices(iscapture)
 
-  printf("%s devices:\n", typestr)
+  puts("#{typestr} devices:")
 
   if n == -1
     printf("  Driver can't detect specific %s devices.\n\n", typestr)
@@ -15,7 +15,7 @@ def print_devices(iscapture)
     printf("  No %s devices found.\n\n", typestr)
   else
     n.times do |i|
-      printf("  %s\n", SDL_GetAudioDeviceName(i, iscapture))
+      printf("  %s\n", SDL_GetAudioDeviceName(i, iscapture).read_string)
     end
     printf("\n")
   end
@@ -23,7 +23,6 @@ end
 
 if __FILE__ == $0
   SDL2.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
-  SDL_SetMainReady()
   success = SDL_Init(SDL_INIT_AUDIO)
   exit if success < 0
   n = SDL_GetNumAudioDrivers()
@@ -32,12 +31,11 @@ if __FILE__ == $0
   else
     print("Built-in audio drivers:\n")
     n.times do |i|
-      printf("  %s\n", SDL_GetAudioDriver(i))
-      printf("\n")
+      printf("  %s\n", SDL_GetAudioDriver(i).read_string)
     end
   end
 
-  printf("Using audio driver: %s\n\n", SDL_GetCurrentAudioDriver())
+  printf("Using audio driver: %s\n\n", SDL_GetCurrentAudioDriver().read_string)
 
   print_devices(0)
   print_devices(1)

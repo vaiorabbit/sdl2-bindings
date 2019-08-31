@@ -39,30 +39,30 @@ module SDL2
   # Function
 
   def self.setup_touch_symbols()
-    touch_symbols = [
+    symbols = [
       :SDL_GetNumTouchDevices,
       :SDL_GetTouchDevice,
       :SDL_GetTouchDeviceType,
       :SDL_GetNumTouchFingers,
       :SDL_GetTouchFinger,
     ]
-    touch_args = {
-      :SDL_GetNumTouchDevices => [], 
-      :SDL_GetTouchDevice => [:int], 
-      :SDL_GetTouchDeviceType => [:long_long], 
-      :SDL_GetNumTouchFingers => [:long_long], 
-      :SDL_GetTouchFinger => [:long_long, :int], 
+    args = {
+      :SDL_GetNumTouchDevices => [],
+      :SDL_GetTouchDevice => [:int],
+      :SDL_GetTouchDeviceType => [:long_long],
+      :SDL_GetNumTouchFingers => [:long_long],
+      :SDL_GetTouchFinger => [:long_long, :int],
     }
-    touch_retvals = {
+    retvals = {
       :SDL_GetNumTouchDevices => :int,
       :SDL_GetTouchDevice => :long_long,
       :SDL_GetTouchDeviceType => :int,
       :SDL_GetNumTouchFingers => :int,
       :SDL_GetTouchFinger => :pointer,
     }
-    touch_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, touch_args[sym], touch_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

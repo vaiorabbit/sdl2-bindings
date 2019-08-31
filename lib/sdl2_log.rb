@@ -53,7 +53,7 @@ module SDL2
   # Function
 
   def self.setup_log_symbols()
-    log_symbols = [
+    symbols = [
       :SDL_LogSetAllPriority,
       :SDL_LogSetPriority,
       :SDL_LogGetPriority,
@@ -69,23 +69,23 @@ module SDL2
       :SDL_LogGetOutputFunction,
       :SDL_LogSetOutputFunction,
     ]
-    log_args = {
-      :SDL_LogSetAllPriority => [:int], 
-      :SDL_LogSetPriority => [:int, :int], 
-      :SDL_LogGetPriority => [:int], 
-      :SDL_LogResetPriorities => [], 
-      :SDL_Log => [:pointer], 
-      :SDL_LogVerbose => [:int, :pointer], 
-      :SDL_LogDebug => [:int, :pointer], 
-      :SDL_LogInfo => [:int, :pointer], 
-      :SDL_LogWarn => [:int, :pointer], 
-      :SDL_LogError => [:int, :pointer], 
-      :SDL_LogCritical => [:int, :pointer], 
-      :SDL_LogMessage => [:int, :int, :pointer], 
-      :SDL_LogGetOutputFunction => [:pointer, :pointer], 
-      :SDL_LogSetOutputFunction => [:pointer, :pointer], 
+    args = {
+      :SDL_LogSetAllPriority => [:int],
+      :SDL_LogSetPriority => [:int, :int],
+      :SDL_LogGetPriority => [:int],
+      :SDL_LogResetPriorities => [],
+      :SDL_Log => [:pointer],
+      :SDL_LogVerbose => [:int, :pointer],
+      :SDL_LogDebug => [:int, :pointer],
+      :SDL_LogInfo => [:int, :pointer],
+      :SDL_LogWarn => [:int, :pointer],
+      :SDL_LogError => [:int, :pointer],
+      :SDL_LogCritical => [:int, :pointer],
+      :SDL_LogMessage => [:int, :int, :pointer],
+      :SDL_LogGetOutputFunction => [:pointer, :pointer],
+      :SDL_LogSetOutputFunction => [:pointer, :pointer],
     }
-    log_retvals = {
+    retvals = {
       :SDL_LogSetAllPriority => :void,
       :SDL_LogSetPriority => :void,
       :SDL_LogGetPriority => :int,
@@ -101,9 +101,9 @@ module SDL2
       :SDL_LogGetOutputFunction => :void,
       :SDL_LogSetOutputFunction => :void,
     }
-    log_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, log_args[sym], log_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

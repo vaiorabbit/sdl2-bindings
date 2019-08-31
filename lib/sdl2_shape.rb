@@ -46,27 +46,27 @@ module SDL2
   # Function
 
   def self.setup_shape_symbols()
-    shape_symbols = [
+    symbols = [
       :SDL_CreateShapedWindow,
       :SDL_IsShapedWindow,
       :SDL_SetWindowShape,
       :SDL_GetShapedWindowMode,
     ]
-    shape_args = {
-      :SDL_CreateShapedWindow => [:pointer, :uint, :uint, :uint, :uint, :uint], 
-      :SDL_IsShapedWindow => [:pointer], 
-      :SDL_SetWindowShape => [:pointer, :pointer, :pointer], 
-      :SDL_GetShapedWindowMode => [:pointer, :pointer], 
+    args = {
+      :SDL_CreateShapedWindow => [:pointer, :uint, :uint, :uint, :uint, :uint],
+      :SDL_IsShapedWindow => [:pointer],
+      :SDL_SetWindowShape => [:pointer, :pointer, :pointer],
+      :SDL_GetShapedWindowMode => [:pointer, :pointer],
     }
-    shape_retvals = {
+    retvals = {
       :SDL_CreateShapedWindow => :pointer,
       :SDL_IsShapedWindow => :int,
       :SDL_SetWindowShape => :int,
       :SDL_GetShapedWindowMode => :int,
     }
-    shape_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, shape_args[sym], shape_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

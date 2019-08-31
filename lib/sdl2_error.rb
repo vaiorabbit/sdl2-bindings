@@ -30,27 +30,27 @@ module SDL2
   # Function
 
   def self.setup_error_symbols()
-    error_symbols = [
+    symbols = [
       :SDL_SetError,
       :SDL_GetError,
       :SDL_ClearError,
       :SDL_Error,
     ]
-    error_args = {
-      :SDL_SetError => [:pointer], 
-      :SDL_GetError => [], 
-      :SDL_ClearError => [], 
-      :SDL_Error => [:int], 
+    args = {
+      :SDL_SetError => [:pointer],
+      :SDL_GetError => [],
+      :SDL_ClearError => [],
+      :SDL_Error => [:int],
     }
-    error_retvals = {
+    retvals = {
       :SDL_SetError => :int,
       :SDL_GetError => :pointer,
       :SDL_ClearError => :void,
       :SDL_Error => :int,
     }
-    error_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, error_args[sym], error_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

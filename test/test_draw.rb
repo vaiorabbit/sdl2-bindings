@@ -10,7 +10,7 @@ $cycle_direction = 1
 
 def draw_points(renderer)
 
-  viewport = SDL_Rect.malloc
+  viewport = SDL_Rect.new
 
   SDL_RenderGetViewport(renderer, viewport)
 
@@ -26,15 +26,15 @@ def draw_points(renderer)
     end
 
     SDL_SetRenderDrawColor(renderer, 255, $current_color, $current_color, $current_alpha)
-    x = rand(65535) % viewport.w
-    y = rand(65535) % viewport.h
+    x = rand(65535) % viewport[:w]
+    y = rand(65535) % viewport[:h]
     SDL_RenderDrawPoint(renderer, x, y)
   end
 end
 
 def draw_lines(renderer)
-  rect = SDL_Rect.malloc
-  viewport = SDL_Rect.malloc
+  rect = SDL_Rect.new
+  viewport = SDL_Rect.new
 
   SDL_RenderGetViewport(renderer, viewport)
 
@@ -50,23 +50,23 @@ def draw_lines(renderer)
     end
     SDL_SetRenderDrawColor(renderer, 255, $current_color, $current_color, $current_alpha)
     if i == 0
-      SDL_RenderDrawLine(renderer, 0, 0, viewport.w - 1, viewport.h - 1)
-      SDL_RenderDrawLine(renderer, 0, viewport.h - 1, viewport.w - 1, 0)
-      SDL_RenderDrawLine(renderer, 0, viewport.h / 2, viewport.w - 1, viewport.h / 2)
-      SDL_RenderDrawLine(renderer, viewport.w / 2, 0, viewport.w / 2, viewport.h - 1)
+      SDL_RenderDrawLine(renderer, 0, 0, viewport[:w] - 1, viewport[:h] - 1)
+      SDL_RenderDrawLine(renderer, 0, viewport[:h] - 1, viewport[:w] - 1, 0)
+      SDL_RenderDrawLine(renderer, 0, viewport[:h] / 2, viewport[:w] - 1, viewport[:h] / 2)
+      SDL_RenderDrawLine(renderer, viewport[:w] / 2, 0, viewport[:w] / 2, viewport[:h] - 1)
     else
-      x1 = (rand(65535) % (viewport.w * 2)) - viewport.w
-      x2 = (rand(65535) % (viewport.w * 2)) - viewport.w
-      y1 = (rand(65535) % (viewport.h * 2)) - viewport.h
-      y2 = (rand(65535) % (viewport.h * 2)) - viewport.h
+      x1 = (rand(65535) % (viewport[:w] * 2)) - viewport[:w]
+      x2 = (rand(65535) % (viewport[:w] * 2)) - viewport[:w]
+      y1 = (rand(65535) % (viewport[:h] * 2)) - viewport[:h]
+      y2 = (rand(65535) % (viewport[:h] * 2)) - viewport[:h]
       SDL_RenderDrawLine(renderer, x1, y1, x2, y2)
     end
   end
 end
 
 def draw_rects(renderer)
-  rect = SDL_Rect.malloc
-  viewport = SDL_Rect.malloc
+  rect = SDL_Rect.new
+  viewport = SDL_Rect.new
 
   SDL_RenderGetViewport(renderer, viewport)
 
@@ -81,11 +81,11 @@ def draw_rects(renderer)
       $cycle_direction = -$cycle_direction
     end
     SDL_SetRenderDrawColor(renderer, 255, $current_color, $current_color, $current_alpha)
-    rect.w = rand(65535) % (viewport.h / 2)
-    rect.h = rand(65535) % (viewport.h / 2)
+    rect[:w] = rand(65535) % (viewport[:h] / 2)
+    rect[:h] = rand(65535) % (viewport[:h] / 2)
 
-    rect.x = (rand(65535) % (viewport.w*2) - viewport.w) - (rect.w / 2)
-    rect.y = (rand(65535) % (viewport.h*2) - viewport.h) - (rect.h / 2)
+    rect[:x] = (rand(65535) % (viewport[:w]*2) - viewport[:w]) - (rect[:w] / 2)
+    rect[:y] = (rand(65535) % (viewport[:h]*2) - viewport[:h]) - (rect[:h] / 2)
     SDL_RenderFillRect(renderer, rect)
   end
 end
@@ -94,7 +94,6 @@ end
 
 if __FILE__ == $0
   SDL2.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
-  SDL_SetMainReady()
   success = SDL_Init(SDL_INIT_VIDEO)
   exit if success < 0
 
@@ -110,12 +109,12 @@ if __FILE__ == $0
   while not done
     while SDL_PollEvent(event) != 0
       # 'type' and 'timestamp' are common members for all SDL Event structs.
-      event_type = event.common.type
-      event_timestamp = event.common.timestamp
+      event_type = event[:common][:type]
+      event_timestamp = event[:common][:timestamp]
       # puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
       case event_type
       when SDL_KEYDOWN
-        if event.key.keysym_sym == SDLK_ESCAPE
+        if event[:key][:keysym][:sym] == SDLK_ESCAPE
           done = true
         end
       end

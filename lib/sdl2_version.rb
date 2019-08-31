@@ -34,24 +34,24 @@ module SDL2
   # Function
 
   def self.setup_version_symbols()
-    version_symbols = [
+    symbols = [
       :SDL_GetVersion,
       :SDL_GetRevision,
       :SDL_GetRevisionNumber,
     ]
-    version_args = {
-      :SDL_GetVersion => [:pointer], 
-      :SDL_GetRevision => [], 
-      :SDL_GetRevisionNumber => [], 
+    args = {
+      :SDL_GetVersion => [:pointer],
+      :SDL_GetRevision => [],
+      :SDL_GetRevisionNumber => [],
     }
-    version_retvals = {
+    retvals = {
       :SDL_GetVersion => :void,
       :SDL_GetRevision => :pointer,
       :SDL_GetRevisionNumber => :int,
     }
-    version_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, version_args[sym], version_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

@@ -5,7 +5,7 @@
 [Notice] Experimental project.
 
 *   Created : 2015-09-19
-*   Last modified : 2019-08-28
+*   Last modified : 2019-08-31
 
 ## Features ##
 
@@ -28,7 +28,7 @@
     *   sdl2_image : 2.0.1
     *   sdl2_mixer : 2.0.1
     *   sdl2_ttf : 2.0.13
-
+*   [2019-08-31] SDL 2.0.10 (Installed via Homebrew)
 
 ## License ##
 

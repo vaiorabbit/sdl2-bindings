@@ -23,24 +23,24 @@ module SDL2
   # Function
 
   def self.setup_clipboard_symbols()
-    clipboard_symbols = [
+    symbols = [
       :SDL_SetClipboardText,
       :SDL_GetClipboardText,
       :SDL_HasClipboardText,
     ]
-    clipboard_args = {
-      :SDL_SetClipboardText => [:pointer], 
-      :SDL_GetClipboardText => [], 
-      :SDL_HasClipboardText => [], 
+    args = {
+      :SDL_SetClipboardText => [:pointer],
+      :SDL_GetClipboardText => [],
+      :SDL_HasClipboardText => [],
     }
-    clipboard_retvals = {
+    retvals = {
       :SDL_SetClipboardText => :int,
       :SDL_GetClipboardText => :pointer,
       :SDL_HasClipboardText => :int,
     }
-    clipboard_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, clipboard_args[sym], clipboard_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

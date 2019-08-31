@@ -72,7 +72,7 @@ module SDL2
   # Function
 
   def self.setup_audio_symbols()
-    audio_symbols = [
+    symbols = [
       :SDL_GetNumAudioDrivers,
       :SDL_GetAudioDriver,
       :SDL_AudioInit,
@@ -110,45 +110,45 @@ module SDL2
       :SDL_CloseAudio,
       :SDL_CloseAudioDevice,
     ]
-    audio_args = {
-      :SDL_GetNumAudioDrivers => [], 
-      :SDL_GetAudioDriver => [:int], 
-      :SDL_AudioInit => [:pointer], 
-      :SDL_AudioQuit => [], 
-      :SDL_GetCurrentAudioDriver => [], 
-      :SDL_OpenAudio => [:pointer, :pointer], 
-      :SDL_GetNumAudioDevices => [:int], 
-      :SDL_GetAudioDeviceName => [:int, :int], 
-      :SDL_OpenAudioDevice => [:pointer, :int, :pointer, :pointer, :int], 
-      :SDL_GetAudioStatus => [], 
-      :SDL_GetAudioDeviceStatus => [:uint], 
-      :SDL_PauseAudio => [:int], 
-      :SDL_PauseAudioDevice => [:uint, :int], 
-      :SDL_LoadWAV_RW => [:pointer, :int, :pointer, :pointer, :pointer], 
-      :SDL_FreeWAV => [:pointer], 
-      :SDL_BuildAudioCVT => [:pointer, :ushort, :uchar, :int, :ushort, :uchar, :int], 
-      :SDL_ConvertAudio => [:pointer], 
-      :SDL_NewAudioStream => [:ushort, :uchar, :int, :ushort, :uchar, :int], 
-      :SDL_AudioStreamPut => [:pointer, :pointer, :int], 
-      :SDL_AudioStreamGet => [:pointer, :pointer, :int], 
-      :SDL_AudioStreamAvailable => [:pointer], 
-      :SDL_AudioStreamFlush => [:pointer], 
-      :SDL_AudioStreamClear => [:pointer], 
-      :SDL_FreeAudioStream => [:pointer], 
-      :SDL_MixAudio => [:pointer, :pointer, :uint, :int], 
-      :SDL_MixAudioFormat => [:pointer, :pointer, :ushort, :uint, :int], 
-      :SDL_QueueAudio => [:uint, :pointer, :uint], 
-      :SDL_DequeueAudio => [:uint, :pointer, :uint], 
-      :SDL_GetQueuedAudioSize => [:uint], 
-      :SDL_ClearQueuedAudio => [:uint], 
-      :SDL_LockAudio => [], 
-      :SDL_LockAudioDevice => [:uint], 
-      :SDL_UnlockAudio => [], 
-      :SDL_UnlockAudioDevice => [:uint], 
-      :SDL_CloseAudio => [], 
-      :SDL_CloseAudioDevice => [:uint], 
+    args = {
+      :SDL_GetNumAudioDrivers => [],
+      :SDL_GetAudioDriver => [:int],
+      :SDL_AudioInit => [:pointer],
+      :SDL_AudioQuit => [],
+      :SDL_GetCurrentAudioDriver => [],
+      :SDL_OpenAudio => [:pointer, :pointer],
+      :SDL_GetNumAudioDevices => [:int],
+      :SDL_GetAudioDeviceName => [:int, :int],
+      :SDL_OpenAudioDevice => [:pointer, :int, :pointer, :pointer, :int],
+      :SDL_GetAudioStatus => [],
+      :SDL_GetAudioDeviceStatus => [:uint],
+      :SDL_PauseAudio => [:int],
+      :SDL_PauseAudioDevice => [:uint, :int],
+      :SDL_LoadWAV_RW => [:pointer, :int, :pointer, :pointer, :pointer],
+      :SDL_FreeWAV => [:pointer],
+      :SDL_BuildAudioCVT => [:pointer, :ushort, :uchar, :int, :ushort, :uchar, :int],
+      :SDL_ConvertAudio => [:pointer],
+      :SDL_NewAudioStream => [:ushort, :uchar, :int, :ushort, :uchar, :int],
+      :SDL_AudioStreamPut => [:pointer, :pointer, :int],
+      :SDL_AudioStreamGet => [:pointer, :pointer, :int],
+      :SDL_AudioStreamAvailable => [:pointer],
+      :SDL_AudioStreamFlush => [:pointer],
+      :SDL_AudioStreamClear => [:pointer],
+      :SDL_FreeAudioStream => [:pointer],
+      :SDL_MixAudio => [:pointer, :pointer, :uint, :int],
+      :SDL_MixAudioFormat => [:pointer, :pointer, :ushort, :uint, :int],
+      :SDL_QueueAudio => [:uint, :pointer, :uint],
+      :SDL_DequeueAudio => [:uint, :pointer, :uint],
+      :SDL_GetQueuedAudioSize => [:uint],
+      :SDL_ClearQueuedAudio => [:uint],
+      :SDL_LockAudio => [],
+      :SDL_LockAudioDevice => [:uint],
+      :SDL_UnlockAudio => [],
+      :SDL_UnlockAudioDevice => [:uint],
+      :SDL_CloseAudio => [],
+      :SDL_CloseAudioDevice => [:uint],
     }
-    audio_retvals = {
+    retvals = {
       :SDL_GetNumAudioDrivers => :int,
       :SDL_GetAudioDriver => :pointer,
       :SDL_AudioInit => :int,
@@ -186,9 +186,9 @@ module SDL2
       :SDL_CloseAudio => :void,
       :SDL_CloseAudioDevice => :void,
     }
-    audio_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, audio_args[sym], audio_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

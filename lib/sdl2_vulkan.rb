@@ -27,7 +27,7 @@ module SDL2
   # Function
 
   def self.setup_vulkan_symbols()
-    vulkan_symbols = [
+    symbols = [
       :SDL_Vulkan_LoadLibrary,
       :SDL_Vulkan_GetVkGetInstanceProcAddr,
       :SDL_Vulkan_UnloadLibrary,
@@ -35,15 +35,15 @@ module SDL2
       :SDL_Vulkan_CreateSurface,
       :SDL_Vulkan_GetDrawableSize,
     ]
-    vulkan_args = {
-      :SDL_Vulkan_LoadLibrary => [:pointer], 
-      :SDL_Vulkan_GetVkGetInstanceProcAddr => [], 
-      :SDL_Vulkan_UnloadLibrary => [], 
-      :SDL_Vulkan_GetInstanceExtensions => [:pointer, :pointer, :pointer], 
-      :SDL_Vulkan_CreateSurface => [:pointer, :pointer, :pointer], 
-      :SDL_Vulkan_GetDrawableSize => [:pointer, :pointer, :pointer], 
+    args = {
+      :SDL_Vulkan_LoadLibrary => [:pointer],
+      :SDL_Vulkan_GetVkGetInstanceProcAddr => [],
+      :SDL_Vulkan_UnloadLibrary => [],
+      :SDL_Vulkan_GetInstanceExtensions => [:pointer, :pointer, :pointer],
+      :SDL_Vulkan_CreateSurface => [:pointer, :pointer, :pointer],
+      :SDL_Vulkan_GetDrawableSize => [:pointer, :pointer, :pointer],
     }
-    vulkan_retvals = {
+    retvals = {
       :SDL_Vulkan_LoadLibrary => :int,
       :SDL_Vulkan_GetVkGetInstanceProcAddr => :pointer,
       :SDL_Vulkan_UnloadLibrary => :void,
@@ -51,9 +51,9 @@ module SDL2
       :SDL_Vulkan_CreateSurface => :int,
       :SDL_Vulkan_GetDrawableSize => :void,
     }
-    vulkan_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, vulkan_args[sym], vulkan_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

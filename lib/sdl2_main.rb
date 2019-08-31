@@ -33,30 +33,30 @@ module SDL2
   # Function
 
   def self.setup_main_symbols()
-    main_symbols = [
+    symbols = [
       :SDL_Init,
       :SDL_InitSubSystem,
       :SDL_QuitSubSystem,
       :SDL_WasInit,
       :SDL_Quit,
     ]
-    main_args = {
-      :SDL_Init => [:uint], 
-      :SDL_InitSubSystem => [:uint], 
-      :SDL_QuitSubSystem => [:uint], 
-      :SDL_WasInit => [:uint], 
-      :SDL_Quit => [], 
+    args = {
+      :SDL_Init => [:uint],
+      :SDL_InitSubSystem => [:uint],
+      :SDL_QuitSubSystem => [:uint],
+      :SDL_WasInit => [:uint],
+      :SDL_Quit => [],
     }
-    main_retvals = {
+    retvals = {
       :SDL_Init => :int,
       :SDL_InitSubSystem => :int,
       :SDL_QuitSubSystem => :void,
       :SDL_WasInit => :uint,
       :SDL_Quit => :void,
     }
-    main_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, main_args[sym], main_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

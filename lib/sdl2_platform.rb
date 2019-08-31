@@ -23,18 +23,18 @@ module SDL2
   # Function
 
   def self.setup_platform_symbols()
-    platform_symbols = [
+    symbols = [
       :SDL_GetPlatform,
     ]
-    platform_args = {
-      :SDL_GetPlatform => [], 
+    args = {
+      :SDL_GetPlatform => [],
     }
-    platform_retvals = {
+    retvals = {
       :SDL_GetPlatform => :pointer,
     }
-    platform_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, platform_args[sym], platform_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

@@ -23,21 +23,21 @@ module SDL2
   # Function
 
   def self.setup_filesystem_symbols()
-    filesystem_symbols = [
+    symbols = [
       :SDL_GetBasePath,
       :SDL_GetPrefPath,
     ]
-    filesystem_args = {
-      :SDL_GetBasePath => [], 
-      :SDL_GetPrefPath => [:pointer, :pointer], 
+    args = {
+      :SDL_GetBasePath => [],
+      :SDL_GetPrefPath => [:pointer, :pointer],
     }
-    filesystem_retvals = {
+    retvals = {
       :SDL_GetBasePath => :pointer,
       :SDL_GetPrefPath => :pointer,
     }
-    filesystem_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, filesystem_args[sym], filesystem_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

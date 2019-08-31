@@ -23,7 +23,7 @@ module SDL2
   # Function
 
   def self.setup_gfx_rotozoom_symbols()
-    gfx_rotozoom_symbols = [
+    symbols = [
       :rotozoomSurface,
       :rotozoomSurfaceXY,
       :rotozoomSurfaceSize,
@@ -33,17 +33,17 @@ module SDL2
       :shrinkSurface,
       :rotateSurface90Degrees,
     ]
-    gfx_rotozoom_args = {
-      :rotozoomSurface => [:pointer, :double, :double, :int], 
-      :rotozoomSurfaceXY => [:pointer, :double, :double, :double, :int], 
-      :rotozoomSurfaceSize => [:int, :int, :double, :double, :pointer, :pointer], 
-      :rotozoomSurfaceSizeXY => [:int, :int, :double, :double, :double, :pointer, :pointer], 
-      :zoomSurface => [:pointer, :double, :double, :int], 
-      :zoomSurfaceSize => [:int, :int, :double, :double, :pointer, :pointer], 
-      :shrinkSurface => [:pointer, :int, :int], 
-      :rotateSurface90Degrees => [:pointer, :int], 
+    args = {
+      :rotozoomSurface => [:pointer, :double, :double, :int],
+      :rotozoomSurfaceXY => [:pointer, :double, :double, :double, :int],
+      :rotozoomSurfaceSize => [:int, :int, :double, :double, :pointer, :pointer],
+      :rotozoomSurfaceSizeXY => [:int, :int, :double, :double, :double, :pointer, :pointer],
+      :zoomSurface => [:pointer, :double, :double, :int],
+      :zoomSurfaceSize => [:int, :int, :double, :double, :pointer, :pointer],
+      :shrinkSurface => [:pointer, :int, :int],
+      :rotateSurface90Degrees => [:pointer, :int],
     }
-    gfx_rotozoom_retvals = {
+    retvals = {
       :rotozoomSurface => :pointer,
       :rotozoomSurfaceXY => :pointer,
       :rotozoomSurfaceSize => :void,
@@ -53,9 +53,9 @@ module SDL2
       :shrinkSurface => :pointer,
       :rotateSurface90Degrees => :pointer,
     }
-    gfx_rotozoom_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, gfx_rotozoom_args[sym], gfx_rotozoom_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

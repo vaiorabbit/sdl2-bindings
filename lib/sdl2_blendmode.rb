@@ -46,18 +46,18 @@ module SDL2
   # Function
 
   def self.setup_blendmode_symbols()
-    blendmode_symbols = [
+    symbols = [
       :SDL_ComposeCustomBlendMode,
     ]
-    blendmode_args = {
-      :SDL_ComposeCustomBlendMode => [:int, :int, :int, :int, :int, :int], 
+    args = {
+      :SDL_ComposeCustomBlendMode => [:int, :int, :int, :int, :int, :int],
     }
-    blendmode_retvals = {
+    retvals = {
       :SDL_ComposeCustomBlendMode => :int,
     }
-    blendmode_symbols.each do |sym|
+    symbols.each do |sym|
       begin
-        attach_function sym, blendmode_args[sym], blendmode_retvals[sym]
+        attach_function sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end
