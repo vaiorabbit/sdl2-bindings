@@ -295,3 +295,5 @@ module SDL2
 
 end
 
+# TODO #define KMOD_CTRL, #define KMOD_SHIFT, #define KMOD_ALT and #define KMOD_GUI
+

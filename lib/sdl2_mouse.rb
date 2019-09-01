@@ -113,3 +113,5 @@ module SDL2
 
 end
 
+# TODO : def SDL_BUTTON(X); (1 << ((X)-1)); end;
+
