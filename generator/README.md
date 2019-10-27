@@ -1,13 +1,33 @@
 # Usage #
 
+These instructions are tested only on macOS environment.
+
 *   Copy SDL2 headers into ./SDL2
     *   You can also put these headers to make bindings:
         *   SDL_gfx(SDL2_rotozoom.h, SDL2_imageFilter.h, SDL2_gfxPrimitives.h, SDL2_framerate.h)
         *   SDL_image (SDL_image.h)
         *   SDL_mixer (SDL_mixer.h)
         *   SDL_ttf (SDL_ttf.h)
-*   Patch ./SDL2/SDL_config.h by commenting out the line '#define HAVE_INTTYPES_H 1'
-    *   By including 'inttypes.h', all SDL integer types (Sint8, etc.) are interpreted as 'TypeKind.INT'.
+*   Patch ./SDL2/SDL_config_macosx.h by:
+    *   commenting out the lines '#define HAVE_INTTYPES_H 1' and '#define HAVE_STDINT_H 1'
+    *   put these typedefs by hand:
+
+            #if defined(HAVE_INTTYPES_H)
+            # include <inttypes.h>
+            #elif defined(HAVE_STDINT_H)
+            # include <stdint.h>
+            #else
+            typedef char int8_t;
+            typedef short int16_t;
+            typedef int int32_t;
+            typedef long long int64_t;
+            typedef unsigned char uint8_t;
+            typedef unsigned short uint16_t;
+            typedef unsigned int uint32_t;
+            typedef unsigned long long uint64_t;
+            #endif
+
+    *   This is a dirty patching. By including 'inttypes.h' or 'stdint.h', all SDL integer types (Sint8, etc.) are interpreted as 'TypeKind.INT'. Since macOS Catalina and CIndex of LLVM 9.0.0, my script cannot resolve integer types into CIndex type kinds (e.g. TypeKind.SCHAR) correctly.
 *   Generate mapping tables with ./generate_initial_mapping.sh to get
     *   sdl2_cindex_mapping.json
     *   sdl2_define_mapping.json

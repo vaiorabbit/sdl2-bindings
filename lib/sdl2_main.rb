@@ -65,5 +65,3 @@ module SDL2
 
 end
 
-# TODO : #define SDL_FALSE 0 and #define SDL_TRUE 1
-

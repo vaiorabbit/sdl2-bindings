@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from clang.cindex import Config, CursorKind, Index, TranslationUnit, TranslationUnitLoadError, TypeKind
 
-Config.set_library_path("/usr/local/Cellar/llvm/8.0.1/lib")
+Config.set_library_path("/usr/local/Cellar/llvm/9.0.0/lib")
 
 ####################################################################################################
 

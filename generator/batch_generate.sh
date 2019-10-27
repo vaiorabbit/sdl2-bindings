@@ -1,5 +1,5 @@
 #!/usr/local/bin/zsh
-export PYTHONPATH=/usr/local/Cellar/llvm/8.0.1/lib/python2.7/site-packages
+export PYTHONPATH=/usr/local/Cellar/llvm/9.0.0/lib/python2.7/site-packages
 python generate_SDL.py > ../lib/sdl2_main.rb
 python generate_SDL_audio.py > ../lib/sdl2_audio.rb
 python generate_SDL_blendmode.py > ../lib/sdl2_blendmode.rb
@@ -27,6 +27,7 @@ python generate_SDL_rwops.py > ../lib/sdl2_rwops.rb
 python generate_SDL_scancode.py > ../lib/sdl2_scancode.rb
 python generate_SDL_shape.py > ../lib/sdl2_shape.rb
 python generate_SDL_surface.py > ../lib/sdl2_surface.rb
+python generate_SDL_stdinc.py > ../lib/sdl2_stdinc.rb
 python generate_SDL_timer.py > ../lib/sdl2_timer.rb
 python generate_SDL_touch.py > ../lib/sdl2_touch.rb
 python generate_SDL_version.py > ../lib/sdl2_version.rb

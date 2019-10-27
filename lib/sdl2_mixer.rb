@@ -10,6 +10,9 @@ module SDL2
   extend FFI::Library
   # Define/Macro
 
+  SDL_MIXER_MAJOR_VERSION = 2
+  SDL_MIXER_MINOR_VERSION = 0
+  SDL_MIXER_PATCHLEVEL = 4
 
   # Enum
 

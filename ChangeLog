@@ -1,3 +1,7 @@
+2019-10-27  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/sdl2_stdinc.rb: Added.
+
 2019-08-31  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Refactoring + Cleanup
