@@ -16,7 +16,7 @@
     , "SDL_FUNCTION" : null
     , "SDL_FILE" : null
     , "SDL_LINE" : null
-    , "SDL_NULL_WHILE_LOOP_CONDITION" : "( 0 )"
+    , "SDL_NULL_WHILE_LOOP_CONDITION" : "0"
     , "SDL_disabled_assert" : null
     , "SDL_enabled_assert" : null
     , "SDL_assert" : null
@@ -32,10 +32,10 @@
     , "SDL_AtomicIncRef" : null
     , "SDL_AtomicDecRef" : null
     , "SDL_audio_h_" : null
-    , "SDL_AUDIO_MASK_BITSIZE" : "( 0xFF )"
-    , "SDL_AUDIO_MASK_DATATYPE" : "( 1 << 8 )"
-    , "SDL_AUDIO_MASK_ENDIAN" : "( 1 << 12 )"
-    , "SDL_AUDIO_MASK_SIGNED" : "( 1 << 15 )"
+    , "SDL_AUDIO_MASK_BITSIZE" : "0xFF"
+    , "SDL_AUDIO_MASK_DATATYPE" : "(1 << 8)"
+    , "SDL_AUDIO_MASK_ENDIAN" : "(1 << 12)"
+    , "SDL_AUDIO_MASK_SIGNED" : "(1 << 15)"
     , "SDL_AUDIO_BITSIZE" : null
     , "SDL_AUDIO_ISFLOAT" : null
     , "SDL_AUDIO_ISBIGENDIAN" : null
@@ -47,7 +47,7 @@
     , "SDL_AUDIO_ALLOW_FORMAT_CHANGE" : "0x00000002"
     , "SDL_AUDIO_ALLOW_CHANNELS_CHANGE" : "0x00000004"
     , "SDL_AUDIO_ALLOW_SAMPLES_CHANGE" : "0x00000008"
-    , "SDL_AUDIO_ALLOW_ANY_CHANGE" : "( SDL_AUDIO_ALLOW_FREQUENCY_CHANGE | SDL_AUDIO_ALLOW_FORMAT_CHANGE | SDL_AUDIO_ALLOW_CHANNELS_CHANGE | SDL_AUDIO_ALLOW_SAMPLES_CHANGE )"
+    , "SDL_AUDIO_ALLOW_ANY_CHANGE" : null
     , "SDL_AUDIOCVT_MAX_FILTERS" : "9"
     , "SDL_AUDIOCVT_PACKED" : null
     , "SDL_LoadWAV" : null
@@ -76,8 +76,8 @@
     , "SDL_events_h_" : null
     , "SDL_RELEASED" : "0"
     , "SDL_PRESSED" : "1"
-    , "SDL_TEXTEDITINGEVENT_TEXT_SIZE" : "( 32 )"
-    , "SDL_TEXTINPUTEVENT_TEXT_SIZE" : "( 32 )"
+    , "SDL_TEXTEDITINGEVENT_TEXT_SIZE" : "32"
+    , "SDL_TEXTINPUTEVENT_TEXT_SIZE" : "2"
     , "SDL_QUERY" : "-1"
     , "SDL_IGNORE" : "0"
     , "SDL_DISABLE" : "0"
@@ -88,22 +88,22 @@
     , "SDL_GameControllerAddMappingsFromFile" : null
     , "SDL_gesture_h_" : null
     , "SDL_haptic_h_" : null
-    , "SDL_HAPTIC_CONSTANT" : "( 1 << 0 )"
-    , "SDL_HAPTIC_SINE" : "( 1 << 1 )"
-    , "SDL_HAPTIC_LEFTRIGHT" : "( 1 << 2 )"
-    , "SDL_HAPTIC_TRIANGLE" : "( 1 << 3 )"
-    , "SDL_HAPTIC_SAWTOOTHUP" : "( 1 << 4 )"
-    , "SDL_HAPTIC_SAWTOOTHDOWN" : "( 1 << 5 )"
-    , "SDL_HAPTIC_RAMP" : "( 1 << 6 )"
-    , "SDL_HAPTIC_SPRING" : "( 1 << 7 )"
-    , "SDL_HAPTIC_DAMPER" : "( 1 << 8 )"
-    , "SDL_HAPTIC_INERTIA" : "( 1 << 9 )"
-    , "SDL_HAPTIC_FRICTION" : "( 1 << 10 )"
-    , "SDL_HAPTIC_CUSTOM" : "( 1 << 11 )"
-    , "SDL_HAPTIC_GAIN" : "( 1 << 12 )"
-    , "SDL_HAPTIC_AUTOCENTER" : "( 1 << 13 )"
-    , "SDL_HAPTIC_STATUS" : "( 1 << 14 )"
-    , "SDL_HAPTIC_PAUSE" : "( 1 << 15 )"
+    , "SDL_HAPTIC_CONSTANT" : "(1 << 0)"
+    , "SDL_HAPTIC_SINE" : "(1 << 1)"
+    , "SDL_HAPTIC_LEFTRIGHT" : "(1 << 2)"
+    , "SDL_HAPTIC_TRIANGLE" : "(1 << 3)"
+    , "SDL_HAPTIC_SAWTOOTHUP" : "(1 << 4)"
+    , "SDL_HAPTIC_SAWTOOTHDOWN" : "(1 << 5)"
+    , "SDL_HAPTIC_RAMP" : "(1 << 6)"
+    , "SDL_HAPTIC_SPRING" : "(1 << 7)"
+    , "SDL_HAPTIC_DAMPER" : "(1 << 8)"
+    , "SDL_HAPTIC_INERTIA" : "(1 << 9)"
+    , "SDL_HAPTIC_FRICTION" : "(1 << 10)"
+    , "SDL_HAPTIC_CUSTOM" : "(1 << 11)"
+    , "SDL_HAPTIC_GAIN" : "(1 << 12)"
+    , "SDL_HAPTIC_AUTOCENTER" : "(1 << 13)"
+    , "SDL_HAPTIC_STATUS" : "(1 << 14)"
+    , "SDL_HAPTIC_PAUSE" : "(1 << 15)"
     , "SDL_HAPTIC_POLAR" : "0"
     , "SDL_HAPTIC_CARTESIAN" : "1"
     , "SDL_HAPTIC_SPHERICAL" : "2"
@@ -118,11 +118,14 @@
     , "SDL_HINT_RENDER_SCALE_QUALITY" : null
     , "SDL_HINT_RENDER_VSYNC" : null
     , "SDL_HINT_VIDEO_ALLOW_SCREENSAVER" : null
+    , "SDL_HINT_VIDEO_EXTERNAL_CONTEXT" : null
     , "SDL_HINT_VIDEO_X11_XVIDMODE" : null
     , "SDL_HINT_VIDEO_X11_XINERAMA" : null
     , "SDL_HINT_VIDEO_X11_XRANDR" : null
+    , "SDL_HINT_VIDEO_X11_WINDOW_VISUALID" : null
     , "SDL_HINT_VIDEO_X11_NET_WM_PING" : null
     , "SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR" : null
+    , "SDL_HINT_VIDEO_X11_FORCE_EGL" : null
     , "SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN" : null
     , "SDL_HINT_WINDOWS_INTRESOURCE_ICON" : null
     , "SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL" : null
@@ -146,10 +149,12 @@
     , "SDL_HINT_TV_REMOTE_AS_JOYSTICK" : null
     , "SDL_HINT_XINPUT_ENABLED" : null
     , "SDL_HINT_XINPUT_USE_OLD_JOYSTICK_MAPPING" : null
+    , "SDL_HINT_GAMECONTROLLERTYPE" : null
     , "SDL_HINT_GAMECONTROLLERCONFIG" : null
     , "SDL_HINT_GAMECONTROLLERCONFIG_FILE" : null
     , "SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES" : null
     , "SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT" : null
+    , "SDL_HINT_GAMECONTROLLER_USE_BUTTON_LABELS" : null
     , "SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS" : null
     , "SDL_HINT_JOYSTICK_HIDAPI" : null
     , "SDL_HINT_JOYSTICK_HIDAPI_PS4" : null
@@ -157,6 +162,7 @@
     , "SDL_HINT_JOYSTICK_HIDAPI_STEAM" : null
     , "SDL_HINT_JOYSTICK_HIDAPI_SWITCH" : null
     , "SDL_HINT_JOYSTICK_HIDAPI_XBOX" : null
+    , "SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE" : null
     , "SDL_HINT_ENABLE_STEAM_CONTROLLERS" : null
     , "SDL_HINT_ALLOW_TOPMOST" : null
     , "SDL_HINT_TIMER_RESOLUTION" : null
@@ -193,6 +199,7 @@
     , "SDL_HINT_WAVE_RIFF_CHUNK_SIZE" : null
     , "SDL_HINT_WAVE_TRUNCATION" : null
     , "SDL_HINT_WAVE_FACT_CHUNK" : null
+    , "SDL_HINT_DISPLAY_USABLE_BOUNDS" : null
     , "SDL_joystick_h_" : null
     , "SDL_JOYSTICK_AXIS_MAX" : "32767"
     , "SDL_JOYSTICK_AXIS_MIN" : "-32768"
@@ -201,10 +208,10 @@
     , "SDL_HAT_RIGHT" : "0x02"
     , "SDL_HAT_DOWN" : "0x04"
     , "SDL_HAT_LEFT" : "0x08"
-    , "SDL_HAT_RIGHTUP" : "( SDL_HAT_RIGHT | SDL_HAT_UP )"
-    , "SDL_HAT_RIGHTDOWN" : "( SDL_HAT_RIGHT | SDL_HAT_DOWN )"
-    , "SDL_HAT_LEFTUP" : "( SDL_HAT_LEFT | SDL_HAT_UP )"
-    , "SDL_HAT_LEFTDOWN" : "( SDL_HAT_LEFT | SDL_HAT_DOWN )"
+    , "SDL_HAT_RIGHTUP" : "(SDL_HAT_RIGHT | SDL_HAT_UP)"
+    , "SDL_HAT_RIGHTDOWN" : "(SDL_HAT_RIGHT | SDL_HAT_DOWN)"
+    , "SDL_HAT_LEFTUP" : "(SDL_HAT_LEFT | SDL_HAT_UP)"
+    , "SDL_HAT_LEFTDOWN" : "(SDL_HAT_LEFT | SDL_HAT_DOWN)"
     , "SDL_keyboard_h_" : null
     , "SDL_keycode_h_" : null
     , "SDL_SCANCODE_TO_KEYCODE" : null
@@ -254,8 +261,8 @@
     , "SDL_QuitRequested" : null
     , "SDL_rect_h_" : null
     , "SDL_render_h_" : null
-    , "SDL_REVISION" : "hg-12952:bc90ce38f1e2"
-    , "SDL_REVISION_NUMBER" : "12952"
+    , "SDL_REVISION" : "hg-13609:34cc7d3b69d3"
+    , "SDL_REVISION_NUMBER" : "13609"
     , "SDL_rwops_h_" : null
     , "SDL_RWOPS_UNKNOWN" : "0"
     , "SDL_RWOPS_WINFILE" : "1"
@@ -314,6 +321,7 @@
     , "SDL_max" : null
     , "SDL_zero" : null
     , "SDL_zerop" : null
+    , "SDL_zeroa" : null
     , "SDL_ICONV_ERROR" : null
     , "SDL_ICONV_E2BIG" : null
     , "SDL_ICONV_EILSEQ" : null
@@ -343,13 +351,13 @@
     , "SDL_version_h_" : null
     , "SDL_MAJOR_VERSION" : "2"
     , "SDL_MINOR_VERSION" : "0"
-    , "SDL_PATCHLEVEL" : "10"
+    , "SDL_PATCHLEVEL" : "12"
     , "SDL_VERSION" : null
     , "SDL_VERSIONNUM" : null
     , "SDL_COMPILEDVERSION" : null
     , "SDL_VERSION_ATLEAST" : null
     , "SDL_video_h_" : null
-    , "SDL_WINDOWPOS_UNDEFINED_MASK" : "0x1FFF0000"
+    , "SDL_WINDOWPOS_UNDEFINED_MASK" : null
     , "SDL_WINDOWPOS_UNDEFINED_DISPLAY" : null
     , "SDL_WINDOWPOS_UNDEFINED" : null
     , "SDL_WINDOWPOS_ISUNDEFINED" : null

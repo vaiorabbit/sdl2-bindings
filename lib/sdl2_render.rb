@@ -17,6 +17,9 @@ module SDL2
   SDL_RENDERER_ACCELERATED = 2
   SDL_RENDERER_PRESENTVSYNC = 4
   SDL_RENDERER_TARGETTEXTURE = 8
+  SDL_ScaleModeNearest = 0
+  SDL_ScaleModeLinear = 1
+  SDL_ScaleModeBest = 2
   SDL_TEXTUREACCESS_STATIC = 0
   SDL_TEXTUREACCESS_STREAMING = 1
   SDL_TEXTUREACCESS_TARGET = 2
@@ -30,6 +33,7 @@ module SDL2
   # Typedef
 
   typedef :int, :SDL_RendererFlags
+  typedef :int, :SDL_ScaleMode
   typedef :int, :SDL_TextureAccess
   typedef :int, :SDL_TextureModulate
   typedef :int, :SDL_RendererFlip
@@ -69,9 +73,12 @@ module SDL2
       :SDL_GetTextureAlphaMod,
       :SDL_SetTextureBlendMode,
       :SDL_GetTextureBlendMode,
+      :SDL_SetTextureScaleMode,
+      :SDL_GetTextureScaleMode,
       :SDL_UpdateTexture,
       :SDL_UpdateYUVTexture,
       :SDL_LockTexture,
+      :SDL_LockTextureToSurface,
       :SDL_UnlockTexture,
       :SDL_RenderTargetSupported,
       :SDL_SetRenderTarget,
@@ -140,9 +147,12 @@ module SDL2
       :SDL_GetTextureAlphaMod => [:pointer, :pointer],
       :SDL_SetTextureBlendMode => [:pointer, :int],
       :SDL_GetTextureBlendMode => [:pointer, :pointer],
+      :SDL_SetTextureScaleMode => [:pointer, :int],
+      :SDL_GetTextureScaleMode => [:pointer, :pointer],
       :SDL_UpdateTexture => [:pointer, :pointer, :pointer, :int],
       :SDL_UpdateYUVTexture => [:pointer, :pointer, :pointer, :int, :pointer, :int, :pointer, :int],
       :SDL_LockTexture => [:pointer, :pointer, :pointer, :pointer],
+      :SDL_LockTextureToSurface => [:pointer, :pointer, :pointer],
       :SDL_UnlockTexture => [:pointer],
       :SDL_RenderTargetSupported => [:pointer],
       :SDL_SetRenderTarget => [:pointer, :pointer],
@@ -211,9 +221,12 @@ module SDL2
       :SDL_GetTextureAlphaMod => :int,
       :SDL_SetTextureBlendMode => :int,
       :SDL_GetTextureBlendMode => :int,
+      :SDL_SetTextureScaleMode => :int,
+      :SDL_GetTextureScaleMode => :int,
       :SDL_UpdateTexture => :int,
       :SDL_UpdateYUVTexture => :int,
       :SDL_LockTexture => :int,
+      :SDL_LockTextureToSurface => :int,
       :SDL_UnlockTexture => :void,
       :SDL_RenderTargetSupported => :int,
       :SDL_SetRenderTarget => :int,

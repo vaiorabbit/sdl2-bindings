@@ -39,6 +39,7 @@ module SDL2
       :SDL_HasAVX,
       :SDL_HasAVX2,
       :SDL_HasAVX512F,
+      :SDL_HasARMSIMD,
       :SDL_HasNEON,
       :SDL_GetSystemRAM,
       :SDL_SIMDGetAlignment,
@@ -60,10 +61,11 @@ module SDL2
       :SDL_HasAVX => [],
       :SDL_HasAVX2 => [],
       :SDL_HasAVX512F => [],
+      :SDL_HasARMSIMD => [],
       :SDL_HasNEON => [],
       :SDL_GetSystemRAM => [],
       :SDL_SIMDGetAlignment => [],
-      :SDL_SIMDAlloc => [:int],
+      :SDL_SIMDAlloc => [:ulong],
       :SDL_SIMDFree => [:pointer],
     }
     retvals = {
@@ -81,9 +83,10 @@ module SDL2
       :SDL_HasAVX => :int,
       :SDL_HasAVX2 => :int,
       :SDL_HasAVX512F => :int,
+      :SDL_HasARMSIMD => :int,
       :SDL_HasNEON => :int,
       :SDL_GetSystemRAM => :int,
-      :SDL_SIMDGetAlignment => :int,
+      :SDL_SIMDGetAlignment => :size_t,
       :SDL_SIMDAlloc => :pointer,
       :SDL_SIMDFree => :void,
     }

@@ -17,10 +17,10 @@ module SDL2
   SDL_HAT_RIGHT = 0x02
   SDL_HAT_DOWN = 0x04
   SDL_HAT_LEFT = 0x08
-  SDL_HAT_RIGHTUP = ( SDL_HAT_RIGHT | SDL_HAT_UP )
-  SDL_HAT_RIGHTDOWN = ( SDL_HAT_RIGHT | SDL_HAT_DOWN )
-  SDL_HAT_LEFTUP = ( SDL_HAT_LEFT | SDL_HAT_UP )
-  SDL_HAT_LEFTDOWN = ( SDL_HAT_LEFT | SDL_HAT_DOWN )
+  SDL_HAT_RIGHTUP = (SDL_HAT_RIGHT | SDL_HAT_UP)
+  SDL_HAT_RIGHTDOWN = (SDL_HAT_RIGHT | SDL_HAT_DOWN)
+  SDL_HAT_LEFTUP = (SDL_HAT_LEFT | SDL_HAT_UP)
+  SDL_HAT_LEFTDOWN = (SDL_HAT_LEFT | SDL_HAT_DOWN)
 
   # Enum
 
@@ -74,8 +74,10 @@ module SDL2
       :SDL_JoystickGetDeviceInstanceID,
       :SDL_JoystickOpen,
       :SDL_JoystickFromInstanceID,
+      :SDL_JoystickFromPlayerIndex,
       :SDL_JoystickName,
       :SDL_JoystickGetPlayerIndex,
+      :SDL_JoystickSetPlayerIndex,
       :SDL_JoystickGetGUID,
       :SDL_JoystickGetVendor,
       :SDL_JoystickGetProduct,
@@ -114,8 +116,10 @@ module SDL2
       :SDL_JoystickGetDeviceInstanceID => [:int],
       :SDL_JoystickOpen => [:int],
       :SDL_JoystickFromInstanceID => [:int],
+      :SDL_JoystickFromPlayerIndex => [:int],
       :SDL_JoystickName => [:pointer],
       :SDL_JoystickGetPlayerIndex => [:pointer],
+      :SDL_JoystickSetPlayerIndex => [:pointer, :int],
       :SDL_JoystickGetGUID => [:pointer],
       :SDL_JoystickGetVendor => [:pointer],
       :SDL_JoystickGetProduct => [:pointer],
@@ -154,8 +158,10 @@ module SDL2
       :SDL_JoystickGetDeviceInstanceID => :int,
       :SDL_JoystickOpen => :pointer,
       :SDL_JoystickFromInstanceID => :pointer,
+      :SDL_JoystickFromPlayerIndex => :pointer,
       :SDL_JoystickName => :pointer,
       :SDL_JoystickGetPlayerIndex => :int,
+      :SDL_JoystickSetPlayerIndex => :void,
       :SDL_JoystickGetGUID => SDL_JoystickGUID,
       :SDL_JoystickGetVendor => :ushort,
       :SDL_JoystickGetProduct => :ushort,

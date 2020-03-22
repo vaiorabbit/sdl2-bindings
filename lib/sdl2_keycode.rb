@@ -270,6 +270,7 @@ module SDL2
   # Typedef
 
   typedef :int, :SDL_Keycode
+  typedef :int, :SDL_KeyCode
   typedef :int, :SDL_Keymod
 
   # Struct

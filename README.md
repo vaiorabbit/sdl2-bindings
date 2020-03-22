@@ -5,7 +5,7 @@
 [Notice] Experimental project.
 
 *   Created : 2015-09-19
-*   Last modified : 2019-10-27
+*   Last modified : 2020-03-22
 
 ## Features ##
 
@@ -29,13 +29,14 @@
     *   sdl2_mixer : 2.0.1
     *   sdl2_ttf : 2.0.13
 *   [2019-08-31] SDL 2.0.10 (Installed via Homebrew)
+*   [2020-03-22] SDL 2.0.12 (Installed via Homebrew)
 
 ## License ##
 
 The zlib/libpng License ( http://opensource.org/licenses/Zlib ).
 
     sdl2-bindings : Yet another SDL2 wrapper for Ruby
-    Copyright (c) 2015-2019 vaiorabbit <http://twitter.com/vaiorabbit>
+    Copyright (c) 2015-2020 vaiorabbit <http://twitter.com/vaiorabbit>
 
     This software is provided 'as-is', without any express or implied
     warranty. In no event will the authors be held liable for any damages

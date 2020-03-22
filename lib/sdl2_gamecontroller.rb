@@ -14,6 +14,12 @@ module SDL2
 
   # Enum
 
+  SDL_CONTROLLER_TYPE_UNKNOWN = 0
+  SDL_CONTROLLER_TYPE_XBOX360 = 1
+  SDL_CONTROLLER_TYPE_XBOXONE = 2
+  SDL_CONTROLLER_TYPE_PS3 = 3
+  SDL_CONTROLLER_TYPE_PS4 = 4
+  SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO = 5
   SDL_CONTROLLER_BINDTYPE_NONE = 0
   SDL_CONTROLLER_BINDTYPE_BUTTON = 1
   SDL_CONTROLLER_BINDTYPE_AXIS = 2
@@ -69,6 +75,7 @@ module SDL2
     )
   end
 
+  typedef :int, :SDL_GameControllerType
   typedef :int, :SDL_GameControllerBindType
   typedef :int, :SDL_GameControllerAxis
   typedef :int, :SDL_GameControllerButton
@@ -88,11 +95,15 @@ module SDL2
       :SDL_GameControllerMapping,
       :SDL_IsGameController,
       :SDL_GameControllerNameForIndex,
+      :SDL_GameControllerTypeForIndex,
       :SDL_GameControllerMappingForDeviceIndex,
       :SDL_GameControllerOpen,
       :SDL_GameControllerFromInstanceID,
+      :SDL_GameControllerFromPlayerIndex,
       :SDL_GameControllerName,
+      :SDL_GameControllerGetType,
       :SDL_GameControllerGetPlayerIndex,
+      :SDL_GameControllerSetPlayerIndex,
       :SDL_GameControllerGetVendor,
       :SDL_GameControllerGetProduct,
       :SDL_GameControllerGetProductVersion,
@@ -120,11 +131,15 @@ module SDL2
       :SDL_GameControllerMapping => [:pointer],
       :SDL_IsGameController => [:int],
       :SDL_GameControllerNameForIndex => [:int],
+      :SDL_GameControllerTypeForIndex => [:int],
       :SDL_GameControllerMappingForDeviceIndex => [:int],
       :SDL_GameControllerOpen => [:int],
       :SDL_GameControllerFromInstanceID => [:int],
+      :SDL_GameControllerFromPlayerIndex => [:int],
       :SDL_GameControllerName => [:pointer],
+      :SDL_GameControllerGetType => [:pointer],
       :SDL_GameControllerGetPlayerIndex => [:pointer],
+      :SDL_GameControllerSetPlayerIndex => [:pointer, :int],
       :SDL_GameControllerGetVendor => [:pointer],
       :SDL_GameControllerGetProduct => [:pointer],
       :SDL_GameControllerGetProductVersion => [:pointer],
@@ -152,11 +167,15 @@ module SDL2
       :SDL_GameControllerMapping => :pointer,
       :SDL_IsGameController => :int,
       :SDL_GameControllerNameForIndex => :pointer,
+      :SDL_GameControllerTypeForIndex => :int,
       :SDL_GameControllerMappingForDeviceIndex => :pointer,
       :SDL_GameControllerOpen => :pointer,
       :SDL_GameControllerFromInstanceID => :pointer,
+      :SDL_GameControllerFromPlayerIndex => :pointer,
       :SDL_GameControllerName => :pointer,
+      :SDL_GameControllerGetType => :int,
       :SDL_GameControllerGetPlayerIndex => :int,
+      :SDL_GameControllerSetPlayerIndex => :void,
       :SDL_GameControllerGetVendor => :ushort,
       :SDL_GameControllerGetProduct => :ushort,
       :SDL_GameControllerGetProductVersion => :ushort,

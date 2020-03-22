@@ -10,7 +10,6 @@ module SDL2
   extend FFI::Library
   # Define/Macro
 
-  SDL_WINDOWPOS_UNDEFINED_MASK = 0x1FFF0000
   SDL_WINDOWPOS_CENTERED_MASK = 0x2FFF0000
 
   # Enum

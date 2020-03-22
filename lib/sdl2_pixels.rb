@@ -63,6 +63,7 @@ module SDL2
   SDL_PIXELFORMAT_INDEX8 = 318769153
   SDL_PIXELFORMAT_RGB332 = 336660481
   SDL_PIXELFORMAT_RGB444 = 353504258
+  SDL_PIXELFORMAT_BGR444 = 357698562
   SDL_PIXELFORMAT_RGB555 = 353570562
   SDL_PIXELFORMAT_BGR555 = 357764866
   SDL_PIXELFORMAT_ARGB4444 = 355602434
@@ -101,6 +102,11 @@ module SDL2
 
   # Typedef
 
+  typedef :int, :SDL_PixelType
+  typedef :int, :SDL_BitmapOrder
+  typedef :int, :SDL_PackedOrder
+  typedef :int, :SDL_ArrayOrder
+  typedef :int, :SDL_PackedLayout
   typedef :int, :SDL_PixelFormatEnum
 
   # Struct

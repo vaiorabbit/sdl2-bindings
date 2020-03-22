@@ -13,8 +13,8 @@ module SDL2
 
   SDL_RELEASED = 0
   SDL_PRESSED = 1
-  SDL_TEXTEDITINGEVENT_TEXT_SIZE = ( 32 )
-  SDL_TEXTINPUTEVENT_TEXT_SIZE = ( 32 )
+  SDL_TEXTEDITINGEVENT_TEXT_SIZE = 32
+  SDL_TEXTINPUTEVENT_TEXT_SIZE = 2
   SDL_QUERY = -1
   SDL_IGNORE = 0
   SDL_DISABLE = 0
@@ -311,6 +311,7 @@ module SDL2
       :dx, :float,
       :dy, :float,
       :pressure, :float,
+      :windowID, :uint,
     )
   end
 

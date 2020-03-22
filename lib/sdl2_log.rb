@@ -44,6 +44,7 @@ module SDL2
 
   # Typedef
 
+  typedef :int, :SDL_LogCategory
   typedef :int, :SDL_LogPriority
   callback :SDL_LogOutputFunction, [:pointer, :int, :int, :pointer], :void
 
