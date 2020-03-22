@@ -119,13 +119,16 @@ def register_sdl2_cindex_mapping(strTypeKind, strSDL2Typedef):
     if strSDL2Typedef not in cindex_mapping:
         cindex_mapping[strSDL2Typedef] = strTypeKind
 
-def get_sdl2_cindex_mapping(strTypeKind, strSDL2Typedef):
-    if strTypeKind != 'TypeKind.TYPEDEF':
-        return strTypeKind
+def query_sdl2_cindex_mapping_entry_exists(strSDL2Typedef):
+    if cindex_mapping == None:
+        _init_type_mapping()
+    return strSDL2Typedef in cindex_mapping
 
+def get_sdl2_cindex_mapping_value(strSDL2Typedef):
     if cindex_mapping == None:
         _init_type_mapping()
     return cindex_mapping[strSDL2Typedef]
+
 
 def get_cindex_ctypes_mapping(strTypeKind, strSDL2Typedef):
 
@@ -146,6 +149,7 @@ def get_cindex_ctypes_mapping(strTypeKind, strSDL2Typedef):
         if m:
             isSizeType = True
 
+    # clang types -> python ctypes
     ctypes_mapping = {
         'TypeKind.VOID' : ':void',
         'TypeKind.BOOL' : ':bool',
@@ -182,12 +186,19 @@ def get_cindex_ctypes_mapping(strTypeKind, strSDL2Typedef):
     elif isSizeType:
         return ':size_t'
     else:
-        mapping_key = get_sdl2_cindex_mapping(strTypeKind, strSDL2Typedef)
+        mapping_key = ""
+        if strTypeKind != 'TypeKind.TYPEDEF':
+            mapping_key = strTypeKind
+        else:
+            mapping_key = get_sdl2_cindex_mapping_value(strSDL2Typedef)
+
         if mapping_key == "TypeKind.RECORD":
             return str(strSDL2Typedef)
         else:
             return ctypes_mapping[mapping_key]
 
+def is_sdl2_callback_type(strTypeKind, strSDL2Typedef):
+    return query_sdl2_cindex_mapping_entry_exists(strSDL2Typedef) and (get_sdl2_cindex_mapping_value(strSDL2Typedef) == "TypeKind.FUNCTIONPROTO")
 
 ####################################################################################################
 

@@ -287,7 +287,7 @@ module SDL2
       :SDL_SetWindowInputFocus => [:pointer],
       :SDL_SetWindowGammaRamp => [:pointer, :pointer, :pointer, :pointer],
       :SDL_GetWindowGammaRamp => [:pointer, :pointer, :pointer, :pointer],
-      :SDL_SetWindowHitTest => [:pointer, :pointer, :pointer],
+      :SDL_SetWindowHitTest => [:pointer, :SDL_HitTest, :pointer],
       :SDL_DestroyWindow => [:pointer],
       :SDL_IsScreenSaverEnabled => [],
       :SDL_EnableScreenSaver => [],

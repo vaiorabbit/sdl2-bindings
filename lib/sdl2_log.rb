@@ -84,7 +84,7 @@ module SDL2
       :SDL_LogCritical => [:int, :pointer],
       :SDL_LogMessage => [:int, :int, :pointer],
       :SDL_LogGetOutputFunction => [:pointer, :pointer],
-      :SDL_LogSetOutputFunction => [:pointer, :pointer],
+      :SDL_LogSetOutputFunction => [:SDL_LogOutputFunction, :pointer],
     }
     retvals = {
       :SDL_LogSetAllPriority => :void,

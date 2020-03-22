@@ -42,8 +42,8 @@ module SDL2
       :SDL_SetHint => [:pointer, :pointer],
       :SDL_GetHint => [:pointer],
       :SDL_GetHintBoolean => [:pointer, :int],
-      :SDL_AddHintCallback => [:pointer, :pointer, :pointer],
-      :SDL_DelHintCallback => [:pointer, :pointer, :pointer],
+      :SDL_AddHintCallback => [:pointer, :SDL_HintCallback, :pointer],
+      :SDL_DelHintCallback => [:pointer, :SDL_HintCallback, :pointer],
       :SDL_ClearHints => [],
     }
     retvals = {

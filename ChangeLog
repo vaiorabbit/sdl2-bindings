@@ -1,6 +1,7 @@
 2020-03-22  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Added SDL 2.0.12 features.
+	* Generate callback types correctly.
 
 2019-10-27  vaiorabbit  <http://twitter.com/vaiorabbit>
 

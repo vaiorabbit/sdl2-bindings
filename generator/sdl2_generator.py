@@ -70,7 +70,10 @@ def sanitize_function(ctx):
         if func_info == None:
             continue
         for arg in func_info.args:
-            arg.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(arg.type_kind), arg.type_name)
+            if sdl2_parser.is_sdl2_callback_type(arg.type_kind, arg.type_name):
+                arg.type_kind = ":" + arg.type_name
+            else:
+                arg.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(arg.type_kind), arg.type_name)
         func_info.retval.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(func_info.retval.type_kind), func_info.retval.type_name)
 
 def sanitize(ctx):
@@ -139,8 +142,8 @@ def generate_function(ctx, indent = "", module_name = ""):
             continue
         print(indent + "    :%s => [" % func_name, file = sys.stdout, end='')
         if len(func_info.args) > 0:
-            args_str = list(map((lambda t: str(t.type_kind)), func_info.args))
-            print(', '.join(args_str), file = sys.stdout, end='')
+            args_ctype_list = list(map((lambda t: str(t.type_kind)), func_info.args))
+            print(', '.join(args_ctype_list), file = sys.stdout, end='')
         print("],", file = sys.stdout)
     print(indent + "  }", file = sys.stdout)
 

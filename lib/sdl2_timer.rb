@@ -38,7 +38,7 @@ module SDL2
       :SDL_GetPerformanceCounter => [],
       :SDL_GetPerformanceFrequency => [],
       :SDL_Delay => [:uint],
-      :SDL_AddTimer => [:uint, :pointer, :pointer],
+      :SDL_AddTimer => [:uint, :SDL_TimerCallback, :pointer],
       :SDL_RemoveTimer => [:int],
     }
     retvals = {

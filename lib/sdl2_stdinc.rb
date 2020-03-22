@@ -151,7 +151,7 @@ module SDL2
       :SDL_realloc => [:pointer, :ulong],
       :SDL_free => [:pointer],
       :SDL_GetMemoryFunctions => [:pointer, :pointer, :pointer, :pointer],
-      :SDL_SetMemoryFunctions => [:pointer, :pointer, :pointer, :pointer],
+      :SDL_SetMemoryFunctions => [:SDL_malloc_func, :SDL_calloc_func, :SDL_realloc_func, :SDL_free_func],
       :SDL_GetNumAllocations => [],
       :SDL_getenv => [:pointer],
       :SDL_setenv => [:pointer, :pointer, :int],
