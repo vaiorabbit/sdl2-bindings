@@ -1,3 +1,8 @@
+2020-06-08  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/sdl2_syswm.rb: Added
+	* lib/sdl2_hints.rb: Added hint string symboles
+
 2020-03-22  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Added SDL 2.0.12 features.
