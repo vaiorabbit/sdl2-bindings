@@ -31,6 +31,7 @@ require_relative 'sdl2_scancode.rb'
 require_relative 'sdl2_shape.rb'
 require_relative 'sdl2_stdinc.rb'
 require_relative 'sdl2_surface.rb'
+require_relative 'sdl2_syswm.rb'
 require_relative 'sdl2_timer.rb'
 require_relative 'sdl2_touch.rb'
 require_relative 'sdl2_version.rb'
@@ -114,6 +115,7 @@ module SDL2
     setup_scancode_symbols()
     setup_shape_symbols()
     setup_surface_symbols()
+    setup_syswm_symbols()
     setup_stdinc_symbols()
     setup_timer_symbols()
     setup_touch_symbols()
