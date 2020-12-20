@@ -1,3 +1,7 @@
+2020-12-20  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* third_party/sdl2_build_dylib.sh: Added to build x86_64|arm64 Universal Binary
+
 2020-06-08  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/sdl2_syswm.rb: Added
