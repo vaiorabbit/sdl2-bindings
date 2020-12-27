@@ -2,6 +2,7 @@
 
 	* Added SDL 2.0.14 features.
 	* third_party/sdl2_build_dll.sh: Added to build x64 DLL for Windows
+	* test/util.rb: Added
 
 2020-12-20  vaiorabbit  <http://twitter.com/vaiorabbit>
 
