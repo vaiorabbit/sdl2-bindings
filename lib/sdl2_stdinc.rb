@@ -18,6 +18,14 @@ module SDL2
 
   # Typedef
 
+  typedef :char, :int8_t
+  typedef :short, :int16_t
+  typedef :int, :int32_t
+  typedef :long_long, :int64_t
+  typedef :uchar, :uint8_t
+  typedef :ushort, :uint16_t
+  typedef :uint, :uint32_t
+  typedef :ulong_long, :uint64_t
   typedef :int, :SDL_bool
   typedef :char, :Sint8
   typedef :uchar, :Uint8
@@ -57,6 +65,7 @@ module SDL2
       :SDL_islower,
       :SDL_toupper,
       :SDL_tolower,
+      :SDL_crc32,
       :SDL_memset,
       :SDL_memset4,
       :SDL_memcpy,
@@ -69,6 +78,8 @@ module SDL2
       :SDL_wcsstr,
       :SDL_wcscmp,
       :SDL_wcsncmp,
+      :SDL_wcscasecmp,
+      :SDL_wcsncasecmp,
       :SDL_strlen,
       :SDL_strlcpy,
       :SDL_utf8strlcpy,
@@ -123,6 +134,8 @@ module SDL2
       :SDL_fabsf,
       :SDL_floor,
       :SDL_floorf,
+      :SDL_trunc,
+      :SDL_truncf,
       :SDL_fmod,
       :SDL_fmodf,
       :SDL_log,
@@ -163,6 +176,7 @@ module SDL2
       :SDL_islower => [:int],
       :SDL_toupper => [:int],
       :SDL_tolower => [:int],
+      :SDL_crc32 => [:uint, :pointer, :ulong],
       :SDL_memset => [:pointer, :int, :ulong],
       :SDL_memset4 => [:pointer, :uint, :ulong],
       :SDL_memcpy => [:pointer, :pointer, :ulong],
@@ -175,6 +189,8 @@ module SDL2
       :SDL_wcsstr => [:pointer, :pointer],
       :SDL_wcscmp => [:pointer, :pointer],
       :SDL_wcsncmp => [:pointer, :pointer, :ulong],
+      :SDL_wcscasecmp => [:pointer, :pointer],
+      :SDL_wcsncasecmp => [:pointer, :pointer, :ulong],
       :SDL_strlen => [:pointer],
       :SDL_strlcpy => [:pointer, :pointer, :ulong],
       :SDL_utf8strlcpy => [:pointer, :pointer, :ulong],
@@ -229,6 +245,8 @@ module SDL2
       :SDL_fabsf => [:float],
       :SDL_floor => [:double],
       :SDL_floorf => [:float],
+      :SDL_trunc => [:double],
+      :SDL_truncf => [:float],
       :SDL_fmod => [:double, :double],
       :SDL_fmodf => [:float, :float],
       :SDL_log => [:double],
@@ -269,6 +287,7 @@ module SDL2
       :SDL_islower => :int,
       :SDL_toupper => :int,
       :SDL_tolower => :int,
+      :SDL_crc32 => :uint,
       :SDL_memset => :pointer,
       :SDL_memset4 => :void,
       :SDL_memcpy => :pointer,
@@ -281,6 +300,8 @@ module SDL2
       :SDL_wcsstr => :pointer,
       :SDL_wcscmp => :int,
       :SDL_wcsncmp => :int,
+      :SDL_wcscasecmp => :int,
+      :SDL_wcsncasecmp => :int,
       :SDL_strlen => :size_t,
       :SDL_strlcpy => :size_t,
       :SDL_utf8strlcpy => :size_t,
@@ -335,6 +356,8 @@ module SDL2
       :SDL_fabsf => :float,
       :SDL_floor => :double,
       :SDL_floorf => :float,
+      :SDL_trunc => :double,
+      :SDL_truncf => :float,
       :SDL_fmod => :double,
       :SDL_fmodf => :float,
       :SDL_log => :double,

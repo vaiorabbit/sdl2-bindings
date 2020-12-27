@@ -44,6 +44,7 @@ module SDL2
       :SDL_GetSystemRAM,
       :SDL_SIMDGetAlignment,
       :SDL_SIMDAlloc,
+      :SDL_SIMDRealloc,
       :SDL_SIMDFree,
     ]
     args = {
@@ -66,6 +67,7 @@ module SDL2
       :SDL_GetSystemRAM => [],
       :SDL_SIMDGetAlignment => [],
       :SDL_SIMDAlloc => [:ulong],
+      :SDL_SIMDRealloc => [:pointer, :ulong],
       :SDL_SIMDFree => [:pointer],
     }
     retvals = {
@@ -88,6 +90,7 @@ module SDL2
       :SDL_GetSystemRAM => :int,
       :SDL_SIMDGetAlignment => :size_t,
       :SDL_SIMDAlloc => :pointer,
+      :SDL_SIMDRealloc => :pointer,
       :SDL_SIMDFree => :void,
     }
     symbols.each do |sym|

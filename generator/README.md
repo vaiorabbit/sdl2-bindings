@@ -8,15 +8,17 @@ These instructions are tested only on macOS environment.
         *   SDL_image (SDL_image.h)
         *   SDL_mixer (SDL_mixer.h)
         *   SDL_ttf (SDL_ttf.h)
-*   Patch ./SDL2/SDL_config_macosx.h by:
-    *   commenting out the lines '#define HAVE_INTTYPES_H 1' and '#define HAVE_STDINT_H 1'
-    *   put these typedefs by hand:
+
+*   Patch 2 header files manually:
+    *   SDL2/SDL_config.h : comment out these lines
+        *   '#define HAVE_INTTYPES_H 1' and '#define HAVE_STDINT_H 1'
+    *   SDL2/SDL_stdinc.h : put these typedefs by hand:
 
             #if defined(HAVE_INTTYPES_H)
             # include <inttypes.h>
             #elif defined(HAVE_STDINT_H)
             # include <stdint.h>
-            #else
+            #else // ↓↓↓
             typedef char int8_t;
             typedef short int16_t;
             typedef int int32_t;
@@ -25,12 +27,14 @@ These instructions are tested only on macOS environment.
             typedef unsigned short uint16_t;
             typedef unsigned int uint32_t;
             typedef unsigned long long uint64_t;
-            #endif
+            #endif // ↑↑↑
 
-    *   This is a dirty patching. By including 'inttypes.h' or 'stdint.h', all SDL integer types (Sint8, etc.) are interpreted as 'TypeKind.INT'. Since macOS Catalina and CIndex of LLVM 9.0.0, my script cannot resolve integer types into CIndex type kinds (e.g. TypeKind.SCHAR) correctly.
+    *   By including 'inttypes.h' or 'stdint.h', all SDL integer types (Sint8, etc.) are interpreted as 'TypeKind.INT'. Since macOS Catalina and CIndex of LLVM 9.0.0, my script cannot resolve integer types into CIndex type kinds (e.g. TypeKind.SCHAR) correctly.
+
 *   Generate mapping tables with ./generate_initial_mapping.sh to get
     *   sdl2_cindex_mapping.json
     *   sdl2_define_mapping.json
+
 *   Edit sdl2_define_mapping.json
     *   This mapping table contains '#define' macros collected from headers in ./SDL2/ folder.
     *   Each lines represent key-value pair that will be used for generated Python codes.

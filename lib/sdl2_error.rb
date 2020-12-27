@@ -33,18 +33,21 @@ module SDL2
     symbols = [
       :SDL_SetError,
       :SDL_GetError,
+      :SDL_GetErrorMsg,
       :SDL_ClearError,
       :SDL_Error,
     ]
     args = {
       :SDL_SetError => [:pointer],
       :SDL_GetError => [],
+      :SDL_GetErrorMsg => [:pointer, :int],
       :SDL_ClearError => [],
       :SDL_Error => [:int],
     }
     retvals = {
       :SDL_SetError => :int,
       :SDL_GetError => :pointer,
+      :SDL_GetErrorMsg => :pointer,
       :SDL_ClearError => :void,
       :SDL_Error => :int,
     }

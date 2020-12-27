@@ -10,6 +10,7 @@ module SDL2
   extend FFI::Library
   # Define/Macro
 
+  SDL_IPHONE_MAX_GFORCE = 5.0
   SDL_JOYSTICK_AXIS_MAX = 32767
   SDL_JOYSTICK_AXIS_MIN = -32768
   SDL_HAT_CENTERED = 0x00
@@ -75,6 +76,12 @@ module SDL2
       :SDL_JoystickOpen,
       :SDL_JoystickFromInstanceID,
       :SDL_JoystickFromPlayerIndex,
+      :SDL_JoystickAttachVirtual,
+      :SDL_JoystickDetachVirtual,
+      :SDL_JoystickIsVirtual,
+      :SDL_JoystickSetVirtualAxis,
+      :SDL_JoystickSetVirtualButton,
+      :SDL_JoystickSetVirtualHat,
       :SDL_JoystickName,
       :SDL_JoystickGetPlayerIndex,
       :SDL_JoystickSetPlayerIndex,
@@ -82,6 +89,7 @@ module SDL2
       :SDL_JoystickGetVendor,
       :SDL_JoystickGetProduct,
       :SDL_JoystickGetProductVersion,
+      :SDL_JoystickGetSerial,
       :SDL_JoystickGetType,
       :SDL_JoystickGetGUIDString,
       :SDL_JoystickGetGUIDFromString,
@@ -99,6 +107,9 @@ module SDL2
       :SDL_JoystickGetBall,
       :SDL_JoystickGetButton,
       :SDL_JoystickRumble,
+      :SDL_JoystickRumbleTriggers,
+      :SDL_JoystickHasLED,
+      :SDL_JoystickSetLED,
       :SDL_JoystickClose,
       :SDL_JoystickCurrentPowerLevel,
     ]
@@ -117,6 +128,12 @@ module SDL2
       :SDL_JoystickOpen => [:int],
       :SDL_JoystickFromInstanceID => [:int],
       :SDL_JoystickFromPlayerIndex => [:int],
+      :SDL_JoystickAttachVirtual => [:int, :int, :int, :int],
+      :SDL_JoystickDetachVirtual => [:int],
+      :SDL_JoystickIsVirtual => [:int],
+      :SDL_JoystickSetVirtualAxis => [:pointer, :int, :short],
+      :SDL_JoystickSetVirtualButton => [:pointer, :int, :uchar],
+      :SDL_JoystickSetVirtualHat => [:pointer, :int, :uchar],
       :SDL_JoystickName => [:pointer],
       :SDL_JoystickGetPlayerIndex => [:pointer],
       :SDL_JoystickSetPlayerIndex => [:pointer, :int],
@@ -124,6 +141,7 @@ module SDL2
       :SDL_JoystickGetVendor => [:pointer],
       :SDL_JoystickGetProduct => [:pointer],
       :SDL_JoystickGetProductVersion => [:pointer],
+      :SDL_JoystickGetSerial => [:pointer],
       :SDL_JoystickGetType => [:pointer],
       :SDL_JoystickGetGUIDString => [SDL_JoystickGUID, :pointer, :int],
       :SDL_JoystickGetGUIDFromString => [:pointer],
@@ -141,6 +159,9 @@ module SDL2
       :SDL_JoystickGetBall => [:pointer, :int, :pointer, :pointer],
       :SDL_JoystickGetButton => [:pointer, :int],
       :SDL_JoystickRumble => [:pointer, :ushort, :ushort, :uint],
+      :SDL_JoystickRumbleTriggers => [:pointer, :ushort, :ushort, :uint],
+      :SDL_JoystickHasLED => [:pointer],
+      :SDL_JoystickSetLED => [:pointer, :uchar, :uchar, :uchar],
       :SDL_JoystickClose => [:pointer],
       :SDL_JoystickCurrentPowerLevel => [:pointer],
     }
@@ -159,6 +180,12 @@ module SDL2
       :SDL_JoystickOpen => :pointer,
       :SDL_JoystickFromInstanceID => :pointer,
       :SDL_JoystickFromPlayerIndex => :pointer,
+      :SDL_JoystickAttachVirtual => :int,
+      :SDL_JoystickDetachVirtual => :int,
+      :SDL_JoystickIsVirtual => :int,
+      :SDL_JoystickSetVirtualAxis => :int,
+      :SDL_JoystickSetVirtualButton => :int,
+      :SDL_JoystickSetVirtualHat => :int,
       :SDL_JoystickName => :pointer,
       :SDL_JoystickGetPlayerIndex => :int,
       :SDL_JoystickSetPlayerIndex => :void,
@@ -166,6 +193,7 @@ module SDL2
       :SDL_JoystickGetVendor => :ushort,
       :SDL_JoystickGetProduct => :ushort,
       :SDL_JoystickGetProductVersion => :ushort,
+      :SDL_JoystickGetSerial => :pointer,
       :SDL_JoystickGetType => :int,
       :SDL_JoystickGetGUIDString => :void,
       :SDL_JoystickGetGUIDFromString => SDL_JoystickGUID,
@@ -183,6 +211,9 @@ module SDL2
       :SDL_JoystickGetBall => :int,
       :SDL_JoystickGetButton => :uchar,
       :SDL_JoystickRumble => :int,
+      :SDL_JoystickRumbleTriggers => :int,
+      :SDL_JoystickHasLED => :int,
+      :SDL_JoystickSetLED => :int,
       :SDL_JoystickClose => :void,
       :SDL_JoystickCurrentPowerLevel => :int,
     }

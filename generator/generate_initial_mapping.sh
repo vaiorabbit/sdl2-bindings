@@ -1,4 +1,4 @@
 #!/usr/local/bin/zsh
-export PYTHONPATH=/usr/local/Cellar/llvm/9.0.1/lib/python2.7/site-packages
-python generate_initial_cindex_mapping.py > sdl2_cindex_mapping.json
-python generate_initial_define_mapping.py > sdl2_define_mapping.json
+export PYTHONPATH=/opt/homebrew/opt/llvm/lib/python3.9/site-packages
+/opt/homebrew/bin/python3 generate_initial_cindex_mapping.py > sdl2_cindex_mapping.json
+/opt/homebrew/bin/python3 generate_initial_define_mapping.py > sdl2_define_mapping.json

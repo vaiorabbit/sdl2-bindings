@@ -5,7 +5,7 @@
 [Notice] Experimental project.
 
 *   Created : 2015-09-19
-*   Last modified : 2020-12-20
+*   Last modified : 2020-12-27
 
 ## Features ##
 
@@ -30,6 +30,8 @@
     *   sdl2_ttf : 2.0.13
 *   [2019-08-31] SDL 2.0.10 (Installed via Homebrew)
 *   [2020-03-22] SDL 2.0.12 (Installed via Homebrew)
+*   [2020-12-27] SDL 2.0.14 (Installed via Homebrew)
+    *   macOS Big Sur (11.0.1), ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [arm64-darwin20]
 
 ## License ##
 

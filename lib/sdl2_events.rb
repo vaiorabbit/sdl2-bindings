@@ -14,7 +14,7 @@ module SDL2
   SDL_RELEASED = 0
   SDL_PRESSED = 1
   SDL_TEXTEDITINGEVENT_TEXT_SIZE = 32
-  SDL_TEXTINPUTEVENT_TEXT_SIZE = 2
+  SDL_TEXTINPUTEVENT_TEXT_SIZE = 32
   SDL_QUERY = -1
   SDL_IGNORE = 0
   SDL_DISABLE = 0
@@ -30,6 +30,7 @@ module SDL2
   SDL_APP_DIDENTERBACKGROUND = 260
   SDL_APP_WILLENTERFOREGROUND = 261
   SDL_APP_DIDENTERFOREGROUND = 262
+  SDL_LOCALECHANGED = 263
   SDL_DISPLAYEVENT = 336
   SDL_WINDOWEVENT = 512
   SDL_SYSWMEVENT = 513
@@ -55,6 +56,10 @@ module SDL2
   SDL_CONTROLLERDEVICEADDED = 1619
   SDL_CONTROLLERDEVICEREMOVED = 1620
   SDL_CONTROLLERDEVICEREMAPPED = 1621
+  SDL_CONTROLLERTOUCHPADDOWN = 1622
+  SDL_CONTROLLERTOUCHPADMOTION = 1623
+  SDL_CONTROLLERTOUCHPADUP = 1624
+  SDL_CONTROLLERSENSORUPDATE = 1625
   SDL_FINGERDOWN = 1792
   SDL_FINGERUP = 1793
   SDL_FINGERMOTION = 1794
@@ -288,6 +293,29 @@ module SDL2
     )
   end
 
+  class SDL_ControllerTouchpadEvent < FFI::Struct
+    layout(
+      :type, :uint,
+      :timestamp, :uint,
+      :which, :int,
+      :touchpad, :int,
+      :finger, :int,
+      :x, :float,
+      :y, :float,
+      :pressure, :float,
+    )
+  end
+
+  class SDL_ControllerSensorEvent < FFI::Struct
+    layout(
+      :type, :uint,
+      :timestamp, :uint,
+      :which, :int,
+      :sensor, :int,
+      :data, [:float, 3],
+    )
+  end
+
   class SDL_AudioDeviceEvent < FFI::Struct
     layout(
       :type, :uint,
@@ -413,6 +441,8 @@ module SDL2
       :caxis, SDL_ControllerAxisEvent,
       :cbutton, SDL_ControllerButtonEvent,
       :cdevice, SDL_ControllerDeviceEvent,
+      :ctouchpad, SDL_ControllerTouchpadEvent,
+      :csensor, SDL_ControllerSensorEvent,
       :adevice, SDL_AudioDeviceEvent,
       :sensor, SDL_SensorEvent,
       :quit, SDL_QuitEvent,

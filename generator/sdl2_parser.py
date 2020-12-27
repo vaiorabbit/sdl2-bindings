@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from clang.cindex import Config, CursorKind, Index, TranslationUnit, TranslationUnitLoadError, TypeKind
 
-Config.set_library_path("/usr/local/Cellar/llvm/9.0.1/lib")
+Config.set_library_path("/opt/homebrew/opt/llvm/lib")
 
 ####################################################################################################
 
@@ -324,8 +324,8 @@ class ParseContext(object):
             name = "anonymous_enum_"  + str(len(self.decl_enums))
         self.decl_enums[name] = values
 
-    def add_decl_macro(self, macro_name, macro_value):
-        self.decl_macros[macro_name] = macro_value
+    def add_decl_macro(self, macro_name, macro_values):
+        self.decl_macros[macro_name] = macro_values
 
     def add_decl_struct(self, struct_name, struct_value):
         self.decl_structs[struct_name] = struct_value
@@ -363,11 +363,16 @@ def collect_decl_macro(ctx, cursor):
     ctx.collection_mode = ParseContext.Decl_Macro
     tokens = list(cursor.get_tokens())
     macro_name = str(tokens[0].spelling)
-    macro_value = list(map((lambda t: str(t.spelling)), tokens[1:len(tokens)]))
+    macro_values = list(map((lambda t: str(t.spelling)), tokens[1:len(tokens)]))
+    if len(macro_values) == 1 and re.search(r'^".+"$', macro_values[0]):
+        # Add backslashes to escape double quotations
+        # e.g.) "SDL_FRAMEBUFFER_ACCELERATION" -> "\"SDL_FRAMEBUFFER_ACCELERATION"\"
+        macro_values[0] = macro_values[0].replace('"', '\\"')
+        macro_values[0] = '"' + macro_values[0] + '"'
 
     # pick out values with 'SDL_' or 'SDL2_ (for SDL2_gfx)' prefix
     if re.match(r"^SDL_|^SDL2_", macro_name):
-        ctx.add_decl_macro(macro_name, macro_value)
+        ctx.add_decl_macro(macro_name, macro_values)
     ctx.collection_mode = ParseContext.Decl_Unknown
 
 def collect_decl_typedef(ctx, cursor):
