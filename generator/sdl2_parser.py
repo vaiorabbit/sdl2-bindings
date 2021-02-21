@@ -370,8 +370,13 @@ def collect_decl_macro(ctx, cursor):
         macro_values[0] = macro_values[0].replace('"', '\\"')
         macro_values[0] = '"' + macro_values[0] + '"'
 
-    # pick out values with 'SDL_' or 'SDL2_ (for SDL2_gfx)' prefix
-    if re.match(r"^SDL_|^SDL2_", macro_name):
+    # pick out values with these prefixes:
+    # - SDL_
+    # - AUDIO_ (for SDL_audio)
+    # - SDL2_ (for SDL2_gfx)
+    # - MIX_ (for SDL_mixer)
+    # - TTF_ (for SDL_ttf)
+    if re.match(r"^SDL_|^AUDIO_|^SDL2_|^MIX_|^TTF_", macro_name):
         ctx.add_decl_macro(macro_name, macro_values)
     ctx.collection_mode = ParseContext.Decl_Unknown
 

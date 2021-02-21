@@ -9,8 +9,9 @@ WINDOW_W = 640
 WINDOW_H = 360
 
 if __FILE__ == $0
-  SDL2.load_lib('/usr/local/lib/libSDL2.dylib', ttf_libpath: '/usr/local/lib/libSDL2_ttf.dylib' ) # '/usr/local/lib/libSDL2.dylib'
-  success = SDL_Init(SDL_INIT_EVERYTHING)
+  # SDL2.load_lib('/usr/local/lib/libSDL2.dylib', ttf_libpath: '/usr/local/lib/libSDL2_ttf.dylib' ) # '/usr/local/lib/libSDL2.dylib'
+  SDL2.load_lib('/opt/homebrew/lib/libSDL2.dylib', ttf_libpath: '/opt/homebrew/lib/libSDL2_ttf.dylib' ) # '/usr/local/lib/libSDL2.dylib'
+  success = SDL_Init(SDL_INIT_VIDEO)
   exit if success < 0
 
   window = SDL_CreateWindow("Minimal SDL_TTF Test via sdl2-bindings", SDL_WINDOWPOS_CENTERED_MASK|0, SDL_WINDOWPOS_CENTERED_MASK|0, WINDOW_W, WINDOW_H, 0)
@@ -23,22 +24,32 @@ if __FILE__ == $0
   rect[:w] = WINDOW_W
   rect[:h] = WINDOW_H
 
-  TTF_Init()
+  success = TTF_Init()
+  exit if success < 0
 
   rwops = SDL_RWFromFile(ARGV[0], "rb")
   font = TTF_OpenFontRW(rwops, 0, 42)
 
+  renderstyle = TTF_STYLE_NORMAL
+  outline = 0
+  hinting = TTF_HINTING_NORMAL
+  kerning = 0
+  TTF_SetFontStyle(font, renderstyle)
+  TTF_SetFontOutline(font, outline)
+  TTF_SetFontKerning(font, kerning)
+  TTF_SetFontHinting(font, hinting)
+
   fg = SDL_Color.new
-  fg[:r] = 96
-  fg[:g] = 96
-  fg[:b] = 96
-  fg[:a] = 255
+  fg[:r] = 0xFF
+  fg[:g] = 0xFF
+  fg[:b] = 0xFF
+  fg[:a] = 0xFF
 
   bg = SDL_Color.new
-  bg[:r] = 0xE0
-  bg[:g] = 0xE0
-  bg[:b] = 0xE0
-  bg[:a] = 255
+  bg[:r] = 0x00
+  bg[:g] = 0x00
+  bg[:b] = 0x00
+  bg[:a] = 0x00
 
   pos = SDL_Rect.new
   pos[:x] = 20
@@ -51,13 +62,9 @@ if __FILE__ == $0
 
   texture = SDL_CreateTextureFromSurface(renderer, surface)
 
-  SDL_SetRenderDrawColor(renderer, bg[:r], bg[:g], bg[:b], bg[:a])
-  SDL_RenderFillRect(renderer, rect)
-  SDL_RenderCopy(renderer, texture, nil, pos)
-
-  SDL_RenderPresent(renderer)
-
   SDL_FreeSurface(surface)
+
+  SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_NONE)
 
   event = SDL_Event.new
   done = false
@@ -75,11 +82,19 @@ if __FILE__ == $0
       end
     end
 
+    SDL_SetRenderDrawColor(renderer, bg[:r], bg[:g], bg[:b], bg[:a])
+    SDL_RenderClear(renderer)
+
+    SDL_RenderCopy(renderer, texture, nil, pos)
+
+    SDL_RenderPresent(renderer)
+
     SDL_Delay(10)
   end
 
-  TTF_Quit()
+  SDL_DestroyTexture(texture)
   SDL_DestroyRenderer(renderer)
   SDL_DestroyWindow(window)
+  TTF_Quit()
   SDL_Quit()
 end

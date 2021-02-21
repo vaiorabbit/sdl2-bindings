@@ -5,7 +5,7 @@
 [Notice] Experimental project.
 
 *   Created : 2015-09-19
-*   Last modified : 2020-12-27
+*   Last modified : 2021-02-21
 
 ## Features ##
 
@@ -38,7 +38,7 @@
 The zlib/libpng License ( http://opensource.org/licenses/Zlib ).
 
     sdl2-bindings : Yet another SDL2 wrapper for Ruby
-    Copyright (c) 2015-2020 vaiorabbit <http://twitter.com/vaiorabbit>
+    Copyright (c) 2015-2021 vaiorabbit <http://twitter.com/vaiorabbit>
 
     This software is provided 'as-is', without any express or implied
     warranty. In no event will the authors be held liable for any damages
