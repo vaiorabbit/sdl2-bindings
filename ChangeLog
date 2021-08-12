@@ -1,6 +1,7 @@
 2021-08-12  vaiorabbit  <http://twitter.com/vaiorabbit>
 
-	* Added SDL 2.0.16 features.
+	* Added SDL 2.0.14 features (SDL_misc).
+	* Added SDL 2.0.16 features (SDL_sensor).
 
 2021-02-21  vaiorabbit  <http://twitter.com/vaiorabbit>
 

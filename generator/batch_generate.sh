@@ -17,6 +17,7 @@ export PYTHONPATH=/opt/homebrew/opt/llvm/lib/python3.9/site-packages
 /opt/homebrew/bin/python3 generate_SDL_keycode.py > ../lib/sdl2_keycode.rb
 /opt/homebrew/bin/python3 generate_SDL_log.py > ../lib/sdl2_log.rb
 /opt/homebrew/bin/python3 generate_SDL_messagebox.py > ../lib/sdl2_messagebox.rb
+/opt/homebrew/bin/python3 generate_SDL_misc.py > ../lib/sdl2_misc.rb
 /opt/homebrew/bin/python3 generate_SDL_mouse.py > ../lib/sdl2_mouse.rb
 /opt/homebrew/bin/python3 generate_SDL_pixels.py > ../lib/sdl2_pixels.rb
 /opt/homebrew/bin/python3 generate_SDL_platform.py > ../lib/sdl2_platform.rb

@@ -20,6 +20,7 @@ require_relative 'sdl2_keyboard.rb'
 require_relative 'sdl2_keycode.rb'
 require_relative 'sdl2_log.rb'
 require_relative 'sdl2_messagebox.rb'
+require_relative 'sdl2_misc.rb'
 require_relative 'sdl2_mouse.rb'
 require_relative 'sdl2_pixels.rb'
 require_relative 'sdl2_platform.rb'
@@ -106,6 +107,7 @@ module SDL2
     setup_keycode_symbols()
     setup_log_symbols()
     setup_messagebox_symbols()
+    setup_misc_symbols()
     setup_mouse_symbols()
     setup_pixels_symbols()
     setup_platform_symbols()
@@ -130,12 +132,10 @@ end
 
 
 if __FILE__ == $0
-#  SDL2.load_lib('libSDL2.dylib')
-#  p SDL2.SDL_Init(SDL2::SDL_INIT_EVERYTHING)
   SDL2.load_lib('libSDL2.dylib',
                 gfx_libpath: '/usr/local/lib/libSDL2_gfx.dylib'
                )
-  #SDL2.SDL_SetMainReady()
+
   success = SDL2.SDL_Init(SDL2::SDL_INIT_EVERYTHING)
   exit if success < 0
 
