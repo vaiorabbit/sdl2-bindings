@@ -28,6 +28,7 @@ require_relative 'sdl2_rect.rb'
 require_relative 'sdl2_render.rb'
 require_relative 'sdl2_rwops.rb'
 require_relative 'sdl2_scancode.rb'
+require_relative 'sdl2_sensor.rb'
 require_relative 'sdl2_shape.rb'
 require_relative 'sdl2_stdinc.rb'
 require_relative 'sdl2_surface.rb'
@@ -113,6 +114,7 @@ module SDL2
     setup_render_symbols()
     setup_rwops_symbols()
     setup_scancode_symbols()
+    setup_sensor_symbols()
     setup_shape_symbols()
     setup_surface_symbols()
     setup_syswm_symbols()

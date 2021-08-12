@@ -1,10 +1,11 @@
 #
-# For macOS + Xcode + CMake users.
+# For Mac OS X + Xcode + CMake users.
 #
-SDL2_VERSION="2.0.14"
-curl -O https://www.libsdl.org/release/SDL2-$SDL2_VERSION.zip
-unzip SDL2-$SDL2_VERSION.zip
-cd SDL2-$SDL2_VERSION/
+# Ref.: https://github.com/malkia/ufo/blob/master/build/OSX/glfw.sh
+#
+curl -O https://www.libsdl.org/release/SDL2-2.0.16.zip
+unzip SDL2-2.0.16.zip
+cd SDL2-2.0.16/
 mkdir build
 cd build
 export MACOSX_DEPLOYMENT_TARGET=10.14

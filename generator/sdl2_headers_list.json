@@ -34,6 +34,7 @@
     "SDL_revision.h",
     "SDL_rwops.h",
     "SDL_scancode.h",
+    "SDL_sensor.h",
     "SDL_shape.h",
     "SDL_stdinc.h",
     "SDL_surface.h",

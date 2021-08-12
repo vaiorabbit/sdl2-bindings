@@ -25,6 +25,7 @@ export PYTHONPATH=/opt/homebrew/opt/llvm/lib/python3.9/site-packages
 /opt/homebrew/bin/python3 generate_SDL_render.py > ../lib/sdl2_render.rb
 /opt/homebrew/bin/python3 generate_SDL_rwops.py > ../lib/sdl2_rwops.rb
 /opt/homebrew/bin/python3 generate_SDL_scancode.py > ../lib/sdl2_scancode.rb
+/opt/homebrew/bin/python3 generate_SDL_sensor.py > ../lib/sdl2_sensor.rb
 /opt/homebrew/bin/python3 generate_SDL_shape.py > ../lib/sdl2_shape.rb
 /opt/homebrew/bin/python3 generate_SDL_surface.py > ../lib/sdl2_surface.rb
 /opt/homebrew/bin/python3 generate_SDL_stdinc.py > ../lib/sdl2_stdinc.rb

@@ -10,7 +10,7 @@ These instructions are tested only on macOS environment.
         *   SDL_ttf (SDL_ttf.h)
 
 *   Patch 2 header files manually:
-    *   SDL2/SDL_config.h : comment out these lines
+    *   SDL2/SDL_config_macosx.h : comment out these lines
         *   '#define HAVE_INTTYPES_H 1' and '#define HAVE_STDINT_H 1'
     *   SDL2/SDL_stdinc.h : put these typedefs by hand:
 
@@ -45,3 +45,5 @@ These instructions are tested only on macOS environment.
         *   So if you find value that is inappropreate for Python syntax,
             you should fix it or make it 'null'. The 'null'ed marcros will not
             appear in the generated Python codes.
+
+*   Run batch_generate.sh

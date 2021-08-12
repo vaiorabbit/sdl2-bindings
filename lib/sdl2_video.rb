@@ -23,7 +23,7 @@ module SDL2
   SDL_WINDOW_RESIZABLE = 32
   SDL_WINDOW_MINIMIZED = 64
   SDL_WINDOW_MAXIMIZED = 128
-  SDL_WINDOW_INPUT_GRABBED = 256
+  SDL_WINDOW_MOUSE_GRABBED = 256
   SDL_WINDOW_INPUT_FOCUS = 512
   SDL_WINDOW_MOUSE_FOCUS = 1024
   SDL_WINDOW_FULLSCREEN_DESKTOP = 4097
@@ -35,8 +35,10 @@ module SDL2
   SDL_WINDOW_UTILITY = 131072
   SDL_WINDOW_TOOLTIP = 262144
   SDL_WINDOW_POPUP_MENU = 524288
+  SDL_WINDOW_KEYBOARD_GRABBED = 1048576
   SDL_WINDOW_VULKAN = 268435456
   SDL_WINDOW_METAL = 536870912
+  SDL_WINDOW_INPUT_GRABBED = 256
   SDL_WINDOWEVENT_NONE = 0
   SDL_WINDOWEVENT_SHOWN = 1
   SDL_WINDOWEVENT_HIDDEN = 2
@@ -63,6 +65,9 @@ module SDL2
   SDL_ORIENTATION_LANDSCAPE_FLIPPED = 2
   SDL_ORIENTATION_PORTRAIT = 3
   SDL_ORIENTATION_PORTRAIT_FLIPPED = 4
+  SDL_FLASH_CANCEL = 0
+  SDL_FLASH_BRIEFLY = 1
+  SDL_FLASH_UNTIL_FOCUSED = 2
   SDL_GL_RED_SIZE = 0
   SDL_GL_GREEN_SIZE = 1
   SDL_GL_BLUE_SIZE = 2
@@ -118,6 +123,7 @@ module SDL2
   typedef :int, :SDL_WindowEventID
   typedef :int, :SDL_DisplayEventID
   typedef :int, :SDL_DisplayOrientation
+  typedef :int, :SDL_FlashOperation
   typedef :pointer, :SDL_GLContext
   typedef :int, :SDL_GLattr
   typedef :int, :SDL_GLprofile
@@ -185,6 +191,7 @@ module SDL2
       :SDL_GetWindowMaximumSize,
       :SDL_SetWindowBordered,
       :SDL_SetWindowResizable,
+      :SDL_SetWindowAlwaysOnTop,
       :SDL_ShowWindow,
       :SDL_HideWindow,
       :SDL_RaiseWindow,
@@ -196,7 +203,11 @@ module SDL2
       :SDL_UpdateWindowSurface,
       :SDL_UpdateWindowSurfaceRects,
       :SDL_SetWindowGrab,
+      :SDL_SetWindowKeyboardGrab,
+      :SDL_SetWindowMouseGrab,
       :SDL_GetWindowGrab,
+      :SDL_GetWindowKeyboardGrab,
+      :SDL_GetWindowMouseGrab,
       :SDL_GetGrabbedWindow,
       :SDL_SetWindowBrightness,
       :SDL_GetWindowBrightness,
@@ -207,6 +218,7 @@ module SDL2
       :SDL_SetWindowGammaRamp,
       :SDL_GetWindowGammaRamp,
       :SDL_SetWindowHitTest,
+      :SDL_FlashWindow,
       :SDL_DestroyWindow,
       :SDL_IsScreenSaverEnabled,
       :SDL_EnableScreenSaver,
@@ -270,6 +282,7 @@ module SDL2
       :SDL_GetWindowMaximumSize => [:pointer, :pointer, :pointer],
       :SDL_SetWindowBordered => [:pointer, :int],
       :SDL_SetWindowResizable => [:pointer, :int],
+      :SDL_SetWindowAlwaysOnTop => [:pointer, :int],
       :SDL_ShowWindow => [:pointer],
       :SDL_HideWindow => [:pointer],
       :SDL_RaiseWindow => [:pointer],
@@ -281,7 +294,11 @@ module SDL2
       :SDL_UpdateWindowSurface => [:pointer],
       :SDL_UpdateWindowSurfaceRects => [:pointer, :pointer, :int],
       :SDL_SetWindowGrab => [:pointer, :int],
+      :SDL_SetWindowKeyboardGrab => [:pointer, :int],
+      :SDL_SetWindowMouseGrab => [:pointer, :int],
       :SDL_GetWindowGrab => [:pointer],
+      :SDL_GetWindowKeyboardGrab => [:pointer],
+      :SDL_GetWindowMouseGrab => [:pointer],
       :SDL_GetGrabbedWindow => [],
       :SDL_SetWindowBrightness => [:pointer, :float],
       :SDL_GetWindowBrightness => [:pointer],
@@ -292,6 +309,7 @@ module SDL2
       :SDL_SetWindowGammaRamp => [:pointer, :pointer, :pointer, :pointer],
       :SDL_GetWindowGammaRamp => [:pointer, :pointer, :pointer, :pointer],
       :SDL_SetWindowHitTest => [:pointer, :SDL_HitTest, :pointer],
+      :SDL_FlashWindow => [:pointer, :int],
       :SDL_DestroyWindow => [:pointer],
       :SDL_IsScreenSaverEnabled => [],
       :SDL_EnableScreenSaver => [],
@@ -355,6 +373,7 @@ module SDL2
       :SDL_GetWindowMaximumSize => :void,
       :SDL_SetWindowBordered => :void,
       :SDL_SetWindowResizable => :void,
+      :SDL_SetWindowAlwaysOnTop => :void,
       :SDL_ShowWindow => :void,
       :SDL_HideWindow => :void,
       :SDL_RaiseWindow => :void,
@@ -366,7 +385,11 @@ module SDL2
       :SDL_UpdateWindowSurface => :int,
       :SDL_UpdateWindowSurfaceRects => :int,
       :SDL_SetWindowGrab => :void,
+      :SDL_SetWindowKeyboardGrab => :void,
+      :SDL_SetWindowMouseGrab => :void,
       :SDL_GetWindowGrab => :int,
+      :SDL_GetWindowKeyboardGrab => :int,
+      :SDL_GetWindowMouseGrab => :int,
       :SDL_GetGrabbedWindow => :pointer,
       :SDL_SetWindowBrightness => :int,
       :SDL_GetWindowBrightness => :float,
@@ -377,6 +400,7 @@ module SDL2
       :SDL_SetWindowGammaRamp => :int,
       :SDL_GetWindowGammaRamp => :int,
       :SDL_SetWindowHitTest => :int,
+      :SDL_FlashWindow => :int,
       :SDL_DestroyWindow => :void,
       :SDL_IsScreenSaverEnabled => :int,
       :SDL_EnableScreenSaver => :void,

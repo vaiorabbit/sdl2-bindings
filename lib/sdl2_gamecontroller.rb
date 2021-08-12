@@ -22,6 +22,8 @@ module SDL2
   SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO = 5
   SDL_CONTROLLER_TYPE_VIRTUAL = 6
   SDL_CONTROLLER_TYPE_PS5 = 7
+  SDL_CONTROLLER_TYPE_AMAZON_LUNA = 8
+  SDL_CONTROLLER_TYPE_GOOGLE_STADIA = 9
   SDL_CONTROLLER_BINDTYPE_NONE = 0
   SDL_CONTROLLER_BINDTYPE_BUTTON = 1
   SDL_CONTROLLER_BINDTYPE_AXIS = 2
@@ -136,11 +138,13 @@ module SDL2
       :SDL_GameControllerHasSensor,
       :SDL_GameControllerSetSensorEnabled,
       :SDL_GameControllerIsSensorEnabled,
+      :SDL_GameControllerGetSensorDataRate,
       :SDL_GameControllerGetSensorData,
       :SDL_GameControllerRumble,
       :SDL_GameControllerRumbleTriggers,
       :SDL_GameControllerHasLED,
       :SDL_GameControllerSetLED,
+      :SDL_GameControllerSendEffect,
       :SDL_GameControllerClose,
     ]
     args = {
@@ -185,11 +189,13 @@ module SDL2
       :SDL_GameControllerHasSensor => [:pointer, :int],
       :SDL_GameControllerSetSensorEnabled => [:pointer, :int, :int],
       :SDL_GameControllerIsSensorEnabled => [:pointer, :int],
+      :SDL_GameControllerGetSensorDataRate => [:pointer, :int],
       :SDL_GameControllerGetSensorData => [:pointer, :int, :pointer, :int],
       :SDL_GameControllerRumble => [:pointer, :ushort, :ushort, :uint],
       :SDL_GameControllerRumbleTriggers => [:pointer, :ushort, :ushort, :uint],
       :SDL_GameControllerHasLED => [:pointer],
       :SDL_GameControllerSetLED => [:pointer, :uchar, :uchar, :uchar],
+      :SDL_GameControllerSendEffect => [:pointer, :pointer, :int],
       :SDL_GameControllerClose => [:pointer],
     }
     retvals = {
@@ -234,11 +240,13 @@ module SDL2
       :SDL_GameControllerHasSensor => :int,
       :SDL_GameControllerSetSensorEnabled => :int,
       :SDL_GameControllerIsSensorEnabled => :int,
+      :SDL_GameControllerGetSensorDataRate => :float,
       :SDL_GameControllerGetSensorData => :int,
       :SDL_GameControllerRumble => :int,
       :SDL_GameControllerRumbleTriggers => :int,
       :SDL_GameControllerHasLED => :int,
       :SDL_GameControllerSetLED => :int,
+      :SDL_GameControllerSendEffect => :int,
       :SDL_GameControllerClose => :void,
     }
     symbols.each do |sym|

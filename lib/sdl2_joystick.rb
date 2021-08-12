@@ -110,6 +110,7 @@ module SDL2
       :SDL_JoystickRumbleTriggers,
       :SDL_JoystickHasLED,
       :SDL_JoystickSetLED,
+      :SDL_JoystickSendEffect,
       :SDL_JoystickClose,
       :SDL_JoystickCurrentPowerLevel,
     ]
@@ -162,6 +163,7 @@ module SDL2
       :SDL_JoystickRumbleTriggers => [:pointer, :ushort, :ushort, :uint],
       :SDL_JoystickHasLED => [:pointer],
       :SDL_JoystickSetLED => [:pointer, :uchar, :uchar, :uchar],
+      :SDL_JoystickSendEffect => [:pointer, :pointer, :int],
       :SDL_JoystickClose => [:pointer],
       :SDL_JoystickCurrentPowerLevel => [:pointer],
     }
@@ -214,6 +216,7 @@ module SDL2
       :SDL_JoystickRumbleTriggers => :int,
       :SDL_JoystickHasLED => :int,
       :SDL_JoystickSetLED => :int,
+      :SDL_JoystickSendEffect => :int,
       :SDL_JoystickClose => :void,
       :SDL_JoystickCurrentPowerLevel => :int,
     }

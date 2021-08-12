@@ -168,6 +168,7 @@
     , "SDL_WindowEventID" : "TypeKind.ENUM"
     , "SDL_DisplayEventID" : "TypeKind.ENUM"
     , "SDL_DisplayOrientation" : "TypeKind.ENUM"
+    , "SDL_FlashOperation" : "TypeKind.ENUM"
     , "SDL_GLContext" : "TypeKind.POINTER"
     , "SDL_GLattr" : "TypeKind.ENUM"
     , "SDL_GLprofile" : "TypeKind.ENUM"
