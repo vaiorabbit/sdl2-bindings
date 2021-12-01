@@ -5,7 +5,7 @@
 [Notice] Experimental project.
 
 *   Created : 2015-09-19
-*   Last modified : 2021-08-12
+*   Last modified : 2021-12-02
 
 ## Features ##
 
@@ -34,6 +34,8 @@
     *   macOS Big Sur (11.0.1), ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [arm64-darwin20]
 *   [2021-08-12] SDL 2.0.16 (Installed via Homebrew)
     *   macOS Big Sur (11.5), ruby 3.0.1p64 (2021-04-05 revision 0fb782ee38) [arm64-darwin20]
+*   [2021-12-02] SDL 2.0.18 (Installed via Homebrew)
+    *   macOS Big Sur (11.6), ruby 3.0.2p107 (2021-07-07 revision 0db68f0233) [arm64-darwin20]
 
 ## License ##
 

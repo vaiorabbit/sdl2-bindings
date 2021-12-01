@@ -1,11 +1,12 @@
 require_relative '../lib/sdl2'
+require_relative 'util'
 
 include SDL2
 
 $ticks = 0
 
 if __FILE__ == $0
-  SDL2.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
+  load_sdl2_lib()
   success = SDL_Init(SDL_INIT_TIMER)
   exit if success < 0
 

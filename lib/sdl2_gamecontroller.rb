@@ -143,16 +143,20 @@ module SDL2
       :SDL_GameControllerRumble,
       :SDL_GameControllerRumbleTriggers,
       :SDL_GameControllerHasLED,
+      :SDL_GameControllerHasRumble,
+      :SDL_GameControllerHasRumbleTriggers,
       :SDL_GameControllerSetLED,
       :SDL_GameControllerSendEffect,
       :SDL_GameControllerClose,
+      :SDL_GameControllerGetAppleSFSymbolsNameForButton,
+      :SDL_GameControllerGetAppleSFSymbolsNameForAxis,
     ]
     args = {
       :SDL_GameControllerAddMappingsFromRW => [:pointer, :int],
       :SDL_GameControllerAddMapping => [:pointer],
       :SDL_GameControllerNumMappings => [],
       :SDL_GameControllerMappingForIndex => [:int],
-      :SDL_GameControllerMappingForGUID => [SDL_JoystickGUID],
+      :SDL_GameControllerMappingForGUID => [SDL_JoystickGUID.by_value],
       :SDL_GameControllerMapping => [:pointer],
       :SDL_IsGameController => [:int],
       :SDL_GameControllerNameForIndex => [:int],
@@ -194,9 +198,13 @@ module SDL2
       :SDL_GameControllerRumble => [:pointer, :ushort, :ushort, :uint],
       :SDL_GameControllerRumbleTriggers => [:pointer, :ushort, :ushort, :uint],
       :SDL_GameControllerHasLED => [:pointer],
+      :SDL_GameControllerHasRumble => [:pointer],
+      :SDL_GameControllerHasRumbleTriggers => [:pointer],
       :SDL_GameControllerSetLED => [:pointer, :uchar, :uchar, :uchar],
       :SDL_GameControllerSendEffect => [:pointer, :pointer, :int],
       :SDL_GameControllerClose => [:pointer],
+      :SDL_GameControllerGetAppleSFSymbolsNameForButton => [:pointer, :int],
+      :SDL_GameControllerGetAppleSFSymbolsNameForAxis => [:pointer, :int],
     }
     retvals = {
       :SDL_GameControllerAddMappingsFromRW => :int,
@@ -245,9 +253,13 @@ module SDL2
       :SDL_GameControllerRumble => :int,
       :SDL_GameControllerRumbleTriggers => :int,
       :SDL_GameControllerHasLED => :int,
+      :SDL_GameControllerHasRumble => :int,
+      :SDL_GameControllerHasRumbleTriggers => :int,
       :SDL_GameControllerSetLED => :int,
       :SDL_GameControllerSendEffect => :int,
       :SDL_GameControllerClose => :void,
+      :SDL_GameControllerGetAppleSFSymbolsNameForButton => :pointer,
+      :SDL_GameControllerGetAppleSFSymbolsNameForAxis => :pointer,
     }
     symbols.each do |sym|
       begin

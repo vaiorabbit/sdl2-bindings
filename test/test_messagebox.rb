@@ -1,10 +1,11 @@
 # coding: utf-8
 require_relative '../lib/sdl2'
+require_relative 'util'
 
 include SDL2
 
 if __FILE__ == $0
-  SDL2.load_lib('/usr/local/lib/libSDL2.dylib')
+  load_sdl2_lib()
   success = SDL_Init(SDL_INIT_EVERYTHING)
   exit if success != 0
 

@@ -56,6 +56,8 @@ module SDL2
   SDL_WINDOWEVENT_CLOSE = 14
   SDL_WINDOWEVENT_TAKE_FOCUS = 15
   SDL_WINDOWEVENT_HIT_TEST = 16
+  SDL_WINDOWEVENT_ICCPROF_CHANGED = 17
+  SDL_WINDOWEVENT_DISPLAY_CHANGED = 18
   SDL_DISPLAYEVENT_NONE = 0
   SDL_DISPLAYEVENT_ORIENTATION = 1
   SDL_DISPLAYEVENT_CONNECTED = 2
@@ -169,6 +171,7 @@ module SDL2
       :SDL_GetWindowDisplayIndex,
       :SDL_SetWindowDisplayMode,
       :SDL_GetWindowDisplayMode,
+      :SDL_GetWindowICCProfile,
       :SDL_GetWindowPixelFormat,
       :SDL_CreateWindow,
       :SDL_CreateWindowFrom,
@@ -209,6 +212,8 @@ module SDL2
       :SDL_GetWindowKeyboardGrab,
       :SDL_GetWindowMouseGrab,
       :SDL_GetGrabbedWindow,
+      :SDL_SetWindowMouseRect,
+      :SDL_GetWindowMouseRect,
       :SDL_SetWindowBrightness,
       :SDL_GetWindowBrightness,
       :SDL_SetWindowOpacity,
@@ -260,6 +265,7 @@ module SDL2
       :SDL_GetWindowDisplayIndex => [:pointer],
       :SDL_SetWindowDisplayMode => [:pointer, :pointer],
       :SDL_GetWindowDisplayMode => [:pointer, :pointer],
+      :SDL_GetWindowICCProfile => [:pointer, :pointer],
       :SDL_GetWindowPixelFormat => [:pointer],
       :SDL_CreateWindow => [:pointer, :int, :int, :int, :int, :uint],
       :SDL_CreateWindowFrom => [:pointer],
@@ -300,6 +306,8 @@ module SDL2
       :SDL_GetWindowKeyboardGrab => [:pointer],
       :SDL_GetWindowMouseGrab => [:pointer],
       :SDL_GetGrabbedWindow => [],
+      :SDL_SetWindowMouseRect => [:pointer, :pointer],
+      :SDL_GetWindowMouseRect => [:pointer],
       :SDL_SetWindowBrightness => [:pointer, :float],
       :SDL_GetWindowBrightness => [:pointer],
       :SDL_SetWindowOpacity => [:pointer, :float],
@@ -351,6 +359,7 @@ module SDL2
       :SDL_GetWindowDisplayIndex => :int,
       :SDL_SetWindowDisplayMode => :int,
       :SDL_GetWindowDisplayMode => :int,
+      :SDL_GetWindowICCProfile => :pointer,
       :SDL_GetWindowPixelFormat => :uint,
       :SDL_CreateWindow => :pointer,
       :SDL_CreateWindowFrom => :pointer,
@@ -391,6 +400,8 @@ module SDL2
       :SDL_GetWindowKeyboardGrab => :int,
       :SDL_GetWindowMouseGrab => :int,
       :SDL_GetGrabbedWindow => :pointer,
+      :SDL_SetWindowMouseRect => :int,
+      :SDL_GetWindowMouseRect => :pointer,
       :SDL_SetWindowBrightness => :int,
       :SDL_GetWindowBrightness => :float,
       :SDL_SetWindowOpacity => :int,

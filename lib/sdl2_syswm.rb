@@ -28,6 +28,7 @@ module SDL2
   SDL_SYSWM_OS2 = 11
   SDL_SYSWM_HAIKU = 12
   SDL_SYSWM_KMSDRM = 13
+  SDL_SYSWM_RISCOS = 14
 
   # Typedef
 

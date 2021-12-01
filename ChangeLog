@@ -1,3 +1,7 @@
+2021-12-02  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* Added SDL 2.0.18 features ( https://github.com/libsdl-org/SDL/releases/tag/release-2.0.18 )
+
 2021-08-12  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Added SDL 2.0.14 features (SDL_misc).

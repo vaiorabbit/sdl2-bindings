@@ -51,6 +51,14 @@ module SDL2
     )
   end
 
+  class SDL_Vertex < FFI::Struct
+    layout(
+      :position, SDL_FPoint,
+      :color, SDL_Color,
+      :tex_coord, SDL_FPoint,
+    )
+  end
+
 
   # Function
 
@@ -75,6 +83,8 @@ module SDL2
       :SDL_GetTextureBlendMode,
       :SDL_SetTextureScaleMode,
       :SDL_GetTextureScaleMode,
+      :SDL_SetTextureUserData,
+      :SDL_GetTextureUserData,
       :SDL_UpdateTexture,
       :SDL_UpdateYUVTexture,
       :SDL_UpdateNVTexture,
@@ -95,6 +105,8 @@ module SDL2
       :SDL_RenderIsClipEnabled,
       :SDL_RenderSetScale,
       :SDL_RenderGetScale,
+      :SDL_RenderWindowToLogical,
+      :SDL_RenderLogicalToWindow,
       :SDL_SetRenderDrawColor,
       :SDL_GetRenderDrawColor,
       :SDL_SetRenderDrawBlendMode,
@@ -120,6 +132,8 @@ module SDL2
       :SDL_RenderFillRectsF,
       :SDL_RenderCopyF,
       :SDL_RenderCopyExF,
+      :SDL_RenderGeometry,
+      :SDL_RenderGeometryRaw,
       :SDL_RenderReadPixels,
       :SDL_RenderPresent,
       :SDL_DestroyTexture,
@@ -129,6 +143,7 @@ module SDL2
       :SDL_GL_UnbindTexture,
       :SDL_RenderGetMetalLayer,
       :SDL_RenderGetMetalCommandEncoder,
+      :SDL_RenderSetVSync,
     ]
     args = {
       :SDL_GetNumRenderDrivers => [],
@@ -150,6 +165,8 @@ module SDL2
       :SDL_GetTextureBlendMode => [:pointer, :pointer],
       :SDL_SetTextureScaleMode => [:pointer, :int],
       :SDL_GetTextureScaleMode => [:pointer, :pointer],
+      :SDL_SetTextureUserData => [:pointer, :pointer],
+      :SDL_GetTextureUserData => [:pointer],
       :SDL_UpdateTexture => [:pointer, :pointer, :pointer, :int],
       :SDL_UpdateYUVTexture => [:pointer, :pointer, :pointer, :int, :pointer, :int, :pointer, :int],
       :SDL_UpdateNVTexture => [:pointer, :pointer, :pointer, :int, :pointer, :int],
@@ -170,6 +187,8 @@ module SDL2
       :SDL_RenderIsClipEnabled => [:pointer],
       :SDL_RenderSetScale => [:pointer, :float, :float],
       :SDL_RenderGetScale => [:pointer, :pointer, :pointer],
+      :SDL_RenderWindowToLogical => [:pointer, :int, :int, :pointer, :pointer],
+      :SDL_RenderLogicalToWindow => [:pointer, :float, :float, :pointer, :pointer],
       :SDL_SetRenderDrawColor => [:pointer, :uchar, :uchar, :uchar, :uchar],
       :SDL_GetRenderDrawColor => [:pointer, :pointer, :pointer, :pointer, :pointer],
       :SDL_SetRenderDrawBlendMode => [:pointer, :int],
@@ -195,6 +214,8 @@ module SDL2
       :SDL_RenderFillRectsF => [:pointer, :pointer, :int],
       :SDL_RenderCopyF => [:pointer, :pointer, :pointer, :pointer],
       :SDL_RenderCopyExF => [:pointer, :pointer, :pointer, :pointer, :double, :pointer, :int],
+      :SDL_RenderGeometry => [:pointer, :pointer, :pointer, :int, :pointer, :int],
+      :SDL_RenderGeometryRaw => [:pointer, :pointer, :pointer, :int, :pointer, :int, :pointer, :int, :int, :pointer, :int, :int],
       :SDL_RenderReadPixels => [:pointer, :pointer, :uint, :pointer, :int],
       :SDL_RenderPresent => [:pointer],
       :SDL_DestroyTexture => [:pointer],
@@ -204,6 +225,7 @@ module SDL2
       :SDL_GL_UnbindTexture => [:pointer],
       :SDL_RenderGetMetalLayer => [:pointer],
       :SDL_RenderGetMetalCommandEncoder => [:pointer],
+      :SDL_RenderSetVSync => [:pointer, :int],
     }
     retvals = {
       :SDL_GetNumRenderDrivers => :int,
@@ -225,6 +247,8 @@ module SDL2
       :SDL_GetTextureBlendMode => :int,
       :SDL_SetTextureScaleMode => :int,
       :SDL_GetTextureScaleMode => :int,
+      :SDL_SetTextureUserData => :int,
+      :SDL_GetTextureUserData => :pointer,
       :SDL_UpdateTexture => :int,
       :SDL_UpdateYUVTexture => :int,
       :SDL_UpdateNVTexture => :int,
@@ -245,6 +269,8 @@ module SDL2
       :SDL_RenderIsClipEnabled => :int,
       :SDL_RenderSetScale => :int,
       :SDL_RenderGetScale => :void,
+      :SDL_RenderWindowToLogical => :void,
+      :SDL_RenderLogicalToWindow => :void,
       :SDL_SetRenderDrawColor => :int,
       :SDL_GetRenderDrawColor => :int,
       :SDL_SetRenderDrawBlendMode => :int,
@@ -270,6 +296,8 @@ module SDL2
       :SDL_RenderFillRectsF => :int,
       :SDL_RenderCopyF => :int,
       :SDL_RenderCopyExF => :int,
+      :SDL_RenderGeometry => :int,
+      :SDL_RenderGeometryRaw => :int,
       :SDL_RenderReadPixels => :int,
       :SDL_RenderPresent => :void,
       :SDL_DestroyTexture => :void,
@@ -279,6 +307,7 @@ module SDL2
       :SDL_GL_UnbindTexture => :int,
       :SDL_RenderGetMetalLayer => :pointer,
       :SDL_RenderGetMetalCommandEncoder => :pointer,
+      :SDL_RenderSetVSync => :int,
     }
     symbols.each do |sym|
       begin

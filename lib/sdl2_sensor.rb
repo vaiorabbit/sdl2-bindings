@@ -10,6 +10,7 @@ module SDL2
   extend FFI::Library
   # Define/Macro
 
+  SDL_STANDARD_GRAVITY = 9.80665
 
   # Enum
 

@@ -10,6 +10,10 @@ module SDL2
   extend FFI::Library
   # Define/Macro
 
+  SDL_ICONV_ERROR = -1
+  SDL_ICONV_E2BIG = -2
+  SDL_ICONV_EILSEQ = -3
+  SDL_ICONV_EINVAL = -4
 
   # Enum
 
@@ -35,9 +39,9 @@ module SDL2
   typedef :uint, :Uint32
   typedef :long_long, :Sint64
   typedef :ulong_long, :Uint64
-  callback :SDL_malloc_func, [:ulong], :pointer
-  callback :SDL_calloc_func, [:ulong, :ulong], :pointer
-  callback :SDL_realloc_func, [:pointer, :ulong], :pointer
+  callback :SDL_malloc_func, [:int], :pointer
+  callback :SDL_calloc_func, [:int, :int], :pointer
+  callback :SDL_realloc_func, [:pointer, :int], :pointer
   callback :SDL_free_func, [:pointer], :void
   typedef :pointer, :SDL_iconv_t
 
@@ -122,6 +126,8 @@ module SDL2
       :SDL_vsscanf,
       :SDL_snprintf,
       :SDL_vsnprintf,
+      :SDL_asprintf,
+      :SDL_vasprintf,
       :SDL_acos,
       :SDL_acosf,
       :SDL_asin,
@@ -171,16 +177,16 @@ module SDL2
       :SDL_memcpy4,
     ]
     args = {
-      :SDL_malloc => [:ulong],
-      :SDL_calloc => [:ulong, :ulong],
-      :SDL_realloc => [:pointer, :ulong],
+      :SDL_malloc => [:int],
+      :SDL_calloc => [:int, :int],
+      :SDL_realloc => [:pointer, :int],
       :SDL_free => [:pointer],
       :SDL_GetMemoryFunctions => [:pointer, :pointer, :pointer, :pointer],
       :SDL_SetMemoryFunctions => [:SDL_malloc_func, :SDL_calloc_func, :SDL_realloc_func, :SDL_free_func],
       :SDL_GetNumAllocations => [],
       :SDL_getenv => [:pointer],
       :SDL_setenv => [:pointer, :pointer, :int],
-      :SDL_qsort => [:pointer, :ulong, :ulong, :pointer],
+      :SDL_qsort => [:pointer, :int, :int, :pointer],
       :SDL_abs => [:int],
       :SDL_isalpha => [:int],
       :SDL_isalnum => [:int],
@@ -196,25 +202,25 @@ module SDL2
       :SDL_isgraph => [:int],
       :SDL_toupper => [:int],
       :SDL_tolower => [:int],
-      :SDL_crc32 => [:uint, :pointer, :ulong],
-      :SDL_memset => [:pointer, :int, :ulong],
-      :SDL_memset4 => [:pointer, :uint, :ulong],
-      :SDL_memcpy => [:pointer, :pointer, :ulong],
-      :SDL_memmove => [:pointer, :pointer, :ulong],
-      :SDL_memcmp => [:pointer, :pointer, :ulong],
+      :SDL_crc32 => [:uint, :pointer, :int],
+      :SDL_memset => [:pointer, :int, :int],
+      :SDL_memset4 => [:pointer, :uint, :int],
+      :SDL_memcpy => [:pointer, :pointer, :int],
+      :SDL_memmove => [:pointer, :pointer, :int],
+      :SDL_memcmp => [:pointer, :pointer, :int],
       :SDL_wcslen => [:pointer],
-      :SDL_wcslcpy => [:pointer, :pointer, :ulong],
-      :SDL_wcslcat => [:pointer, :pointer, :ulong],
+      :SDL_wcslcpy => [:pointer, :pointer, :int],
+      :SDL_wcslcat => [:pointer, :pointer, :int],
       :SDL_wcsdup => [:pointer],
       :SDL_wcsstr => [:pointer, :pointer],
       :SDL_wcscmp => [:pointer, :pointer],
-      :SDL_wcsncmp => [:pointer, :pointer, :ulong],
+      :SDL_wcsncmp => [:pointer, :pointer, :int],
       :SDL_wcscasecmp => [:pointer, :pointer],
-      :SDL_wcsncasecmp => [:pointer, :pointer, :ulong],
+      :SDL_wcsncasecmp => [:pointer, :pointer, :int],
       :SDL_strlen => [:pointer],
-      :SDL_strlcpy => [:pointer, :pointer, :ulong],
-      :SDL_utf8strlcpy => [:pointer, :pointer, :ulong],
-      :SDL_strlcat => [:pointer, :pointer, :ulong],
+      :SDL_strlcpy => [:pointer, :pointer, :int],
+      :SDL_utf8strlcpy => [:pointer, :pointer, :int],
+      :SDL_strlcat => [:pointer, :pointer, :int],
       :SDL_strdup => [:pointer],
       :SDL_strrev => [:pointer],
       :SDL_strupr => [:pointer],
@@ -238,13 +244,15 @@ module SDL2
       :SDL_strtoull => [:pointer, :pointer, :int],
       :SDL_strtod => [:pointer, :pointer],
       :SDL_strcmp => [:pointer, :pointer],
-      :SDL_strncmp => [:pointer, :pointer, :ulong],
+      :SDL_strncmp => [:pointer, :pointer, :int],
       :SDL_strcasecmp => [:pointer, :pointer],
-      :SDL_strncasecmp => [:pointer, :pointer, :ulong],
+      :SDL_strncasecmp => [:pointer, :pointer, :int],
       :SDL_sscanf => [:pointer, :pointer],
-      :SDL_vsscanf => [:pointer, :pointer, :pointer],
-      :SDL_snprintf => [:pointer, :ulong, :pointer],
-      :SDL_vsnprintf => [:pointer, :ulong, :pointer, :pointer],
+      :SDL_vsscanf => [:pointer, :pointer, :int],
+      :SDL_snprintf => [:pointer, :int, :pointer],
+      :SDL_vsnprintf => [:pointer, :int, :pointer, :int],
+      :SDL_asprintf => [:pointer, :pointer],
+      :SDL_vasprintf => [:pointer, :pointer, :int],
       :SDL_acos => [:double],
       :SDL_acosf => [:float],
       :SDL_asin => [:double],
@@ -290,8 +298,8 @@ module SDL2
       :SDL_iconv_open => [:pointer, :pointer],
       :SDL_iconv_close => [:pointer],
       :SDL_iconv => [:pointer, :pointer, :pointer, :pointer, :pointer],
-      :SDL_iconv_string => [:pointer, :pointer, :pointer, :ulong],
-      :SDL_memcpy4 => [:pointer, :pointer, :ulong],
+      :SDL_iconv_string => [:pointer, :pointer, :pointer, :int],
+      :SDL_memcpy4 => [:pointer, :pointer, :int],
     }
     retvals = {
       :SDL_malloc => :pointer,
@@ -325,19 +333,19 @@ module SDL2
       :SDL_memcpy => :pointer,
       :SDL_memmove => :pointer,
       :SDL_memcmp => :int,
-      :SDL_wcslen => :size_t,
-      :SDL_wcslcpy => :size_t,
-      :SDL_wcslcat => :size_t,
+      :SDL_wcslen => :int,
+      :SDL_wcslcpy => :int,
+      :SDL_wcslcat => :int,
       :SDL_wcsdup => :pointer,
       :SDL_wcsstr => :pointer,
       :SDL_wcscmp => :int,
       :SDL_wcsncmp => :int,
       :SDL_wcscasecmp => :int,
       :SDL_wcsncasecmp => :int,
-      :SDL_strlen => :size_t,
-      :SDL_strlcpy => :size_t,
-      :SDL_utf8strlcpy => :size_t,
-      :SDL_strlcat => :size_t,
+      :SDL_strlen => :int,
+      :SDL_strlcpy => :int,
+      :SDL_utf8strlcpy => :int,
+      :SDL_strlcat => :int,
       :SDL_strdup => :pointer,
       :SDL_strrev => :pointer,
       :SDL_strupr => :pointer,
@@ -346,7 +354,7 @@ module SDL2
       :SDL_strrchr => :pointer,
       :SDL_strstr => :pointer,
       :SDL_strtokr => :pointer,
-      :SDL_utf8strlen => :size_t,
+      :SDL_utf8strlen => :int,
       :SDL_itoa => :pointer,
       :SDL_uitoa => :pointer,
       :SDL_ltoa => :pointer,
@@ -368,6 +376,8 @@ module SDL2
       :SDL_vsscanf => :int,
       :SDL_snprintf => :int,
       :SDL_vsnprintf => :int,
+      :SDL_asprintf => :int,
+      :SDL_vasprintf => :int,
       :SDL_acos => :double,
       :SDL_acosf => :float,
       :SDL_asin => :double,
@@ -412,7 +422,7 @@ module SDL2
       :SDL_tanf => :float,
       :SDL_iconv_open => :pointer,
       :SDL_iconv_close => :int,
-      :SDL_iconv => :size_t,
+      :SDL_iconv => :int,
       :SDL_iconv_string => :pointer,
       :SDL_memcpy4 => :pointer,
     }

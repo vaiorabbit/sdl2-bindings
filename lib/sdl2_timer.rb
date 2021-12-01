@@ -27,6 +27,7 @@ module SDL2
   def self.setup_timer_symbols()
     symbols = [
       :SDL_GetTicks,
+      :SDL_GetTicks64,
       :SDL_GetPerformanceCounter,
       :SDL_GetPerformanceFrequency,
       :SDL_Delay,
@@ -35,6 +36,7 @@ module SDL2
     ]
     args = {
       :SDL_GetTicks => [],
+      :SDL_GetTicks64 => [],
       :SDL_GetPerformanceCounter => [],
       :SDL_GetPerformanceFrequency => [],
       :SDL_Delay => [:uint],
@@ -43,6 +45,7 @@ module SDL2
     }
     retvals = {
       :SDL_GetTicks => :uint,
+      :SDL_GetTicks64 => :ulong_long,
       :SDL_GetPerformanceCounter => :ulong_long,
       :SDL_GetPerformanceFrequency => :ulong_long,
       :SDL_Delay => :void,

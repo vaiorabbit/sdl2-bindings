@@ -76,6 +76,7 @@ module SDL2
   SDL_SENSORUPDATE = 4608
   SDL_RENDER_TARGETS_RESET = 8192
   SDL_RENDER_DEVICE_RESET = 8193
+  SDL_POLLSENTINEL = 32512
   SDL_USEREVENT = 32768
   SDL_LASTEVENT = 65535
   SDL_ADDEVENT = 0
@@ -196,6 +197,8 @@ module SDL2
       :x, :int,
       :y, :int,
       :direction, :uint,
+      :preciseX, :float,
+      :preciseY, :float,
     )
   end
 

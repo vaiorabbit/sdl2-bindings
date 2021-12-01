@@ -12,6 +12,7 @@ export PYTHONPATH=/opt/homebrew/opt/llvm/lib/python3.9/site-packages
 /opt/homebrew/bin/python3 generate_SDL_gesture.py > ../lib/sdl2_gesture.rb
 /opt/homebrew/bin/python3 generate_SDL_haptic.py > ../lib/sdl2_haptic.rb
 /opt/homebrew/bin/python3 generate_SDL_hints.py > ../lib/sdl2_hints.rb
+/opt/homebrew/bin/python3 generate_SDL_hidapi.py > ../lib/sdl2_hidapi.rb
 /opt/homebrew/bin/python3 generate_SDL_joystick.py > ../lib/sdl2_joystick.rb
 /opt/homebrew/bin/python3 generate_SDL_keyboard.py > ../lib/sdl2_keyboard.rb
 /opt/homebrew/bin/python3 generate_SDL_keycode.py > ../lib/sdl2_keycode.rb
