@@ -10,8 +10,8 @@ module SDL2
   extend FFI::Library
   # Define/Macro
 
-  SDL_TOUCH_MOUSEID = ( -1 )
-  SDL_MOUSE_TOUCHID = ( -1 )
+  SDL_TOUCH_MOUSEID = -1
+  SDL_MOUSE_TOUCHID = -1
 
   # Enum
 

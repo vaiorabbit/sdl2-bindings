@@ -5,7 +5,7 @@
 [Notice] Experimental project.
 
 *   Created : 2015-09-19
-*   Last modified : 2021-12-02
+*   Last modified : 2022-01-11
 
 ## Features ##
 
@@ -36,13 +36,15 @@
     *   macOS Big Sur (11.5), ruby 3.0.1p64 (2021-04-05 revision 0fb782ee38) [arm64-darwin20]
 *   [2021-12-02] SDL 2.0.18 (Installed via Homebrew)
     *   macOS Big Sur (11.6), ruby 3.0.2p107 (2021-07-07 revision 0db68f0233) [arm64-darwin20]
+*   [2022-01-11] SDL 2.0.20
+    *   macOS Monterey (12.1), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [arm64-darwin20]
 
 ## License ##
 
 The zlib/libpng License ( http://opensource.org/licenses/Zlib ).
 
     sdl2-bindings : Yet another SDL2 wrapper for Ruby
-    Copyright (c) 2015-2021 vaiorabbit <http://twitter.com/vaiorabbit>
+    Copyright (c) 2015-2022 vaiorabbit <http://twitter.com/vaiorabbit>
 
     This software is provided 'as-is', without any express or implied
     warranty. In no event will the authors be held liable for any damages

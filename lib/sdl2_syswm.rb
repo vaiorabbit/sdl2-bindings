@@ -11,6 +11,7 @@ module SDL2
   extend FFI::Library
   # Define/Macro
 
+  SDL_METALVIEW_TAG = 255
 
   # Enum
 

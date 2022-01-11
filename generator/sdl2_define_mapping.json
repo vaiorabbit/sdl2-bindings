@@ -207,6 +207,7 @@
     , "SDL_HINT_QTWAYLAND_CONTENT_ORIENTATION" : "\"SDL_QTWAYLAND_CONTENT_ORIENTATION\""
     , "SDL_HINT_QTWAYLAND_WINDOW_FLAGS" : "\"SDL_QTWAYLAND_WINDOW_FLAGS\""
     , "SDL_HINT_RENDER_BATCHING" : "\"SDL_RENDER_BATCHING\""
+    , "SDL_HINT_RENDER_LINE_METHOD" : "\"SDL_RENDER_LINE_METHOD\""
     , "SDL_HINT_RENDER_DIRECT3D11_DEBUG" : "\"SDL_RENDER_DIRECT3D11_DEBUG\""
     , "SDL_HINT_RENDER_DIRECT3D_THREADSAFE" : "\"SDL_RENDER_DIRECT3D_THREADSAFE\""
     , "SDL_HINT_RENDER_DRIVER" : "\"SDL_RENDER_DRIVER\""
@@ -411,16 +412,17 @@
     , "SDL_BlitScaled" : null
     , "SDL_system_h_" : null
     , "SDL_syswm_h_" : null
+    , "SDL_METALVIEW_TAG" : "255"
     , "SDL_thread_h_" : null
     , "SDL_timer_h_" : null
     , "SDL_TICKS_PASSED" : null
     , "SDL_touch_h_" : null
-    , "SDL_TOUCH_MOUSEID" : "( -1 )"
-    , "SDL_MOUSE_TOUCHID" : "( -1 )"
+    , "SDL_TOUCH_MOUSEID" : "-1"
+    , "SDL_MOUSE_TOUCHID" : "-1"
     , "SDL_version_h_" : null
     , "SDL_MAJOR_VERSION" : "2"
     , "SDL_MINOR_VERSION" : "0"
-    , "SDL_PATCHLEVEL" : "18"
+    , "SDL_PATCHLEVEL" : "20"
     , "SDL_VERSION" : null
     , "SDL_VERSIONNUM" : null
     , "SDL_COMPILEDVERSION" : null

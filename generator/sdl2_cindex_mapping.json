@@ -135,7 +135,7 @@
     , "uint32_t" : "TypeKind.UINT"
     , "uint64_t" : "TypeKind.ULONGLONG"
     , "SDL_bool" : "TypeKind.ENUM"
-    , "Sint8" : "TypeKind.SCHAR"
+    , "Sint8" : "TypeKind.CHAR_S"
     , "Uint8" : "TypeKind.UCHAR"
     , "Sint16" : "TypeKind.SHORT"
     , "Uint16" : "TypeKind.USHORT"
