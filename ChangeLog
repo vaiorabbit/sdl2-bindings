@@ -3,6 +3,7 @@
 	* lib/sdl2_ttf.rb: Generated for version 2.0.18
 	* generator: Fixed wrong 'by_value' handling
 	* .gitignore: Added
+	* test/test_opengl>rb: Use opengl-bindings2
 
 2022-01-11  vaiorabbit  <http://twitter.com/vaiorabbit>
 

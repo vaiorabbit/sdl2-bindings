@@ -1,23 +1,14 @@
-require 'opengl'
-include OpenGL
-case OpenGL.get_platform
-when :OPENGL_PLATFORM_WINDOWS
-  OpenGL.load_lib('opengl32.dll', 'C:/Windows/System32')
-when :OPENGL_PLATFORM_MACOSX
-  OpenGL.load_lib('libGL.dylib', '/System/Library/Frameworks/OpenGL.framework/Libraries')
-when :OPENGL_PLATFORM_LINUX
-  OpenGL.load_lib()
-else
-  raise RuntimeError, "Unsupported platform."
-end
+# [NOTE] Install opengl-bindings2 ( https://rubygems.org/gems/opengl-bindings2 ) before running this sample.
+# $ gem install opengl-bindings2
 
+require 'opengl'
 require_relative '../lib/sdl2'
 require_relative 'util'
 
 include SDL2
 
 $color =
-  [[ 1.0,  1.0,  0.0].pack("D3"), 
+  [[ 1.0,  1.0,  0.0].pack("D3"),
    [ 1.0,  0.0,  0.0].pack("D3"),
    [ 0.0,  0.0,  0.0].pack("D3"),
    [ 0.0,  1.0,  0.0].pack("D3"),
@@ -37,73 +28,73 @@ $cube =
    [-0.5, -0.5,  0.5].pack("D3")]
 
 def render()
-  glClearColor(0.0, 0.0, 0.0, 1.0)
-  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+  GL.ClearColor(0.0, 0.0, 0.0, 1.0)
+  GL.Clear(GL::COLOR_BUFFER_BIT|GL::DEPTH_BUFFER_BIT)
 
-  glBegin(GL_QUADS)
+  GL.Begin(GL::QUADS)
 
-  glColor3dv($color[0])
-  glVertex3dv($cube[0])
-  glColor3dv($color[1])
-  glVertex3dv($cube[1])
-  glColor3dv($color[2])
-  glVertex3dv($cube[2])
-  glColor3dv($color[3])
-  glVertex3dv($cube[3])
-  
-  glColor3dv($color[3])
-  glVertex3dv($cube[3])
-  glColor3dv($color[4])
-  glVertex3dv($cube[4])
-  glColor3dv($color[7])
-  glVertex3dv($cube[7])
-  glColor3dv($color[2])
-  glVertex3dv($cube[2])
-  
-  glColor3dv($color[0])
-  glVertex3dv($cube[0])
-  glColor3dv($color[5])
-  glVertex3dv($cube[5])
-  glColor3dv($color[6])
-  glVertex3dv($cube[6])
-  glColor3dv($color[1])
-  glVertex3dv($cube[1])
-  
-  glColor3dv($color[5])
-  glVertex3dv($cube[5])
-  glColor3dv($color[4])
-  glVertex3dv($cube[4])
-  glColor3dv($color[7])
-  glVertex3dv($cube[7])
-  glColor3dv($color[6])
-  glVertex3dv($cube[6])
-  
-  glColor3dv($color[5])
-  glVertex3dv($cube[5])
-  glColor3dv($color[0])
-  glVertex3dv($cube[0])
-  glColor3dv($color[3])
-  glVertex3dv($cube[3])
-  glColor3dv($color[4])
-  glVertex3dv($cube[4])
-  
-  glColor3dv($color[6])
-  glVertex3dv($cube[6])
-  glColor3dv($color[1])
-  glVertex3dv($cube[1])
-  glColor3dv($color[2])
-  glVertex3dv($cube[2])
-  glColor3dv($color[7])
-  glVertex3dv($cube[7])
+  GL.Color3dv($color[0])
+  GL.Vertex3dv($cube[0])
+  GL.Color3dv($color[1])
+  GL.Vertex3dv($cube[1])
+  GL.Color3dv($color[2])
+  GL.Vertex3dv($cube[2])
+  GL.Color3dv($color[3])
+  GL.Vertex3dv($cube[3])
 
-  glEnd()
-  
-  glMatrixMode(GL_MODELVIEW)
-  glRotated(5.0, 1.0, 1.0, 1.0)
+  GL.Color3dv($color[3])
+  GL.Vertex3dv($cube[3])
+  GL.Color3dv($color[4])
+  GL.Vertex3dv($cube[4])
+  GL.Color3dv($color[7])
+  GL.Vertex3dv($cube[7])
+  GL.Color3dv($color[2])
+  GL.Vertex3dv($cube[2])
+
+  GL.Color3dv($color[0])
+  GL.Vertex3dv($cube[0])
+  GL.Color3dv($color[5])
+  GL.Vertex3dv($cube[5])
+  GL.Color3dv($color[6])
+  GL.Vertex3dv($cube[6])
+  GL.Color3dv($color[1])
+  GL.Vertex3dv($cube[1])
+
+  GL.Color3dv($color[5])
+  GL.Vertex3dv($cube[5])
+  GL.Color3dv($color[4])
+  GL.Vertex3dv($cube[4])
+  GL.Color3dv($color[7])
+  GL.Vertex3dv($cube[7])
+  GL.Color3dv($color[6])
+  GL.Vertex3dv($cube[6])
+
+  GL.Color3dv($color[5])
+  GL.Vertex3dv($cube[5])
+  GL.Color3dv($color[0])
+  GL.Vertex3dv($cube[0])
+  GL.Color3dv($color[3])
+  GL.Vertex3dv($cube[3])
+  GL.Color3dv($color[4])
+  GL.Vertex3dv($cube[4])
+
+  GL.Color3dv($color[6])
+  GL.Vertex3dv($cube[6])
+  GL.Color3dv($color[1])
+  GL.Vertex3dv($cube[1])
+  GL.Color3dv($color[2])
+  GL.Vertex3dv($cube[2])
+  GL.Color3dv($color[7])
+  GL.Vertex3dv($cube[7])
+
+  GL.End()
+
+  GL.MatrixMode(GL::MODELVIEW)
+  GL.Rotated(5.0, 1.0, 1.0, 1.0)
 end
 
 
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   load_sdl2_lib()
   success = SDL_Init(SDL_INIT_EVERYTHING)
   exit if success < 0
@@ -116,18 +107,20 @@ if __FILE__ == $0
 
   context = SDL_GL_CreateContext(window)
 
+  GL.load_lib()
+
   SDL_GL_SetSwapInterval(1)
 
-  glViewport( 0, 0, WINDOW_W, WINDOW_H )
-  glMatrixMode( GL_PROJECTION )
-  glLoadIdentity( )
-  glOrtho(-ratio, ratio, -1.0, 1.0, -1.0, 1.0)
-  glMatrixMode( GL_MODELVIEW )
-  glLoadIdentity( )
+  GL.Viewport(0, 0, WINDOW_W, WINDOW_H)
+  GL.MatrixMode(GL::PROJECTION)
+  GL.LoadIdentity()
+  GL.Ortho(-ratio, ratio, -1.0, 1.0, -1.0, 1.0)
+  GL.MatrixMode(GL::MODELVIEW)
+  GL.LoadIdentity()
 
-  glEnable(GL_DEPTH_TEST)
-  glDepthFunc(GL_LESS)
-  glShadeModel(GL_SMOOTH)
+  GL.Enable(GL::DEPTH_TEST)
+  GL.DepthFunc(GL::LESS)
+  GL.ShadeModel(GL::SMOOTH)
 
   # w_buf = '    '
   # h_buf = '    '
