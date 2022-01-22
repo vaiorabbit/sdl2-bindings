@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -63,6 +63,27 @@ module SDL2
       :SDL_hid_get_indexed_string,
       :SDL_hid_ble_scan,
     ]
+    apis = {
+      :SDL_hid_init => :hid_init,
+      :SDL_hid_exit => :hid_exit,
+      :SDL_hid_device_change_count => :hid_device_change_count,
+      :SDL_hid_enumerate => :hid_enumerate,
+      :SDL_hid_free_enumeration => :hid_free_enumeration,
+      :SDL_hid_open => :hid_open,
+      :SDL_hid_open_path => :hid_open_path,
+      :SDL_hid_write => :hid_write,
+      :SDL_hid_read_timeout => :hid_read_timeout,
+      :SDL_hid_read => :hid_read,
+      :SDL_hid_set_nonblocking => :hid_set_nonblocking,
+      :SDL_hid_send_feature_report => :hid_send_feature_report,
+      :SDL_hid_get_feature_report => :hid_get_feature_report,
+      :SDL_hid_close => :hid_close,
+      :SDL_hid_get_manufacturer_string => :hid_get_manufacturer_string,
+      :SDL_hid_get_product_string => :hid_get_product_string,
+      :SDL_hid_get_serial_number_string => :hid_get_serial_number_string,
+      :SDL_hid_get_indexed_string => :hid_get_indexed_string,
+      :SDL_hid_ble_scan => :hid_ble_scan,
+    }
     args = {
       :SDL_hid_init => [],
       :SDL_hid_exit => [],
@@ -107,7 +128,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

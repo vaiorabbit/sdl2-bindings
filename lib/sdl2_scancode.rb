@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -270,13 +270,15 @@ module SDL2
   def self.setup_scancode_symbols()
     symbols = [
     ]
+    apis = {
+    }
     args = {
     }
     retvals = {
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

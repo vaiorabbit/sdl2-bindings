@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -50,6 +50,9 @@ module SDL2
     symbols = [
       :SDL_ComposeCustomBlendMode,
     ]
+    apis = {
+      :SDL_ComposeCustomBlendMode => :ComposeCustomBlendMode,
+    }
     args = {
       :SDL_ComposeCustomBlendMode => [:int, :int, :int, :int, :int, :int],
     }
@@ -58,7 +61,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

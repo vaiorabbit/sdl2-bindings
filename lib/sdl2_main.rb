@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -40,6 +40,13 @@ module SDL2
       :SDL_WasInit,
       :SDL_Quit,
     ]
+    apis = {
+      :SDL_Init => :Init,
+      :SDL_InitSubSystem => :InitSubSystem,
+      :SDL_QuitSubSystem => :QuitSubSystem,
+      :SDL_WasInit => :WasInit,
+      :SDL_Quit => :Quit,
+    }
     args = {
       :SDL_Init => [:uint],
       :SDL_InitSubSystem => [:uint],
@@ -56,7 +63,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

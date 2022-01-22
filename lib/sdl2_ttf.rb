@@ -7,7 +7,7 @@
 require 'ffi'
 require_relative 'sdl2_pixels'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -116,6 +116,83 @@ module SDL2
       :TTF_SetFontSDF,
       :TTF_GetFontSDF,
     ]
+    apis = {
+      :TTF_Linked_Version => :TTF_Linked_Version,
+      :TTF_GetFreeTypeVersion => :TTF_GetFreeTypeVersion,
+      :TTF_GetHarfBuzzVersion => :TTF_GetHarfBuzzVersion,
+      :TTF_ByteSwappedUNICODE => :TTF_ByteSwappedUNICODE,
+      :TTF_Init => :TTF_Init,
+      :TTF_OpenFont => :TTF_OpenFont,
+      :TTF_OpenFontIndex => :TTF_OpenFontIndex,
+      :TTF_OpenFontRW => :TTF_OpenFontRW,
+      :TTF_OpenFontIndexRW => :TTF_OpenFontIndexRW,
+      :TTF_OpenFontDPI => :TTF_OpenFontDPI,
+      :TTF_OpenFontIndexDPI => :TTF_OpenFontIndexDPI,
+      :TTF_OpenFontDPIRW => :TTF_OpenFontDPIRW,
+      :TTF_OpenFontIndexDPIRW => :TTF_OpenFontIndexDPIRW,
+      :TTF_SetFontSize => :TTF_SetFontSize,
+      :TTF_SetFontSizeDPI => :TTF_SetFontSizeDPI,
+      :TTF_GetFontStyle => :TTF_GetFontStyle,
+      :TTF_SetFontStyle => :TTF_SetFontStyle,
+      :TTF_GetFontOutline => :TTF_GetFontOutline,
+      :TTF_SetFontOutline => :TTF_SetFontOutline,
+      :TTF_GetFontHinting => :TTF_GetFontHinting,
+      :TTF_SetFontHinting => :TTF_SetFontHinting,
+      :TTF_FontHeight => :TTF_FontHeight,
+      :TTF_FontAscent => :TTF_FontAscent,
+      :TTF_FontDescent => :TTF_FontDescent,
+      :TTF_FontLineSkip => :TTF_FontLineSkip,
+      :TTF_GetFontKerning => :TTF_GetFontKerning,
+      :TTF_SetFontKerning => :TTF_SetFontKerning,
+      :TTF_FontFaces => :TTF_FontFaces,
+      :TTF_FontFaceIsFixedWidth => :TTF_FontFaceIsFixedWidth,
+      :TTF_FontFaceFamilyName => :TTF_FontFaceFamilyName,
+      :TTF_FontFaceStyleName => :TTF_FontFaceStyleName,
+      :TTF_GlyphIsProvided => :TTF_GlyphIsProvided,
+      :TTF_GlyphIsProvided32 => :TTF_GlyphIsProvided32,
+      :TTF_GlyphMetrics => :TTF_GlyphMetrics,
+      :TTF_GlyphMetrics32 => :TTF_GlyphMetrics32,
+      :TTF_SizeText => :TTF_SizeText,
+      :TTF_SizeUTF8 => :TTF_SizeUTF8,
+      :TTF_SizeUNICODE => :TTF_SizeUNICODE,
+      :TTF_MeasureText => :TTF_MeasureText,
+      :TTF_MeasureUTF8 => :TTF_MeasureUTF8,
+      :TTF_MeasureUNICODE => :TTF_MeasureUNICODE,
+      :TTF_RenderText_Solid => :TTF_RenderText_Solid,
+      :TTF_RenderUTF8_Solid => :TTF_RenderUTF8_Solid,
+      :TTF_RenderUNICODE_Solid => :TTF_RenderUNICODE_Solid,
+      :TTF_RenderText_Solid_Wrapped => :TTF_RenderText_Solid_Wrapped,
+      :TTF_RenderUTF8_Solid_Wrapped => :TTF_RenderUTF8_Solid_Wrapped,
+      :TTF_RenderUNICODE_Solid_Wrapped => :TTF_RenderUNICODE_Solid_Wrapped,
+      :TTF_RenderGlyph_Solid => :TTF_RenderGlyph_Solid,
+      :TTF_RenderGlyph32_Solid => :TTF_RenderGlyph32_Solid,
+      :TTF_RenderText_Shaded => :TTF_RenderText_Shaded,
+      :TTF_RenderUTF8_Shaded => :TTF_RenderUTF8_Shaded,
+      :TTF_RenderUNICODE_Shaded => :TTF_RenderUNICODE_Shaded,
+      :TTF_RenderText_Shaded_Wrapped => :TTF_RenderText_Shaded_Wrapped,
+      :TTF_RenderUTF8_Shaded_Wrapped => :TTF_RenderUTF8_Shaded_Wrapped,
+      :TTF_RenderUNICODE_Shaded_Wrapped => :TTF_RenderUNICODE_Shaded_Wrapped,
+      :TTF_RenderGlyph_Shaded => :TTF_RenderGlyph_Shaded,
+      :TTF_RenderGlyph32_Shaded => :TTF_RenderGlyph32_Shaded,
+      :TTF_RenderText_Blended => :TTF_RenderText_Blended,
+      :TTF_RenderUTF8_Blended => :TTF_RenderUTF8_Blended,
+      :TTF_RenderUNICODE_Blended => :TTF_RenderUNICODE_Blended,
+      :TTF_RenderText_Blended_Wrapped => :TTF_RenderText_Blended_Wrapped,
+      :TTF_RenderUTF8_Blended_Wrapped => :TTF_RenderUTF8_Blended_Wrapped,
+      :TTF_RenderUNICODE_Blended_Wrapped => :TTF_RenderUNICODE_Blended_Wrapped,
+      :TTF_RenderGlyph_Blended => :TTF_RenderGlyph_Blended,
+      :TTF_RenderGlyph32_Blended => :TTF_RenderGlyph32_Blended,
+      :TTF_SetDirection => :TTF_SetDirection,
+      :TTF_SetScript => :TTF_SetScript,
+      :TTF_CloseFont => :TTF_CloseFont,
+      :TTF_Quit => :TTF_Quit,
+      :TTF_WasInit => :TTF_WasInit,
+      :TTF_GetFontKerningSize => :TTF_GetFontKerningSize,
+      :TTF_GetFontKerningSizeGlyphs => :TTF_GetFontKerningSizeGlyphs,
+      :TTF_GetFontKerningSizeGlyphs32 => :TTF_GetFontKerningSizeGlyphs32,
+      :TTF_SetFontSDF => :TTF_SetFontSDF,
+      :TTF_GetFontSDF => :TTF_GetFontSDF,
+    }
     args = {
       :TTF_Linked_Version => [],
       :TTF_GetFreeTypeVersion => [:pointer, :pointer, :pointer],
@@ -272,7 +349,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

@@ -282,8 +282,12 @@ class FunctionInfo(object):
     Holds function information.
     """
 
+    # Block adding members unintentionally
+    __slots__ = ('original_name', 'api_name', 'args', 'retval')
+
     def __init__(self):
-        self.name = ""
+        self.original_name = ""
+        self.api_name = ""
         self.args = []
         self.retval = None
 
@@ -404,7 +408,6 @@ def collect_decl_typedef(ctx, cursor):
             typedef_info.type_kind = canonical_type.kind
 
             typedef_info.func_proto = FunctionInfo()
-            typedef_info.func_proto.name = ""
 
             result_type = canonical_type.get_result()
             retval_info = RetvalInfo()
@@ -537,7 +540,13 @@ def collect_decl_function(ctx, cursor):
     ctx.push()
 
     func_info = FunctionInfo()
-    func_info.name = cursor.spelling
+    func_info.original_name = cursor.spelling
+
+    match_obj = re.match(r"^SDL_(.+)", func_info.original_name)
+    if match_obj:
+        func_info.api_name = match_obj.group(1)
+    else:
+        func_info.api_name = func_info.original_name
 
     retval_info = RetvalInfo()
     retval_info.type_name = cursor.result_type.spelling
@@ -553,7 +562,7 @@ def collect_decl_function(ctx, cursor):
         arg_info.type_kind = arg.type.get_canonical().kind
         func_info.args.append(arg_info)
 
-    ctx.add_decl_function(func_info.name, func_info)
+    ctx.add_decl_function(func_info.original_name, func_info)
 
     ctx.pop()
     ctx.collection_mode = ParseContext.Decl_Unknown

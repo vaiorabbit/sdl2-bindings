@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -70,6 +70,22 @@ module SDL2
       :SDL_LogGetOutputFunction,
       :SDL_LogSetOutputFunction,
     ]
+    apis = {
+      :SDL_LogSetAllPriority => :LogSetAllPriority,
+      :SDL_LogSetPriority => :LogSetPriority,
+      :SDL_LogGetPriority => :LogGetPriority,
+      :SDL_LogResetPriorities => :LogResetPriorities,
+      :SDL_Log => :Log,
+      :SDL_LogVerbose => :LogVerbose,
+      :SDL_LogDebug => :LogDebug,
+      :SDL_LogInfo => :LogInfo,
+      :SDL_LogWarn => :LogWarn,
+      :SDL_LogError => :LogError,
+      :SDL_LogCritical => :LogCritical,
+      :SDL_LogMessage => :LogMessage,
+      :SDL_LogGetOutputFunction => :LogGetOutputFunction,
+      :SDL_LogSetOutputFunction => :LogSetOutputFunction,
+    }
     args = {
       :SDL_LogSetAllPriority => [:int],
       :SDL_LogSetPriority => [:int, :int],
@@ -104,7 +120,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

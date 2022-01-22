@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -179,6 +179,22 @@ module SDL2
       :SDL_GetRGBA,
       :SDL_CalculateGammaRamp,
     ]
+    apis = {
+      :SDL_GetPixelFormatName => :GetPixelFormatName,
+      :SDL_PixelFormatEnumToMasks => :PixelFormatEnumToMasks,
+      :SDL_MasksToPixelFormatEnum => :MasksToPixelFormatEnum,
+      :SDL_AllocFormat => :AllocFormat,
+      :SDL_FreeFormat => :FreeFormat,
+      :SDL_AllocPalette => :AllocPalette,
+      :SDL_SetPixelFormatPalette => :SetPixelFormatPalette,
+      :SDL_SetPaletteColors => :SetPaletteColors,
+      :SDL_FreePalette => :FreePalette,
+      :SDL_MapRGB => :MapRGB,
+      :SDL_MapRGBA => :MapRGBA,
+      :SDL_GetRGB => :GetRGB,
+      :SDL_GetRGBA => :GetRGBA,
+      :SDL_CalculateGammaRamp => :CalculateGammaRamp,
+    }
     args = {
       :SDL_GetPixelFormatName => [:uint],
       :SDL_PixelFormatEnumToMasks => [:uint, :pointer, :pointer, :pointer, :pointer, :pointer],
@@ -213,7 +229,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

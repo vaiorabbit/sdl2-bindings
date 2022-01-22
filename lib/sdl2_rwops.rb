@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -135,6 +135,36 @@ module SDL2
       :SDL_WriteLE64,
       :SDL_WriteBE64,
     ]
+    apis = {
+      :SDL_RWFromFile => :RWFromFile,
+      :SDL_RWFromFP => :RWFromFP,
+      :SDL_RWFromMem => :RWFromMem,
+      :SDL_RWFromConstMem => :RWFromConstMem,
+      :SDL_AllocRW => :AllocRW,
+      :SDL_FreeRW => :FreeRW,
+      :SDL_RWsize => :RWsize,
+      :SDL_RWseek => :RWseek,
+      :SDL_RWtell => :RWtell,
+      :SDL_RWread => :RWread,
+      :SDL_RWwrite => :RWwrite,
+      :SDL_RWclose => :RWclose,
+      :SDL_LoadFile_RW => :LoadFile_RW,
+      :SDL_LoadFile => :LoadFile,
+      :SDL_ReadU8 => :ReadU8,
+      :SDL_ReadLE16 => :ReadLE16,
+      :SDL_ReadBE16 => :ReadBE16,
+      :SDL_ReadLE32 => :ReadLE32,
+      :SDL_ReadBE32 => :ReadBE32,
+      :SDL_ReadLE64 => :ReadLE64,
+      :SDL_ReadBE64 => :ReadBE64,
+      :SDL_WriteU8 => :WriteU8,
+      :SDL_WriteLE16 => :WriteLE16,
+      :SDL_WriteBE16 => :WriteBE16,
+      :SDL_WriteLE32 => :WriteLE32,
+      :SDL_WriteBE32 => :WriteBE32,
+      :SDL_WriteLE64 => :WriteLE64,
+      :SDL_WriteBE64 => :WriteBE64,
+    }
     args = {
       :SDL_RWFromFile => [:pointer, :pointer],
       :SDL_RWFromFP => [:pointer, :int],
@@ -197,7 +227,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

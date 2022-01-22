@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -87,6 +87,67 @@ module SDL2
       :stringColor,
       :stringRGBA,
     ]
+    apis = {
+      :pixelColor => :pixelColor,
+      :pixelRGBA => :pixelRGBA,
+      :hlineColor => :hlineColor,
+      :hlineRGBA => :hlineRGBA,
+      :vlineColor => :vlineColor,
+      :vlineRGBA => :vlineRGBA,
+      :rectangleColor => :rectangleColor,
+      :rectangleRGBA => :rectangleRGBA,
+      :roundedRectangleColor => :roundedRectangleColor,
+      :roundedRectangleRGBA => :roundedRectangleRGBA,
+      :boxColor => :boxColor,
+      :boxRGBA => :boxRGBA,
+      :roundedBoxColor => :roundedBoxColor,
+      :roundedBoxRGBA => :roundedBoxRGBA,
+      :lineColor => :lineColor,
+      :lineRGBA => :lineRGBA,
+      :aalineColor => :aalineColor,
+      :aalineRGBA => :aalineRGBA,
+      :thickLineColor => :thickLineColor,
+      :thickLineRGBA => :thickLineRGBA,
+      :circleColor => :circleColor,
+      :circleRGBA => :circleRGBA,
+      :arcColor => :arcColor,
+      :arcRGBA => :arcRGBA,
+      :aacircleColor => :aacircleColor,
+      :aacircleRGBA => :aacircleRGBA,
+      :filledCircleColor => :filledCircleColor,
+      :filledCircleRGBA => :filledCircleRGBA,
+      :ellipseColor => :ellipseColor,
+      :ellipseRGBA => :ellipseRGBA,
+      :aaellipseColor => :aaellipseColor,
+      :aaellipseRGBA => :aaellipseRGBA,
+      :filledEllipseColor => :filledEllipseColor,
+      :filledEllipseRGBA => :filledEllipseRGBA,
+      :pieColor => :pieColor,
+      :pieRGBA => :pieRGBA,
+      :filledPieColor => :filledPieColor,
+      :filledPieRGBA => :filledPieRGBA,
+      :trigonColor => :trigonColor,
+      :trigonRGBA => :trigonRGBA,
+      :aatrigonColor => :aatrigonColor,
+      :aatrigonRGBA => :aatrigonRGBA,
+      :filledTrigonColor => :filledTrigonColor,
+      :filledTrigonRGBA => :filledTrigonRGBA,
+      :polygonColor => :polygonColor,
+      :polygonRGBA => :polygonRGBA,
+      :aapolygonColor => :aapolygonColor,
+      :aapolygonRGBA => :aapolygonRGBA,
+      :filledPolygonColor => :filledPolygonColor,
+      :filledPolygonRGBA => :filledPolygonRGBA,
+      :texturedPolygon => :texturedPolygon,
+      :bezierColor => :bezierColor,
+      :bezierRGBA => :bezierRGBA,
+      :gfxPrimitivesSetFont => :gfxPrimitivesSetFont,
+      :gfxPrimitivesSetFontRotation => :gfxPrimitivesSetFontRotation,
+      :characterColor => :characterColor,
+      :characterRGBA => :characterRGBA,
+      :stringColor => :stringColor,
+      :stringRGBA => :stringRGBA,
+    }
     args = {
       :pixelColor => [:pointer, :short, :short, :uint],
       :pixelRGBA => [:pointer, :short, :short, :uchar, :uchar, :uchar, :uchar],
@@ -211,7 +272,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

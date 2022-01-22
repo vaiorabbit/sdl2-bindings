@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -55,6 +55,38 @@ module SDL2
       :SDL_imageFilterClipToRange,
       :SDL_imageFilterNormalizeLinear,
     ]
+    apis = {
+      :SDL_imageFilterMMXdetect => :imageFilterMMXdetect,
+      :SDL_imageFilterMMXoff => :imageFilterMMXoff,
+      :SDL_imageFilterMMXon => :imageFilterMMXon,
+      :SDL_imageFilterAdd => :imageFilterAdd,
+      :SDL_imageFilterMean => :imageFilterMean,
+      :SDL_imageFilterSub => :imageFilterSub,
+      :SDL_imageFilterAbsDiff => :imageFilterAbsDiff,
+      :SDL_imageFilterMult => :imageFilterMult,
+      :SDL_imageFilterMultNor => :imageFilterMultNor,
+      :SDL_imageFilterMultDivby2 => :imageFilterMultDivby2,
+      :SDL_imageFilterMultDivby4 => :imageFilterMultDivby4,
+      :SDL_imageFilterBitAnd => :imageFilterBitAnd,
+      :SDL_imageFilterBitOr => :imageFilterBitOr,
+      :SDL_imageFilterDiv => :imageFilterDiv,
+      :SDL_imageFilterBitNegation => :imageFilterBitNegation,
+      :SDL_imageFilterAddByte => :imageFilterAddByte,
+      :SDL_imageFilterAddUint => :imageFilterAddUint,
+      :SDL_imageFilterAddByteToHalf => :imageFilterAddByteToHalf,
+      :SDL_imageFilterSubByte => :imageFilterSubByte,
+      :SDL_imageFilterSubUint => :imageFilterSubUint,
+      :SDL_imageFilterShiftRight => :imageFilterShiftRight,
+      :SDL_imageFilterShiftRightUint => :imageFilterShiftRightUint,
+      :SDL_imageFilterMultByByte => :imageFilterMultByByte,
+      :SDL_imageFilterShiftRightAndMultByByte => :imageFilterShiftRightAndMultByByte,
+      :SDL_imageFilterShiftLeftByte => :imageFilterShiftLeftByte,
+      :SDL_imageFilterShiftLeftUint => :imageFilterShiftLeftUint,
+      :SDL_imageFilterShiftLeft => :imageFilterShiftLeft,
+      :SDL_imageFilterBinarizeUsingThreshold => :imageFilterBinarizeUsingThreshold,
+      :SDL_imageFilterClipToRange => :imageFilterClipToRange,
+      :SDL_imageFilterNormalizeLinear => :imageFilterNormalizeLinear,
+    }
     args = {
       :SDL_imageFilterMMXdetect => [],
       :SDL_imageFilterMMXoff => [],
@@ -121,7 +153,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

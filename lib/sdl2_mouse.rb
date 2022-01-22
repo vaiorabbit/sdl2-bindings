@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -64,6 +64,25 @@ module SDL2
       :SDL_FreeCursor,
       :SDL_ShowCursor,
     ]
+    apis = {
+      :SDL_GetMouseFocus => :GetMouseFocus,
+      :SDL_GetMouseState => :GetMouseState,
+      :SDL_GetGlobalMouseState => :GetGlobalMouseState,
+      :SDL_GetRelativeMouseState => :GetRelativeMouseState,
+      :SDL_WarpMouseInWindow => :WarpMouseInWindow,
+      :SDL_WarpMouseGlobal => :WarpMouseGlobal,
+      :SDL_SetRelativeMouseMode => :SetRelativeMouseMode,
+      :SDL_CaptureMouse => :CaptureMouse,
+      :SDL_GetRelativeMouseMode => :GetRelativeMouseMode,
+      :SDL_CreateCursor => :CreateCursor,
+      :SDL_CreateColorCursor => :CreateColorCursor,
+      :SDL_CreateSystemCursor => :CreateSystemCursor,
+      :SDL_SetCursor => :SetCursor,
+      :SDL_GetCursor => :GetCursor,
+      :SDL_GetDefaultCursor => :GetDefaultCursor,
+      :SDL_FreeCursor => :FreeCursor,
+      :SDL_ShowCursor => :ShowCursor,
+    }
     args = {
       :SDL_GetMouseFocus => [],
       :SDL_GetMouseState => [:pointer, :pointer],
@@ -104,7 +123,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

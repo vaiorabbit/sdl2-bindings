@@ -7,7 +7,7 @@
 require 'ffi'
 require_relative 'sdl2_pixels'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -52,6 +52,12 @@ module SDL2
       :SDL_SetWindowShape,
       :SDL_GetShapedWindowMode,
     ]
+    apis = {
+      :SDL_CreateShapedWindow => :CreateShapedWindow,
+      :SDL_IsShapedWindow => :IsShapedWindow,
+      :SDL_SetWindowShape => :SetWindowShape,
+      :SDL_GetShapedWindowMode => :GetShapedWindowMode,
+    }
     args = {
       :SDL_CreateShapedWindow => [:pointer, :uint, :uint, :uint, :uint, :uint],
       :SDL_IsShapedWindow => [:pointer],
@@ -66,7 +72,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -34,6 +34,15 @@ module SDL2
       :SDL_AddTimer,
       :SDL_RemoveTimer,
     ]
+    apis = {
+      :SDL_GetTicks => :GetTicks,
+      :SDL_GetTicks64 => :GetTicks64,
+      :SDL_GetPerformanceCounter => :GetPerformanceCounter,
+      :SDL_GetPerformanceFrequency => :GetPerformanceFrequency,
+      :SDL_Delay => :Delay,
+      :SDL_AddTimer => :AddTimer,
+      :SDL_RemoveTimer => :RemoveTimer,
+    }
     args = {
       :SDL_GetTicks => [],
       :SDL_GetTicks64 => [],
@@ -54,7 +63,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

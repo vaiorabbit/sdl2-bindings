@@ -7,7 +7,7 @@
 require 'ffi'
 require_relative 'sdl2_joystick'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -151,6 +151,61 @@ module SDL2
       :SDL_GameControllerGetAppleSFSymbolsNameForButton,
       :SDL_GameControllerGetAppleSFSymbolsNameForAxis,
     ]
+    apis = {
+      :SDL_GameControllerAddMappingsFromRW => :GameControllerAddMappingsFromRW,
+      :SDL_GameControllerAddMapping => :GameControllerAddMapping,
+      :SDL_GameControllerNumMappings => :GameControllerNumMappings,
+      :SDL_GameControllerMappingForIndex => :GameControllerMappingForIndex,
+      :SDL_GameControllerMappingForGUID => :GameControllerMappingForGUID,
+      :SDL_GameControllerMapping => :GameControllerMapping,
+      :SDL_IsGameController => :IsGameController,
+      :SDL_GameControllerNameForIndex => :GameControllerNameForIndex,
+      :SDL_GameControllerTypeForIndex => :GameControllerTypeForIndex,
+      :SDL_GameControllerMappingForDeviceIndex => :GameControllerMappingForDeviceIndex,
+      :SDL_GameControllerOpen => :GameControllerOpen,
+      :SDL_GameControllerFromInstanceID => :GameControllerFromInstanceID,
+      :SDL_GameControllerFromPlayerIndex => :GameControllerFromPlayerIndex,
+      :SDL_GameControllerName => :GameControllerName,
+      :SDL_GameControllerGetType => :GameControllerGetType,
+      :SDL_GameControllerGetPlayerIndex => :GameControllerGetPlayerIndex,
+      :SDL_GameControllerSetPlayerIndex => :GameControllerSetPlayerIndex,
+      :SDL_GameControllerGetVendor => :GameControllerGetVendor,
+      :SDL_GameControllerGetProduct => :GameControllerGetProduct,
+      :SDL_GameControllerGetProductVersion => :GameControllerGetProductVersion,
+      :SDL_GameControllerGetSerial => :GameControllerGetSerial,
+      :SDL_GameControllerGetAttached => :GameControllerGetAttached,
+      :SDL_GameControllerGetJoystick => :GameControllerGetJoystick,
+      :SDL_GameControllerEventState => :GameControllerEventState,
+      :SDL_GameControllerUpdate => :GameControllerUpdate,
+      :SDL_GameControllerGetAxisFromString => :GameControllerGetAxisFromString,
+      :SDL_GameControllerGetStringForAxis => :GameControllerGetStringForAxis,
+      :SDL_GameControllerGetBindForAxis => :GameControllerGetBindForAxis,
+      :SDL_GameControllerHasAxis => :GameControllerHasAxis,
+      :SDL_GameControllerGetAxis => :GameControllerGetAxis,
+      :SDL_GameControllerGetButtonFromString => :GameControllerGetButtonFromString,
+      :SDL_GameControllerGetStringForButton => :GameControllerGetStringForButton,
+      :SDL_GameControllerGetBindForButton => :GameControllerGetBindForButton,
+      :SDL_GameControllerHasButton => :GameControllerHasButton,
+      :SDL_GameControllerGetButton => :GameControllerGetButton,
+      :SDL_GameControllerGetNumTouchpads => :GameControllerGetNumTouchpads,
+      :SDL_GameControllerGetNumTouchpadFingers => :GameControllerGetNumTouchpadFingers,
+      :SDL_GameControllerGetTouchpadFinger => :GameControllerGetTouchpadFinger,
+      :SDL_GameControllerHasSensor => :GameControllerHasSensor,
+      :SDL_GameControllerSetSensorEnabled => :GameControllerSetSensorEnabled,
+      :SDL_GameControllerIsSensorEnabled => :GameControllerIsSensorEnabled,
+      :SDL_GameControllerGetSensorDataRate => :GameControllerGetSensorDataRate,
+      :SDL_GameControllerGetSensorData => :GameControllerGetSensorData,
+      :SDL_GameControllerRumble => :GameControllerRumble,
+      :SDL_GameControllerRumbleTriggers => :GameControllerRumbleTriggers,
+      :SDL_GameControllerHasLED => :GameControllerHasLED,
+      :SDL_GameControllerHasRumble => :GameControllerHasRumble,
+      :SDL_GameControllerHasRumbleTriggers => :GameControllerHasRumbleTriggers,
+      :SDL_GameControllerSetLED => :GameControllerSetLED,
+      :SDL_GameControllerSendEffect => :GameControllerSendEffect,
+      :SDL_GameControllerClose => :GameControllerClose,
+      :SDL_GameControllerGetAppleSFSymbolsNameForButton => :GameControllerGetAppleSFSymbolsNameForButton,
+      :SDL_GameControllerGetAppleSFSymbolsNameForAxis => :GameControllerGetAppleSFSymbolsNameForAxis,
+    }
     args = {
       :SDL_GameControllerAddMappingsFromRW => [:pointer, :int],
       :SDL_GameControllerAddMapping => [:pointer],
@@ -263,7 +318,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

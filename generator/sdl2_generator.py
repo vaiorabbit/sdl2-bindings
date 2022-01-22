@@ -133,21 +133,28 @@ def generate_function(ctx, indent = "", module_name = ""):
     for func_name, func_info in ctx.decl_functions.items():
         if func_info == None:
             continue
-        print(indent + "    :%s," % func_name, file = sys.stdout)
+        print(indent + "    :%s," % func_info.original_name, file = sys.stdout)
     print(indent + "  ]", file = sys.stdout)
+
+    print(indent + "  apis = {", file = sys.stdout)
+    for func_name, func_info in ctx.decl_functions.items():
+        if func_info == None:
+            continue
+        print(indent + "    :%s => :%s," % (func_info.original_name, func_info.api_name), file = sys.stdout)
+    print(indent + "  }", file = sys.stdout)
 
     print(indent + "  args = {", file = sys.stdout)
     for func_name, func_info in ctx.decl_functions.items():
         if func_info == None:
             continue
-        print(indent + "    :%s => [" % func_name, file = sys.stdout, end='')
+        print(indent + "    :%s => [" % func_info.original_name, file = sys.stdout, end='')
         if len(func_info.args) > 0:
             # Get Ruby FFI arguments
             args_ctype_list = list(map((lambda t: str(t.type_kind)), func_info.args))
 
-            # Capitalize and add ".by_value" to struct arguments (e.g.: Color -> Color.by_value)
+            # Add ".by_value" to struct arguments (e.g.: Color -> Color.by_value)
             arg_is_record = lambda arg: sdl2_parser.query_sdl2_cindex_mapping_entry_exists(arg) and sdl2_parser.get_sdl2_cindex_mapping_value(arg) == "TypeKind.RECORD"
-            args_ctype_list = list(map((lambda arg: arg[0].upper() + arg[1:] + ".by_value" if arg_is_record(arg) else arg), args_ctype_list))
+            args_ctype_list = list(map((lambda arg: arg + ".by_value" if arg_is_record(arg) else arg), args_ctype_list))
 
             print(', '.join(args_ctype_list), file = sys.stdout, end='')
         print("],", file = sys.stdout)
@@ -157,13 +164,13 @@ def generate_function(ctx, indent = "", module_name = ""):
     for func_name, func_info in ctx.decl_functions.items():
         if func_info == None:
             continue
-        print(indent + "    :%s => %s," % (func_name, str(func_info.retval.type_kind)), file = sys.stdout)
+        print(indent + "    :%s => %s," % (func_info.original_name, str(func_info.retval.type_kind)), file = sys.stdout)
     print(indent + "  }", file = sys.stdout)
 
     print(indent +
       """  symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{s}.")
       end""".format(s="{sym} (#{error})"))
@@ -173,11 +180,11 @@ def generate_function(ctx, indent = "", module_name = ""):
     print(indent + "end", file = sys.stdout)
 
 
-def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", table_prefix = "SDL2_", typedef_prefix="", typedef_postfix=""):
+def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", typedef_prefix="", typedef_postfix=""):
 
     print(prefix, file = sys.stdout)
 
-    print("module SDL2")
+    print("module SDL")
 
     indent = "  "
 

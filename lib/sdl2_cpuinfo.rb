@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -47,6 +47,29 @@ module SDL2
       :SDL_SIMDRealloc,
       :SDL_SIMDFree,
     ]
+    apis = {
+      :SDL_GetCPUCount => :GetCPUCount,
+      :SDL_GetCPUCacheLineSize => :GetCPUCacheLineSize,
+      :SDL_HasRDTSC => :HasRDTSC,
+      :SDL_HasAltiVec => :HasAltiVec,
+      :SDL_HasMMX => :HasMMX,
+      :SDL_Has3DNow => :Has3DNow,
+      :SDL_HasSSE => :HasSSE,
+      :SDL_HasSSE2 => :HasSSE2,
+      :SDL_HasSSE3 => :HasSSE3,
+      :SDL_HasSSE41 => :HasSSE41,
+      :SDL_HasSSE42 => :HasSSE42,
+      :SDL_HasAVX => :HasAVX,
+      :SDL_HasAVX2 => :HasAVX2,
+      :SDL_HasAVX512F => :HasAVX512F,
+      :SDL_HasARMSIMD => :HasARMSIMD,
+      :SDL_HasNEON => :HasNEON,
+      :SDL_GetSystemRAM => :GetSystemRAM,
+      :SDL_SIMDGetAlignment => :SIMDGetAlignment,
+      :SDL_SIMDAlloc => :SIMDAlloc,
+      :SDL_SIMDRealloc => :SIMDRealloc,
+      :SDL_SIMDFree => :SIMDFree,
+    }
     args = {
       :SDL_GetCPUCount => [],
       :SDL_GetCPUCacheLineSize => [],
@@ -95,7 +118,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

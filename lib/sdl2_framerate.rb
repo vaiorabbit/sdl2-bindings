@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -40,6 +40,13 @@ module SDL2
       :SDL_getFramecount,
       :SDL_framerateDelay,
     ]
+    apis = {
+      :SDL_initFramerate => :initFramerate,
+      :SDL_setFramerate => :setFramerate,
+      :SDL_getFramerate => :getFramerate,
+      :SDL_getFramecount => :getFramecount,
+      :SDL_framerateDelay => :framerateDelay,
+    }
     args = {
       :SDL_initFramerate => [:pointer],
       :SDL_setFramerate => [:pointer, :uint],
@@ -56,7 +63,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

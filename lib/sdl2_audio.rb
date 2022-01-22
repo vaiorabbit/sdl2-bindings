@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -129,6 +129,45 @@ module SDL2
       :SDL_CloseAudio,
       :SDL_CloseAudioDevice,
     ]
+    apis = {
+      :SDL_GetNumAudioDrivers => :GetNumAudioDrivers,
+      :SDL_GetAudioDriver => :GetAudioDriver,
+      :SDL_AudioInit => :AudioInit,
+      :SDL_AudioQuit => :AudioQuit,
+      :SDL_GetCurrentAudioDriver => :GetCurrentAudioDriver,
+      :SDL_OpenAudio => :OpenAudio,
+      :SDL_GetNumAudioDevices => :GetNumAudioDevices,
+      :SDL_GetAudioDeviceName => :GetAudioDeviceName,
+      :SDL_GetAudioDeviceSpec => :GetAudioDeviceSpec,
+      :SDL_OpenAudioDevice => :OpenAudioDevice,
+      :SDL_GetAudioStatus => :GetAudioStatus,
+      :SDL_GetAudioDeviceStatus => :GetAudioDeviceStatus,
+      :SDL_PauseAudio => :PauseAudio,
+      :SDL_PauseAudioDevice => :PauseAudioDevice,
+      :SDL_LoadWAV_RW => :LoadWAV_RW,
+      :SDL_FreeWAV => :FreeWAV,
+      :SDL_BuildAudioCVT => :BuildAudioCVT,
+      :SDL_ConvertAudio => :ConvertAudio,
+      :SDL_NewAudioStream => :NewAudioStream,
+      :SDL_AudioStreamPut => :AudioStreamPut,
+      :SDL_AudioStreamGet => :AudioStreamGet,
+      :SDL_AudioStreamAvailable => :AudioStreamAvailable,
+      :SDL_AudioStreamFlush => :AudioStreamFlush,
+      :SDL_AudioStreamClear => :AudioStreamClear,
+      :SDL_FreeAudioStream => :FreeAudioStream,
+      :SDL_MixAudio => :MixAudio,
+      :SDL_MixAudioFormat => :MixAudioFormat,
+      :SDL_QueueAudio => :QueueAudio,
+      :SDL_DequeueAudio => :DequeueAudio,
+      :SDL_GetQueuedAudioSize => :GetQueuedAudioSize,
+      :SDL_ClearQueuedAudio => :ClearQueuedAudio,
+      :SDL_LockAudio => :LockAudio,
+      :SDL_LockAudioDevice => :LockAudioDevice,
+      :SDL_UnlockAudio => :UnlockAudio,
+      :SDL_UnlockAudioDevice => :UnlockAudioDevice,
+      :SDL_CloseAudio => :CloseAudio,
+      :SDL_CloseAudioDevice => :CloseAudioDevice,
+    }
     args = {
       :SDL_GetNumAudioDrivers => [],
       :SDL_GetAudioDriver => [:int],
@@ -209,7 +248,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

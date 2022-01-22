@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -245,6 +245,100 @@ module SDL2
       :SDL_GL_SwapWindow,
       :SDL_GL_DeleteContext,
     ]
+    apis = {
+      :SDL_GetNumVideoDrivers => :GetNumVideoDrivers,
+      :SDL_GetVideoDriver => :GetVideoDriver,
+      :SDL_VideoInit => :VideoInit,
+      :SDL_VideoQuit => :VideoQuit,
+      :SDL_GetCurrentVideoDriver => :GetCurrentVideoDriver,
+      :SDL_GetNumVideoDisplays => :GetNumVideoDisplays,
+      :SDL_GetDisplayName => :GetDisplayName,
+      :SDL_GetDisplayBounds => :GetDisplayBounds,
+      :SDL_GetDisplayUsableBounds => :GetDisplayUsableBounds,
+      :SDL_GetDisplayDPI => :GetDisplayDPI,
+      :SDL_GetDisplayOrientation => :GetDisplayOrientation,
+      :SDL_GetNumDisplayModes => :GetNumDisplayModes,
+      :SDL_GetDisplayMode => :GetDisplayMode,
+      :SDL_GetDesktopDisplayMode => :GetDesktopDisplayMode,
+      :SDL_GetCurrentDisplayMode => :GetCurrentDisplayMode,
+      :SDL_GetClosestDisplayMode => :GetClosestDisplayMode,
+      :SDL_GetWindowDisplayIndex => :GetWindowDisplayIndex,
+      :SDL_SetWindowDisplayMode => :SetWindowDisplayMode,
+      :SDL_GetWindowDisplayMode => :GetWindowDisplayMode,
+      :SDL_GetWindowICCProfile => :GetWindowICCProfile,
+      :SDL_GetWindowPixelFormat => :GetWindowPixelFormat,
+      :SDL_CreateWindow => :CreateWindow,
+      :SDL_CreateWindowFrom => :CreateWindowFrom,
+      :SDL_GetWindowID => :GetWindowID,
+      :SDL_GetWindowFromID => :GetWindowFromID,
+      :SDL_GetWindowFlags => :GetWindowFlags,
+      :SDL_SetWindowTitle => :SetWindowTitle,
+      :SDL_GetWindowTitle => :GetWindowTitle,
+      :SDL_SetWindowIcon => :SetWindowIcon,
+      :SDL_SetWindowData => :SetWindowData,
+      :SDL_GetWindowData => :GetWindowData,
+      :SDL_SetWindowPosition => :SetWindowPosition,
+      :SDL_GetWindowPosition => :GetWindowPosition,
+      :SDL_SetWindowSize => :SetWindowSize,
+      :SDL_GetWindowSize => :GetWindowSize,
+      :SDL_GetWindowBordersSize => :GetWindowBordersSize,
+      :SDL_SetWindowMinimumSize => :SetWindowMinimumSize,
+      :SDL_GetWindowMinimumSize => :GetWindowMinimumSize,
+      :SDL_SetWindowMaximumSize => :SetWindowMaximumSize,
+      :SDL_GetWindowMaximumSize => :GetWindowMaximumSize,
+      :SDL_SetWindowBordered => :SetWindowBordered,
+      :SDL_SetWindowResizable => :SetWindowResizable,
+      :SDL_SetWindowAlwaysOnTop => :SetWindowAlwaysOnTop,
+      :SDL_ShowWindow => :ShowWindow,
+      :SDL_HideWindow => :HideWindow,
+      :SDL_RaiseWindow => :RaiseWindow,
+      :SDL_MaximizeWindow => :MaximizeWindow,
+      :SDL_MinimizeWindow => :MinimizeWindow,
+      :SDL_RestoreWindow => :RestoreWindow,
+      :SDL_SetWindowFullscreen => :SetWindowFullscreen,
+      :SDL_GetWindowSurface => :GetWindowSurface,
+      :SDL_UpdateWindowSurface => :UpdateWindowSurface,
+      :SDL_UpdateWindowSurfaceRects => :UpdateWindowSurfaceRects,
+      :SDL_SetWindowGrab => :SetWindowGrab,
+      :SDL_SetWindowKeyboardGrab => :SetWindowKeyboardGrab,
+      :SDL_SetWindowMouseGrab => :SetWindowMouseGrab,
+      :SDL_GetWindowGrab => :GetWindowGrab,
+      :SDL_GetWindowKeyboardGrab => :GetWindowKeyboardGrab,
+      :SDL_GetWindowMouseGrab => :GetWindowMouseGrab,
+      :SDL_GetGrabbedWindow => :GetGrabbedWindow,
+      :SDL_SetWindowMouseRect => :SetWindowMouseRect,
+      :SDL_GetWindowMouseRect => :GetWindowMouseRect,
+      :SDL_SetWindowBrightness => :SetWindowBrightness,
+      :SDL_GetWindowBrightness => :GetWindowBrightness,
+      :SDL_SetWindowOpacity => :SetWindowOpacity,
+      :SDL_GetWindowOpacity => :GetWindowOpacity,
+      :SDL_SetWindowModalFor => :SetWindowModalFor,
+      :SDL_SetWindowInputFocus => :SetWindowInputFocus,
+      :SDL_SetWindowGammaRamp => :SetWindowGammaRamp,
+      :SDL_GetWindowGammaRamp => :GetWindowGammaRamp,
+      :SDL_SetWindowHitTest => :SetWindowHitTest,
+      :SDL_FlashWindow => :FlashWindow,
+      :SDL_DestroyWindow => :DestroyWindow,
+      :SDL_IsScreenSaverEnabled => :IsScreenSaverEnabled,
+      :SDL_EnableScreenSaver => :EnableScreenSaver,
+      :SDL_DisableScreenSaver => :DisableScreenSaver,
+      :SDL_GL_LoadLibrary => :GL_LoadLibrary,
+      :SDL_GL_GetProcAddress => :GL_GetProcAddress,
+      :SDL_GL_UnloadLibrary => :GL_UnloadLibrary,
+      :SDL_GL_ExtensionSupported => :GL_ExtensionSupported,
+      :SDL_GL_ResetAttributes => :GL_ResetAttributes,
+      :SDL_GL_SetAttribute => :GL_SetAttribute,
+      :SDL_GL_GetAttribute => :GL_GetAttribute,
+      :SDL_GL_CreateContext => :GL_CreateContext,
+      :SDL_GL_MakeCurrent => :GL_MakeCurrent,
+      :SDL_GL_GetCurrentWindow => :GL_GetCurrentWindow,
+      :SDL_GL_GetCurrentContext => :GL_GetCurrentContext,
+      :SDL_GL_GetDrawableSize => :GL_GetDrawableSize,
+      :SDL_GL_SetSwapInterval => :GL_SetSwapInterval,
+      :SDL_GL_GetSwapInterval => :GL_GetSwapInterval,
+      :SDL_GL_SwapWindow => :GL_SwapWindow,
+      :SDL_GL_DeleteContext => :GL_DeleteContext,
+    }
     args = {
       :SDL_GetNumVideoDrivers => [],
       :SDL_GetVideoDriver => [:int],
@@ -435,7 +529,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

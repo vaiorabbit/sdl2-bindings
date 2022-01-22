@@ -7,7 +7,7 @@
 require 'ffi'
 require_relative 'sdl2_keyboard'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -482,6 +482,25 @@ module SDL2
       :SDL_EventState,
       :SDL_RegisterEvents,
     ]
+    apis = {
+      :SDL_PumpEvents => :PumpEvents,
+      :SDL_PeepEvents => :PeepEvents,
+      :SDL_HasEvent => :HasEvent,
+      :SDL_HasEvents => :HasEvents,
+      :SDL_FlushEvent => :FlushEvent,
+      :SDL_FlushEvents => :FlushEvents,
+      :SDL_PollEvent => :PollEvent,
+      :SDL_WaitEvent => :WaitEvent,
+      :SDL_WaitEventTimeout => :WaitEventTimeout,
+      :SDL_PushEvent => :PushEvent,
+      :SDL_SetEventFilter => :SetEventFilter,
+      :SDL_GetEventFilter => :GetEventFilter,
+      :SDL_AddEventWatch => :AddEventWatch,
+      :SDL_DelEventWatch => :DelEventWatch,
+      :SDL_FilterEvents => :FilterEvents,
+      :SDL_EventState => :EventState,
+      :SDL_RegisterEvents => :RegisterEvents,
+    }
     args = {
       :SDL_PumpEvents => [],
       :SDL_PeepEvents => [:pointer, :int, :int, :uint, :uint],
@@ -522,7 +541,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

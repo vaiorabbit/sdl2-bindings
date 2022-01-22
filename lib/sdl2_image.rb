@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -78,6 +78,53 @@ module SDL2
       :IMG_SaveJPG,
       :IMG_SaveJPG_RW,
     ]
+    apis = {
+      :IMG_Linked_Version => :IMG_Linked_Version,
+      :IMG_Init => :IMG_Init,
+      :IMG_Quit => :IMG_Quit,
+      :IMG_LoadTyped_RW => :IMG_LoadTyped_RW,
+      :IMG_Load => :IMG_Load,
+      :IMG_Load_RW => :IMG_Load_RW,
+      :IMG_LoadTexture => :IMG_LoadTexture,
+      :IMG_LoadTexture_RW => :IMG_LoadTexture_RW,
+      :IMG_LoadTextureTyped_RW => :IMG_LoadTextureTyped_RW,
+      :IMG_isICO => :IMG_isICO,
+      :IMG_isCUR => :IMG_isCUR,
+      :IMG_isBMP => :IMG_isBMP,
+      :IMG_isGIF => :IMG_isGIF,
+      :IMG_isJPG => :IMG_isJPG,
+      :IMG_isLBM => :IMG_isLBM,
+      :IMG_isPCX => :IMG_isPCX,
+      :IMG_isPNG => :IMG_isPNG,
+      :IMG_isPNM => :IMG_isPNM,
+      :IMG_isSVG => :IMG_isSVG,
+      :IMG_isTIF => :IMG_isTIF,
+      :IMG_isXCF => :IMG_isXCF,
+      :IMG_isXPM => :IMG_isXPM,
+      :IMG_isXV => :IMG_isXV,
+      :IMG_isWEBP => :IMG_isWEBP,
+      :IMG_LoadICO_RW => :IMG_LoadICO_RW,
+      :IMG_LoadCUR_RW => :IMG_LoadCUR_RW,
+      :IMG_LoadBMP_RW => :IMG_LoadBMP_RW,
+      :IMG_LoadGIF_RW => :IMG_LoadGIF_RW,
+      :IMG_LoadJPG_RW => :IMG_LoadJPG_RW,
+      :IMG_LoadLBM_RW => :IMG_LoadLBM_RW,
+      :IMG_LoadPCX_RW => :IMG_LoadPCX_RW,
+      :IMG_LoadPNG_RW => :IMG_LoadPNG_RW,
+      :IMG_LoadPNM_RW => :IMG_LoadPNM_RW,
+      :IMG_LoadSVG_RW => :IMG_LoadSVG_RW,
+      :IMG_LoadTGA_RW => :IMG_LoadTGA_RW,
+      :IMG_LoadTIF_RW => :IMG_LoadTIF_RW,
+      :IMG_LoadXCF_RW => :IMG_LoadXCF_RW,
+      :IMG_LoadXPM_RW => :IMG_LoadXPM_RW,
+      :IMG_LoadXV_RW => :IMG_LoadXV_RW,
+      :IMG_LoadWEBP_RW => :IMG_LoadWEBP_RW,
+      :IMG_ReadXPMFromArray => :IMG_ReadXPMFromArray,
+      :IMG_SavePNG => :IMG_SavePNG,
+      :IMG_SavePNG_RW => :IMG_SavePNG_RW,
+      :IMG_SaveJPG => :IMG_SaveJPG,
+      :IMG_SaveJPG_RW => :IMG_SaveJPG_RW,
+    }
     args = {
       :IMG_Linked_Version => [],
       :IMG_Init => [:int],
@@ -174,7 +221,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

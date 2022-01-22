@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -145,6 +145,88 @@ module SDL2
       :SDL_RenderGetMetalCommandEncoder,
       :SDL_RenderSetVSync,
     ]
+    apis = {
+      :SDL_GetNumRenderDrivers => :GetNumRenderDrivers,
+      :SDL_GetRenderDriverInfo => :GetRenderDriverInfo,
+      :SDL_CreateWindowAndRenderer => :CreateWindowAndRenderer,
+      :SDL_CreateRenderer => :CreateRenderer,
+      :SDL_CreateSoftwareRenderer => :CreateSoftwareRenderer,
+      :SDL_GetRenderer => :GetRenderer,
+      :SDL_GetRendererInfo => :GetRendererInfo,
+      :SDL_GetRendererOutputSize => :GetRendererOutputSize,
+      :SDL_CreateTexture => :CreateTexture,
+      :SDL_CreateTextureFromSurface => :CreateTextureFromSurface,
+      :SDL_QueryTexture => :QueryTexture,
+      :SDL_SetTextureColorMod => :SetTextureColorMod,
+      :SDL_GetTextureColorMod => :GetTextureColorMod,
+      :SDL_SetTextureAlphaMod => :SetTextureAlphaMod,
+      :SDL_GetTextureAlphaMod => :GetTextureAlphaMod,
+      :SDL_SetTextureBlendMode => :SetTextureBlendMode,
+      :SDL_GetTextureBlendMode => :GetTextureBlendMode,
+      :SDL_SetTextureScaleMode => :SetTextureScaleMode,
+      :SDL_GetTextureScaleMode => :GetTextureScaleMode,
+      :SDL_SetTextureUserData => :SetTextureUserData,
+      :SDL_GetTextureUserData => :GetTextureUserData,
+      :SDL_UpdateTexture => :UpdateTexture,
+      :SDL_UpdateYUVTexture => :UpdateYUVTexture,
+      :SDL_UpdateNVTexture => :UpdateNVTexture,
+      :SDL_LockTexture => :LockTexture,
+      :SDL_LockTextureToSurface => :LockTextureToSurface,
+      :SDL_UnlockTexture => :UnlockTexture,
+      :SDL_RenderTargetSupported => :RenderTargetSupported,
+      :SDL_SetRenderTarget => :SetRenderTarget,
+      :SDL_GetRenderTarget => :GetRenderTarget,
+      :SDL_RenderSetLogicalSize => :RenderSetLogicalSize,
+      :SDL_RenderGetLogicalSize => :RenderGetLogicalSize,
+      :SDL_RenderSetIntegerScale => :RenderSetIntegerScale,
+      :SDL_RenderGetIntegerScale => :RenderGetIntegerScale,
+      :SDL_RenderSetViewport => :RenderSetViewport,
+      :SDL_RenderGetViewport => :RenderGetViewport,
+      :SDL_RenderSetClipRect => :RenderSetClipRect,
+      :SDL_RenderGetClipRect => :RenderGetClipRect,
+      :SDL_RenderIsClipEnabled => :RenderIsClipEnabled,
+      :SDL_RenderSetScale => :RenderSetScale,
+      :SDL_RenderGetScale => :RenderGetScale,
+      :SDL_RenderWindowToLogical => :RenderWindowToLogical,
+      :SDL_RenderLogicalToWindow => :RenderLogicalToWindow,
+      :SDL_SetRenderDrawColor => :SetRenderDrawColor,
+      :SDL_GetRenderDrawColor => :GetRenderDrawColor,
+      :SDL_SetRenderDrawBlendMode => :SetRenderDrawBlendMode,
+      :SDL_GetRenderDrawBlendMode => :GetRenderDrawBlendMode,
+      :SDL_RenderClear => :RenderClear,
+      :SDL_RenderDrawPoint => :RenderDrawPoint,
+      :SDL_RenderDrawPoints => :RenderDrawPoints,
+      :SDL_RenderDrawLine => :RenderDrawLine,
+      :SDL_RenderDrawLines => :RenderDrawLines,
+      :SDL_RenderDrawRect => :RenderDrawRect,
+      :SDL_RenderDrawRects => :RenderDrawRects,
+      :SDL_RenderFillRect => :RenderFillRect,
+      :SDL_RenderFillRects => :RenderFillRects,
+      :SDL_RenderCopy => :RenderCopy,
+      :SDL_RenderCopyEx => :RenderCopyEx,
+      :SDL_RenderDrawPointF => :RenderDrawPointF,
+      :SDL_RenderDrawPointsF => :RenderDrawPointsF,
+      :SDL_RenderDrawLineF => :RenderDrawLineF,
+      :SDL_RenderDrawLinesF => :RenderDrawLinesF,
+      :SDL_RenderDrawRectF => :RenderDrawRectF,
+      :SDL_RenderDrawRectsF => :RenderDrawRectsF,
+      :SDL_RenderFillRectF => :RenderFillRectF,
+      :SDL_RenderFillRectsF => :RenderFillRectsF,
+      :SDL_RenderCopyF => :RenderCopyF,
+      :SDL_RenderCopyExF => :RenderCopyExF,
+      :SDL_RenderGeometry => :RenderGeometry,
+      :SDL_RenderGeometryRaw => :RenderGeometryRaw,
+      :SDL_RenderReadPixels => :RenderReadPixels,
+      :SDL_RenderPresent => :RenderPresent,
+      :SDL_DestroyTexture => :DestroyTexture,
+      :SDL_DestroyRenderer => :DestroyRenderer,
+      :SDL_RenderFlush => :RenderFlush,
+      :SDL_GL_BindTexture => :GL_BindTexture,
+      :SDL_GL_UnbindTexture => :GL_UnbindTexture,
+      :SDL_RenderGetMetalLayer => :RenderGetMetalLayer,
+      :SDL_RenderGetMetalCommandEncoder => :RenderGetMetalCommandEncoder,
+      :SDL_RenderSetVSync => :RenderSetVSync,
+    }
     args = {
       :SDL_GetNumRenderDrivers => [],
       :SDL_GetRenderDriverInfo => [:int, :pointer],
@@ -311,7 +393,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

@@ -1,8 +1,6 @@
 require_relative '../lib/sdl2'
 require_relative 'util'
 
-include SDL2
-
 class Texture
   attr_accessor :sprite, :w, :h
   def initialize
@@ -16,8 +14,8 @@ $texture = nil
 class Sprite
   attr_accessor :pos, :vel
   def initialize
-    @pos = SDL_Rect.new
-    @vel = SDL_Rect.new
+    @pos = SDL::SDL_Rect.new
+    @vel = SDL::SDL_Rect.new
   end
 end
 $sprites = nil
@@ -27,30 +25,30 @@ WINDOW_H = 360
 NUM_SPRITES = 100
 
 def load_sprite(file, renderer)
-  temp = SDL_Surface.new(SDL_LoadBMP_RW(SDL_RWFromFile(file, "rb"), 1)) # temp = SDL_Surface.new(SDL2.SDL_LoadBMP(file))
+  temp = SDL::SDL_Surface.new(SDL.LoadBMP_RW(SDL.RWFromFile(file, "rb"), 1)) # temp = SDL_Surface.new(SDL2.SDL_LoadBMP(file))
   $texture = Texture.new
   $texture.w = temp[:w]
   $texture.h = temp[:h]
 
-  format = SDL_PixelFormat.new(temp[:format])
+  format = SDL::SDL_PixelFormat.new(temp[:format])
   if format[:palette] != nil
-    SDL_SetColorKey(temp, 1, temp[:pixels].read(:uint))
+    SDL.SetColorKey(temp, 1, temp[:pixels].read(:uint))
   else
     case format[:BitsPerPixel]
-    when 15; SDL_SetColorKey(temp, 1, (temp[:pixels].read(:short)) & 0x00007FFF);
-    when 16; SDL_SetColorKey(temp, 1, (temp[:pixels].read(:short)) & 0x00007FFF);
-    when 24; SDL_SetColorKey(temp, 1, (temp[:pixels].read(:int)) & 0x00007FFF);
-    when 32; SDL_SetColorKey(temp, 1, (temp[:pixels].read(:int)));
+    when 15; SDL.SetColorKey(temp, 1, (temp[:pixels].read(:short)) & 0x00007FFF);
+    when 16; SDL.SetColorKey(temp, 1, (temp[:pixels].read(:short)) & 0x00007FFF);
+    when 24; SDL.SetColorKey(temp, 1, (temp[:pixels].read(:int)) & 0x00007FFF);
+    when 32; SDL.SetColorKey(temp, 1, (temp[:pixels].read(:int)));
     end
   end
 
-  $texture.sprite = SDL_CreateTextureFromSurface(renderer, temp)
-  SDL_FreeSurface(temp)
+  $texture.sprite = SDL.CreateTextureFromSurface(renderer, temp)
+  SDL.FreeSurface(temp)
 end
 
 def move_sprite(renderer)
-  SDL_SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF)
-  SDL_RenderClear(renderer)
+  SDL.SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF)
+  SDL.RenderClear(renderer)
 
   NUM_SPRITES.times do |i|
     $sprites[i].pos[:x] += $sprites[i].vel[:x]
@@ -62,24 +60,24 @@ def move_sprite(renderer)
       $sprites[i].vel[:y] = -$sprites[i].vel[:y]
     end
 
-    SDL_RenderCopy(renderer, $texture.sprite, nil, $sprites[i].pos)
+    SDL.RenderCopy(renderer, $texture.sprite, nil, $sprites[i].pos)
   end
-  SDL_RenderPresent(renderer)
+  SDL.RenderPresent(renderer)
 end
 
 if __FILE__ == $0
   load_sdl2_lib()
-  success = SDL_Init(SDL_INIT_EVERYTHING)
+  success = SDL.Init(SDL::SDL_INIT_EVERYTHING)
   exit if success < 0
 
-  SDL_SetHint(SDL_HINT_RENDER_DRIVER, "metal")
+  SDL.SetHint(SDL::SDL_HINT_RENDER_DRIVER, "metal")
 
-  window = SDL_CreateWindow("Minimal Sprite Test via sdl2-bindings", 32, 32, WINDOW_W, WINDOW_H, 0)
+  window = SDL.CreateWindow("Minimal Sprite Test via sdl2-bindings", 32, 32, WINDOW_W, WINDOW_H, 0)
 
-  renderer = SDL_CreateRenderer(window, -1, 0)
+  renderer = SDL.CreateRenderer(window, -1, 0)
   if renderer != nil
-    renderer_info = SDL_RendererInfo.new
-    SDL_GetRendererInfo(renderer, renderer_info)
+    renderer_info = SDL::SDL_RendererInfo.new
+    SDL.GetRendererInfo(renderer, renderer_info)
     pp renderer_info[:name].read_string
   end
 
@@ -95,26 +93,26 @@ if __FILE__ == $0
     $sprites[i].vel[:y] = 20*rand() - 10
   end
 
-  event = SDL_Event.new
+  event = SDL::SDL_Event.new
   done = false
   while not done
-    while SDL_PollEvent(event) != 0
+    while SDL.PollEvent(event) != 0
       # 'type' and 'timestamp' are common members for all SDL Event structs.
       event_type = event[:common][:type]
       # event_timestamp = event.common.timestamp
       # puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
       case event_type
-      when SDL_KEYDOWN
-        if event[:key][:keysym][:sym] == SDLK_ESCAPE
+      when SDL::SDL_KEYDOWN
+        if event[:key][:keysym][:sym] == SDL::SDLK_ESCAPE
           done = true
         end
       end
     end
     move_sprite(renderer)
-    SDL_Delay(10)
+    SDL.Delay(10)
   end
 
-  SDL_DestroyRenderer(renderer)
-  SDL_DestroyWindow(window)
-  SDL_Quit()
+  SDL.DestroyRenderer(renderer)
+  SDL.DestroyWindow(window)
+  SDL.Quit()
 end

@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -50,6 +50,24 @@ module SDL2
       :SDL_HasScreenKeyboardSupport,
       :SDL_IsScreenKeyboardShown,
     ]
+    apis = {
+      :SDL_GetKeyboardFocus => :GetKeyboardFocus,
+      :SDL_GetKeyboardState => :GetKeyboardState,
+      :SDL_GetModState => :GetModState,
+      :SDL_SetModState => :SetModState,
+      :SDL_GetKeyFromScancode => :GetKeyFromScancode,
+      :SDL_GetScancodeFromKey => :GetScancodeFromKey,
+      :SDL_GetScancodeName => :GetScancodeName,
+      :SDL_GetScancodeFromName => :GetScancodeFromName,
+      :SDL_GetKeyName => :GetKeyName,
+      :SDL_GetKeyFromName => :GetKeyFromName,
+      :SDL_StartTextInput => :StartTextInput,
+      :SDL_IsTextInputActive => :IsTextInputActive,
+      :SDL_StopTextInput => :StopTextInput,
+      :SDL_SetTextInputRect => :SetTextInputRect,
+      :SDL_HasScreenKeyboardSupport => :HasScreenKeyboardSupport,
+      :SDL_IsScreenKeyboardShown => :IsScreenKeyboardShown,
+    }
     args = {
       :SDL_GetKeyboardFocus => [],
       :SDL_GetKeyboardState => [:pointer],
@@ -88,7 +106,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

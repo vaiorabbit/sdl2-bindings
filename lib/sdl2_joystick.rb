@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -116,6 +116,61 @@ module SDL2
       :SDL_JoystickClose,
       :SDL_JoystickCurrentPowerLevel,
     ]
+    apis = {
+      :SDL_LockJoysticks => :LockJoysticks,
+      :SDL_UnlockJoysticks => :UnlockJoysticks,
+      :SDL_NumJoysticks => :NumJoysticks,
+      :SDL_JoystickNameForIndex => :JoystickNameForIndex,
+      :SDL_JoystickGetDevicePlayerIndex => :JoystickGetDevicePlayerIndex,
+      :SDL_JoystickGetDeviceGUID => :JoystickGetDeviceGUID,
+      :SDL_JoystickGetDeviceVendor => :JoystickGetDeviceVendor,
+      :SDL_JoystickGetDeviceProduct => :JoystickGetDeviceProduct,
+      :SDL_JoystickGetDeviceProductVersion => :JoystickGetDeviceProductVersion,
+      :SDL_JoystickGetDeviceType => :JoystickGetDeviceType,
+      :SDL_JoystickGetDeviceInstanceID => :JoystickGetDeviceInstanceID,
+      :SDL_JoystickOpen => :JoystickOpen,
+      :SDL_JoystickFromInstanceID => :JoystickFromInstanceID,
+      :SDL_JoystickFromPlayerIndex => :JoystickFromPlayerIndex,
+      :SDL_JoystickAttachVirtual => :JoystickAttachVirtual,
+      :SDL_JoystickDetachVirtual => :JoystickDetachVirtual,
+      :SDL_JoystickIsVirtual => :JoystickIsVirtual,
+      :SDL_JoystickSetVirtualAxis => :JoystickSetVirtualAxis,
+      :SDL_JoystickSetVirtualButton => :JoystickSetVirtualButton,
+      :SDL_JoystickSetVirtualHat => :JoystickSetVirtualHat,
+      :SDL_JoystickName => :JoystickName,
+      :SDL_JoystickGetPlayerIndex => :JoystickGetPlayerIndex,
+      :SDL_JoystickSetPlayerIndex => :JoystickSetPlayerIndex,
+      :SDL_JoystickGetGUID => :JoystickGetGUID,
+      :SDL_JoystickGetVendor => :JoystickGetVendor,
+      :SDL_JoystickGetProduct => :JoystickGetProduct,
+      :SDL_JoystickGetProductVersion => :JoystickGetProductVersion,
+      :SDL_JoystickGetSerial => :JoystickGetSerial,
+      :SDL_JoystickGetType => :JoystickGetType,
+      :SDL_JoystickGetGUIDString => :JoystickGetGUIDString,
+      :SDL_JoystickGetGUIDFromString => :JoystickGetGUIDFromString,
+      :SDL_JoystickGetAttached => :JoystickGetAttached,
+      :SDL_JoystickInstanceID => :JoystickInstanceID,
+      :SDL_JoystickNumAxes => :JoystickNumAxes,
+      :SDL_JoystickNumBalls => :JoystickNumBalls,
+      :SDL_JoystickNumHats => :JoystickNumHats,
+      :SDL_JoystickNumButtons => :JoystickNumButtons,
+      :SDL_JoystickUpdate => :JoystickUpdate,
+      :SDL_JoystickEventState => :JoystickEventState,
+      :SDL_JoystickGetAxis => :JoystickGetAxis,
+      :SDL_JoystickGetAxisInitialState => :JoystickGetAxisInitialState,
+      :SDL_JoystickGetHat => :JoystickGetHat,
+      :SDL_JoystickGetBall => :JoystickGetBall,
+      :SDL_JoystickGetButton => :JoystickGetButton,
+      :SDL_JoystickRumble => :JoystickRumble,
+      :SDL_JoystickRumbleTriggers => :JoystickRumbleTriggers,
+      :SDL_JoystickHasLED => :JoystickHasLED,
+      :SDL_JoystickHasRumble => :JoystickHasRumble,
+      :SDL_JoystickHasRumbleTriggers => :JoystickHasRumbleTriggers,
+      :SDL_JoystickSetLED => :JoystickSetLED,
+      :SDL_JoystickSendEffect => :JoystickSendEffect,
+      :SDL_JoystickClose => :JoystickClose,
+      :SDL_JoystickCurrentPowerLevel => :JoystickCurrentPowerLevel,
+    }
     args = {
       :SDL_LockJoysticks => [],
       :SDL_UnlockJoysticks => [],
@@ -228,7 +283,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

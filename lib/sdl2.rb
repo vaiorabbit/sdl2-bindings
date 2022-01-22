@@ -48,7 +48,7 @@ require_relative 'sdl2_imageFilter.rb'
 require_relative 'sdl2_ttf.rb'
 require_relative 'sdl2_mixer.rb'
 
-module SDL2
+module SDL
   extend FFI::Library
 
   @@sdl2_import_done = false

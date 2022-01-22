@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -48,6 +48,24 @@ module SDL2
       :SDL_SensorClose,
       :SDL_SensorUpdate,
     ]
+    apis = {
+      :SDL_LockSensors => :LockSensors,
+      :SDL_UnlockSensors => :UnlockSensors,
+      :SDL_NumSensors => :NumSensors,
+      :SDL_SensorGetDeviceName => :SensorGetDeviceName,
+      :SDL_SensorGetDeviceType => :SensorGetDeviceType,
+      :SDL_SensorGetDeviceNonPortableType => :SensorGetDeviceNonPortableType,
+      :SDL_SensorGetDeviceInstanceID => :SensorGetDeviceInstanceID,
+      :SDL_SensorOpen => :SensorOpen,
+      :SDL_SensorFromInstanceID => :SensorFromInstanceID,
+      :SDL_SensorGetName => :SensorGetName,
+      :SDL_SensorGetType => :SensorGetType,
+      :SDL_SensorGetNonPortableType => :SensorGetNonPortableType,
+      :SDL_SensorGetInstanceID => :SensorGetInstanceID,
+      :SDL_SensorGetData => :SensorGetData,
+      :SDL_SensorClose => :SensorClose,
+      :SDL_SensorUpdate => :SensorUpdate,
+    }
     args = {
       :SDL_LockSensors => [],
       :SDL_UnlockSensors => [],
@@ -86,7 +104,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -75,6 +75,13 @@ module SDL2
       :SDL_EnclosePoints,
       :SDL_IntersectRectAndLine,
     ]
+    apis = {
+      :SDL_HasIntersection => :HasIntersection,
+      :SDL_IntersectRect => :IntersectRect,
+      :SDL_UnionRect => :UnionRect,
+      :SDL_EnclosePoints => :EnclosePoints,
+      :SDL_IntersectRectAndLine => :IntersectRectAndLine,
+    }
     args = {
       :SDL_HasIntersection => [:pointer, :pointer],
       :SDL_IntersectRect => [:pointer, :pointer, :pointer],
@@ -91,7 +98,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -192,6 +192,38 @@ module SDL2
       :SDL_HapticRumblePlay,
       :SDL_HapticRumbleStop,
     ]
+    apis = {
+      :SDL_NumHaptics => :NumHaptics,
+      :SDL_HapticName => :HapticName,
+      :SDL_HapticOpen => :HapticOpen,
+      :SDL_HapticOpened => :HapticOpened,
+      :SDL_HapticIndex => :HapticIndex,
+      :SDL_MouseIsHaptic => :MouseIsHaptic,
+      :SDL_HapticOpenFromMouse => :HapticOpenFromMouse,
+      :SDL_JoystickIsHaptic => :JoystickIsHaptic,
+      :SDL_HapticOpenFromJoystick => :HapticOpenFromJoystick,
+      :SDL_HapticClose => :HapticClose,
+      :SDL_HapticNumEffects => :HapticNumEffects,
+      :SDL_HapticNumEffectsPlaying => :HapticNumEffectsPlaying,
+      :SDL_HapticQuery => :HapticQuery,
+      :SDL_HapticNumAxes => :HapticNumAxes,
+      :SDL_HapticEffectSupported => :HapticEffectSupported,
+      :SDL_HapticNewEffect => :HapticNewEffect,
+      :SDL_HapticUpdateEffect => :HapticUpdateEffect,
+      :SDL_HapticRunEffect => :HapticRunEffect,
+      :SDL_HapticStopEffect => :HapticStopEffect,
+      :SDL_HapticDestroyEffect => :HapticDestroyEffect,
+      :SDL_HapticGetEffectStatus => :HapticGetEffectStatus,
+      :SDL_HapticSetGain => :HapticSetGain,
+      :SDL_HapticSetAutocenter => :HapticSetAutocenter,
+      :SDL_HapticPause => :HapticPause,
+      :SDL_HapticUnpause => :HapticUnpause,
+      :SDL_HapticStopAll => :HapticStopAll,
+      :SDL_HapticRumbleSupported => :HapticRumbleSupported,
+      :SDL_HapticRumbleInit => :HapticRumbleInit,
+      :SDL_HapticRumblePlay => :HapticRumblePlay,
+      :SDL_HapticRumbleStop => :HapticRumbleStop,
+    }
     args = {
       :SDL_NumHaptics => [],
       :SDL_HapticName => [:int],
@@ -258,7 +290,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

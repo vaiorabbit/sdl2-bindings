@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -148,6 +148,84 @@ module SDL2
       :Mix_GetChunk,
       :Mix_CloseAudio,
     ]
+    apis = {
+      :Mix_Linked_Version => :Mix_Linked_Version,
+      :Mix_Init => :Mix_Init,
+      :Mix_Quit => :Mix_Quit,
+      :Mix_OpenAudio => :Mix_OpenAudio,
+      :Mix_OpenAudioDevice => :Mix_OpenAudioDevice,
+      :Mix_AllocateChannels => :Mix_AllocateChannels,
+      :Mix_QuerySpec => :Mix_QuerySpec,
+      :Mix_LoadWAV_RW => :Mix_LoadWAV_RW,
+      :Mix_LoadMUS => :Mix_LoadMUS,
+      :Mix_LoadMUS_RW => :Mix_LoadMUS_RW,
+      :Mix_LoadMUSType_RW => :Mix_LoadMUSType_RW,
+      :Mix_QuickLoad_WAV => :Mix_QuickLoad_WAV,
+      :Mix_QuickLoad_RAW => :Mix_QuickLoad_RAW,
+      :Mix_FreeChunk => :Mix_FreeChunk,
+      :Mix_FreeMusic => :Mix_FreeMusic,
+      :Mix_GetNumChunkDecoders => :Mix_GetNumChunkDecoders,
+      :Mix_GetChunkDecoder => :Mix_GetChunkDecoder,
+      :Mix_HasChunkDecoder => :Mix_HasChunkDecoder,
+      :Mix_GetNumMusicDecoders => :Mix_GetNumMusicDecoders,
+      :Mix_GetMusicDecoder => :Mix_GetMusicDecoder,
+      :Mix_HasMusicDecoder => :Mix_HasMusicDecoder,
+      :Mix_GetMusicType => :Mix_GetMusicType,
+      :Mix_SetPostMix => :Mix_SetPostMix,
+      :Mix_HookMusic => :Mix_HookMusic,
+      :Mix_HookMusicFinished => :Mix_HookMusicFinished,
+      :Mix_GetMusicHookData => :Mix_GetMusicHookData,
+      :Mix_ChannelFinished => :Mix_ChannelFinished,
+      :Mix_RegisterEffect => :Mix_RegisterEffect,
+      :Mix_UnregisterEffect => :Mix_UnregisterEffect,
+      :Mix_UnregisterAllEffects => :Mix_UnregisterAllEffects,
+      :Mix_SetPanning => :Mix_SetPanning,
+      :Mix_SetPosition => :Mix_SetPosition,
+      :Mix_SetDistance => :Mix_SetDistance,
+      :Mix_SetReverseStereo => :Mix_SetReverseStereo,
+      :Mix_ReserveChannels => :Mix_ReserveChannels,
+      :Mix_GroupChannel => :Mix_GroupChannel,
+      :Mix_GroupChannels => :Mix_GroupChannels,
+      :Mix_GroupAvailable => :Mix_GroupAvailable,
+      :Mix_GroupCount => :Mix_GroupCount,
+      :Mix_GroupOldest => :Mix_GroupOldest,
+      :Mix_GroupNewer => :Mix_GroupNewer,
+      :Mix_PlayChannelTimed => :Mix_PlayChannelTimed,
+      :Mix_PlayMusic => :Mix_PlayMusic,
+      :Mix_FadeInMusic => :Mix_FadeInMusic,
+      :Mix_FadeInMusicPos => :Mix_FadeInMusicPos,
+      :Mix_FadeInChannelTimed => :Mix_FadeInChannelTimed,
+      :Mix_Volume => :Mix_Volume,
+      :Mix_VolumeChunk => :Mix_VolumeChunk,
+      :Mix_VolumeMusic => :Mix_VolumeMusic,
+      :Mix_HaltChannel => :Mix_HaltChannel,
+      :Mix_HaltGroup => :Mix_HaltGroup,
+      :Mix_HaltMusic => :Mix_HaltMusic,
+      :Mix_ExpireChannel => :Mix_ExpireChannel,
+      :Mix_FadeOutChannel => :Mix_FadeOutChannel,
+      :Mix_FadeOutGroup => :Mix_FadeOutGroup,
+      :Mix_FadeOutMusic => :Mix_FadeOutMusic,
+      :Mix_FadingMusic => :Mix_FadingMusic,
+      :Mix_FadingChannel => :Mix_FadingChannel,
+      :Mix_Pause => :Mix_Pause,
+      :Mix_Resume => :Mix_Resume,
+      :Mix_Paused => :Mix_Paused,
+      :Mix_PauseMusic => :Mix_PauseMusic,
+      :Mix_ResumeMusic => :Mix_ResumeMusic,
+      :Mix_RewindMusic => :Mix_RewindMusic,
+      :Mix_PausedMusic => :Mix_PausedMusic,
+      :Mix_SetMusicPosition => :Mix_SetMusicPosition,
+      :Mix_Playing => :Mix_Playing,
+      :Mix_PlayingMusic => :Mix_PlayingMusic,
+      :Mix_SetMusicCMD => :Mix_SetMusicCMD,
+      :Mix_SetSynchroValue => :Mix_SetSynchroValue,
+      :Mix_GetSynchroValue => :Mix_GetSynchroValue,
+      :Mix_SetSoundFonts => :Mix_SetSoundFonts,
+      :Mix_GetSoundFonts => :Mix_GetSoundFonts,
+      :Mix_EachSoundFont => :Mix_EachSoundFont,
+      :Mix_GetChunk => :Mix_GetChunk,
+      :Mix_CloseAudio => :Mix_CloseAudio,
+    }
     args = {
       :Mix_Linked_Version => [],
       :Mix_Init => [:int],
@@ -306,7 +384,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

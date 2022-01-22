@@ -7,7 +7,7 @@
 require 'ffi'
 require_relative 'sdl2_rect'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -93,6 +93,47 @@ module SDL2
       :SDL_GetYUVConversionMode,
       :SDL_GetYUVConversionModeForResolution,
     ]
+    apis = {
+      :SDL_CreateRGBSurface => :CreateRGBSurface,
+      :SDL_CreateRGBSurfaceWithFormat => :CreateRGBSurfaceWithFormat,
+      :SDL_CreateRGBSurfaceFrom => :CreateRGBSurfaceFrom,
+      :SDL_CreateRGBSurfaceWithFormatFrom => :CreateRGBSurfaceWithFormatFrom,
+      :SDL_FreeSurface => :FreeSurface,
+      :SDL_SetSurfacePalette => :SetSurfacePalette,
+      :SDL_LockSurface => :LockSurface,
+      :SDL_UnlockSurface => :UnlockSurface,
+      :SDL_LoadBMP_RW => :LoadBMP_RW,
+      :SDL_SaveBMP_RW => :SaveBMP_RW,
+      :SDL_SetSurfaceRLE => :SetSurfaceRLE,
+      :SDL_HasSurfaceRLE => :HasSurfaceRLE,
+      :SDL_SetColorKey => :SetColorKey,
+      :SDL_HasColorKey => :HasColorKey,
+      :SDL_GetColorKey => :GetColorKey,
+      :SDL_SetSurfaceColorMod => :SetSurfaceColorMod,
+      :SDL_GetSurfaceColorMod => :GetSurfaceColorMod,
+      :SDL_SetSurfaceAlphaMod => :SetSurfaceAlphaMod,
+      :SDL_GetSurfaceAlphaMod => :GetSurfaceAlphaMod,
+      :SDL_SetSurfaceBlendMode => :SetSurfaceBlendMode,
+      :SDL_GetSurfaceBlendMode => :GetSurfaceBlendMode,
+      :SDL_SetClipRect => :SetClipRect,
+      :SDL_GetClipRect => :GetClipRect,
+      :SDL_DuplicateSurface => :DuplicateSurface,
+      :SDL_ConvertSurface => :ConvertSurface,
+      :SDL_ConvertSurfaceFormat => :ConvertSurfaceFormat,
+      :SDL_ConvertPixels => :ConvertPixels,
+      :SDL_PremultiplyAlpha => :PremultiplyAlpha,
+      :SDL_FillRect => :FillRect,
+      :SDL_FillRects => :FillRects,
+      :SDL_UpperBlit => :UpperBlit,
+      :SDL_LowerBlit => :LowerBlit,
+      :SDL_SoftStretch => :SoftStretch,
+      :SDL_SoftStretchLinear => :SoftStretchLinear,
+      :SDL_UpperBlitScaled => :UpperBlitScaled,
+      :SDL_LowerBlitScaled => :LowerBlitScaled,
+      :SDL_SetYUVConversionMode => :SetYUVConversionMode,
+      :SDL_GetYUVConversionMode => :GetYUVConversionMode,
+      :SDL_GetYUVConversionModeForResolution => :GetYUVConversionModeForResolution,
+    }
     args = {
       :SDL_CreateRGBSurface => [:uint, :int, :int, :int, :uint, :uint, :uint, :uint],
       :SDL_CreateRGBSurfaceWithFormat => [:uint, :int, :int, :int, :uint],
@@ -177,7 +218,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end

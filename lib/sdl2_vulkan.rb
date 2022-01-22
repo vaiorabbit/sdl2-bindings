@@ -6,7 +6,7 @@
 
 require 'ffi'
 
-module SDL2
+module SDL
   extend FFI::Library
   # Define/Macro
 
@@ -35,6 +35,14 @@ module SDL2
       :SDL_Vulkan_CreateSurface,
       :SDL_Vulkan_GetDrawableSize,
     ]
+    apis = {
+      :SDL_Vulkan_LoadLibrary => :Vulkan_LoadLibrary,
+      :SDL_Vulkan_GetVkGetInstanceProcAddr => :Vulkan_GetVkGetInstanceProcAddr,
+      :SDL_Vulkan_UnloadLibrary => :Vulkan_UnloadLibrary,
+      :SDL_Vulkan_GetInstanceExtensions => :Vulkan_GetInstanceExtensions,
+      :SDL_Vulkan_CreateSurface => :Vulkan_CreateSurface,
+      :SDL_Vulkan_GetDrawableSize => :Vulkan_GetDrawableSize,
+    }
     args = {
       :SDL_Vulkan_LoadLibrary => [:pointer],
       :SDL_Vulkan_GetVkGetInstanceProcAddr => [],
@@ -53,7 +61,7 @@ module SDL2
     }
     symbols.each do |sym|
       begin
-        attach_function sym, args[sym], retvals[sym]
+        attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
         $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
       end
