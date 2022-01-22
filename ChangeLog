@@ -1,3 +1,9 @@
+2022-01-22  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/sdl2_ttf.rb: Generated for version 2.0.18
+	* generator: Fixed wrong 'by_value' handling
+	* .gitignore: Added
+
 2022-01-11  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Added SDL 2.0.20 features ( https://github.com/libsdl-org/SDL/releases/tag/release-2.0.20 )

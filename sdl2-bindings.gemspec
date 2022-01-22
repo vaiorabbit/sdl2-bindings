@@ -2,21 +2,23 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-Gem::Specification.new do |gem|
-  gem.name          = "sdl2-bindings"
-  gem.version       = "0.0.9"
-  gem.authors       = ["vaiorabbit"]
-  gem.email         = ["vaiorabbit@gmail.com"]
-  gem.summary       = %q{Bindings for SDL2}
-  gem.homepage      = "https://github.com/vaiorabbit/sdl2-bindings"
-  gem.require_paths = ["lib"]
-  gem.license       = "Zlib"
-  gem.description   = <<-DESC
+Gem::Specification.new do |spec|
+  spec.name          = "sdl2-bindings"
+  spec.version       = "0.0.10"
+  spec.authors       = ["vaiorabbit"]
+  spec.email         = ["vaiorabbit@gmail.com"]
+  spec.summary       = %q{Bindings for SDL2}
+  spec.homepage      = "https://github.com/vaiorabbit/sdl2-bindings"
+  spec.require_paths = ["lib"]
+  spec.license       = "Zlib"
+  spec.description   = <<-DESC
 Ruby bindings for SDL2.
   DESC
 
-  gem.required_ruby_version = '>= 2.6.0'
+  spec.required_ruby_version = '>= 2.6.0'
 
-  gem.files = Dir.glob("lib/*.rb") +
-              ["README.md", "LICENSE.txt", "ChangeLog"]
+  spec.add_runtime_dependency 'ffi', '~> 1.15'
+
+  spec.files = Dir.glob("lib/*.rb") +
+               ["README.md", "LICENSE.txt", "ChangeLog"]
 end

@@ -49,22 +49,22 @@ module SDL2
     layout(
       :append, :int,
       :h, :pointer,
-      :buffer, SDL_RWops_windowsio_buffer.by_value,
+      :buffer, SDL_RWops_windowsio_buffer,
     )
   end
 
   class SDL_Default_RWops_hidden < FFI::Union
     layout(
-      :mem, SDL_RWops_mem.by_value,
-      :unknown, SDL_RWops_unknown.by_value,
+      :mem, SDL_RWops_mem,
+      :unknown, SDL_RWops_unknown,
     )
   end
 
   class SDL_Win32_RWops_hidden < FFI::Union
     layout(
-      :mem, SDL_RWops_mem.by_value,
-      :unknown, SDL_RWops_unknown.by_value,
-      :windowsio, SDL_RWops_windowsio.by_value,
+      :mem, SDL_RWops_mem,
+      :unknown, SDL_RWops_unknown,
+      :windowsio, SDL_RWops_windowsio,
     )
   end
 
@@ -76,7 +76,7 @@ module SDL2
       :write, :pointer,
       :close, :pointer,
       :type, :uint,
-      :hidden, SDL_Default_RWops_hidden.by_value,
+      :hidden, SDL_Default_RWops_hidden,
     )
   end
 
@@ -88,7 +88,7 @@ module SDL2
       :write, :pointer,
       :close, :pointer,
       :type, :uint,
-      :hidden, SDL_Win32_RWops_hidden.by_value
+      :hidden, SDL_Win32_RWops_hidden
     )
   end
 

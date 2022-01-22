@@ -9,6 +9,12 @@ WINDOW_W = 640
 WINDOW_H = 360
 
 if __FILE__ == $0
+
+  if ARGV[0] == nil
+    $stderr.puts 'Usage: ruby test_ttf.rb [path to .ttf]'
+    exit
+  end
+
   # SDL2.load_lib('/usr/local/lib/libSDL2.dylib', ttf_libpath: '/usr/local/lib/libSDL2_ttf.dylib' ) # '/usr/local/lib/libSDL2.dylib'
   SDL2.load_lib('/opt/homebrew/lib/libSDL2.dylib', ttf_libpath: '/opt/homebrew/lib/libSDL2_ttf.dylib' ) # '/usr/local/lib/libSDL2.dylib'
   success = SDL_Init(SDL_INIT_VIDEO)

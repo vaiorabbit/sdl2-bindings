@@ -74,14 +74,14 @@ module SDL2
     layout(
         :button, :int,
         :axis, :int,
-        :hat, SDL_GameControllerButtonBind_value_hat.by_value,
+        :hat, SDL_GameControllerButtonBind_value_hat,
     )
   end
 
   class SDL_GameControllerButtonBind < FFI::Struct
     layout(
         :bindType, :int,
-        :value, SDL_GameControllerButtonBind_value.by_value,
+        :value, SDL_GameControllerButtonBind_value,
     )
   end
 

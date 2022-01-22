@@ -142,7 +142,13 @@ def generate_function(ctx, indent = "", module_name = ""):
             continue
         print(indent + "    :%s => [" % func_name, file = sys.stdout, end='')
         if len(func_info.args) > 0:
+            # Get Ruby FFI arguments
             args_ctype_list = list(map((lambda t: str(t.type_kind)), func_info.args))
+
+            # Capitalize and add ".by_value" to struct arguments (e.g.: Color -> Color.by_value)
+            arg_is_record = lambda arg: sdl2_parser.query_sdl2_cindex_mapping_entry_exists(arg) and sdl2_parser.get_sdl2_cindex_mapping_value(arg) == "TypeKind.RECORD"
+            args_ctype_list = list(map((lambda arg: arg[0].upper() + arg[1:] + ".by_value" if arg_is_record(arg) else arg), args_ctype_list))
+
             print(', '.join(args_ctype_list), file = sys.stdout, end='')
         print("],", file = sys.stdout)
     print(indent + "  }", file = sys.stdout)

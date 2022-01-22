@@ -1,0 +1,3 @@
+generator/SDL2/SDL*
+generator/SDL2/*h
+third_party/SDL2-*
