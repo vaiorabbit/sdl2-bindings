@@ -7,4 +7,4 @@ if __name__ == "__main__":
 
     sdl2_generator.sanitize(ctx)
     sdl2_generator.generate(ctx,
-                            module_name = 'gfx_imagefilter')
+                            setup_method_name = 'gfx_imagefilter')

@@ -8,4 +8,4 @@ if __name__ == "__main__":
     ctx.decl_functions['SDL_LogMessageV'] = None
 
     sdl2_generator.sanitize(ctx)
-    sdl2_generator.generate(ctx, module_name = 'log')
+    sdl2_generator.generate(ctx, setup_method_name = 'log')

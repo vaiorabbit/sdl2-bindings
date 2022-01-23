@@ -108,4 +108,4 @@ if __name__ == "__main__":
     sdl2_generator.generate(ctx,
                             prefix = sdl2_generator.PREFIX + "require_relative 'sdl2_version'\n",
                             typedef_postfix = TYPEDEF_POSTFIX_SYSWM,
-                            module_name = 'syswm')
+                            setup_method_name = 'syswm')

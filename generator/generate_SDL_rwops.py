@@ -91,5 +91,5 @@ if __name__ == "__main__":
     sdl2_generator.sanitize(ctx)
     sdl2_generator.generate(ctx,
                             typedef_prefix = TYPEDEF_PREFIX_RWOPS,
-                            module_name = 'rwops'
+                            setup_method_name = 'rwops'
     )

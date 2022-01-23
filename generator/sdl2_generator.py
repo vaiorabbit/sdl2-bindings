@@ -126,8 +126,8 @@ def generate_structunion(ctx, indent = ""):
         print(indent + "  )", file = sys.stdout)
         print(indent + "end\n", file = sys.stdout)
 
-def generate_function(ctx, indent = "", module_name = ""):
-    print(indent + "def self.setup_%s_symbols()" % module_name , file = sys.stdout)
+def generate_function(ctx, indent = "", setup_method_name = ""):
+    print(indent + "def self.setup_%s_symbols()" % setup_method_name , file = sys.stdout)
     indent = "  "
     print(indent + "  symbols = [", file = sys.stdout)
     for func_name, func_info in ctx.decl_functions.items():
@@ -180,7 +180,7 @@ def generate_function(ctx, indent = "", module_name = ""):
     print(indent + "end", file = sys.stdout)
 
 
-def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", typedef_prefix="", typedef_postfix=""):
+def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, setup_method_name = "", typedef_prefix="", typedef_postfix=""):
 
     print(prefix, file = sys.stdout)
 
@@ -212,7 +212,7 @@ def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, module_name = "", typed
 
     # function
     print(indent + "# Function\n", file = sys.stdout)
-    generate_function(ctx, indent, module_name)
+    generate_function(ctx, indent, setup_method_name)
     print(postfix, file = sys.stdout)
 
 if __name__ == "__main__":

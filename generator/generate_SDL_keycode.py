@@ -11,4 +11,4 @@ if __name__ == "__main__":
 
     sdl2_generator.sanitize(ctx)
     sdl2_generator.generate(ctx, postfix = sdl2_generator.POSTFIX + POSTFIX_KEYCODE,
-                            module_name = 'keycode')
+                            setup_method_name = 'keycode')

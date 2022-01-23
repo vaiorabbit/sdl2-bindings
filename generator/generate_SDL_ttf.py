@@ -9,5 +9,5 @@ if __name__ == "__main__":
     sdl2_generator.generate(ctx,
                             prefix = sdl2_generator.PREFIX +
                             "require_relative 'sdl2_pixels'\n",
-                            module_name = 'ttf'
+                            setup_method_name = 'ttf'
     )

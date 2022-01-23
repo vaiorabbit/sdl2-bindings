@@ -11,4 +11,4 @@ if __name__ == "__main__":
 
     sdl2_generator.sanitize(ctx)
     sdl2_generator.generate(ctx, postfix = sdl2_generator.POSTFIX + POSTFIX_MOUSE,
-                            module_name = 'mouse')
+                            setup_method_name = 'mouse')

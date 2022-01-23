@@ -8,5 +8,5 @@ if __name__ == "__main__":
     sdl2_generator.sanitize(ctx)
     sdl2_generator.generate(ctx,
                             prefix = sdl2_generator.PREFIX + "require_relative 'sdl2_pixels'\n",
-                            module_name = 'shape'
+                            setup_method_name = 'shape'
     )

@@ -39,5 +39,5 @@ if __name__ == "__main__":
     sdl2_generator.generate(ctx,
                             prefix = sdl2_generator.PREFIX + "require_relative 'sdl2_joystick'\n",
                             typedef_prefix = TYPEDEF_PREFIX_GAMECONTROLLER,
-                            module_name = 'gamecontroller'
+                            setup_method_name = 'gamecontroller'
     )

@@ -40,13 +40,17 @@ require_relative 'sdl2_version.rb'
 require_relative 'sdl2_video.rb'
 require_relative 'sdl2_vulkan.rb'
 
+# SDL2_gfx
 require_relative 'sdl2_framerate.rb'
 require_relative 'sdl2_gfxPrimitives.rb'
-require_relative 'sdl2_image.rb'
 require_relative 'sdl2_rotozoom.rb'
 require_relative 'sdl2_imageFilter.rb'
-require_relative 'sdl2_ttf.rb'
+# SDL_image
+require_relative 'sdl2_image.rb'
+# SDL_mixer
 require_relative 'sdl2_mixer.rb'
+# SDL_ttf
+require_relative 'sdl2_ttf.rb'
 
 module SDL
   extend FFI::Library

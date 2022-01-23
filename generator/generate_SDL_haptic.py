@@ -6,4 +6,4 @@ if __name__ == "__main__":
     sdl2_parser.execute(ctx)
 
     sdl2_generator.sanitize(ctx)
-    sdl2_generator.generate(ctx, module_name = 'haptic')
+    sdl2_generator.generate(ctx, setup_method_name = 'haptic')

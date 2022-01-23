@@ -11,5 +11,5 @@ if __name__ == "__main__":
 
     sdl2_generator.sanitize(ctx)
     sdl2_generator.generate(ctx, postfix = sdl2_generator.POSTFIX + POSTFIX_AUDIO,
-                            module_name = 'audio',
+                            setup_method_name = 'audio',
     )
