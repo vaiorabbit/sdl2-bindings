@@ -65,7 +65,7 @@ def move_sprite(renderer)
   SDL.RenderPresent(renderer)
 end
 
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   load_sdl2_lib()
   success = SDL.Init(SDL::SDL_INIT_EVERYTHING)
   exit if success < 0
