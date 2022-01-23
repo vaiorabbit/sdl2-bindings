@@ -14,8 +14,8 @@ $texture = nil
 class Sprite
   attr_accessor :pos, :vel
   def initialize
-    @pos = SDL::SDL_Rect.new
-    @vel = SDL::SDL_Rect.new
+    @pos = SDL::Rect.new
+    @vel = SDL::Rect.new
   end
 end
 $sprites = nil
@@ -25,12 +25,12 @@ WINDOW_H = 360
 NUM_SPRITES = 100
 
 def load_sprite(file, renderer)
-  temp = SDL::SDL_Surface.new(SDL.LoadBMP_RW(SDL.RWFromFile(file, "rb"), 1)) # temp = SDL_Surface.new(SDL2.SDL_LoadBMP(file))
+  temp = SDL::Surface.new(SDL.LoadBMP_RW(SDL.RWFromFile(file, "rb"), 1)) # temp = SDL_Surface.new(SDL2.SDL_LoadBMP(file))
   $texture = Texture.new
   $texture.w = temp[:w]
   $texture.h = temp[:h]
 
-  format = SDL::SDL_PixelFormat.new(temp[:format])
+  format = SDL::PixelFormat.new(temp[:format])
   if format[:palette] != nil
     SDL.SetColorKey(temp, 1, temp[:pixels].read(:uint))
   else
@@ -67,16 +67,16 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   load_sdl2_lib()
-  success = SDL.Init(SDL::SDL_INIT_EVERYTHING)
+  success = SDL.Init(SDL::INIT_EVERYTHING)
   exit if success < 0
 
-  SDL.SetHint(SDL::SDL_HINT_RENDER_DRIVER, "metal")
+  SDL.SetHint(SDL::HINT_RENDER_DRIVER, "metal")
 
   window = SDL.CreateWindow("Minimal Sprite Test via sdl2-bindings", 32, 32, WINDOW_W, WINDOW_H, 0)
 
   renderer = SDL.CreateRenderer(window, -1, 0)
   if renderer != nil
-    renderer_info = SDL::SDL_RendererInfo.new
+    renderer_info = SDL::RendererInfo.new
     SDL.GetRendererInfo(renderer, renderer_info)
     pp renderer_info[:name].read_string
   end
@@ -93,7 +93,7 @@ if __FILE__ == $PROGRAM_NAME
     $sprites[i].vel[:y] = 20*rand() - 10
   end
 
-  event = SDL::SDL_Event.new
+  event = SDL::Event.new
   done = false
   while not done
     while SDL.PollEvent(event) != 0
@@ -102,7 +102,7 @@ if __FILE__ == $PROGRAM_NAME
       # event_timestamp = event.common.timestamp
       # puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
       case event_type
-      when SDL::SDL_KEYDOWN
+      when SDL::KEYDOWN
         if event[:key][:keysym][:sym] == SDL::SDLK_ESCAPE
           done = true
         end

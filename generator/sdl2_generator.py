@@ -50,7 +50,7 @@ def sanitize_struct(ctx):
         underlying_ctypes_type = "FFI::Union" if str(struct_info.kind) == "CursorKind.UNION_DECL" else "FFI::Struct"
         struct_info.kind = underlying_ctypes_type
         for field in struct_info.fields:
-            field.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(field.type_kind), field.type_name)
+            field.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(field.type_kind), field.type_api_name)
 
 def sanitize_typedef(ctx):
     # refer mapping
@@ -58,12 +58,12 @@ def sanitize_typedef(ctx):
         if typedef_info.func_proto != None:
             for arg in typedef_info.func_proto.args:
                 arg.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(arg.type_kind), arg.type_name)
-            typedef_info.func_proto.retval.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(typedef_info.func_proto.retval.type_kind), typedef_info.func_proto.retval.type_name)
+            typedef_info.func_proto.retval.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(typedef_info.func_proto.retval.type_kind), typedef_info.func_proto.retval.type_original_name)
         else:
             if str(typedef_info.type_kind) == "TypeKind.RECORD":
                 typedef_info.type_kind = None
             else:
-                typedef_info.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(typedef_info.type_kind), typedef_info.name)
+                typedef_info.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(typedef_info.type_kind), typedef_info.original_name)
 
 def sanitize_function(ctx):
     for func_name, func_info in ctx.decl_functions.items():
@@ -74,7 +74,7 @@ def sanitize_function(ctx):
                 arg.type_kind = ":" + arg.type_name
             else:
                 arg.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(arg.type_kind), arg.type_name)
-        func_info.retval.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(func_info.retval.type_kind), func_info.retval.type_name)
+        func_info.retval.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(func_info.retval.type_kind), func_info.retval.type_original_name)
 
 def sanitize(ctx):
     sanitize_enum(ctx)
@@ -88,12 +88,26 @@ def sanitize(ctx):
 def generate_macrodefine(ctx, indent = ""):
     for macro_name, macro_value in ctx.decl_macros.items():
         if macro_value != None:
-            print(indent + "%s = %s" % (macro_name, macro_value[0]), file = sys.stdout)
+            macro_api_name = ""
+            match_obj = re.match(r"^SDL_(.+)", macro_name)
+            if match_obj:
+                # Remove prefix 'SDL_' from name
+                macro_api_name = match_obj.group(1)
+            else:
+                macro_api_name = macro_name
+            print(indent + "%s = %s" % (macro_api_name, macro_value[0]), file = sys.stdout)
 
 def generate_enum(ctx, indent = ""):
     for enum_name, enum_value in ctx.decl_enums.items():
         for enum in enum_value:
-            print(indent + "%s = %s" % (enum[0], enum[1]), file = sys.stdout)
+            enum_api_name = ""
+            match_obj = re.match(r"^SDL_(.+)", enum[0])
+            if match_obj:
+                # Remove prefix 'SDL_' from name
+                enum_api_name = match_obj.group(1)
+            else:
+                enum_api_name = enum[0]
+            print(indent + "%s = %s" % (enum_api_name, enum[1]), file = sys.stdout)
 
 def generate_typedef(ctx, indent = "", typedef_prefix="", typedef_postfix=""):
     if typedef_prefix != "":
@@ -116,7 +130,7 @@ def generate_structunion(ctx, indent = ""):
     for struct_name, struct_info in ctx.decl_structs.items():
         if struct_info == None:
             continue
-        print(indent + "class %s < %s" % (struct_name, struct_info.kind), file = sys.stdout)
+        print(indent + "class %s < %s" % (struct_info.api_name, struct_info.kind), file = sys.stdout)
         print(indent + "  layout(", file = sys.stdout)
         for field in struct_info.fields:
             if field.element_count <= 1:
@@ -152,9 +166,9 @@ def generate_function(ctx, indent = "", setup_method_name = ""):
             # Get Ruby FFI arguments
             args_ctype_list = list(map((lambda t: str(t.type_kind)), func_info.args))
 
-            # Add ".by_value" to struct arguments (e.g.: Color -> Color.by_value)
+            # Remove leading 'SDL_' string and add ".by_value" to struct arguments (e.g.: Color -> Color.by_value)
             arg_is_record = lambda arg: sdl2_parser.query_sdl2_cindex_mapping_entry_exists(arg) and sdl2_parser.get_sdl2_cindex_mapping_value(arg) == "TypeKind.RECORD"
-            args_ctype_list = list(map((lambda arg: arg + ".by_value" if arg_is_record(arg) else arg), args_ctype_list))
+            args_ctype_list = list(map((lambda arg: re.sub('^SDL_', '', arg) + ".by_value" if arg_is_record(arg) else arg), args_ctype_list))
 
             print(', '.join(args_ctype_list), file = sys.stdout, end='')
         print("],", file = sys.stdout)
@@ -164,7 +178,10 @@ def generate_function(ctx, indent = "", setup_method_name = ""):
     for func_name, func_info in ctx.decl_functions.items():
         if func_info == None:
             continue
-        print(indent + "    :%s => %s," % (func_info.original_name, str(func_info.retval.type_kind)), file = sys.stdout)
+        retval_str = str(func_info.retval.type_kind)
+        if re.match(r"^SDL_", retval_str): # For functions that return SDL structs by value
+            retval_str = func_info.retval.type_api_name + ".by_value"
+        print(indent + "    :%s => %s," % (func_info.original_name, retval_str), file = sys.stdout)
     print(indent + "  }", file = sys.stdout)
 
     print(indent +

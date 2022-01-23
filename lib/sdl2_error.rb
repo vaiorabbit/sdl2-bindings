@@ -13,12 +13,12 @@ module SDL
 
   # Enum
 
-  SDL_ENOMEM = 0
-  SDL_EFREAD = 1
-  SDL_EFWRITE = 2
-  SDL_EFSEEK = 3
-  SDL_UNSUPPORTED = 4
-  SDL_LASTERROR = 5
+  ENOMEM = 0
+  EFREAD = 1
+  EFWRITE = 2
+  EFSEEK = 3
+  UNSUPPORTED = 4
+  LASTERROR = 5
 
   # Typedef
 

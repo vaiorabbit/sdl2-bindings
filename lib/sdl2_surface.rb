@@ -11,18 +11,18 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_SWSURFACE = 0
-  SDL_PREALLOC = 0x00000001
-  SDL_RLEACCEL = 0x00000002
-  SDL_DONTFREE = 0x00000004
-  SDL_SIMD_ALIGNED = 0x00000008
+  SWSURFACE = 0
+  PREALLOC = 0x00000001
+  RLEACCEL = 0x00000002
+  DONTFREE = 0x00000004
+  SIMD_ALIGNED = 0x00000008
 
   # Enum
 
-  SDL_YUV_CONVERSION_JPEG = 0
-  SDL_YUV_CONVERSION_BT601 = 1
-  SDL_YUV_CONVERSION_BT709 = 2
-  SDL_YUV_CONVERSION_AUTOMATIC = 3
+  YUV_CONVERSION_JPEG = 0
+  YUV_CONVERSION_BT601 = 1
+  YUV_CONVERSION_BT709 = 2
+  YUV_CONVERSION_AUTOMATIC = 3
 
   # Typedef
 
@@ -31,7 +31,7 @@ module SDL
 
   # Struct
 
-  class SDL_Surface < FFI::Struct
+  class Surface < FFI::Struct
     layout(
       :flags, :uint,
       :format, :pointer,
@@ -42,7 +42,7 @@ module SDL
       :userdata, :pointer,
       :locked, :int,
       :list_blitmap, :pointer,
-      :clip_rect, SDL_Rect,
+      :clip_rect, Rect,
       :map, :pointer,
       :refcount, :int,
     )

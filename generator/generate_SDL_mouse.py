@@ -1,7 +1,7 @@
 import sdl2_parser, sdl2_generator
 
 POSTFIX_MOUSE = """
-# TODO : def SDL_BUTTON(X); (1 << ((X)-1)); end;
+# TODO : def self.BUTTON(X); (1 << ((X)-1)); end;
 """
 
 if __name__ == "__main__":

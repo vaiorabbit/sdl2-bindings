@@ -17,14 +17,14 @@ if __FILE__ == $PROGRAM_NAME
 
   SDL.load_lib('/opt/homebrew/lib/libSDL2.dylib', ttf_libpath: '/opt/homebrew/lib/libSDL2_ttf.dylib' ) # '/usr/local/lib/libSDL2.dylib'
 
-  success = SDL.Init(SDL::SDL_INIT_EVERYTHING)
+  success = SDL.Init(SDL::INIT_EVERYTHING)
   exit if success < 0
 
-  window = SDL.CreateWindow("Minimal SDL_TTF Test via sdl2-bindings", SDL::SDL_WINDOWPOS_CENTERED_MASK|0, SDL::SDL_WINDOWPOS_CENTERED_MASK|0, WINDOW_W, WINDOW_H, 0)
+  window = SDL.CreateWindow("Minimal SDL_TTF Test via sdl2-bindings", SDL::WINDOWPOS_CENTERED_MASK|0, SDL::WINDOWPOS_CENTERED_MASK|0, WINDOW_W, WINDOW_H, 0)
 
   renderer = SDL.CreateRenderer(window, -1, 0)
 
-  rect = SDL::SDL_Rect.new
+  rect = SDL::Rect.new
   rect[:x] = 0
   rect[:y] = 0
   rect[:w] = WINDOW_W
@@ -45,19 +45,19 @@ if __FILE__ == $PROGRAM_NAME
   SDL.TTF_SetFontKerning(font, kerning)
   SDL.TTF_SetFontHinting(font, hinting)
 
-  fg = SDL::SDL_Color.new
+  fg = SDL::Color.new
   fg[:r] = 0xFF
   fg[:g] = 0xFF
   fg[:b] = 0xFF
   fg[:a] = 0xFF
 
-  bg = SDL::SDL_Color.new
+  bg = SDL::Color.new
   bg[:r] = 0x00
   bg[:g] = 0x00
   bg[:b] = 0x00
   bg[:a] = 0x00
 
-  pos = SDL::SDL_Rect.new
+  pos = SDL::Rect.new
   pos[:x] = 20
   pos[:y] = 140
   pos[:w] = 600
@@ -70,9 +70,9 @@ if __FILE__ == $PROGRAM_NAME
 
   SDL.FreeSurface(surface)
 
-  SDL.SetTextureBlendMode(texture, SDL::SDL_BLENDMODE_NONE)
+  SDL.SetTextureBlendMode(texture, SDL::BLENDMODE_NONE)
 
-  event = SDL::SDL_Event.new
+  event = SDL::Event.new
   done = false
   while not done
     while SDL.PollEvent(event) != 0
@@ -81,7 +81,7 @@ if __FILE__ == $PROGRAM_NAME
       # event_timestamp = event.common.timestamp
       # puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
       case event_type
-      when SDL::SDL_KEYDOWN
+      when SDL::KEYDOWN
         if event[:key][:keysym][:sym] == SDL::SDLK_ESCAPE
           done = true
         end

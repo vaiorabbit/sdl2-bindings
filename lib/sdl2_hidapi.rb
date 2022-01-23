@@ -19,7 +19,7 @@ module SDL
 
   # Struct
 
-  class SDL_hid_device_info < FFI::Struct
+  class Hid_device_info < FFI::Struct
     layout(
       :path, :pointer,
       :vendor_id, :ushort,

@@ -14,74 +14,74 @@ module SDL
 
   # Enum
 
-  SDL_CONTROLLER_TYPE_UNKNOWN = 0
-  SDL_CONTROLLER_TYPE_XBOX360 = 1
-  SDL_CONTROLLER_TYPE_XBOXONE = 2
-  SDL_CONTROLLER_TYPE_PS3 = 3
-  SDL_CONTROLLER_TYPE_PS4 = 4
-  SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO = 5
-  SDL_CONTROLLER_TYPE_VIRTUAL = 6
-  SDL_CONTROLLER_TYPE_PS5 = 7
-  SDL_CONTROLLER_TYPE_AMAZON_LUNA = 8
-  SDL_CONTROLLER_TYPE_GOOGLE_STADIA = 9
-  SDL_CONTROLLER_BINDTYPE_NONE = 0
-  SDL_CONTROLLER_BINDTYPE_BUTTON = 1
-  SDL_CONTROLLER_BINDTYPE_AXIS = 2
-  SDL_CONTROLLER_BINDTYPE_HAT = 3
-  SDL_CONTROLLER_AXIS_INVALID = -1
-  SDL_CONTROLLER_AXIS_LEFTX = 0
-  SDL_CONTROLLER_AXIS_LEFTY = 1
-  SDL_CONTROLLER_AXIS_RIGHTX = 2
-  SDL_CONTROLLER_AXIS_RIGHTY = 3
-  SDL_CONTROLLER_AXIS_TRIGGERLEFT = 4
-  SDL_CONTROLLER_AXIS_TRIGGERRIGHT = 5
-  SDL_CONTROLLER_AXIS_MAX = 6
-  SDL_CONTROLLER_BUTTON_INVALID = -1
-  SDL_CONTROLLER_BUTTON_A = 0
-  SDL_CONTROLLER_BUTTON_B = 1
-  SDL_CONTROLLER_BUTTON_X = 2
-  SDL_CONTROLLER_BUTTON_Y = 3
-  SDL_CONTROLLER_BUTTON_BACK = 4
-  SDL_CONTROLLER_BUTTON_GUIDE = 5
-  SDL_CONTROLLER_BUTTON_START = 6
-  SDL_CONTROLLER_BUTTON_LEFTSTICK = 7
-  SDL_CONTROLLER_BUTTON_RIGHTSTICK = 8
-  SDL_CONTROLLER_BUTTON_LEFTSHOULDER = 9
-  SDL_CONTROLLER_BUTTON_RIGHTSHOULDER = 10
-  SDL_CONTROLLER_BUTTON_DPAD_UP = 11
-  SDL_CONTROLLER_BUTTON_DPAD_DOWN = 12
-  SDL_CONTROLLER_BUTTON_DPAD_LEFT = 13
-  SDL_CONTROLLER_BUTTON_DPAD_RIGHT = 14
-  SDL_CONTROLLER_BUTTON_MISC1 = 15
-  SDL_CONTROLLER_BUTTON_PADDLE1 = 16
-  SDL_CONTROLLER_BUTTON_PADDLE2 = 17
-  SDL_CONTROLLER_BUTTON_PADDLE3 = 18
-  SDL_CONTROLLER_BUTTON_PADDLE4 = 19
-  SDL_CONTROLLER_BUTTON_TOUCHPAD = 20
-  SDL_CONTROLLER_BUTTON_MAX = 21
+  CONTROLLER_TYPE_UNKNOWN = 0
+  CONTROLLER_TYPE_XBOX360 = 1
+  CONTROLLER_TYPE_XBOXONE = 2
+  CONTROLLER_TYPE_PS3 = 3
+  CONTROLLER_TYPE_PS4 = 4
+  CONTROLLER_TYPE_NINTENDO_SWITCH_PRO = 5
+  CONTROLLER_TYPE_VIRTUAL = 6
+  CONTROLLER_TYPE_PS5 = 7
+  CONTROLLER_TYPE_AMAZON_LUNA = 8
+  CONTROLLER_TYPE_GOOGLE_STADIA = 9
+  CONTROLLER_BINDTYPE_NONE = 0
+  CONTROLLER_BINDTYPE_BUTTON = 1
+  CONTROLLER_BINDTYPE_AXIS = 2
+  CONTROLLER_BINDTYPE_HAT = 3
+  CONTROLLER_AXIS_INVALID = -1
+  CONTROLLER_AXIS_LEFTX = 0
+  CONTROLLER_AXIS_LEFTY = 1
+  CONTROLLER_AXIS_RIGHTX = 2
+  CONTROLLER_AXIS_RIGHTY = 3
+  CONTROLLER_AXIS_TRIGGERLEFT = 4
+  CONTROLLER_AXIS_TRIGGERRIGHT = 5
+  CONTROLLER_AXIS_MAX = 6
+  CONTROLLER_BUTTON_INVALID = -1
+  CONTROLLER_BUTTON_A = 0
+  CONTROLLER_BUTTON_B = 1
+  CONTROLLER_BUTTON_X = 2
+  CONTROLLER_BUTTON_Y = 3
+  CONTROLLER_BUTTON_BACK = 4
+  CONTROLLER_BUTTON_GUIDE = 5
+  CONTROLLER_BUTTON_START = 6
+  CONTROLLER_BUTTON_LEFTSTICK = 7
+  CONTROLLER_BUTTON_RIGHTSTICK = 8
+  CONTROLLER_BUTTON_LEFTSHOULDER = 9
+  CONTROLLER_BUTTON_RIGHTSHOULDER = 10
+  CONTROLLER_BUTTON_DPAD_UP = 11
+  CONTROLLER_BUTTON_DPAD_DOWN = 12
+  CONTROLLER_BUTTON_DPAD_LEFT = 13
+  CONTROLLER_BUTTON_DPAD_RIGHT = 14
+  CONTROLLER_BUTTON_MISC1 = 15
+  CONTROLLER_BUTTON_PADDLE1 = 16
+  CONTROLLER_BUTTON_PADDLE2 = 17
+  CONTROLLER_BUTTON_PADDLE3 = 18
+  CONTROLLER_BUTTON_PADDLE4 = 19
+  CONTROLLER_BUTTON_TOUCHPAD = 20
+  CONTROLLER_BUTTON_MAX = 21
 
   # Typedef
 
 
-  class SDL_GameControllerButtonBind_value_hat < FFI::Struct
+  class GameControllerButtonBind_value_hat < FFI::Struct
     layout(
         :hat, :int,
         :hat_mask, :int,
     )
   end
 
-  class SDL_GameControllerButtonBind_value < FFI::Struct
+  class GameControllerButtonBind_value < FFI::Struct
     layout(
         :button, :int,
         :axis, :int,
-        :hat, SDL_GameControllerButtonBind_value_hat,
+        :hat, GameControllerButtonBind_value_hat,
     )
   end
 
-  class SDL_GameControllerButtonBind < FFI::Struct
+  class GameControllerButtonBind < FFI::Struct
     layout(
         :bindType, :int,
-        :value, SDL_GameControllerButtonBind_value,
+        :value, GameControllerButtonBind_value,
     )
   end
 
@@ -211,7 +211,7 @@ module SDL
       :SDL_GameControllerAddMapping => [:pointer],
       :SDL_GameControllerNumMappings => [],
       :SDL_GameControllerMappingForIndex => [:int],
-      :SDL_GameControllerMappingForGUID => [SDL_JoystickGUID.by_value],
+      :SDL_GameControllerMappingForGUID => [JoystickGUID.by_value],
       :SDL_GameControllerMapping => [:pointer],
       :SDL_IsGameController => [:int],
       :SDL_GameControllerNameForIndex => [:int],
@@ -289,12 +289,12 @@ module SDL
       :SDL_GameControllerUpdate => :void,
       :SDL_GameControllerGetAxisFromString => :int,
       :SDL_GameControllerGetStringForAxis => :pointer,
-      :SDL_GameControllerGetBindForAxis => SDL_GameControllerButtonBind,
+      :SDL_GameControllerGetBindForAxis => GameControllerButtonBind.by_value,
       :SDL_GameControllerHasAxis => :int,
       :SDL_GameControllerGetAxis => :short,
       :SDL_GameControllerGetButtonFromString => :int,
       :SDL_GameControllerGetStringForButton => :pointer,
-      :SDL_GameControllerGetBindForButton => SDL_GameControllerButtonBind,
+      :SDL_GameControllerGetBindForButton => GameControllerButtonBind.by_value,
       :SDL_GameControllerHasButton => :int,
       :SDL_GameControllerGetButton => :uchar,
       :SDL_GameControllerGetNumTouchpads => :int,

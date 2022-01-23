@@ -1,25 +1,25 @@
 import sdl2_parser, sdl2_generator
 
 TYPEDEF_PREFIX_GAMECONTROLLER = """
-  class SDL_GameControllerButtonBind_value_hat < FFI::Struct
+  class GameControllerButtonBind_value_hat < FFI::Struct
     layout(
         :hat, :int,
         :hat_mask, :int,
     )
   end
 
-  class SDL_GameControllerButtonBind_value < FFI::Struct
+  class GameControllerButtonBind_value < FFI::Struct
     layout(
         :button, :int,
         :axis, :int,
-        :hat, SDL_GameControllerButtonBind_value_hat,
+        :hat, GameControllerButtonBind_value_hat,
     )
   end
 
-  class SDL_GameControllerButtonBind < FFI::Struct
+  class GameControllerButtonBind < FFI::Struct
     layout(
         :bindType, :int,
-        :value, SDL_GameControllerButtonBind_value,
+        :value, GameControllerButtonBind_value,
     )
   end
 """

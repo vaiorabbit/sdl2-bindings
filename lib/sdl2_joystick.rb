@@ -10,38 +10,38 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_IPHONE_MAX_GFORCE = 5.0
-  SDL_JOYSTICK_AXIS_MAX = 32767
-  SDL_JOYSTICK_AXIS_MIN = -32768
-  SDL_HAT_CENTERED = 0x00
-  SDL_HAT_UP = 0x01
-  SDL_HAT_RIGHT = 0x02
-  SDL_HAT_DOWN = 0x04
-  SDL_HAT_LEFT = 0x08
-  SDL_HAT_RIGHTUP = (SDL_HAT_RIGHT | SDL_HAT_UP)
-  SDL_HAT_RIGHTDOWN = (SDL_HAT_RIGHT | SDL_HAT_DOWN)
-  SDL_HAT_LEFTUP = (SDL_HAT_LEFT | SDL_HAT_UP)
-  SDL_HAT_LEFTDOWN = (SDL_HAT_LEFT | SDL_HAT_DOWN)
+  IPHONE_MAX_GFORCE = 5.0
+  JOYSTICK_AXIS_MAX = 32767
+  JOYSTICK_AXIS_MIN = -32768
+  HAT_CENTERED = 0x00
+  HAT_UP = 0x01
+  HAT_RIGHT = 0x02
+  HAT_DOWN = 0x04
+  HAT_LEFT = 0x08
+  HAT_RIGHTUP = (HAT_RIGHT | HAT_UP)
+  HAT_RIGHTDOWN = (HAT_RIGHT | HAT_DOWN)
+  HAT_LEFTUP = (HAT_LEFT | HAT_UP)
+  HAT_LEFTDOWN = (HAT_LEFT | HAT_DOWN)
 
   # Enum
 
-  SDL_JOYSTICK_TYPE_UNKNOWN = 0
-  SDL_JOYSTICK_TYPE_GAMECONTROLLER = 1
-  SDL_JOYSTICK_TYPE_WHEEL = 2
-  SDL_JOYSTICK_TYPE_ARCADE_STICK = 3
-  SDL_JOYSTICK_TYPE_FLIGHT_STICK = 4
-  SDL_JOYSTICK_TYPE_DANCE_PAD = 5
-  SDL_JOYSTICK_TYPE_GUITAR = 6
-  SDL_JOYSTICK_TYPE_DRUM_KIT = 7
-  SDL_JOYSTICK_TYPE_ARCADE_PAD = 8
-  SDL_JOYSTICK_TYPE_THROTTLE = 9
-  SDL_JOYSTICK_POWER_UNKNOWN = -1
-  SDL_JOYSTICK_POWER_EMPTY = 0
-  SDL_JOYSTICK_POWER_LOW = 1
-  SDL_JOYSTICK_POWER_MEDIUM = 2
-  SDL_JOYSTICK_POWER_FULL = 3
-  SDL_JOYSTICK_POWER_WIRED = 4
-  SDL_JOYSTICK_POWER_MAX = 5
+  JOYSTICK_TYPE_UNKNOWN = 0
+  JOYSTICK_TYPE_GAMECONTROLLER = 1
+  JOYSTICK_TYPE_WHEEL = 2
+  JOYSTICK_TYPE_ARCADE_STICK = 3
+  JOYSTICK_TYPE_FLIGHT_STICK = 4
+  JOYSTICK_TYPE_DANCE_PAD = 5
+  JOYSTICK_TYPE_GUITAR = 6
+  JOYSTICK_TYPE_DRUM_KIT = 7
+  JOYSTICK_TYPE_ARCADE_PAD = 8
+  JOYSTICK_TYPE_THROTTLE = 9
+  JOYSTICK_POWER_UNKNOWN = -1
+  JOYSTICK_POWER_EMPTY = 0
+  JOYSTICK_POWER_LOW = 1
+  JOYSTICK_POWER_MEDIUM = 2
+  JOYSTICK_POWER_FULL = 3
+  JOYSTICK_POWER_WIRED = 4
+  JOYSTICK_POWER_MAX = 5
 
   # Typedef
 
@@ -51,7 +51,7 @@ module SDL
 
   # Struct
 
-  class SDL_JoystickGUID < FFI::Struct
+  class JoystickGUID < FFI::Struct
     layout(
       :data, [:uchar, 16],
     )
@@ -201,7 +201,7 @@ module SDL
       :SDL_JoystickGetProductVersion => [:pointer],
       :SDL_JoystickGetSerial => [:pointer],
       :SDL_JoystickGetType => [:pointer],
-      :SDL_JoystickGetGUIDString => [SDL_JoystickGUID.by_value, :pointer, :int],
+      :SDL_JoystickGetGUIDString => [JoystickGUID.by_value, :pointer, :int],
       :SDL_JoystickGetGUIDFromString => [:pointer],
       :SDL_JoystickGetAttached => [:pointer],
       :SDL_JoystickInstanceID => [:pointer],
@@ -232,7 +232,7 @@ module SDL
       :SDL_NumJoysticks => :int,
       :SDL_JoystickNameForIndex => :pointer,
       :SDL_JoystickGetDevicePlayerIndex => :int,
-      :SDL_JoystickGetDeviceGUID => SDL_JoystickGUID,
+      :SDL_JoystickGetDeviceGUID => JoystickGUID.by_value,
       :SDL_JoystickGetDeviceVendor => :ushort,
       :SDL_JoystickGetDeviceProduct => :ushort,
       :SDL_JoystickGetDeviceProductVersion => :ushort,
@@ -250,14 +250,14 @@ module SDL
       :SDL_JoystickName => :pointer,
       :SDL_JoystickGetPlayerIndex => :int,
       :SDL_JoystickSetPlayerIndex => :void,
-      :SDL_JoystickGetGUID => SDL_JoystickGUID,
+      :SDL_JoystickGetGUID => JoystickGUID.by_value,
       :SDL_JoystickGetVendor => :ushort,
       :SDL_JoystickGetProduct => :ushort,
       :SDL_JoystickGetProductVersion => :ushort,
       :SDL_JoystickGetSerial => :pointer,
       :SDL_JoystickGetType => :int,
       :SDL_JoystickGetGUIDString => :void,
-      :SDL_JoystickGetGUIDFromString => SDL_JoystickGUID,
+      :SDL_JoystickGetGUIDFromString => JoystickGUID.by_value,
       :SDL_JoystickGetAttached => :int,
       :SDL_JoystickInstanceID => :int,
       :SDL_JoystickNumAxes => :int,

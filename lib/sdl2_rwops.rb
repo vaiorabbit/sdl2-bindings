@@ -10,12 +10,12 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_RWOPS_UNKNOWN = 0
-  SDL_RWOPS_WINFILE = 1
-  SDL_RWOPS_STDFILE = 2
-  SDL_RWOPS_JNIFILE = 3
-  SDL_RWOPS_MEMORY = 4
-  SDL_RWOPS_MEMORY_RO = 5
+  RWOPS_UNKNOWN = 0
+  RWOPS_WINFILE = 1
+  RWOPS_STDFILE = 2
+  RWOPS_JNIFILE = 3
+  RWOPS_MEMORY = 4
+  RWOPS_MEMORY_RO = 5
 
   # Enum
 
@@ -23,7 +23,7 @@ module SDL
   # Typedef
 
 
-  class SDL_RWops_mem < FFI::Struct
+  class RWops_mem < FFI::Struct
     layout(
       :base, :pointer,
       :here, :pointer,
@@ -31,13 +31,13 @@ module SDL
     )
   end
 
-  class SDL_RWops_unknown < FFI::Struct
+  class RWops_unknown < FFI::Struct
     layout(
       :data1, :pointer,
       :data2, :pointer,
     )
   end
-  class SDL_RWops_windowsio_buffer < FFI::Struct
+  class RWops_windowsio_buffer < FFI::Struct
     layout(
       :data, :pointer,
       :size, :size_t,
@@ -45,42 +45,30 @@ module SDL
     )
   end
 
-  class SDL_RWops_windowsio < FFI::Struct
+  class RWops_windowsio < FFI::Struct
     layout(
       :append, :int,
       :h, :pointer,
-      :buffer, SDL_RWops_windowsio_buffer,
+      :buffer, RWops_windowsio_buffer,
     )
   end
 
-  class SDL_Default_RWops_hidden < FFI::Union
+  class Default_RWops_hidden < FFI::Union
     layout(
-      :mem, SDL_RWops_mem,
-      :unknown, SDL_RWops_unknown,
+      :mem, RWops_mem,
+      :unknown, RWops_unknown,
     )
   end
 
-  class SDL_Win32_RWops_hidden < FFI::Union
+  class Win32_RWops_hidden < FFI::Union
     layout(
-      :mem, SDL_RWops_mem,
-      :unknown, SDL_RWops_unknown,
-      :windowsio, SDL_RWops_windowsio,
+      :mem, RWops_mem,
+      :unknown, RWops_unknown,
+      :windowsio, RWops_windowsio,
     )
   end
 
-  class SDL_Default_RWops < FFI::Struct
-    layout(
-      :size, :pointer,
-      :seek, :pointer,
-      :read, :pointer,
-      :write, :pointer,
-      :close, :pointer,
-      :type, :uint,
-      :hidden, SDL_Default_RWops_hidden,
-    )
-  end
-
-  class SDL_Win32_RWops < FFI::Struct
+  class Default_RWops < FFI::Struct
     layout(
       :size, :pointer,
       :seek, :pointer,
@@ -88,14 +76,26 @@ module SDL
       :write, :pointer,
       :close, :pointer,
       :type, :uint,
-      :hidden, SDL_Win32_RWops_hidden
+      :hidden, Default_RWops_hidden,
+    )
+  end
+
+  class Win32_RWops < FFI::Struct
+    layout(
+      :size, :pointer,
+      :seek, :pointer,
+      :read, :pointer,
+      :write, :pointer,
+      :close, :pointer,
+      :type, :uint,
+      :hidden, Win32_RWops_hidden
     )
   end
 
   if RUBY_PLATFORM =~ /mswin|msys|mingw|cygwin/
-    SDL_RWops = SDL_Win32_RWops
+    RWops = Win32_RWops
   else
-    SDL_RWops = SDL_Default_RWops
+    RWops = Default_RWops
   end
 
 

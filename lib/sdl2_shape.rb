@@ -11,9 +11,9 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_NONSHAPEABLE_WINDOW = -1
-  SDL_INVALID_SHAPE_ARGUMENT = -2
-  SDL_WINDOW_LACKS_SHAPE = -3
+  NONSHAPEABLE_WINDOW = -1
+  INVALID_SHAPE_ARGUMENT = -2
+  WINDOW_LACKS_SHAPE = -3
 
   # Enum
 
@@ -28,17 +28,17 @@ module SDL
 
   # Struct
 
-  class SDL_WindowShapeParams < FFI::Union
+  class WindowShapeParams < FFI::Union
     layout(
       :binarizationCutoff, :uchar,
-      :colorKey, SDL_Color,
+      :colorKey, Color,
     )
   end
 
-  class SDL_WindowShapeMode < FFI::Struct
+  class WindowShapeMode < FFI::Struct
     layout(
       :mode, :int,
-      :parameters, SDL_WindowShapeParams,
+      :parameters, WindowShapeParams,
     )
   end
 

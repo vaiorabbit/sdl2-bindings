@@ -10,15 +10,15 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_TOUCH_MOUSEID = -1
-  SDL_MOUSE_TOUCHID = -1
+  TOUCH_MOUSEID = -1
+  MOUSE_TOUCHID = -1
 
   # Enum
 
-  SDL_TOUCH_DEVICE_INVALID = -1
-  SDL_TOUCH_DEVICE_DIRECT = 0
-  SDL_TOUCH_DEVICE_INDIRECT_ABSOLUTE = 1
-  SDL_TOUCH_DEVICE_INDIRECT_RELATIVE = 2
+  TOUCH_DEVICE_INVALID = -1
+  TOUCH_DEVICE_DIRECT = 0
+  TOUCH_DEVICE_INDIRECT_ABSOLUTE = 1
+  TOUCH_DEVICE_INDIRECT_RELATIVE = 2
 
   # Typedef
 
@@ -28,7 +28,7 @@ module SDL
 
   # Struct
 
-  class SDL_Finger < FFI::Struct
+  class Finger < FFI::Struct
     layout(
       :id, :long_long,
       :x, :float,

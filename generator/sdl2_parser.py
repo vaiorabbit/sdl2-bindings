@@ -207,11 +207,15 @@ class FieldInfo(object):
     Holds one field of struct/union.
     """
 
+    # Block adding members unintentionally
+    __slots__ = ('element_count', 'element_name', 'type_kind', 'type_original_name', 'type_api_name')
+
     def __init__(self):
         self.element_count = -1
         self.element_name = ""
         self.type_kind = TypeKind.INVALID
-        self.type_name = ""
+        self.type_original_name = ""
+        self.type_api_name = ""
 
     def __repr__(self):
         return str(vars(self))
@@ -221,10 +225,14 @@ class StructInfo(object):
     Holds struct/union information.
     """
 
+    # Block adding members unintentionally
+    __slots__ = ('fields', 'kind', 'original_name', 'api_name')
+
     def __init__(self):
         self.fields = []
         self.kind = None # CursorKind.STRUCT_DECL or CursorKind.UNION_DECL
-        self.name = "" # ex.) nk_color
+        self.original_name = ""
+        self.api_name = ""
 
     def __repr__(self):
         return str(vars(self))
@@ -240,14 +248,18 @@ class TypedefInfo(object):
     Holds typedef information.
     """
 
+    # Block adding members unintentionally
+    __slots__ = ('original_name', 'api_name', 'element_count', 'type_kind', 'func_proto')
+
     def __init__(self):
-        self.name = ""
+        self.original_name = ""
+        self.api_name = ""
         self.element_count = -1
         self.type_kind = TypeKind.INVALID
         self.func_proto = None
 
     def __repr__(self):
-        r = "%s : ((%s) x %s)" % (self.name, self.type_kind, self.element_count)
+        r = "%s : ((%s) x %s)" % (self.original_name, self.type_kind, self.element_count)
         if self.func_proto != None:
             r += " [%s]" % str(vars(self.func_proto))
         return r
@@ -257,8 +269,12 @@ class ArgumentInfo(object):
     Holds one argument of function.
     """
 
+    # Block adding members unintentionally
+    __slots__ = ('original_name', 'api_name', 'type_kind', 'type_name')
+
     def __init__(self):
-        self.name = ""
+        self.original_name = ""
+        self.api_name = ""
         self.type_kind = TypeKind.INVALID
         self.type_name = ""
 
@@ -270,9 +286,13 @@ class RetvalInfo(object):
     Holds return value information.
     """
 
+    # Block adding members unintentionally
+    __slots__ = ('type_kind', 'type_original_name', 'type_api_name')
+
     def __init__(self):
         self.type_kind = TypeKind.INVALID
-        self.type_name = ""
+        self.type_original_name = ""
+        self.type_api_name = ""
 
     def __repr__(self):
         return str(vars(self))
@@ -395,7 +415,13 @@ def collect_decl_typedef(ctx, cursor):
     underlying_type = cursor.underlying_typedef_type
 
     typedef_info = TypedefInfo()
-    typedef_info.name = cursor.displayname
+    typedef_info.original_name = cursor.displayname
+    match_obj = re.match(r"^SDL_(.+)", typedef_info.original_name)
+    if match_obj:
+        # Remove prefix 'SDL_' from name
+        typedef_info.api_name = match_obj.group(1)
+    else:
+        typedef_info.api_name = typedef_info.original_name
     typedef_info.type_kind = underlying_type.get_canonical().kind
     typedef_info.element_count = 1
 
@@ -411,7 +437,13 @@ def collect_decl_typedef(ctx, cursor):
 
             result_type = canonical_type.get_result()
             retval_info = RetvalInfo()
-            retval_info.type_name = result_type.spelling
+            retval_info.type_original_name = result_type.spelling
+            match_obj = re.match(r"^SDL_(.+)", retval_info.type_original_name)
+            if match_obj:
+                # Remove prefix 'SDL_' from name
+                retval_info.type_api_name = match_obj.group(1)
+            else:
+                retval_info.type_api_name = retval_info.type_original_name
             retval_info.type_kind = result_type.kind
 
             typedef_info.func_proto.retval = retval_info
@@ -419,7 +451,6 @@ def collect_decl_typedef(ctx, cursor):
             arg_types = canonical_type.argument_types()
             for arg_type in arg_types:
                 arg_info = ArgumentInfo()
-                arg_info.name = ""
                 arg_info.type_name = arg_type.spelling
                 arg_info.type_kind = arg_type.get_canonical().kind
                 typedef_info.func_proto.args.append(arg_info)
@@ -427,13 +458,13 @@ def collect_decl_typedef(ctx, cursor):
         cursor_decl = underlying_type.get_declaration()
         if cursor_decl.kind == CursorKind.STRUCT_DECL or cursor_decl.kind == CursorKind.UNION_DECL:
             ctx.push()
-            collect_decl_struct(ctx, cursor_decl, cursor_decl.spelling, typedef_info.name)
+            collect_decl_struct(ctx, cursor_decl, cursor_decl.spelling, typedef_info.original_name)
             ctx.pop()
     else:
         pass
 
     ctx.pop()
-    ctx.add_decl_typedef(typedef_info.name, typedef_info)
+    ctx.add_decl_typedef(typedef_info.original_name, typedef_info)
     ctx.collection_mode = ParseContext.Decl_Unknown
 
 def collect_decl_enum(ctx, cursor):
@@ -471,11 +502,11 @@ def collect_decl_struct(ctx, cursor, struct_name=None, typedef_name=None):
         return
     struct_info = StructInfo()
     struct_info.kind = cursor.kind # CursorKind.STRUCT_DECL or CursorKind.UNION_DECL
-    struct_info.name = struct_name
+    struct_info.original_name = struct_name
 
     # NOTE : unnamed struct/union will be collected at 'collect_decl_typedef'.
     # ex.) typedef union {void *ptr; int id;} nk_handle; (exposed as an unnamed struct/union here)
-    if struct_info.name == "":
+    if struct_info.original_name == "":
         # Definitions like 'typede struct (anonymous) {...} StructName' may cause to come here.
         # e.g.)
         # typedef struct
@@ -484,7 +515,7 @@ def collect_decl_struct(ctx, cursor, struct_name=None, typedef_name=None):
         # } SDL_MessageBoxColor;
         if typedef_name == None:
             return
-        struct_info.name = typedef_name
+        struct_info.original_name = typedef_name
 
     # fields = cursor.type.get_fields()
     #
@@ -500,7 +531,14 @@ def collect_decl_struct(ctx, cursor, struct_name=None, typedef_name=None):
         field_info.element_count = 1
         field_info.element_name = field.displayname
         field_info.type_kind = canonical_kind
-        field_info.type_name = field.type.spelling
+        field_info.type_original_name = field.type.spelling
+
+        match_obj = re.match(r"^SDL_(.+)", field_info.type_original_name)
+        if match_obj:
+            # Remove prefix 'SDL_' from struct name and capitalize first character
+            field_info.type_api_name = match_obj.group(1)[0].upper() + match_obj.group(1)[1:]
+        else:
+            field_info.type_api_name = field_info.type_original_name
 
         if canonical_kind in {TypeKind.CONSTANTARRAY, TypeKind.INCOMPLETEARRAY, TypeKind.VARIABLEARRAY, TypeKind.DEPENDENTSIZEDARRAY}:
             # ex.) char text[SDL_TEXTEDITINGEVENT_TEXT_SIZE];
@@ -511,7 +549,13 @@ def collect_decl_struct(ctx, cursor, struct_name=None, typedef_name=None):
                 element_detail = " (" + field.type.spelling + ")"
             field_info.element_count = field.type.get_array_size()
             field_info.type_kind = element_kind
-            field_info.type_name = field.type.get_array_element_type().spelling
+            field_info.type_original_name = field.type.get_array_element_type().spelling
+            match_obj = re.match(r"^SDL_(.+)", field_info.type_original_name)
+            if match_obj:
+                # Remove prefix 'SDL_' from struct name and capitalize first character
+                field_info.type_api_name = match_obj.group(1)[0].upper() + match_obj.group(1)[1:]
+            else:
+                field_info.type_api_name = field_info.type_original_name
         elif canonical_kind in {TypeKind.ELABORATED, TypeKind.RECORD}:
             cursor_decl = field.type.get_canonical()
             if cursor_decl.kind == CursorKind.STRUCT_DECL or cursor_decl.kind == CursorKind.UNION_DECL:
@@ -527,7 +571,14 @@ def collect_decl_struct(ctx, cursor, struct_name=None, typedef_name=None):
 
         struct_info.push(field_info)
 
-    ctx.add_decl_struct(struct_info.name, struct_info)
+    match_obj = re.match(r"^SDL_(.+)", struct_info.original_name)
+    if match_obj:
+        # Remove prefix 'SDL_' from struct name and capitalize first character
+        struct_info.api_name = match_obj.group(1)[0].upper() + match_obj.group(1)[1:]
+    else:
+        struct_info.api_name = struct_info.original_name
+
+    ctx.add_decl_struct(struct_info.original_name, struct_info)
 
     ctx.collection_mode = ParseContext.Decl_Unknown
 
@@ -544,12 +595,19 @@ def collect_decl_function(ctx, cursor):
 
     match_obj = re.match(r"^SDL_(.+)", func_info.original_name)
     if match_obj:
+        # Remove prefix 'SDL_' from name
         func_info.api_name = match_obj.group(1)
     else:
         func_info.api_name = func_info.original_name
 
     retval_info = RetvalInfo()
-    retval_info.type_name = cursor.result_type.spelling
+    retval_info.type_original_name = cursor.result_type.spelling
+    match_obj = re.match(r"^SDL_(.+)", retval_info.type_original_name)
+    if match_obj:
+        # Remove prefix 'SDL_' from name
+        retval_info.type_api_name = match_obj.group(1)
+    else:
+        retval_info.type_api_name = retval_info.type_original_name
     retval_info.type_kind = cursor.result_type.kind
 
     func_info.retval = retval_info
@@ -557,7 +615,13 @@ def collect_decl_function(ctx, cursor):
     args = cursor.get_arguments()
     for arg in args:
         arg_info = ArgumentInfo()
-        arg_info.name = arg.spelling
+        arg_info.original_name = arg.spelling
+        match_obj = re.match(r"^SDL_(.+)", arg_info.original_name)
+        if match_obj:
+            # Remove prefix 'SDL_' from name
+            arg_info.api_name = match_obj.group(1)
+        else:
+            arg_info.api_name = arg_info.original_name
         arg_info.type_name = arg.type.spelling
         arg_info.type_kind = arg.type.get_canonical().kind
         func_info.args.append(arg_info)
@@ -601,7 +665,7 @@ def execute(ctx):
         collect_decl(ctx, tu.cursor)
 
         for typedef_name, typedef_info in ctx.decl_typedefs.items():
-            register_sdl2_cindex_mapping(str(typedef_info.type_kind), typedef_name)
+            register_sdl2_cindex_mapping(str(typedef_info.type_kind), typedef_info.api_name)
 
     except TranslationUnitLoadError as err:
         print(err)

@@ -10,27 +10,27 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_HAPTIC_CONSTANT = (1 << 0)
-  SDL_HAPTIC_SINE = (1 << 1)
-  SDL_HAPTIC_LEFTRIGHT = (1 << 2)
-  SDL_HAPTIC_TRIANGLE = (1 << 3)
-  SDL_HAPTIC_SAWTOOTHUP = (1 << 4)
-  SDL_HAPTIC_SAWTOOTHDOWN = (1 << 5)
-  SDL_HAPTIC_RAMP = (1 << 6)
-  SDL_HAPTIC_SPRING = (1 << 7)
-  SDL_HAPTIC_DAMPER = (1 << 8)
-  SDL_HAPTIC_INERTIA = (1 << 9)
-  SDL_HAPTIC_FRICTION = (1 << 10)
-  SDL_HAPTIC_CUSTOM = (1 << 11)
-  SDL_HAPTIC_GAIN = (1 << 12)
-  SDL_HAPTIC_AUTOCENTER = (1 << 13)
-  SDL_HAPTIC_STATUS = (1 << 14)
-  SDL_HAPTIC_PAUSE = (1 << 15)
-  SDL_HAPTIC_POLAR = 0
-  SDL_HAPTIC_CARTESIAN = 1
-  SDL_HAPTIC_SPHERICAL = 2
-  SDL_HAPTIC_STEERING_AXIS = 3
-  SDL_HAPTIC_INFINITY = 4294967295
+  HAPTIC_CONSTANT = (1 << 0)
+  HAPTIC_SINE = (1 << 1)
+  HAPTIC_LEFTRIGHT = (1 << 2)
+  HAPTIC_TRIANGLE = (1 << 3)
+  HAPTIC_SAWTOOTHUP = (1 << 4)
+  HAPTIC_SAWTOOTHDOWN = (1 << 5)
+  HAPTIC_RAMP = (1 << 6)
+  HAPTIC_SPRING = (1 << 7)
+  HAPTIC_DAMPER = (1 << 8)
+  HAPTIC_INERTIA = (1 << 9)
+  HAPTIC_FRICTION = (1 << 10)
+  HAPTIC_CUSTOM = (1 << 11)
+  HAPTIC_GAIN = (1 << 12)
+  HAPTIC_AUTOCENTER = (1 << 13)
+  HAPTIC_STATUS = (1 << 14)
+  HAPTIC_PAUSE = (1 << 15)
+  HAPTIC_POLAR = 0
+  HAPTIC_CARTESIAN = 1
+  HAPTIC_SPHERICAL = 2
+  HAPTIC_STEERING_AXIS = 3
+  HAPTIC_INFINITY = 4294967295
 
   # Enum
 
@@ -40,17 +40,17 @@ module SDL
 
   # Struct
 
-  class SDL_HapticDirection < FFI::Struct
+  class HapticDirection < FFI::Struct
     layout(
       :type, :uchar,
       :dir, [:int, 3],
     )
   end
 
-  class SDL_HapticConstant < FFI::Struct
+  class HapticConstant < FFI::Struct
     layout(
       :type, :ushort,
-      :direction, SDL_HapticDirection,
+      :direction, HapticDirection,
       :length, :uint,
       :delay, :ushort,
       :button, :ushort,
@@ -63,10 +63,10 @@ module SDL
     )
   end
 
-  class SDL_HapticPeriodic < FFI::Struct
+  class HapticPeriodic < FFI::Struct
     layout(
       :type, :ushort,
-      :direction, SDL_HapticDirection,
+      :direction, HapticDirection,
       :length, :uint,
       :delay, :ushort,
       :button, :ushort,
@@ -82,10 +82,10 @@ module SDL
     )
   end
 
-  class SDL_HapticCondition < FFI::Struct
+  class HapticCondition < FFI::Struct
     layout(
       :type, :ushort,
-      :direction, SDL_HapticDirection,
+      :direction, HapticDirection,
       :length, :uint,
       :delay, :ushort,
       :button, :ushort,
@@ -99,10 +99,10 @@ module SDL
     )
   end
 
-  class SDL_HapticRamp < FFI::Struct
+  class HapticRamp < FFI::Struct
     layout(
       :type, :ushort,
-      :direction, SDL_HapticDirection,
+      :direction, HapticDirection,
       :length, :uint,
       :delay, :ushort,
       :button, :ushort,
@@ -116,7 +116,7 @@ module SDL
     )
   end
 
-  class SDL_HapticLeftRight < FFI::Struct
+  class HapticLeftRight < FFI::Struct
     layout(
       :type, :ushort,
       :length, :uint,
@@ -125,10 +125,10 @@ module SDL
     )
   end
 
-  class SDL_HapticCustom < FFI::Struct
+  class HapticCustom < FFI::Struct
     layout(
       :type, :ushort,
-      :direction, SDL_HapticDirection,
+      :direction, HapticDirection,
       :length, :uint,
       :delay, :ushort,
       :button, :ushort,
@@ -144,15 +144,15 @@ module SDL
     )
   end
 
-  class SDL_HapticEffect < FFI::Union
+  class HapticEffect < FFI::Union
     layout(
       :type, :ushort,
-      :constant, SDL_HapticConstant,
-      :periodic, SDL_HapticPeriodic,
-      :condition, SDL_HapticCondition,
-      :ramp, SDL_HapticRamp,
-      :leftright, SDL_HapticLeftRight,
-      :custom, SDL_HapticCustom,
+      :constant, HapticConstant,
+      :periodic, HapticPeriodic,
+      :condition, HapticCondition,
+      :ramp, HapticRamp,
+      :leftright, HapticLeftRight,
+      :custom, HapticCustom,
     )
   end
 

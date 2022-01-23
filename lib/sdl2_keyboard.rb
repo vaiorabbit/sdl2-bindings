@@ -19,7 +19,7 @@ module SDL
 
   # Struct
 
-  class SDL_Keysym < FFI::Struct
+  class Keysym < FFI::Struct
     layout(
       :scancode, :int,
       :sym, :int,

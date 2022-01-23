@@ -10,9 +10,9 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_MAJOR_VERSION = 2
-  SDL_MINOR_VERSION = 0
-  SDL_PATCHLEVEL = 20
+  MAJOR_VERSION = 2
+  MINOR_VERSION = 0
+  PATCHLEVEL = 20
 
   # Enum
 
@@ -22,7 +22,7 @@ module SDL
 
   # Struct
 
-  class SDL_version < FFI::Struct
+  class Version < FFI::Struct
     layout(
       :major, :uchar,
       :minor, :uchar,

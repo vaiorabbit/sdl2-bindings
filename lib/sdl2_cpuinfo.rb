@@ -10,7 +10,7 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_CACHELINE_SIZE = 128
+  CACHELINE_SIZE = 128
 
   # Enum
 

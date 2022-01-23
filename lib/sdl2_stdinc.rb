@@ -10,15 +10,15 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_ICONV_ERROR = -1
-  SDL_ICONV_E2BIG = -2
-  SDL_ICONV_EILSEQ = -3
-  SDL_ICONV_EINVAL = -4
+  ICONV_ERROR = -1
+  ICONV_E2BIG = -2
+  ICONV_EILSEQ = -3
+  ICONV_EINVAL = -4
 
   # Enum
 
-  SDL_FALSE = 0
-  SDL_TRUE = 1
+  FALSE = 0
+  TRUE = 1
 
   # Typedef
 

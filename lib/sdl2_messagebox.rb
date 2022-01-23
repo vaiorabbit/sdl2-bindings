@@ -13,19 +13,19 @@ module SDL
 
   # Enum
 
-  SDL_MESSAGEBOX_ERROR = 16
-  SDL_MESSAGEBOX_WARNING = 32
-  SDL_MESSAGEBOX_INFORMATION = 64
-  SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT = 128
-  SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT = 256
-  SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 1
-  SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 2
-  SDL_MESSAGEBOX_COLOR_BACKGROUND = 0
-  SDL_MESSAGEBOX_COLOR_TEXT = 1
-  SDL_MESSAGEBOX_COLOR_BUTTON_BORDER = 2
-  SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND = 3
-  SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED = 4
-  SDL_MESSAGEBOX_COLOR_MAX = 5
+  MESSAGEBOX_ERROR = 16
+  MESSAGEBOX_WARNING = 32
+  MESSAGEBOX_INFORMATION = 64
+  MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT = 128
+  MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT = 256
+  MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 1
+  MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 2
+  MESSAGEBOX_COLOR_BACKGROUND = 0
+  MESSAGEBOX_COLOR_TEXT = 1
+  MESSAGEBOX_COLOR_BUTTON_BORDER = 2
+  MESSAGEBOX_COLOR_BUTTON_BACKGROUND = 3
+  MESSAGEBOX_COLOR_BUTTON_SELECTED = 4
+  MESSAGEBOX_COLOR_MAX = 5
 
   # Typedef
 
@@ -35,7 +35,7 @@ module SDL
 
   # Struct
 
-  class SDL_MessageBoxButtonData < FFI::Struct
+  class MessageBoxButtonData < FFI::Struct
     layout(
       :flags, :uint,
       :buttonid, :int,
@@ -43,7 +43,7 @@ module SDL
     )
   end
 
-  class SDL_MessageBoxColor < FFI::Struct
+  class MessageBoxColor < FFI::Struct
     layout(
       :r, :uchar,
       :g, :uchar,
@@ -51,13 +51,13 @@ module SDL
     )
   end
 
-  class SDL_MessageBoxColorScheme < FFI::Struct
+  class MessageBoxColorScheme < FFI::Struct
     layout(
-      :colors, [SDL_MessageBoxColor, 5],
+      :colors, [MessageBoxColor, 5],
     )
   end
 
-  class SDL_MessageBoxData < FFI::Struct
+  class MessageBoxData < FFI::Struct
     layout(
       :flags, :uint,
       :window, :pointer,

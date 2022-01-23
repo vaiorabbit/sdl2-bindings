@@ -13,22 +13,22 @@ module SDL
 
   # Enum
 
-  SDL_RENDERER_SOFTWARE = 1
-  SDL_RENDERER_ACCELERATED = 2
-  SDL_RENDERER_PRESENTVSYNC = 4
-  SDL_RENDERER_TARGETTEXTURE = 8
-  SDL_ScaleModeNearest = 0
-  SDL_ScaleModeLinear = 1
-  SDL_ScaleModeBest = 2
-  SDL_TEXTUREACCESS_STATIC = 0
-  SDL_TEXTUREACCESS_STREAMING = 1
-  SDL_TEXTUREACCESS_TARGET = 2
-  SDL_TEXTUREMODULATE_NONE = 0
-  SDL_TEXTUREMODULATE_COLOR = 1
-  SDL_TEXTUREMODULATE_ALPHA = 2
-  SDL_FLIP_NONE = 0
-  SDL_FLIP_HORIZONTAL = 1
-  SDL_FLIP_VERTICAL = 2
+  RENDERER_SOFTWARE = 1
+  RENDERER_ACCELERATED = 2
+  RENDERER_PRESENTVSYNC = 4
+  RENDERER_TARGETTEXTURE = 8
+  ScaleModeNearest = 0
+  ScaleModeLinear = 1
+  ScaleModeBest = 2
+  TEXTUREACCESS_STATIC = 0
+  TEXTUREACCESS_STREAMING = 1
+  TEXTUREACCESS_TARGET = 2
+  TEXTUREMODULATE_NONE = 0
+  TEXTUREMODULATE_COLOR = 1
+  TEXTUREMODULATE_ALPHA = 2
+  FLIP_NONE = 0
+  FLIP_HORIZONTAL = 1
+  FLIP_VERTICAL = 2
 
   # Typedef
 
@@ -40,7 +40,7 @@ module SDL
 
   # Struct
 
-  class SDL_RendererInfo < FFI::Struct
+  class RendererInfo < FFI::Struct
     layout(
       :name, :pointer,
       :flags, :uint,
@@ -51,11 +51,11 @@ module SDL
     )
   end
 
-  class SDL_Vertex < FFI::Struct
+  class Vertex < FFI::Struct
     layout(
-      :position, SDL_FPoint,
-      :color, SDL_Color,
-      :tex_coord, SDL_FPoint,
+      :position, FPoint,
+      :color, Color,
+      :tex_coord, FPoint,
     )
   end
 

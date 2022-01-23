@@ -11,31 +11,31 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  SDL_METALVIEW_TAG = 255
+  METALVIEW_TAG = 255
 
   # Enum
 
-  SDL_SYSWM_UNKNOWN = 0
-  SDL_SYSWM_WINDOWS = 1
-  SDL_SYSWM_X11 = 2
-  SDL_SYSWM_DIRECTFB = 3
-  SDL_SYSWM_COCOA = 4
-  SDL_SYSWM_UIKIT = 5
-  SDL_SYSWM_WAYLAND = 6
-  SDL_SYSWM_MIR = 7
-  SDL_SYSWM_WINRT = 8
-  SDL_SYSWM_ANDROID = 9
-  SDL_SYSWM_VIVANTE = 10
-  SDL_SYSWM_OS2 = 11
-  SDL_SYSWM_HAIKU = 12
-  SDL_SYSWM_KMSDRM = 13
-  SDL_SYSWM_RISCOS = 14
+  SYSWM_UNKNOWN = 0
+  SYSWM_WINDOWS = 1
+  SYSWM_X11 = 2
+  SYSWM_DIRECTFB = 3
+  SYSWM_COCOA = 4
+  SYSWM_UIKIT = 5
+  SYSWM_WAYLAND = 6
+  SYSWM_MIR = 7
+  SYSWM_WINRT = 8
+  SYSWM_ANDROID = 9
+  SYSWM_VIVANTE = 10
+  SYSWM_OS2 = 11
+  SYSWM_HAIKU = 12
+  SYSWM_KMSDRM = 13
+  SYSWM_RISCOS = 14
 
   # Typedef
 
   typedef :int, :SDL_SYSWM_TYPE
 
-  class SDL_SysWMmsg_def_win < FFI::Struct
+  class SysWMmsg_def_win < FFI::Struct
     layout(
         :hwnd, :pointer,
         :msg, :uint32,
@@ -44,46 +44,46 @@ module SDL
     )
   end
 
-  class SDL_SysWMmsg_value_win < FFI::Union
+  class SysWMmsg_value_win < FFI::Union
     layout(
-        :win, SDL_SysWMmsg_def_win.by_value,
+        :win, SysWMmsg_def_win.by_value,
         :dummy, :int
     )
   end
 
-  class SDL_SysWMmsg_win < FFI::Struct
+  class SysWMmsg_win < FFI::Struct
     layout(
-        :version, SDL_version.by_value,
+        :version, Version.by_value,
         :subsystem, :int,
-        :msg, SDL_SysWMmsg_value_win.by_value
+        :msg, SysWMmsg_value_win.by_value
     )
   end
 
 
-  class SDL_SysWMmsg_def_cocoa < FFI::Struct
+  class SysWMmsg_def_cocoa < FFI::Struct
     layout(
         :dummy, :int
     )
   end
 
-  class SDL_SysWMmsg_value_cocoa < FFI::Union
+  class SysWMmsg_value_cocoa < FFI::Union
     layout(
-        :cocoa, SDL_SysWMmsg_def_cocoa.by_value,
+        :cocoa, SysWMmsg_def_cocoa.by_value,
         :dummy, :int
     )
   end
 
-  class SDL_SysWMmsg_cocoa < FFI::Struct
+  class SysWMmsg_cocoa < FFI::Struct
     layout(
-        :version, SDL_version.by_value,
+        :version, Version.by_value,
         :subsystem, :int,
-        :msg, SDL_SysWMmsg_value_cocoa.by_value
+        :msg, SysWMmsg_value_cocoa.by_value
     )
   end
 
   ################################################################################
 
-  class SDL_SysWMinfo_def_win < FFI::Struct
+  class SysWMinfo_def_win < FFI::Struct
     layout(
         :window, :pointer,
         :hdc, :pointer,
@@ -91,40 +91,40 @@ module SDL
     )
   end
 
-  class SDL_SysWMinfo_value_win < FFI::Union
+  class SysWMinfo_value_win < FFI::Union
     layout(
-        :win, SDL_SysWMinfo_def_win.by_value,
+        :win, SysWMinfo_def_win.by_value,
         :dummy, [:uint8, 64]
     )
   end
 
-  class SDL_SysWMinfo_win < FFI::Struct
+  class SysWMinfo_win < FFI::Struct
     layout(
-        :version, SDL_version.by_value,
+        :version, Version.by_value,
         :subsystem, :int,
-        :info, SDL_SysWMinfo_value_win.by_value
+        :info, SysWMinfo_value_win.by_value
     )
   end
 
 
-  class SDL_SysWMinfo_def_cocoa < FFI::Struct
+  class SysWMinfo_def_cocoa < FFI::Struct
     layout(
         :window, :pointer
     )
   end
 
-  class SDL_SysWMinfo_value_cocoa < FFI::Union
+  class SysWMinfo_value_cocoa < FFI::Union
     layout(
-        :cocoa, SDL_SysWMinfo_def_cocoa.by_value,
+        :cocoa, SysWMinfo_def_cocoa.by_value,
         :dummy, [:uint8, 64]
     )
   end
 
-  class SDL_SysWMinfo_cocoa < FFI::Struct
+  class SysWMinfo_cocoa < FFI::Struct
     layout(
-        :version, SDL_version.by_value,
+        :version, Version.by_value,
         :subsystem, :int,
-        :info, SDL_SysWMinfo_value_cocoa.by_value
+        :info, SysWMinfo_value_cocoa.by_value
     )
   end
 

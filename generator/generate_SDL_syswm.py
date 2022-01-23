@@ -1,7 +1,7 @@
 import sdl2_parser, sdl2_generator
 
 TYPEDEF_POSTFIX_SYSWM = """
-  class SDL_SysWMmsg_def_win < FFI::Struct
+  class SysWMmsg_def_win < FFI::Struct
     layout(
         :hwnd, :pointer,
         :msg, :uint32,
@@ -10,46 +10,46 @@ TYPEDEF_POSTFIX_SYSWM = """
     )
   end
 
-  class SDL_SysWMmsg_value_win < FFI::Union
+  class SysWMmsg_value_win < FFI::Union
     layout(
-        :win, SDL_SysWMmsg_def_win.by_value,
+        :win, SysWMmsg_def_win.by_value,
         :dummy, :int
     )
   end
 
-  class SDL_SysWMmsg_win < FFI::Struct
+  class SysWMmsg_win < FFI::Struct
     layout(
-        :version, SDL_version.by_value,
+        :version, Version.by_value,
         :subsystem, :int,
-        :msg, SDL_SysWMmsg_value_win.by_value
+        :msg, SysWMmsg_value_win.by_value
     )
   end
 
 
-  class SDL_SysWMmsg_def_cocoa < FFI::Struct
+  class SysWMmsg_def_cocoa < FFI::Struct
     layout(
         :dummy, :int
     )
   end
 
-  class SDL_SysWMmsg_value_cocoa < FFI::Union
+  class SysWMmsg_value_cocoa < FFI::Union
     layout(
-        :cocoa, SDL_SysWMmsg_def_cocoa.by_value,
+        :cocoa, SysWMmsg_def_cocoa.by_value,
         :dummy, :int
     )
   end
 
-  class SDL_SysWMmsg_cocoa < FFI::Struct
+  class SysWMmsg_cocoa < FFI::Struct
     layout(
-        :version, SDL_version.by_value,
+        :version, Version.by_value,
         :subsystem, :int,
-        :msg, SDL_SysWMmsg_value_cocoa.by_value
+        :msg, SysWMmsg_value_cocoa.by_value
     )
   end
 
   ################################################################################
 
-  class SDL_SysWMinfo_def_win < FFI::Struct
+  class SysWMinfo_def_win < FFI::Struct
     layout(
         :window, :pointer,
         :hdc, :pointer,
@@ -57,40 +57,40 @@ TYPEDEF_POSTFIX_SYSWM = """
     )
   end
 
-  class SDL_SysWMinfo_value_win < FFI::Union
+  class SysWMinfo_value_win < FFI::Union
     layout(
-        :win, SDL_SysWMinfo_def_win.by_value,
+        :win, SysWMinfo_def_win.by_value,
         :dummy, [:uint8, 64]
     )
   end
 
-  class SDL_SysWMinfo_win < FFI::Struct
+  class SysWMinfo_win < FFI::Struct
     layout(
-        :version, SDL_version.by_value,
+        :version, Version.by_value,
         :subsystem, :int,
-        :info, SDL_SysWMinfo_value_win.by_value
+        :info, SysWMinfo_value_win.by_value
     )
   end
 
 
-  class SDL_SysWMinfo_def_cocoa < FFI::Struct
+  class SysWMinfo_def_cocoa < FFI::Struct
     layout(
         :window, :pointer
     )
   end
 
-  class SDL_SysWMinfo_value_cocoa < FFI::Union
+  class SysWMinfo_value_cocoa < FFI::Union
     layout(
-        :cocoa, SDL_SysWMinfo_def_cocoa.by_value,
+        :cocoa, SysWMinfo_def_cocoa.by_value,
         :dummy, [:uint8, 64]
     )
   end
 
-  class SDL_SysWMinfo_cocoa < FFI::Struct
+  class SysWMinfo_cocoa < FFI::Struct
     layout(
-        :version, SDL_version.by_value,
+        :version, Version.by_value,
         :subsystem, :int,
-        :info, SDL_SysWMinfo_value_cocoa.by_value
+        :info, SysWMinfo_value_cocoa.by_value
     )
   end
 """
