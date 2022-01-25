@@ -1,56 +1,66 @@
-require_relative 'lib/sdl2'
+# Tested with:
+# - Xbox One S Controller on macOS 12.1 [2022-01-26]
+require_relative '../lib/sdl2'
+require_relative 'util'
 
-include SDL2
-
-if __FILE__ == $0
-  SDL2.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
-  SDL_SetMainReady()
-  success = SDL_Init(SDL_INIT_EVERYTHING)
+if __FILE__ == $PROGRAM_NAME
+  load_sdl2_lib()
+  success = SDL.Init(SDL::INIT_VIDEO | SDL::INIT_GAMECONTROLLER)
   exit if success < 0
 
-  n_joysticks = SDL_NumJoysticks()
-  exit if n_joysticks <= 0
-  for i in 0...n_joysticks
-    name = SDL_JoystickNameForIndex(i)
-    printf("Joystick %d: %s\n", i, name ? name : "Unknown Joystick")
+  if File.exists?('gamecontrollerdb.txt')
+    # curl -O https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+    SDL.GameControllerAddMapping(IO.read('gamecontrollerdb.txt'))
   end
-  joystick = SDL_JoystickOpen(0)
-  printf("       axes: %d\n", SDL_JoystickNumAxes(joystick))
-  printf("      balls: %d\n", SDL_JoystickNumBalls(joystick))
-  printf("       hats: %d\n", SDL_JoystickNumHats(joystick))
-  printf("    buttons: %d\n", SDL_JoystickNumButtons(joystick))
-  printf("instance id: %d\n", SDL_JoystickInstanceID(joystick))
+
+  n_joysticks = SDL.NumJoysticks()
+  if n_joysticks <= 0
+    $stderr.puts 'ERROR: No joysticks found'
+    exit
+  end
+  for i in 0...n_joysticks
+    name = SDL.JoystickNameForIndex(i)
+    printf("Joystick %d: %s\n", i, name ? name.read_string : "Unknown Joystick")
+  end
+
+  gamepad = SDL.GameControllerOpen(0)
+  joystick = SDL.GameControllerGetJoystick(gamepad)
+  puts("#{SDL.GameControllerGetType(gamepad)}") # CONTROLLER_TYPE_XBOXONE = 2
+  printf("       axes: %d\n", SDL.JoystickNumAxes(joystick))
+  printf("      balls: %d\n", SDL.JoystickNumBalls(joystick))
+  printf("       hats: %d\n", SDL.JoystickNumHats(joystick))
+  printf("    buttons: %d\n", SDL.JoystickNumButtons(joystick))
+  printf("instance id: %d\n", SDL.JoystickInstanceID(joystick))
 
   WINDOW_W = 320
   WINDOW_H = 240
-  window = SDL_CreateWindow("1st SDL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
+  window = SDL.CreateWindow("1st SDL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
 
-  fpsdelay = 100;
-
-  event = SDL_Event.new
+  event = SDL::Event.new
   done = false
   while not done
-    while SDL_PollEvent(event) != 0
+    while SDL.PollEvent(event) != 0
       # 'type' and 'timestamp' are common members for all SDL Event structs.
-      event_type = event.common.type
-      event_timestamp = event.common.timestamp
+      event_type = event[:common][:type]
+      event_timestamp = event[:common][:timestamp]
       puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
 
       case event_type
-      when SDL_JOYAXISMOTION
-        puts "axis=#{event.jaxis.axis}, value=#{event.jaxis.value}"
+      when SDL::JOYAXISMOTION || SDL::CONTROLLERAXISMOTION
+        puts "axis=#{event[:jaxis][:axis]}, value=#{event[:jaxis][:value]}"
 
-      when SDL_KEYDOWN
-        if event.key.keysym_sym == SDLK_ESCAPE
+      when SDL::KEYDOWN
+        if event[:key][:keysym][:sym] == SDL::SDLK_ESCAPE
           done = true
         end
+      when SDL::JOYBUTTONUP || SDL::JOYBUTTONUP
+        puts "sym=#{event[:key][:keysym][:sym]}"
       end
     end
 
-    SDL_Delay(fpsdelay)
   end
 
-  SDL_JoystickClose(joystick)
-  SDL_DestroyWindow(window)
-  SDL_Quit()
+  SDL.GameControllerClose(gamepad)
+  SDL.DestroyWindow(window)
+  SDL.Quit()
 end
