@@ -25,7 +25,7 @@ module SDL
 
   # Function
 
-  def self.setup_gfx_primitives_symbols()
+  def self.setup_gfx_primitives_symbols(output_error = false)
     symbols = [
       :pixelColor,
       :pixelRGBA,
@@ -274,7 +274,7 @@ module SDL
       begin
         attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
-        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).") if output_error
       end
     end
   end

@@ -104,7 +104,7 @@ module SDL
 
   # Function
 
-  def self.setup_rwops_symbols()
+  def self.setup_rwops_symbols(output_error = false)
     symbols = [
       :SDL_RWFromFile,
       :SDL_RWFromFP,
@@ -229,7 +229,7 @@ module SDL
       begin
         attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
-        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).") if output_error
       end
     end
   end

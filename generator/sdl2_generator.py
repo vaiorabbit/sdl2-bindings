@@ -141,7 +141,7 @@ def generate_structunion(ctx, indent = ""):
         print(indent + "end\n", file = sys.stdout)
 
 def generate_function(ctx, indent = "", setup_method_name = ""):
-    print(indent + "def self.setup_%s_symbols()" % setup_method_name , file = sys.stdout)
+    print(indent + "def self.setup_%s_symbols(output_error = false)" % setup_method_name , file = sys.stdout)
     indent = "  "
     print(indent + "  symbols = [", file = sys.stdout)
     for func_name, func_info in ctx.decl_functions.items():
@@ -189,7 +189,7 @@ def generate_function(ctx, indent = "", setup_method_name = ""):
       begin
         attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
-        $stderr.puts("[Warning] Failed to import #{s}.")
+        $stderr.puts("[Warning] Failed to import #{s}.") if output_error
       end""".format(s="{sym} (#{error})"))
     print(indent + "  end", file = sys.stdout)
 

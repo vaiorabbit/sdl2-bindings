@@ -72,7 +72,7 @@ module SDL
 
   # Function
 
-  def self.setup_messagebox_symbols()
+  def self.setup_messagebox_symbols(output_error = false)
     symbols = [
       :SDL_ShowMessageBox,
       :SDL_ShowSimpleMessageBox,
@@ -93,7 +93,7 @@ module SDL
       begin
         attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
-        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).") if output_error
       end
     end
   end

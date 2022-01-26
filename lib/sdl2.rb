@@ -56,7 +56,7 @@ module SDL
   extend FFI::Library
 
   @@sdl2_import_done = false
-  def self.load_lib(libpath, image_libpath: nil, ttf_libpath: nil, mixer_libpath: nil, gfx_libpath: nil)
+  def self.load_lib(libpath, output_error = false, image_libpath: nil, ttf_libpath: nil, mixer_libpath: nil, gfx_libpath: nil)
 
     unless @@sdl2_import_done
       # Ref.: Using Multiple and Alternate Libraries
@@ -66,111 +66,62 @@ module SDL
 
         ffi_lib_flags :now, :global
         ffi_lib *lib_paths
-        setup_symbols()
+        setup_symbols(output_error)
 
-        if image_libpath != nil
-          setup_image_symbols()
-        end
-
-        if ttf_libpath != nil
-          setup_ttf_symbols()
-        end
-
-        if mixer_libpath != nil
-          setup_mixer_symbols()
-        end
+        setup_image_symbols(output_error) if image_libpath
+        setup_ttf_symbols(output_error) if ttf_libpath
+        setup_mixer_symbols(output_error) if mixer_libpath
 
         if gfx_libpath != nil
-          setup_gfx_framerate_symbols()
-          setup_gfx_primitives_symbols()
-          setup_gfx_imagefilter_symbols()
-          setup_gfx_rotozoom_symbols()
+          setup_gfx_framerate_symbols(output_error)
+          setup_gfx_primitives_symbols(output_error)
+          setup_gfx_imagefilter_symbols(output_error)
+          setup_gfx_rotozoom_symbols(output_error)
         end
       rescue => error
-        puts error
+        $stderr.puts("[Warning] Failed to load libraries (#{error}).") if output_error
       end
     end
 
   end
 
-  def self.setup_symbols()
-    setup_main_symbols()
-    setup_audio_symbols()
-    setup_blendmode_symbols()
-    setup_clipboard_symbols()
-    setup_cpuinfo_symbols()
-    setup_error_symbols()
-    setup_events_symbols()
-    setup_filesystem_symbols()
-    setup_gamecontroller_symbols()
-    setup_gesture_symbols()
-    setup_haptic_symbols()
-    setup_hints_symbols()
-    setup_joystick_symbols()
-    setup_keyboard_symbols()
-    setup_keycode_symbols()
-    setup_log_symbols()
-    setup_messagebox_symbols()
-    setup_misc_symbols()
-    setup_mouse_symbols()
-    setup_pixels_symbols()
-    setup_platform_symbols()
-    setup_power_symbols()
-    setup_rect_symbols()
-    setup_render_symbols()
-    setup_rwops_symbols()
-    setup_scancode_symbols()
-    setup_sensor_symbols()
-    setup_shape_symbols()
-    setup_surface_symbols()
-    setup_syswm_symbols()
-    setup_stdinc_symbols()
-    setup_timer_symbols()
-    setup_touch_symbols()
-    setup_version_symbols()
-    setup_video_symbols()
-    setup_vulkan_symbols()
+  def self.setup_symbols(output_error = false)
+    setup_main_symbols(output_error)
+    setup_audio_symbols(output_error)
+    setup_blendmode_symbols(output_error)
+    setup_clipboard_symbols(output_error)
+    setup_cpuinfo_symbols(output_error)
+    setup_error_symbols(output_error)
+    setup_events_symbols(output_error)
+    setup_filesystem_symbols(output_error)
+    setup_gamecontroller_symbols(output_error)
+    setup_gesture_symbols(output_error)
+    setup_haptic_symbols(output_error)
+    setup_hints_symbols(output_error)
+    setup_joystick_symbols(output_error)
+    setup_keyboard_symbols(output_error)
+    setup_keycode_symbols(output_error)
+    setup_log_symbols(output_error)
+    setup_messagebox_symbols(output_error)
+    setup_misc_symbols(output_error)
+    setup_mouse_symbols(output_error)
+    setup_pixels_symbols(output_error)
+    setup_platform_symbols(output_error)
+    setup_power_symbols(output_error)
+    setup_rect_symbols(output_error)
+    setup_render_symbols(output_error)
+    setup_rwops_symbols(output_error)
+    setup_scancode_symbols(output_error)
+    setup_sensor_symbols(output_error)
+    setup_shape_symbols(output_error)
+    setup_surface_symbols(output_error)
+    setup_syswm_symbols(output_error)
+    setup_stdinc_symbols(output_error)
+    setup_timer_symbols(output_error)
+    setup_touch_symbols(output_error)
+    setup_version_symbols(output_error)
+    setup_video_symbols(output_error)
+    setup_vulkan_symbols(output_error)
   end
 
-end
-
-
-if __FILE__ == $0
-  SDL2.load_lib('libSDL2.dylib',
-                gfx_libpath: '/usr/local/lib/libSDL2_gfx.dylib'
-               )
-
-  success = SDL2.SDL_Init(SDL2::SDL_INIT_EVERYTHING)
-  exit if success < 0
-
-  WINDOW_W = 320
-  WINDOW_H = 240
-  window = SDL2.SDL_CreateWindow("1st SDL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
-
-  fpsdelay = 100;
-
-  count = 0
-  event = SDL2::SDL_Event.new
-  done = false
-  while not done
-    while SDL2.SDL_PollEvent(event) != 0
-      # 'type' and 'timestamp' are common members for all SDL Event structs.
-      event_type = event[:common][:type]
-      event_timestamp = event[:common][:timestamp]
-      puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
-
-      case event_type
-      when SDL2::SDL_KEYDOWN
-        if event[:key][:keysym][:sym] == SDL2::SDLK_SPACE
-          puts "\tSPACE key pressed."
-        end
-      end
-    end
-
-    count += 1
-    done = true if count >= 100
-    SDL2.SDL_Delay(fpsdelay)
-  end
-
-  SDL2.SDL_Quit()
 end

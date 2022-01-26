@@ -89,7 +89,7 @@ module SDL
 
   # Function
 
-  def self.setup_audio_symbols()
+  def self.setup_audio_symbols(output_error = false)
     symbols = [
       :SDL_GetNumAudioDrivers,
       :SDL_GetAudioDriver,
@@ -250,7 +250,7 @@ module SDL
       begin
         attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
-        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).") if output_error
       end
     end
   end

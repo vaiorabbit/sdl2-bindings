@@ -1,6 +1,7 @@
 2022-01-26  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* test/test*.rb: Changed namespace
+	* load_lib: Now accepts argument 'output_error'
 
 2022-01-22  vaiorabbit  <http://twitter.com/vaiorabbit>
 

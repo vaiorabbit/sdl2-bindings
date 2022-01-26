@@ -44,7 +44,7 @@ module SDL
 
   # Function
 
-  def self.setup_mouse_symbols()
+  def self.setup_mouse_symbols(output_error = false)
     symbols = [
       :SDL_GetMouseFocus,
       :SDL_GetMouseState,
@@ -125,7 +125,7 @@ module SDL
       begin
         attach_function apis[sym], sym, args[sym], retvals[sym]
       rescue FFI::NotFoundError => error
-        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).")
+        $stderr.puts("[Warning] Failed to import #{sym} (#{error}).") if output_error
       end
     end
   end
