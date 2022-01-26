@@ -3,7 +3,7 @@
 # sdl2-bindings : Yet another SDL2 wrapper for Ruby #
 
 *   Created : 2015-09-19
-*   Last modified : 2022-01-22
+*   Last modified : 2022-01-26
 
 ## Features ##
 

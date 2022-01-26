@@ -1,13 +1,11 @@
 require_relative '../lib/sdl2'
 require_relative 'util'
 
-include SDL2
-
 $ticks = 0
 
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   load_sdl2_lib()
-  success = SDL_Init(SDL_INIT_TIMER)
+  success = SDL.Init(SDL::INIT_TIMER)
   exit if success < 0
 
   resolution = 1
@@ -19,12 +17,12 @@ if __FILE__ == $0
   end
 
   thr = Thread.new(1) do |i|
-    t1 = SDL_AddTimer(resolution, cb, nil)
+    t1 = SDL.AddTimer(resolution, cb, nil)
 
     print("Waiting Timer...")
     sleep(1)
     puts("Done.")
-    SDL_RemoveTimer(t1)
+    SDL.RemoveTimer(t1)
   end
 
   puts("Waiting thread...")
@@ -34,5 +32,5 @@ if __FILE__ == $0
     printf("Timer resolution: desired = %d ms, actual = %f ms\n", resolution, (10 * 1000).to_f / $ticks);
   end
 
-  SDL_Quit()
+  SDL.Quit()
 end

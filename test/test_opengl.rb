@@ -5,8 +5,6 @@ require 'opengl'
 require_relative '../lib/sdl2'
 require_relative 'util'
 
-include SDL2
-
 $color =
   [[ 1.0,  1.0,  0.0].pack("D3"),
    [ 1.0,  0.0,  0.0].pack("D3"),
@@ -96,20 +94,20 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   load_sdl2_lib()
-  success = SDL_Init(SDL_INIT_EVERYTHING)
+  success = SDL.Init(SDL::INIT_EVERYTHING)
   exit if success < 0
 
   WINDOW_W = 640
   WINDOW_H = 360
-  window = SDL_CreateWindow("OpenGL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, SDL_WINDOW_OPENGL)
+  window = SDL.CreateWindow("OpenGL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, SDL::WINDOW_OPENGL)
 
   ratio = WINDOW_W.to_f / WINDOW_H
 
-  context = SDL_GL_CreateContext(window)
+  context = SDL.GL_CreateContext(window)
 
   GL.load_lib()
 
-  SDL_GL_SetSwapInterval(1)
+  SDL.GL_SetSwapInterval(1)
 
   GL.Viewport(0, 0, WINDOW_W, WINDOW_H)
   GL.MatrixMode(GL::PROJECTION)
@@ -125,30 +123,30 @@ if __FILE__ == $PROGRAM_NAME
   # w_buf = '    '
   # h_buf = '    '
 
-  event = SDL_Event.new
+  event = SDL::Event.new
   done = false
   while not done
-    while SDL_PollEvent(event) != 0
+    while SDL.PollEvent(event) != 0
       # 'type' and 'timestamp' are common members for all SDL Event structs.
       event_type = event[:common][:type]
       event_timestamp = event[:common][:timestamp]
       # puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
       case event_type
-      when SDL_KEYDOWN
-        if event[:key][:keysym][:sym] == SDLK_ESCAPE
+      when SDL::KEYDOWN
+        if event[:key][:keysym][:sym] == SDL::SDLK_ESCAPE
           done = true
         end
       end
     end
 
-    SDL_GL_MakeCurrent(window, context)
-    # SDL_GL_GetDrawableSize(window, w_buf, h_buf)
+    SDL.GL_MakeCurrent(window, context)
+    # SDL.GL_GetDrawableSize(window, w_buf, h_buf)
     # glViewport(0, 0, w_buf.unpack("S")[0], h_buf.unpack("S")[0])
     render()
-    SDL_GL_SwapWindow(window)
+    SDL.GL_SwapWindow(window)
   end
 
-  SDL_GL_DeleteContext(context)
-  SDL_DestroyWindow(window)
-  SDL_Quit()
+  SDL.GL_DeleteContext(context)
+  SDL.DestroyWindow(window)
+  SDL.Quit()
 end
