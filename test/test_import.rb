@@ -1,7 +1,9 @@
-require_relative '../lib/sdl2'
+require 'sdl2'
+# require_relative '../lib/sdl2'
+require_relative 'util'
 
 if __FILE__ == $PROGRAM_NAME
-  SDL.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
+  load_sdl2_lib()
   success = SDL.Init(SDL::INIT_EVERYTHING)
   puts "SDL_Init : #{success == 0 ? 'Success' : 'Failed'}"
   exit if success != 0

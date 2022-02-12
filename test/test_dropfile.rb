@@ -1,8 +1,10 @@
 # TODO : Prepare Info.plist to support D&D on Mac OS X.
-require_relative '../lib/sdl2'
+require 'sdl2'
+# require_relative '../lib/sdl2'
+require_relative 'util'
 
 if __FILE__ == $PROGRAM_NAME
-  SDL.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
+  load_sdl2_lib()
   success = SDL.Init(SDL::INIT_VIDEO)
   exit if success < 0
 

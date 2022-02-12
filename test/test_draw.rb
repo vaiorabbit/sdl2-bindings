@@ -1,4 +1,6 @@
-require_relative '../lib/sdl2'
+require 'sdl2'
+# require_relative '../lib/sdl2'
+require_relative 'util'
 
 NUM_OBJECTS = 100
 
@@ -88,16 +90,14 @@ def draw_rects(renderer)
   end
 end
 
-
-
 if __FILE__ == $PROGRAM_NAME
-  SDL.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
+  load_sdl2_lib()
   success = SDL.Init(SDL::INIT_VIDEO)
   exit if success < 0
 
   WINDOW_W = 640
   WINDOW_H = 360
-  window = SDL.CreateWindow("RenderDrawPoint/RenderDrawLine/RenderFillRect", 0, 0, WINDOW_W, WINDOW_H, SDL::WINDOW_OPENGL)
+  window = SDL.CreateWindow("RenderDrawPoint/RenderDrawLine/RenderFillRect", 32, 32, WINDOW_W, WINDOW_H, SDL::WINDOW_OPENGL)
 
   renderer = SDL.CreateRenderer(window, -1, 0)
 

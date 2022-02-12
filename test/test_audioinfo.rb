@@ -1,5 +1,7 @@
 # sdl2-bindings port of testaudioinfo.c
-require_relative '../lib/sdl2'
+require 'sdl2'
+# require_relative '../lib/sdl2'
+require_relative 'util'
 
 def print_devices(iscapture)
   typestr = iscapture ? "capture" : "output"
@@ -20,7 +22,7 @@ def print_devices(iscapture)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  SDL.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
+  load_sdl2_lib()
   success = SDL.Init(SDL::INIT_AUDIO)
   exit if success < 0
   n = SDL.GetNumAudioDrivers()
