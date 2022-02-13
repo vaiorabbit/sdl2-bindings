@@ -1,3 +1,7 @@
+2022-02-13  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* Removed unavailable inline functions (SDL_memset4, SDL_memcpy4)
+
 2022-02-12  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Some tests are now available on Windows

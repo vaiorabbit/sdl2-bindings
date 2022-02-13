@@ -79,7 +79,6 @@ module SDL
       :SDL_tolower,
       :SDL_crc32,
       :SDL_memset,
-      :SDL_memset4,
       :SDL_memcpy,
       :SDL_memmove,
       :SDL_memcmp,
@@ -174,7 +173,6 @@ module SDL
       :SDL_iconv_close,
       :SDL_iconv,
       :SDL_iconv_string,
-      :SDL_memcpy4,
     ]
     apis = {
       :SDL_malloc => :malloc,
@@ -204,7 +202,6 @@ module SDL
       :SDL_tolower => :tolower,
       :SDL_crc32 => :crc32,
       :SDL_memset => :memset,
-      :SDL_memset4 => :memset4,
       :SDL_memcpy => :memcpy,
       :SDL_memmove => :memmove,
       :SDL_memcmp => :memcmp,
@@ -299,7 +296,6 @@ module SDL
       :SDL_iconv_close => :iconv_close,
       :SDL_iconv => :iconv,
       :SDL_iconv_string => :iconv_string,
-      :SDL_memcpy4 => :memcpy4,
     }
     args = {
       :SDL_malloc => [:int],
@@ -329,7 +325,6 @@ module SDL
       :SDL_tolower => [:int],
       :SDL_crc32 => [:uint, :pointer, :int],
       :SDL_memset => [:pointer, :int, :int],
-      :SDL_memset4 => [:pointer, :uint, :int],
       :SDL_memcpy => [:pointer, :pointer, :int],
       :SDL_memmove => [:pointer, :pointer, :int],
       :SDL_memcmp => [:pointer, :pointer, :int],
@@ -424,7 +419,6 @@ module SDL
       :SDL_iconv_close => [:pointer],
       :SDL_iconv => [:pointer, :pointer, :pointer, :pointer, :pointer],
       :SDL_iconv_string => [:pointer, :pointer, :pointer, :int],
-      :SDL_memcpy4 => [:pointer, :pointer, :int],
     }
     retvals = {
       :SDL_malloc => :pointer,
@@ -454,7 +448,6 @@ module SDL
       :SDL_tolower => :int,
       :SDL_crc32 => :uint,
       :SDL_memset => :pointer,
-      :SDL_memset4 => :void,
       :SDL_memcpy => :pointer,
       :SDL_memmove => :pointer,
       :SDL_memcmp => :int,
@@ -549,7 +542,6 @@ module SDL
       :SDL_iconv_close => :int,
       :SDL_iconv => :int,
       :SDL_iconv_string => :pointer,
-      :SDL_memcpy4 => :pointer,
     }
     symbols.each do |sym|
       begin
