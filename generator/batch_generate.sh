@@ -45,4 +45,5 @@ export PYTHONPATH=/opt/homebrew/opt/llvm/lib/python3.9/site-packages
 /opt/homebrew/bin/python3 generate_SDL2_rotozoom.py > ../lib/sdl2_rotozoom.rb
 /opt/homebrew/bin/python3 generate_SDL2_imageFilter.py > ../lib/sdl2_imageFilter.rb
 /opt/homebrew/bin/python3 generate_SDL2_framerate.py > ../lib/sdl2_framerate.rb
+/opt/homebrew/bin/python3 generate_SDL_sound.py > ../lib/sdl2_sound.rb
 

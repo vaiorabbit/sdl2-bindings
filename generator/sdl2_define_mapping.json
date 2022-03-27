@@ -494,4 +494,5 @@
     , "SDL2_GFXPRIMITIVES_SCOPE" : null
     , "SDL2_IMAGEFILTER_SCOPE" : null
     , "SDL2_ROTOZOOM_SCOPE" : null
+    , "SOUND_VERSION" : null
 }

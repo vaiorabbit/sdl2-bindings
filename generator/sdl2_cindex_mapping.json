@@ -195,4 +195,9 @@
     , "Mix_EffectFunc_t" : "TypeKind.FUNCTIONPROTO"
     , "Mix_EffectDone_t" : "TypeKind.FUNCTIONPROTO"
     , "FPSmanager" : "TypeKind.RECORD"
+    , "Sound_SampleFlags" : "TypeKind.ENUM"
+    , "Sound_AudioInfo" : "TypeKind.RECORD"
+    , "Sound_DecoderInfo" : "TypeKind.RECORD"
+    , "Sound_Sample" : "TypeKind.RECORD"
+    , "Sound_Version" : "TypeKind.RECORD"
 }

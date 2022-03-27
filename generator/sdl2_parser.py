@@ -400,7 +400,8 @@ def collect_decl_macro(ctx, cursor):
     # - SDL2_ (for SDL2_gfx)
     # - MIX_ (for SDL_mixer)
     # - TTF_ (for SDL_ttf)
-    if re.match(r"^SDL_|^AUDIO_|^SDL2_|^MIX_|^TTF_", macro_name):
+    # - SOUND_ (for SDL_sound)
+    if re.match(r"^SDL_|^AUDIO_|^SDL2_|^MIX_|^TTF_|^SOUND", macro_name):
         ctx.add_decl_macro(macro_name, macro_values)
     ctx.collection_mode = ParseContext.Decl_Unknown
 
@@ -633,25 +634,32 @@ def collect_decl_function(ctx, cursor):
 
 def collect_decl(ctx, cursor):
     ctx.push()
+
     for child in cursor.get_children():
         if child.kind == CursorKind.MACRO_DEFINITION:
             collect_decl_macro(ctx, child)
-        elif child.kind == CursorKind.TYPEDEF_DECL:
+    for child in cursor.get_children():
+        if child.kind == CursorKind.TYPEDEF_DECL:
              collect_decl_typedef(ctx, child)
-        elif child.kind == CursorKind.ENUM_DECL:
+    for child in cursor.get_children():
+        if child.kind == CursorKind.ENUM_DECL:
             collect_decl_enum(ctx, child)
-        elif child.kind in {CursorKind.STRUCT_DECL, CursorKind.UNION_DECL}:
+    for child in cursor.get_children():
+        if child.kind in {CursorKind.STRUCT_DECL, CursorKind.UNION_DECL}:
             collect_decl_struct(ctx, child)
-        elif child.kind == CursorKind.FUNCTION_DECL:
+    for child in cursor.get_children():
+        if child.kind == CursorKind.FUNCTION_DECL:
             collect_decl_function(ctx, child)
-        else:
-            pass
+    for child in cursor.get_children():
+        parse_recursively = child.kind not in {CursorKind.MACRO_DEFINITION, CursorKind.TYPEDEF_DECL, CursorKind.ENUM_DECL, CursorKind.STRUCT_DECL, CursorKind.UNION_DECL, CursorKind.FUNCTION_DECL}
+        if parse_recursively:
+            collect_decl(ctx, child)
 
     ctx.pop()
 
 
 parser_arg = [
-    "-fsyntax-only", "-DDOXYGEN_SHOULD_IGNORE_THIS",
+    "-fsyntax-only" #, "-DDOXYGEN_SHOULD_IGNORE_THIS"
 ]
 
 parser_opt = TranslationUnit.PARSE_SKIP_FUNCTION_BODIES | TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD | TranslationUnit.PARSE_INCOMPLETE

@@ -55,6 +55,8 @@ def sanitize_struct(ctx):
 def sanitize_typedef(ctx):
     # refer mapping
     for typedef_name, typedef_info in ctx.decl_typedefs.items():
+        if typedef_info == None:
+            continue
         if typedef_info.func_proto != None:
             for arg in typedef_info.func_proto.args:
                 arg.type_kind = sdl2_parser.get_cindex_ctypes_mapping(str(arg.type_kind), arg.type_name)
@@ -99,20 +101,23 @@ def generate_macrodefine(ctx, indent = ""):
 
 def generate_enum(ctx, indent = ""):
     for enum_name, enum_value in ctx.decl_enums.items():
-        for enum in enum_value:
-            enum_api_name = ""
-            match_obj = re.match(r"^SDL_(.+)", enum[0])
-            if match_obj:
-                # Remove prefix 'SDL_' from name
-                enum_api_name = match_obj.group(1)
-            else:
-                enum_api_name = enum[0]
-            print(indent + "%s = %s" % (enum_api_name, enum[1]), file = sys.stdout)
+        if enum_value != None:
+            for enum in enum_value:
+                enum_api_name = ""
+                match_obj = re.match(r"^SDL_(.+)", enum[0])
+                if match_obj:
+                    # Remove prefix 'SDL_' from name
+                    enum_api_name = match_obj.group(1)
+                else:
+                    enum_api_name = enum[0]
+                print(indent + "%s = %s" % (enum_api_name, enum[1]), file = sys.stdout)
 
 def generate_typedef(ctx, indent = "", typedef_prefix="", typedef_postfix=""):
     if typedef_prefix != "":
         print(typedef_prefix, file = sys.stdout)
     for typedef_name, typedef_info in ctx.decl_typedefs.items():
+        if typedef_info == None:
+            continue
         if typedef_info.type_kind == None:
             continue
         if typedef_info.func_proto != None:
