@@ -17,12 +17,13 @@
 
 ## Target version ##
 
-*   [2022-01-21]
+*   [2022-03-28]
     *   SDL : 2.0.20
     *   SDL_image : 2.0.5
     *   SDL_mixer : 2.0.4
     *   SDL_ttf : 2.0.18
     *   SDL2_gfx : 1.0.4
+    *   SDL_sound : 2.0.1
 
 <details>
 <summary>Older versions</summary>
