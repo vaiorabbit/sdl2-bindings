@@ -6,7 +6,7 @@ if __FILE__ == $0
     exit
   end
 
-  SDL.load_lib('libSDL2.dylib', mixer_libpath: '/opt/homebrew/lib/libSDL2_mixer.dylib' ) # '/usr/local/lib/libSDL2.dylib'
+  SDL.load_lib(Dir.pwd + '/libSDL2.dylib', mixer_libpath: Dir.pwd + '/libSDL2_mixer.dylib' ) # '/usr/local/lib/libSDL2.dylib'
   success = SDL.Init(SDL::INIT_AUDIO)
   exit if success < 0
 
