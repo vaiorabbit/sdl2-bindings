@@ -1,6 +1,7 @@
 2022-04-29  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Added SDL 2.0.22 features ( https://github.com/libsdl-org/SDL/releases/tag/release-2.0.22 )
+	* third_party/sdl2_build_dll.cmd: Updated to refer 2.0.22
 
 2022-03-28  vaiorabbit  <http://twitter.com/vaiorabbit>
 

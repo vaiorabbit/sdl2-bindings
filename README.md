@@ -47,12 +47,13 @@
 
 ## Supported Environments ##
 
-*   [2022-02-12] Windows 10 (21H1), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [x64-mingw-ucrt]
+*   [2022-04-29] Windows 10 (21H1), ruby 3.1.1p18 (2022-02-18 revision 53f5fc4236) [x64-mingw-ucrt]
 *   [2022-01-11] macOS Monterey (12.1), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [arm64-darwin20]
 
 <details>
 <summary>Older Environments</summary>
 
+*   [2022-02-12] Windows 10 (21H1), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [x64-mingw-ucrt]
 *   [2021-12-02] macOS Big Sur (11.6), ruby 3.0.2p107 (2021-07-07 revision 0db68f0233) [arm64-darwin20]
 *   [2021-08-12] macOS Big Sur (11.5), ruby 3.0.1p64 (2021-04-05 revision 0fb782ee38) [arm64-darwin20]
 *   [2020-12-27] macOS Big Sur (11.0.1), ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [arm64-darwin20]
