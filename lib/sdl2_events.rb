@@ -39,6 +39,7 @@ module SDL
   TEXTEDITING = 770
   TEXTINPUT = 771
   KEYMAPCHANGED = 772
+  TEXTEDITING_EXT = 773
   MOUSEMOTION = 1024
   MOUSEBUTTONDOWN = 1025
   MOUSEBUTTONUP = 1026
@@ -86,7 +87,6 @@ module SDL
   # Typedef
 
   typedef :int, :SDL_EventType
-  typedef :int, :SDL_compile_time_assert_SDL_Event
   typedef :int, :SDL_eventaction
   callback :SDL_EventFilter, [:pointer, :pointer], :int
 
@@ -145,6 +145,17 @@ module SDL
       :timestamp, :uint,
       :windowID, :uint,
       :text, [:char, 32],
+      :start, :int,
+      :length, :int,
+    )
+  end
+
+  class TextEditingExtEvent < FFI::Struct
+    layout(
+      :type, :uint,
+      :timestamp, :uint,
+      :windowID, :uint,
+      :text, :pointer,
       :start, :int,
       :length, :int,
     )
@@ -432,6 +443,7 @@ module SDL
       :window, WindowEvent,
       :key, KeyboardEvent,
       :edit, TextEditingEvent,
+      :editExt, TextEditingExtEvent,
       :text, TextInputEvent,
       :motion, MouseMotionEvent,
       :button, MouseButtonEvent,

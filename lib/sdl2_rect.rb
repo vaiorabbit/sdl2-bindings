@@ -74,6 +74,15 @@ module SDL
       :SDL_UnionRect,
       :SDL_EnclosePoints,
       :SDL_IntersectRectAndLine,
+      :SDL_PointInFRect,
+      :SDL_FRectEmpty,
+      :SDL_FRectEqualsEpsilon,
+      :SDL_FRectEquals,
+      :SDL_HasIntersectionF,
+      :SDL_IntersectFRect,
+      :SDL_UnionFRect,
+      :SDL_EncloseFPoints,
+      :SDL_IntersectFRectAndLine,
     ]
     apis = {
       :SDL_HasIntersection => :HasIntersection,
@@ -81,6 +90,15 @@ module SDL
       :SDL_UnionRect => :UnionRect,
       :SDL_EnclosePoints => :EnclosePoints,
       :SDL_IntersectRectAndLine => :IntersectRectAndLine,
+      :SDL_PointInFRect => :PointInFRect,
+      :SDL_FRectEmpty => :FRectEmpty,
+      :SDL_FRectEqualsEpsilon => :FRectEqualsEpsilon,
+      :SDL_FRectEquals => :FRectEquals,
+      :SDL_HasIntersectionF => :HasIntersectionF,
+      :SDL_IntersectFRect => :IntersectFRect,
+      :SDL_UnionFRect => :UnionFRect,
+      :SDL_EncloseFPoints => :EncloseFPoints,
+      :SDL_IntersectFRectAndLine => :IntersectFRectAndLine,
     }
     args = {
       :SDL_HasIntersection => [:pointer, :pointer],
@@ -88,6 +106,15 @@ module SDL
       :SDL_UnionRect => [:pointer, :pointer, :pointer],
       :SDL_EnclosePoints => [:pointer, :int, :pointer, :pointer],
       :SDL_IntersectRectAndLine => [:pointer, :pointer, :pointer, :pointer, :pointer],
+      :SDL_PointInFRect => [:pointer, :pointer],
+      :SDL_FRectEmpty => [:pointer],
+      :SDL_FRectEqualsEpsilon => [:pointer, :pointer, :float],
+      :SDL_FRectEquals => [:pointer, :pointer],
+      :SDL_HasIntersectionF => [:pointer, :pointer],
+      :SDL_IntersectFRect => [:pointer, :pointer, :pointer],
+      :SDL_UnionFRect => [:pointer, :pointer, :pointer],
+      :SDL_EncloseFPoints => [:pointer, :int, :pointer, :pointer],
+      :SDL_IntersectFRectAndLine => [:pointer, :pointer, :pointer, :pointer, :pointer],
     }
     retvals = {
       :SDL_HasIntersection => :int,
@@ -95,6 +122,15 @@ module SDL
       :SDL_UnionRect => :void,
       :SDL_EnclosePoints => :int,
       :SDL_IntersectRectAndLine => :int,
+      :SDL_PointInFRect => :int,
+      :SDL_FRectEmpty => :int,
+      :SDL_FRectEqualsEpsilon => :int,
+      :SDL_FRectEquals => :int,
+      :SDL_HasIntersectionF => :int,
+      :SDL_IntersectFRect => :int,
+      :SDL_UnionFRect => :void,
+      :SDL_EncloseFPoints => :int,
+      :SDL_IntersectFRectAndLine => :int,
     }
     symbols.each do |sym|
       begin

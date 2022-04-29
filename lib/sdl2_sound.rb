@@ -10,6 +10,9 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
+  SOUND_VER_MAJOR = 2
+  SOUND_VER_MINOR = 0
+  SOUND_VER_PATCH = 1
 
   # Enum
 

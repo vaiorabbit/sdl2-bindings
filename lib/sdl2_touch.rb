@@ -44,6 +44,7 @@ module SDL
     symbols = [
       :SDL_GetNumTouchDevices,
       :SDL_GetTouchDevice,
+      :SDL_GetTouchName,
       :SDL_GetTouchDeviceType,
       :SDL_GetNumTouchFingers,
       :SDL_GetTouchFinger,
@@ -51,6 +52,7 @@ module SDL
     apis = {
       :SDL_GetNumTouchDevices => :GetNumTouchDevices,
       :SDL_GetTouchDevice => :GetTouchDevice,
+      :SDL_GetTouchName => :GetTouchName,
       :SDL_GetTouchDeviceType => :GetTouchDeviceType,
       :SDL_GetNumTouchFingers => :GetNumTouchFingers,
       :SDL_GetTouchFinger => :GetTouchFinger,
@@ -58,6 +60,7 @@ module SDL
     args = {
       :SDL_GetNumTouchDevices => [],
       :SDL_GetTouchDevice => [:int],
+      :SDL_GetTouchName => [:int],
       :SDL_GetTouchDeviceType => [:long_long],
       :SDL_GetNumTouchFingers => [:long_long],
       :SDL_GetTouchFinger => [:long_long, :int],
@@ -65,6 +68,7 @@ module SDL
     retvals = {
       :SDL_GetNumTouchDevices => :int,
       :SDL_GetTouchDevice => :long_long,
+      :SDL_GetTouchName => :pointer,
       :SDL_GetTouchDeviceType => :int,
       :SDL_GetNumTouchFingers => :int,
       :SDL_GetTouchFinger => :pointer,
