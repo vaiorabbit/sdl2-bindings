@@ -23,6 +23,10 @@ module SDL
   # Typedef
 
 
+  RW_SEEK_SET = 0
+  RW_SEEK_CUR = 1
+  RW_SEEK_END = 2
+
   class RWops_mem < FFI::Struct
     layout(
       :base, :pointer,
