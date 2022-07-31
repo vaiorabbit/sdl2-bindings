@@ -89,8 +89,8 @@ module SDL
       :SDL_HasNEON => [],
       :SDL_GetSystemRAM => [],
       :SDL_SIMDGetAlignment => [],
-      :SDL_SIMDAlloc => [:int],
-      :SDL_SIMDRealloc => [:pointer, :int],
+      :SDL_SIMDAlloc => [:ulong],
+      :SDL_SIMDRealloc => [:pointer, :ulong],
       :SDL_SIMDFree => [:pointer],
     }
     retvals = {
@@ -111,7 +111,7 @@ module SDL
       :SDL_HasARMSIMD => :int,
       :SDL_HasNEON => :int,
       :SDL_GetSystemRAM => :int,
-      :SDL_SIMDGetAlignment => :int,
+      :SDL_SIMDGetAlignment => :size_t,
       :SDL_SIMDAlloc => :pointer,
       :SDL_SIMDRealloc => :pointer,
       :SDL_SIMDFree => :void,

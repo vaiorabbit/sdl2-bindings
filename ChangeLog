@@ -1,3 +1,8 @@
+2022-07-31  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* Regenerated bindings to fix bugs (size_t interpretation)
+	* Regenerated bindings for SDL_image 2.6.0, SDL_mixer 2.6.0 and SDL_ttf 2.20.0
+
 2022-05-01  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/sdl2_rwops.rb: Added RW_SEEK_SET, RW_SEEK_CUR and RW_SEEK_END

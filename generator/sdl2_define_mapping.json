@@ -378,6 +378,7 @@
     , "SDL_MIN_SINT64" : null
     , "SDL_MAX_UINT64" : null
     , "SDL_MIN_UINT64" : null
+    , "SDL_FLT_EPSILON" : null
     , "SDL_PRIs64" : null
     , "SDL_PRIu64" : null
     , "SDL_PRIx64" : null
@@ -436,7 +437,7 @@
     , "SDL_version_h_" : null
     , "SDL_MAJOR_VERSION" : "2"
     , "SDL_MINOR_VERSION" : "0"
-    , "SDL_PATCHLEVEL" : "20"
+    , "SDL_PATCHLEVEL" : "22"
     , "SDL_VERSION" : null
     , "SDL_VERSIONNUM" : null
     , "SDL_COMPILEDVERSION" : null
@@ -453,8 +454,8 @@
     , "SDL_vulkan_h_" : null
     , "SDL_TTF_H_" : null
     , "SDL_TTF_MAJOR_VERSION" : "2"
-    , "SDL_TTF_MINOR_VERSION" : "0"
-    , "SDL_TTF_PATCHLEVEL" : "15"
+    , "SDL_TTF_MINOR_VERSION" : "20"
+    , "SDL_TTF_PATCHLEVEL" : "0"
     , "SDL_TTF_VERSION" : null
     , "TTF_MAJOR_VERSION" : null
     , "TTF_MINOR_VERSION" : null
@@ -472,6 +473,9 @@
     , "TTF_HINTING_MONO" : "2"
     , "TTF_HINTING_NONE" : "3"
     , "TTF_HINTING_LIGHT_SUBPIXEL" : "4"
+    , "TTF_WRAPPED_ALIGN_LEFT" : "0"
+    , "TTF_WRAPPED_ALIGN_CENTER" : "1"
+    , "TTF_WRAPPED_ALIGN_RIGHT" : "2"
     , "TTF_RenderText" : null
     , "TTF_RenderUTF8" : null
     , "TTF_RenderUNICODE" : null
@@ -479,15 +483,15 @@
     , "TTF_GetError" : null
     , "SDL_IMAGE_H_" : null
     , "SDL_IMAGE_MAJOR_VERSION" : "2"
-    , "SDL_IMAGE_MINOR_VERSION" : "0"
-    , "SDL_IMAGE_PATCHLEVEL" : "5"
+    , "SDL_IMAGE_MINOR_VERSION" : "6"
+    , "SDL_IMAGE_PATCHLEVEL" : "0"
     , "SDL_IMAGE_VERSION" : null
     , "SDL_IMAGE_COMPILEDVERSION" : null
     , "SDL_IMAGE_VERSION_ATLEAST" : null
     , "SDL_MIXER_H_" : null
     , "SDL_MIXER_MAJOR_VERSION" : "2"
-    , "SDL_MIXER_MINOR_VERSION" : "0"
-    , "SDL_MIXER_PATCHLEVEL" : "4"
+    , "SDL_MIXER_MINOR_VERSION" : "6"
+    , "SDL_MIXER_PATCHLEVEL" : "0"
     , "SDL_MIXER_VERSION" : null
     , "MIX_MAJOR_VERSION" : null
     , "MIX_MINOR_VERSION" : null
@@ -496,7 +500,7 @@
     , "SDL_MIXER_COMPILEDVERSION" : null
     , "SDL_MIXER_VERSION_ATLEAST" : null
     , "MIX_CHANNELS" : "8"
-    , "MIX_DEFAULT_FREQUENCY" : "22050"
+    , "MIX_DEFAULT_FREQUENCY" : "44100"
     , "MIX_DEFAULT_FORMAT" : "AUDIO_S16LSB"
     , "MIX_DEFAULT_CHANNELS" : "2"
     , "MIX_MAX_VOLUME" : "MIX_MAXVOLUME"

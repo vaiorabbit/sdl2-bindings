@@ -12,8 +12,8 @@ module SDL
   # Define/Macro
 
   TTF_MAJOR_VERSION = 2
-  TTF_MINOR_VERSION = 0
-  TTF_PATCHLEVEL = 15
+  TTF_MINOR_VERSION = 20
+  TTF_PATCHLEVEL = 0
   TTF_STYLE_NORMAL = 0x00
   TTF_STYLE_BOLD = 0x01
   TTF_STYLE_ITALIC = 0x02
@@ -24,12 +24,20 @@ module SDL
   TTF_HINTING_MONO = 2
   TTF_HINTING_NONE = 3
   TTF_HINTING_LIGHT_SUBPIXEL = 4
+  TTF_WRAPPED_ALIGN_LEFT = 0
+  TTF_WRAPPED_ALIGN_CENTER = 1
+  TTF_WRAPPED_ALIGN_RIGHT = 2
 
   # Enum
 
+  TTF_DIRECTION_LTR = 0
+  TTF_DIRECTION_RTL = 1
+  TTF_DIRECTION_TTB = 2
+  TTF_DIRECTION_BTT = 3
 
   # Typedef
 
+  typedef :int, :TTF_Direction
 
   # Struct
 
@@ -59,6 +67,8 @@ module SDL
       :TTF_SetFontOutline,
       :TTF_GetFontHinting,
       :TTF_SetFontHinting,
+      :TTF_GetFontWrappedAlign,
+      :TTF_SetFontWrappedAlign,
       :TTF_FontHeight,
       :TTF_FontAscent,
       :TTF_FontDescent,
@@ -103,8 +113,14 @@ module SDL
       :TTF_RenderUNICODE_Blended_Wrapped,
       :TTF_RenderGlyph_Blended,
       :TTF_RenderGlyph32_Blended,
-      :TTF_SetDirection,
-      :TTF_SetScript,
+      :TTF_RenderText_LCD,
+      :TTF_RenderUTF8_LCD,
+      :TTF_RenderUNICODE_LCD,
+      :TTF_RenderText_LCD_Wrapped,
+      :TTF_RenderUTF8_LCD_Wrapped,
+      :TTF_RenderUNICODE_LCD_Wrapped,
+      :TTF_RenderGlyph_LCD,
+      :TTF_RenderGlyph32_LCD,
       :TTF_CloseFont,
       :TTF_Quit,
       :TTF_WasInit,
@@ -113,6 +129,10 @@ module SDL
       :TTF_GetFontKerningSizeGlyphs32,
       :TTF_SetFontSDF,
       :TTF_GetFontSDF,
+      :TTF_SetDirection,
+      :TTF_SetScript,
+      :TTF_SetFontDirection,
+      :TTF_SetFontScriptName,
     ]
     apis = {
       :TTF_Linked_Version => :TTF_Linked_Version,
@@ -136,6 +156,8 @@ module SDL
       :TTF_SetFontOutline => :TTF_SetFontOutline,
       :TTF_GetFontHinting => :TTF_GetFontHinting,
       :TTF_SetFontHinting => :TTF_SetFontHinting,
+      :TTF_GetFontWrappedAlign => :TTF_GetFontWrappedAlign,
+      :TTF_SetFontWrappedAlign => :TTF_SetFontWrappedAlign,
       :TTF_FontHeight => :TTF_FontHeight,
       :TTF_FontAscent => :TTF_FontAscent,
       :TTF_FontDescent => :TTF_FontDescent,
@@ -180,8 +202,14 @@ module SDL
       :TTF_RenderUNICODE_Blended_Wrapped => :TTF_RenderUNICODE_Blended_Wrapped,
       :TTF_RenderGlyph_Blended => :TTF_RenderGlyph_Blended,
       :TTF_RenderGlyph32_Blended => :TTF_RenderGlyph32_Blended,
-      :TTF_SetDirection => :TTF_SetDirection,
-      :TTF_SetScript => :TTF_SetScript,
+      :TTF_RenderText_LCD => :TTF_RenderText_LCD,
+      :TTF_RenderUTF8_LCD => :TTF_RenderUTF8_LCD,
+      :TTF_RenderUNICODE_LCD => :TTF_RenderUNICODE_LCD,
+      :TTF_RenderText_LCD_Wrapped => :TTF_RenderText_LCD_Wrapped,
+      :TTF_RenderUTF8_LCD_Wrapped => :TTF_RenderUTF8_LCD_Wrapped,
+      :TTF_RenderUNICODE_LCD_Wrapped => :TTF_RenderUNICODE_LCD_Wrapped,
+      :TTF_RenderGlyph_LCD => :TTF_RenderGlyph_LCD,
+      :TTF_RenderGlyph32_LCD => :TTF_RenderGlyph32_LCD,
       :TTF_CloseFont => :TTF_CloseFont,
       :TTF_Quit => :TTF_Quit,
       :TTF_WasInit => :TTF_WasInit,
@@ -190,6 +218,10 @@ module SDL
       :TTF_GetFontKerningSizeGlyphs32 => :TTF_GetFontKerningSizeGlyphs32,
       :TTF_SetFontSDF => :TTF_SetFontSDF,
       :TTF_GetFontSDF => :TTF_GetFontSDF,
+      :TTF_SetDirection => :TTF_SetDirection,
+      :TTF_SetScript => :TTF_SetScript,
+      :TTF_SetFontDirection => :TTF_SetFontDirection,
+      :TTF_SetFontScriptName => :TTF_SetFontScriptName,
     }
     args = {
       :TTF_Linked_Version => [],
@@ -213,6 +245,8 @@ module SDL
       :TTF_SetFontOutline => [:pointer, :int],
       :TTF_GetFontHinting => [:pointer],
       :TTF_SetFontHinting => [:pointer, :int],
+      :TTF_GetFontWrappedAlign => [:pointer],
+      :TTF_SetFontWrappedAlign => [:pointer, :int],
       :TTF_FontHeight => [:pointer],
       :TTF_FontAscent => [:pointer],
       :TTF_FontDescent => [:pointer],
@@ -257,8 +291,14 @@ module SDL
       :TTF_RenderUNICODE_Blended_Wrapped => [:pointer, :pointer, Color.by_value, :uint],
       :TTF_RenderGlyph_Blended => [:pointer, :ushort, Color.by_value],
       :TTF_RenderGlyph32_Blended => [:pointer, :uint, Color.by_value],
-      :TTF_SetDirection => [:int],
-      :TTF_SetScript => [:int],
+      :TTF_RenderText_LCD => [:pointer, :pointer, Color.by_value, Color.by_value],
+      :TTF_RenderUTF8_LCD => [:pointer, :pointer, Color.by_value, Color.by_value],
+      :TTF_RenderUNICODE_LCD => [:pointer, :pointer, Color.by_value, Color.by_value],
+      :TTF_RenderText_LCD_Wrapped => [:pointer, :pointer, Color.by_value, Color.by_value, :uint],
+      :TTF_RenderUTF8_LCD_Wrapped => [:pointer, :pointer, Color.by_value, Color.by_value, :uint],
+      :TTF_RenderUNICODE_LCD_Wrapped => [:pointer, :pointer, Color.by_value, Color.by_value, :uint],
+      :TTF_RenderGlyph_LCD => [:pointer, :ushort, Color.by_value, Color.by_value],
+      :TTF_RenderGlyph32_LCD => [:pointer, :uint, Color.by_value, Color.by_value],
       :TTF_CloseFont => [:pointer],
       :TTF_Quit => [],
       :TTF_WasInit => [],
@@ -267,6 +307,10 @@ module SDL
       :TTF_GetFontKerningSizeGlyphs32 => [:pointer, :uint, :uint],
       :TTF_SetFontSDF => [:pointer, :int],
       :TTF_GetFontSDF => [:pointer],
+      :TTF_SetDirection => [:int],
+      :TTF_SetScript => [:int],
+      :TTF_SetFontDirection => [:pointer, :int],
+      :TTF_SetFontScriptName => [:pointer, :pointer],
     }
     retvals = {
       :TTF_Linked_Version => :pointer,
@@ -290,6 +334,8 @@ module SDL
       :TTF_SetFontOutline => :void,
       :TTF_GetFontHinting => :int,
       :TTF_SetFontHinting => :void,
+      :TTF_GetFontWrappedAlign => :int,
+      :TTF_SetFontWrappedAlign => :void,
       :TTF_FontHeight => :int,
       :TTF_FontAscent => :int,
       :TTF_FontDescent => :int,
@@ -334,8 +380,14 @@ module SDL
       :TTF_RenderUNICODE_Blended_Wrapped => :pointer,
       :TTF_RenderGlyph_Blended => :pointer,
       :TTF_RenderGlyph32_Blended => :pointer,
-      :TTF_SetDirection => :int,
-      :TTF_SetScript => :int,
+      :TTF_RenderText_LCD => :pointer,
+      :TTF_RenderUTF8_LCD => :pointer,
+      :TTF_RenderUNICODE_LCD => :pointer,
+      :TTF_RenderText_LCD_Wrapped => :pointer,
+      :TTF_RenderUTF8_LCD_Wrapped => :pointer,
+      :TTF_RenderUNICODE_LCD_Wrapped => :pointer,
+      :TTF_RenderGlyph_LCD => :pointer,
+      :TTF_RenderGlyph32_LCD => :pointer,
       :TTF_CloseFont => :void,
       :TTF_Quit => :void,
       :TTF_WasInit => :int,
@@ -344,6 +396,10 @@ module SDL
       :TTF_GetFontKerningSizeGlyphs32 => :int,
       :TTF_SetFontSDF => :int,
       :TTF_GetFontSDF => :int,
+      :TTF_SetDirection => :int,
+      :TTF_SetScript => :int,
+      :TTF_SetFontDirection => :int,
+      :TTF_SetFontScriptName => :int,
     }
     symbols.each do |sym|
       begin
