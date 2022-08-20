@@ -5,12 +5,14 @@
 # [NOTICE] This is an automatically generated file.
 
 require 'ffi'
+require_relative 'sdl2_guid'
 
 module SDL
   extend FFI::Library
   # Define/Macro
 
   IPHONE_MAX_GFORCE = 5.0
+  VIRTUAL_JOYSTICK_DESC_VERSION = 1
   JOYSTICK_AXIS_MAX = 32767
   JOYSTICK_AXIS_MIN = -32768
   HAT_CENTERED = 0x00
@@ -45,15 +47,35 @@ module SDL
 
   # Typedef
 
+
+  JoystickGUID = SDL::GUID
+
   typedef :int, :SDL_JoystickID
   typedef :int, :SDL_JoystickType
   typedef :int, :SDL_JoystickPowerLevel
 
   # Struct
 
-  class JoystickGUID < FFI::Struct
+  class VirtualJoystickDesc < FFI::Struct
     layout(
-      :data, [:uchar, 16],
+      :version, :ushort,
+      :type, :ushort,
+      :naxes, :ushort,
+      :nbuttons, :ushort,
+      :nhats, :ushort,
+      :vendor_id, :ushort,
+      :product_id, :ushort,
+      :padding, :ushort,
+      :button_mask, :uint,
+      :axis_mask, :uint,
+      :name, :pointer,
+      :userdata, :pointer,
+      :Update, :pointer,
+      :SetPlayerIndex, :pointer,
+      :Rumble, :pointer,
+      :RumbleTriggers, :pointer,
+      :SetLED, :pointer,
+      :SendEffect, :pointer,
     )
   end
 
@@ -66,6 +88,7 @@ module SDL
       :SDL_UnlockJoysticks,
       :SDL_NumJoysticks,
       :SDL_JoystickNameForIndex,
+      :SDL_JoystickPathForIndex,
       :SDL_JoystickGetDevicePlayerIndex,
       :SDL_JoystickGetDeviceGUID,
       :SDL_JoystickGetDeviceVendor,
@@ -77,18 +100,21 @@ module SDL
       :SDL_JoystickFromInstanceID,
       :SDL_JoystickFromPlayerIndex,
       :SDL_JoystickAttachVirtual,
+      :SDL_JoystickAttachVirtualEx,
       :SDL_JoystickDetachVirtual,
       :SDL_JoystickIsVirtual,
       :SDL_JoystickSetVirtualAxis,
       :SDL_JoystickSetVirtualButton,
       :SDL_JoystickSetVirtualHat,
       :SDL_JoystickName,
+      :SDL_JoystickPath,
       :SDL_JoystickGetPlayerIndex,
       :SDL_JoystickSetPlayerIndex,
       :SDL_JoystickGetGUID,
       :SDL_JoystickGetVendor,
       :SDL_JoystickGetProduct,
       :SDL_JoystickGetProductVersion,
+      :SDL_JoystickGetFirmwareVersion,
       :SDL_JoystickGetSerial,
       :SDL_JoystickGetType,
       :SDL_JoystickGetGUIDString,
@@ -121,6 +147,7 @@ module SDL
       :SDL_UnlockJoysticks => :UnlockJoysticks,
       :SDL_NumJoysticks => :NumJoysticks,
       :SDL_JoystickNameForIndex => :JoystickNameForIndex,
+      :SDL_JoystickPathForIndex => :JoystickPathForIndex,
       :SDL_JoystickGetDevicePlayerIndex => :JoystickGetDevicePlayerIndex,
       :SDL_JoystickGetDeviceGUID => :JoystickGetDeviceGUID,
       :SDL_JoystickGetDeviceVendor => :JoystickGetDeviceVendor,
@@ -132,18 +159,21 @@ module SDL
       :SDL_JoystickFromInstanceID => :JoystickFromInstanceID,
       :SDL_JoystickFromPlayerIndex => :JoystickFromPlayerIndex,
       :SDL_JoystickAttachVirtual => :JoystickAttachVirtual,
+      :SDL_JoystickAttachVirtualEx => :JoystickAttachVirtualEx,
       :SDL_JoystickDetachVirtual => :JoystickDetachVirtual,
       :SDL_JoystickIsVirtual => :JoystickIsVirtual,
       :SDL_JoystickSetVirtualAxis => :JoystickSetVirtualAxis,
       :SDL_JoystickSetVirtualButton => :JoystickSetVirtualButton,
       :SDL_JoystickSetVirtualHat => :JoystickSetVirtualHat,
       :SDL_JoystickName => :JoystickName,
+      :SDL_JoystickPath => :JoystickPath,
       :SDL_JoystickGetPlayerIndex => :JoystickGetPlayerIndex,
       :SDL_JoystickSetPlayerIndex => :JoystickSetPlayerIndex,
       :SDL_JoystickGetGUID => :JoystickGetGUID,
       :SDL_JoystickGetVendor => :JoystickGetVendor,
       :SDL_JoystickGetProduct => :JoystickGetProduct,
       :SDL_JoystickGetProductVersion => :JoystickGetProductVersion,
+      :SDL_JoystickGetFirmwareVersion => :JoystickGetFirmwareVersion,
       :SDL_JoystickGetSerial => :JoystickGetSerial,
       :SDL_JoystickGetType => :JoystickGetType,
       :SDL_JoystickGetGUIDString => :JoystickGetGUIDString,
@@ -176,6 +206,7 @@ module SDL
       :SDL_UnlockJoysticks => [],
       :SDL_NumJoysticks => [],
       :SDL_JoystickNameForIndex => [:int],
+      :SDL_JoystickPathForIndex => [:int],
       :SDL_JoystickGetDevicePlayerIndex => [:int],
       :SDL_JoystickGetDeviceGUID => [:int],
       :SDL_JoystickGetDeviceVendor => [:int],
@@ -187,18 +218,21 @@ module SDL
       :SDL_JoystickFromInstanceID => [:int],
       :SDL_JoystickFromPlayerIndex => [:int],
       :SDL_JoystickAttachVirtual => [:int, :int, :int, :int],
+      :SDL_JoystickAttachVirtualEx => [:pointer],
       :SDL_JoystickDetachVirtual => [:int],
       :SDL_JoystickIsVirtual => [:int],
       :SDL_JoystickSetVirtualAxis => [:pointer, :int, :short],
       :SDL_JoystickSetVirtualButton => [:pointer, :int, :uchar],
       :SDL_JoystickSetVirtualHat => [:pointer, :int, :uchar],
       :SDL_JoystickName => [:pointer],
+      :SDL_JoystickPath => [:pointer],
       :SDL_JoystickGetPlayerIndex => [:pointer],
       :SDL_JoystickSetPlayerIndex => [:pointer, :int],
       :SDL_JoystickGetGUID => [:pointer],
       :SDL_JoystickGetVendor => [:pointer],
       :SDL_JoystickGetProduct => [:pointer],
       :SDL_JoystickGetProductVersion => [:pointer],
+      :SDL_JoystickGetFirmwareVersion => [:pointer],
       :SDL_JoystickGetSerial => [:pointer],
       :SDL_JoystickGetType => [:pointer],
       :SDL_JoystickGetGUIDString => [JoystickGUID.by_value, :pointer, :int],
@@ -231,6 +265,7 @@ module SDL
       :SDL_UnlockJoysticks => :void,
       :SDL_NumJoysticks => :int,
       :SDL_JoystickNameForIndex => :pointer,
+      :SDL_JoystickPathForIndex => :pointer,
       :SDL_JoystickGetDevicePlayerIndex => :int,
       :SDL_JoystickGetDeviceGUID => JoystickGUID.by_value,
       :SDL_JoystickGetDeviceVendor => :ushort,
@@ -242,18 +277,21 @@ module SDL
       :SDL_JoystickFromInstanceID => :pointer,
       :SDL_JoystickFromPlayerIndex => :pointer,
       :SDL_JoystickAttachVirtual => :int,
+      :SDL_JoystickAttachVirtualEx => :int,
       :SDL_JoystickDetachVirtual => :int,
       :SDL_JoystickIsVirtual => :int,
       :SDL_JoystickSetVirtualAxis => :int,
       :SDL_JoystickSetVirtualButton => :int,
       :SDL_JoystickSetVirtualHat => :int,
       :SDL_JoystickName => :pointer,
+      :SDL_JoystickPath => :pointer,
       :SDL_JoystickGetPlayerIndex => :int,
       :SDL_JoystickSetPlayerIndex => :void,
       :SDL_JoystickGetGUID => JoystickGUID.by_value,
       :SDL_JoystickGetVendor => :ushort,
       :SDL_JoystickGetProduct => :ushort,
       :SDL_JoystickGetProductVersion => :ushort,
+      :SDL_JoystickGetFirmwareVersion => :ushort,
       :SDL_JoystickGetSerial => :pointer,
       :SDL_JoystickGetType => :int,
       :SDL_JoystickGetGUIDString => :void,

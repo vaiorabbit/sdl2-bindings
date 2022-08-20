@@ -10,9 +10,6 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  MAJOR_VERSION = 2
-  MINOR_VERSION = 24
-  PATCHLEVEL = 0
 
   # Enum
 
@@ -22,37 +19,31 @@ module SDL
 
   # Struct
 
-  class Version < FFI::Struct
+  class GUID < FFI::Struct
     layout(
-      :major, :uchar,
-      :minor, :uchar,
-      :patch, :uchar,
+      :data, [:uchar, 16],
     )
   end
 
 
   # Function
 
-  def self.setup_version_symbols(output_error = false)
+  def self.setup_guid_symbols(output_error = false)
     symbols = [
-      :SDL_GetVersion,
-      :SDL_GetRevision,
-      :SDL_GetRevisionNumber,
+      :SDL_GUIDToString,
+      :SDL_GUIDFromString,
     ]
     apis = {
-      :SDL_GetVersion => :GetVersion,
-      :SDL_GetRevision => :GetRevision,
-      :SDL_GetRevisionNumber => :GetRevisionNumber,
+      :SDL_GUIDToString => :GUIDToString,
+      :SDL_GUIDFromString => :GUIDFromString,
     }
     args = {
-      :SDL_GetVersion => [:pointer],
-      :SDL_GetRevision => [],
-      :SDL_GetRevisionNumber => [],
+      :SDL_GUIDToString => [GUID.by_value, :pointer, :int],
+      :SDL_GUIDFromString => [:pointer],
     }
     retvals = {
-      :SDL_GetVersion => :void,
-      :SDL_GetRevision => :pointer,
-      :SDL_GetRevisionNumber => :int,
+      :SDL_GUIDToString => :void,
+      :SDL_GUIDFromString => GUID.by_value,
     }
     symbols.each do |sym|
       begin

@@ -35,6 +35,7 @@ module SDL
     symbols = [
       :SDL_GetKeyboardFocus,
       :SDL_GetKeyboardState,
+      :SDL_ResetKeyboard,
       :SDL_GetModState,
       :SDL_SetModState,
       :SDL_GetKeyFromScancode,
@@ -55,6 +56,7 @@ module SDL
     apis = {
       :SDL_GetKeyboardFocus => :GetKeyboardFocus,
       :SDL_GetKeyboardState => :GetKeyboardState,
+      :SDL_ResetKeyboard => :ResetKeyboard,
       :SDL_GetModState => :GetModState,
       :SDL_SetModState => :SetModState,
       :SDL_GetKeyFromScancode => :GetKeyFromScancode,
@@ -75,6 +77,7 @@ module SDL
     args = {
       :SDL_GetKeyboardFocus => [],
       :SDL_GetKeyboardState => [:pointer],
+      :SDL_ResetKeyboard => [],
       :SDL_GetModState => [],
       :SDL_SetModState => [:int],
       :SDL_GetKeyFromScancode => [:int],
@@ -95,6 +98,7 @@ module SDL
     retvals = {
       :SDL_GetKeyboardFocus => :pointer,
       :SDL_GetKeyboardState => :pointer,
+      :SDL_ResetKeyboard => :void,
       :SDL_GetModState => :int,
       :SDL_SetModState => :void,
       :SDL_GetKeyFromScancode => :int,

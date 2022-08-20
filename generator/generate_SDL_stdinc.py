@@ -7,6 +7,10 @@ if __name__ == "__main__":
 
     ctx.decl_functions['SDL_memset4'] = None
     ctx.decl_functions['SDL_memcpy4'] = None
+    ctx.decl_functions['SDL_size_mul_overflow'] = None
+    ctx.decl_functions['SDL_size_add_overflow'] = None
+    ctx.decl_functions['_SDL_size_mul_overflow_builtin'] = None
+    ctx.decl_functions['_SDL_size_add_overflow_builtin'] = None
     ctx.decl_typedefs['SDL_compile_time_assert_uint8'] = None
     ctx.decl_typedefs['SDL_compile_time_assert_sint8'] = None
     ctx.decl_typedefs['SDL_compile_time_assert_uint16'] = None

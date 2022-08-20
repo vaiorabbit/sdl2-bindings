@@ -97,6 +97,7 @@ module SDL
   GL_CONTEXT_RELEASE_BEHAVIOR = 24
   GL_CONTEXT_RESET_NOTIFICATION = 25
   GL_CONTEXT_NO_ERROR = 26
+  GL_FLOATBUFFERS = 27
   GL_CONTEXT_PROFILE_CORE = 1
   GL_CONTEXT_PROFILE_COMPATIBILITY = 2
   GL_CONTEXT_PROFILE_ES = 4
@@ -168,6 +169,8 @@ module SDL
       :SDL_GetDesktopDisplayMode,
       :SDL_GetCurrentDisplayMode,
       :SDL_GetClosestDisplayMode,
+      :SDL_GetPointDisplayIndex,
+      :SDL_GetRectDisplayIndex,
       :SDL_GetWindowDisplayIndex,
       :SDL_SetWindowDisplayMode,
       :SDL_GetWindowDisplayMode,
@@ -262,6 +265,8 @@ module SDL
       :SDL_GetDesktopDisplayMode => :GetDesktopDisplayMode,
       :SDL_GetCurrentDisplayMode => :GetCurrentDisplayMode,
       :SDL_GetClosestDisplayMode => :GetClosestDisplayMode,
+      :SDL_GetPointDisplayIndex => :GetPointDisplayIndex,
+      :SDL_GetRectDisplayIndex => :GetRectDisplayIndex,
       :SDL_GetWindowDisplayIndex => :GetWindowDisplayIndex,
       :SDL_SetWindowDisplayMode => :SetWindowDisplayMode,
       :SDL_GetWindowDisplayMode => :GetWindowDisplayMode,
@@ -356,6 +361,8 @@ module SDL
       :SDL_GetDesktopDisplayMode => [:int, :pointer],
       :SDL_GetCurrentDisplayMode => [:int, :pointer],
       :SDL_GetClosestDisplayMode => [:int, :pointer, :pointer],
+      :SDL_GetPointDisplayIndex => [:pointer],
+      :SDL_GetRectDisplayIndex => [:pointer],
       :SDL_GetWindowDisplayIndex => [:pointer],
       :SDL_SetWindowDisplayMode => [:pointer, :pointer],
       :SDL_GetWindowDisplayMode => [:pointer, :pointer],
@@ -450,6 +457,8 @@ module SDL
       :SDL_GetDesktopDisplayMode => :int,
       :SDL_GetCurrentDisplayMode => :int,
       :SDL_GetClosestDisplayMode => :pointer,
+      :SDL_GetPointDisplayIndex => :int,
+      :SDL_GetRectDisplayIndex => :int,
       :SDL_GetWindowDisplayIndex => :int,
       :SDL_SetWindowDisplayMode => :int,
       :SDL_GetWindowDisplayMode => :int,

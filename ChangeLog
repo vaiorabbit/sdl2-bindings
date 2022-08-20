@@ -1,3 +1,9 @@
+2022-08-20  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* SDL 2.24.0 ( https://github.com/libsdl-org/SDL/releases/tag/release-2.24.0 )
+	* Generated for SDL_image 2.6.2, SDL_mixer 2.6.2 and SDL_ttf 2.20.1
+	* SDL::JoystickGUID is now defined as an alias of SDL::GUID ( https://github.com/libsdl-org/SDL/commit/3a20274ddff20d9c3ea4895353b23ff252954b87 )
+
 2022-07-31  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* Regenerated bindings to fix bugs (size_t interpretation)

@@ -51,6 +51,7 @@ module SDL
   JOYBUTTONUP = 1540
   JOYDEVICEADDED = 1541
   JOYDEVICEREMOVED = 1542
+  JOYBATTERYUPDATED = 1543
   CONTROLLERAXISMOTION = 1616
   CONTROLLERBUTTONDOWN = 1617
   CONTROLLERBUTTONUP = 1618
@@ -273,6 +274,15 @@ module SDL
     )
   end
 
+  class JoyBatteryEvent < FFI::Struct
+    layout(
+      :type, :uint,
+      :timestamp, :uint,
+      :which, :int,
+      :level, :int,
+    )
+  end
+
   class ControllerAxisEvent < FFI::Struct
     layout(
       :type, :uint,
@@ -453,6 +463,7 @@ module SDL
       :jhat, JoyHatEvent,
       :jbutton, JoyButtonEvent,
       :jdevice, JoyDeviceEvent,
+      :jbattery, JoyBatteryEvent,
       :caxis, ControllerAxisEvent,
       :cbutton, ControllerButtonEvent,
       :cdevice, ControllerDeviceEvent,
