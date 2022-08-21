@@ -11,6 +11,12 @@
 *   Based on Ruby/FFI
     *   No need to build C extension library
 
+See the project below to learn how to use this library:
+
+*   Whac-a-Mole! : Ruby SDL2 bindings demo
+    *   <https://github.com/vaiorabbit/sdl2-bindings-whacamole>
+    *   [![](http://img.youtube.com/vi/HroP-_EWcg8/mqdefault.jpg)](https://www.youtube.com/watch?v=HroP-_EWcg8)
+
 ## Limitations ##
 
 *   Several original APIs originally defined with pre-processor macro are unavailable in this library (e.g. `SDL_LoadBMP`)
