@@ -10,10 +10,10 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  ICONV_ERROR = -1
-  ICONV_E2BIG = -2
-  ICONV_EILSEQ = -3
-  ICONV_EINVAL = -4
+  ICONV_ERROR = 4294967295
+  ICONV_E2BIG = 4294967294
+  ICONV_EILSEQ = 4294967293
+  ICONV_EINVAL = 4294967292
 
   # Enum
 
@@ -22,6 +22,14 @@ module SDL
 
   # Typedef
 
+  typedef :char, :int8_t
+  typedef :short, :int16_t
+  typedef :int, :int32_t
+  typedef :long_long, :int64_t
+  typedef :uchar, :uint8_t
+  typedef :ushort, :uint16_t
+  typedef :uint, :uint32_t
+  typedef :ulong_long, :uint64_t
   typedef :int, :SDL_bool
   typedef :char, :Sint8
   typedef :uchar, :Uint8

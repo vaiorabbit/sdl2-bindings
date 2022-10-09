@@ -3,9 +3,9 @@
 #
 # Ref.: https://github.com/malkia/ufo/blob/master/build/OSX/glfw.sh
 #
-curl -O https://www.libsdl.org/release/SDL2-2.24.0.zip
-unzip SDL2-2.24.0.zip
-cd SDL2-2.24.0/
+curl -O https://www.libsdl.org/release/SDL2-2.24.1.zip
+unzip SDL2-2.24.1.zip
+cd SDL2-2.24.1/
 mkdir build
 cd build
 export MACOSX_DEPLOYMENT_TARGET=12.1

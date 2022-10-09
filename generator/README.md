@@ -8,6 +8,7 @@ These instructions are tested only on macOS environment.
         *   SDL_image (SDL_image.h)
         *   SDL_mixer (SDL_mixer.h)
         *   SDL_ttf (SDL_ttf.h)
+        *   SDL_sound (SDL_sound.h)
 
 *   Patch 2 header files manually:
     *   SDL2/SDL_config_macosx.h : comment out these lines

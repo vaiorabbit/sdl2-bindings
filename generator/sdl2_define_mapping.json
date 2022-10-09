@@ -329,7 +329,7 @@
     , "SDL_BUTTON_X2MASK" : null
     , "SDL_mutex_h_" : null
     , "SDL_MUTEX_TIMEDOUT" : "1"
-    , "SDL_MUTEX_MAXWAIT" : null
+    , "SDL_MUTEX_MAXWAIT" : "0xFFFFFFFF"
     , "SDL_mutexP" : null
     , "SDL_mutexV" : null
     , "SDL_NAME" : null
@@ -427,10 +427,10 @@
     , "SDL_zerop" : null
     , "SDL_zeroa" : null
     , "SDL_copyp" : null
-    , "SDL_ICONV_ERROR" : "-1"
-    , "SDL_ICONV_E2BIG" : "-2"
-    , "SDL_ICONV_EILSEQ" : "-3"
-    , "SDL_ICONV_EINVAL" : "-4"
+    , "SDL_ICONV_ERROR" : "4294967295"
+    , "SDL_ICONV_E2BIG" : "4294967294"
+    , "SDL_ICONV_EILSEQ" : "4294967293"
+    , "SDL_ICONV_EINVAL" : "4294967292"
     , "SDL_iconv_utf8_locale" : null
     , "SDL_iconv_utf8_ucs2" : null
     , "SDL_iconv_utf8_ucs4" : null
@@ -455,13 +455,13 @@
     , "SDL_timer_h_" : null
     , "SDL_TICKS_PASSED" : null
     , "SDL_touch_h_" : null
-    , "SDL_TOUCH_MOUSEID" : "-1"
+    , "SDL_TOUCH_MOUSEID" : "4294967295"
     , "SDL_MOUSE_TOUCHID" : "-1"
     , "SDL_version_h_" : null
     , "SDL_MAJOR_VERSION" : "2"
     , "SDL_MINOR_VERSION" : "24"
-    , "SDL_PATCHLEVEL" : "0"
     , "SDL_VERSION" : null
+    , "SDL_PATCHLEVEL" : "1"
     , "SDL_VERSIONNUM" : null
     , "SDL_COMPILEDVERSION" : null
     , "SDL_VERSION_ATLEAST" : null

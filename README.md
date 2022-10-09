@@ -3,7 +3,7 @@
 # sdl2-bindings : Yet another SDL2 wrapper for Ruby #
 
 *   Created : 2015-09-19
-*   Last modified : 2022-08-20
+*   Last modified : 2022-10-09
 
 ## Features ##
 
@@ -23,8 +23,8 @@ See the project below to learn how to use this library:
 
 ## Target version ##
 
-*   [2022-08-20]
-    *   SDL : 2.24.0
+*   [2022-10-09]
+    *   SDL : 2.24.1
     *   SDL_image : 2.6.2
     *   SDL_mixer : 2.6.2
     *   SDL_ttf : 2.20.1
@@ -62,17 +62,26 @@ See the project below to learn how to use this library:
     *   SDL_ttf : 2.20.0
     *   SDL2_gfx : 1.0.4
     *   SDL_sound : 2.0.1
+*   [2022-08-20]
+    *   SDL : 2.24.0
+    *   SDL_image : 2.6.2
+    *   SDL_mixer : 2.6.2
+    *   SDL_ttf : 2.20.1
+    *   SDL2_gfx : 1.0.4
+    *   SDL_sound : 2.0.1
 
 </details>
 
 ## Supported Environments ##
 
 *   [2022-04-29] Windows 10 (21H1), ruby 3.1.1p18 (2022-02-18 revision 53f5fc4236) [x64-mingw-ucrt]
-*   [2022-07-31] macOS Monterey (12.4), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [arm64-darwin21]
+*   [2022-10-09] macOS Monterey (12.5.1), ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [arm64-darwin21]
+*   [2022-10-09] Debian 11 (bullseye) on ASUS Chromebook Detachable CZ1, ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [aarch64-linux]
 
 <details>
 <summary>Older Environments</summary>
 
+*   [2022-07-31] macOS Monterey (12.4), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [arm64-darwin21]
 *   [2022-02-12] Windows 10 (21H1), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [x64-mingw-ucrt]
 *   [2022-01-11] macOS Monterey (12.1), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [arm64-darwin20]
 *   [2021-12-02] macOS Big Sur (11.6), ruby 3.0.2p107 (2021-07-07 revision 0db68f0233) [arm64-darwin20]
