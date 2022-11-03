@@ -3,7 +3,7 @@
 # sdl2-bindings : Yet another SDL2 wrapper for Ruby #
 
 *   Created : 2015-09-19
-*   Last modified : 2022-10-09
+*   Last modified : 2022-11-03
 
 ## Features ##
 
@@ -23,8 +23,8 @@ See the project below to learn how to use this library:
 
 ## Target version ##
 
-*   [2022-10-09]
-    *   SDL : 2.24.1
+*   [2022-11-03]
+    *   SDL : 2.24.2
     *   SDL_image : 2.6.2
     *   SDL_mixer : 2.6.2
     *   SDL_ttf : 2.20.1
@@ -69,6 +69,14 @@ See the project below to learn how to use this library:
     *   SDL_ttf : 2.20.1
     *   SDL2_gfx : 1.0.4
     *   SDL_sound : 2.0.1
+*   [2022-10-09]
+    *   SDL : 2.24.1
+    *   SDL_image : 2.6.2
+    *   SDL_mixer : 2.6.2
+    *   SDL_ttf : 2.20.1
+    *   SDL2_gfx : 1.0.4
+    *   SDL_sound : 2.0.1
+
 
 </details>
 
