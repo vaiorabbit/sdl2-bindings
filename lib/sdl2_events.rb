@@ -211,6 +211,8 @@ module SDL
       :direction, :uint,
       :preciseX, :float,
       :preciseY, :float,
+      :mouseX, :int,
+      :mouseY, :int,
     )
   end
 
@@ -337,6 +339,7 @@ module SDL
       :which, :int,
       :sensor, :int,
       :data, [:float, 3],
+      :timestamp_us, :ulong_long,
     )
   end
 
@@ -409,6 +412,7 @@ module SDL
       :timestamp, :uint,
       :which, :int,
       :data, [:float, 6],
+      :timestamp_us, :ulong_long,
     )
   end
 

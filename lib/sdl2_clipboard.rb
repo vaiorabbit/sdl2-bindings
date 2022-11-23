@@ -27,21 +27,33 @@ module SDL
       :SDL_SetClipboardText,
       :SDL_GetClipboardText,
       :SDL_HasClipboardText,
+      :SDL_SetPrimarySelectionText,
+      :SDL_GetPrimarySelectionText,
+      :SDL_HasPrimarySelectionText,
     ]
     apis = {
       :SDL_SetClipboardText => :SetClipboardText,
       :SDL_GetClipboardText => :GetClipboardText,
       :SDL_HasClipboardText => :HasClipboardText,
+      :SDL_SetPrimarySelectionText => :SetPrimarySelectionText,
+      :SDL_GetPrimarySelectionText => :GetPrimarySelectionText,
+      :SDL_HasPrimarySelectionText => :HasPrimarySelectionText,
     }
     args = {
       :SDL_SetClipboardText => [:pointer],
       :SDL_GetClipboardText => [],
       :SDL_HasClipboardText => [],
+      :SDL_SetPrimarySelectionText => [:pointer],
+      :SDL_GetPrimarySelectionText => [],
+      :SDL_HasPrimarySelectionText => [],
     }
     retvals = {
       :SDL_SetClipboardText => :int,
       :SDL_GetClipboardText => :pointer,
       :SDL_HasClipboardText => :int,
+      :SDL_SetPrimarySelectionText => :int,
+      :SDL_GetPrimarySelectionText => :pointer,
+      :SDL_HasPrimarySelectionText => :int,
     }
     symbols.each do |sym|
       begin

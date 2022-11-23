@@ -1,5 +1,5 @@
 #!/usr/local/bin/zsh
-export PYTHONPATH=/opt/homebrew/opt/llvm/lib/python3.9/site-packages
+export PYTHONPATH=/opt/homebrew/opt/llvm/lib/python3.10/site-packages
 /opt/homebrew/bin/python3 generate_SDL.py > ../lib/sdl2_main.rb
 /opt/homebrew/bin/python3 generate_SDL_audio.py > ../lib/sdl2_audio.rb
 /opt/homebrew/bin/python3 generate_SDL_blendmode.py > ../lib/sdl2_blendmode.rb

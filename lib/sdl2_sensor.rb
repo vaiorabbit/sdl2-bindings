@@ -18,6 +18,10 @@ module SDL
   SENSOR_UNKNOWN = 0
   SENSOR_ACCEL = 1
   SENSOR_GYRO = 2
+  SENSOR_ACCEL_L = 3
+  SENSOR_GYRO_L = 4
+  SENSOR_ACCEL_R = 5
+  SENSOR_GYRO_R = 6
 
   # Typedef
 
@@ -45,6 +49,7 @@ module SDL
       :SDL_SensorGetNonPortableType,
       :SDL_SensorGetInstanceID,
       :SDL_SensorGetData,
+      :SDL_SensorGetDataWithTimestamp,
       :SDL_SensorClose,
       :SDL_SensorUpdate,
     ]
@@ -63,6 +68,7 @@ module SDL
       :SDL_SensorGetNonPortableType => :SensorGetNonPortableType,
       :SDL_SensorGetInstanceID => :SensorGetInstanceID,
       :SDL_SensorGetData => :SensorGetData,
+      :SDL_SensorGetDataWithTimestamp => :SensorGetDataWithTimestamp,
       :SDL_SensorClose => :SensorClose,
       :SDL_SensorUpdate => :SensorUpdate,
     }
@@ -81,6 +87,7 @@ module SDL
       :SDL_SensorGetNonPortableType => [:pointer],
       :SDL_SensorGetInstanceID => [:pointer],
       :SDL_SensorGetData => [:pointer, :pointer, :int],
+      :SDL_SensorGetDataWithTimestamp => [:pointer, :pointer, :pointer, :int],
       :SDL_SensorClose => [:pointer],
       :SDL_SensorUpdate => [],
     }
@@ -99,6 +106,7 @@ module SDL
       :SDL_SensorGetNonPortableType => :int,
       :SDL_SensorGetInstanceID => :int,
       :SDL_SensorGetData => :int,
+      :SDL_SensorGetDataWithTimestamp => :int,
       :SDL_SensorClose => :void,
       :SDL_SensorUpdate => :void,
     }
