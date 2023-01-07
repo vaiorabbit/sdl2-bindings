@@ -6,6 +6,7 @@ require_relative '../lib/sdl2_ttf'
 WINDOW_W = 640
 WINDOW_H = 360
 
+$font_path = ''
 $textRect = nil
 $markedRect = nil
 $lineColor = nil
@@ -53,7 +54,7 @@ def init_app
   $cursor = 0 # FIX : TEST
 
   SDL.TTF_Init()
-  rwops = SDL.RWFromFile(ARGV[0], "rb")
+  rwops = SDL.RWFromFile($font_path, "rb")
   $font = SDL.TTF_OpenFontRW(rwops, 0, 30)
 
   SDL.StartTextInput()
@@ -160,16 +161,13 @@ def redraw(renderer)
 end
 
 if __FILE__ == $PROGRAM_NAME
-  if ARGV[0] == nil
-    $stderr.puts 'Usage: ruby test_ime.rb [path to .ttf]'
-    exit
-  end
+  $font_path = ARGV[0] != nil ? ARGV[0] : 'GenShinGothic-Normal.ttf'
 
   SDL.load_lib('/opt/homebrew/lib/libSDL2.dylib', ttf_libpath: '/opt/homebrew/lib/libSDL2_ttf.dylib') # '/usr/local/lib/libSDL2.dylib'
   success = SDL.Init(SDL::INIT_EVERYTHING)
   exit if success < 0
 
-  window = SDL.CreateWindow("Minimal SDL_TTF Test via sdl2-bindings", SDL::WINDOWPOS_CENTERED_MASK|0, SDL::WINDOWPOS_CENTERED_MASK|0, WINDOW_W, WINDOW_H, 0)
+  window = SDL.CreateWindow("Minimal SDL_TTF Test via sdl2-bindings", 32, 32, WINDOW_W, WINDOW_H, 0)
 
   renderer = SDL.CreateRenderer(window, -1, 0)
 
@@ -179,7 +177,6 @@ if __FILE__ == $PROGRAM_NAME
   SDL.SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF)
   SDL.RenderClear(renderer);
   redraw(renderer)
-
 
   event = SDL::Event.new
   done = false
@@ -191,13 +188,13 @@ if __FILE__ == $PROGRAM_NAME
       # puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
       case event_type
       when SDL::KEYDOWN
-        # p "\r".to_s, event.key.keysym_sym, event.key.keysym_scancode.to_s(2) #, '\t'.ord.to_s(16)
+        # p "\r".to_s, event[:key][:keysym][:sym], event[:key][:keysym][:scancode].to_s(2) #, '\t'.ord.to_s(16)
         case event[:key][:keysym][:sym]
         when SDL::SDLK_ESCAPE
           done = true
         when SDL::SDLK_RETURN
           # $text = ""
-          redraw(renderer)
+          #redraw(renderer)
         when SDL::SDLK_BACKSPACE
           $text.chop!
           redraw(renderer)
@@ -209,7 +206,7 @@ if __FILE__ == $PROGRAM_NAME
         end
         term = event[:text][:text].find_index(0)
         # appended = event[:text][:text][0...term].pack("c*").force_encoding("UTF-8")
-        appended = event[:text][:text].to_s
+        appended = event[:text][:text].to_s.force_encoding(Encoding::UTF_8)
         # printf("Keyboard: text input \"%s\"\n", appended)
         $text.concat(appended)
         $markedText = ""
