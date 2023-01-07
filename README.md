@@ -88,13 +88,14 @@ See the project below to learn how to use this library:
 
 ## Supported Environments ##
 
-*   [2022-04-29] Windows 10 (21H1), ruby 3.1.1p18 (2022-02-18 revision 53f5fc4236) [x64-mingw-ucrt]
+*   [2023-01-07] Windows 11 (22H2), ruby 3.2.0 (2022-12-25 revision a528908271) [x64-mingw-ucrt]
 *   [2023-01-07] macOS Ventura (13.1) ruby 3.2.0 (2022-12-25 revision a528908271) [arm64-darwin21]
 *   [2022-10-09] Debian 11 (bullseye) on ASUS Chromebook Detachable CZ1, ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [aarch64-linux]
 
 <details>
 <summary>Older Environments</summary>
 
+*   [2022-04-29] Windows 10 (21H1), ruby 3.1.1p18 (2022-02-18 revision 53f5fc4236) [x64-mingw-ucrt]
 *   [2022-10-09] macOS Monterey (12.5.1), ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [arm64-darwin21]
 *   [2022-07-31] macOS Monterey (12.4), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [arm64-darwin21]
 *   [2022-02-12] Windows 10 (21H1), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [x64-mingw-ucrt]
