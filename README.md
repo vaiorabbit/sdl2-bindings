@@ -3,7 +3,7 @@
 # sdl2-bindings : Yet another SDL2 wrapper for Ruby #
 
 *   Created : 2015-09-19
-*   Last modified : 2022-11-23
+*   Last modified : 2023-01-07
 
 ## Features ##
 
@@ -24,7 +24,7 @@ See the project below to learn how to use this library:
 ## Target version ##
 
 *   [2022-11-23]
-    *   SDL : 2.26.0
+    *   SDL : 2.26.0 - 2.26.2
     *   SDL_image : 2.6.2
     *   SDL_mixer : 2.6.2
     *   SDL_ttf : 2.20.1
@@ -89,12 +89,13 @@ See the project below to learn how to use this library:
 ## Supported Environments ##
 
 *   [2022-04-29] Windows 10 (21H1), ruby 3.1.1p18 (2022-02-18 revision 53f5fc4236) [x64-mingw-ucrt]
-*   [2022-10-09] macOS Monterey (12.5.1), ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [arm64-darwin21]
+*   [2023-01-07] macOS Ventura (13.1) ruby 3.2.0 (2022-12-25 revision a528908271) [arm64-darwin21]
 *   [2022-10-09] Debian 11 (bullseye) on ASUS Chromebook Detachable CZ1, ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [aarch64-linux]
 
 <details>
 <summary>Older Environments</summary>
 
+*   [2022-10-09] macOS Monterey (12.5.1), ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [arm64-darwin21]
 *   [2022-07-31] macOS Monterey (12.4), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [arm64-darwin21]
 *   [2022-02-12] Windows 10 (21H1), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [x64-mingw-ucrt]
 *   [2022-01-11] macOS Monterey (12.1), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [arm64-darwin20]
@@ -111,7 +112,7 @@ See the project below to learn how to use this library:
 The zlib/libpng License ( http://opensource.org/licenses/Zlib ).
 
     sdl2-bindings : Yet another SDL2 wrapper for Ruby
-    Copyright (c) 2015-2022 vaiorabbit <http://twitter.com/vaiorabbit>
+    Copyright (c) 2015-2023 vaiorabbit <http://twitter.com/vaiorabbit>
 
     This software is provided 'as-is', without any express or implied
     warranty. In no event will the authors be held liable for any damages
