@@ -3,7 +3,7 @@
 # sdl2-bindings : Yet another SDL2 wrapper for Ruby #
 
 *   Created : 2015-09-19
-*   Last modified : 2023-01-07
+*   Last modified : 2023-02-05
 
 ## Features ##
 
@@ -91,6 +91,7 @@ See the project below to learn how to use this library:
 *   [2023-01-07] Windows 11 (22H2), ruby 3.2.0 (2022-12-25 revision a528908271) [x64-mingw-ucrt]
 *   [2023-01-07] macOS Ventura (13.1) ruby 3.2.0 (2022-12-25 revision a528908271) [arm64-darwin21]
 *   [2022-10-09] Debian 11 (bullseye) on ASUS Chromebook Detachable CZ1, ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [aarch64-linux]
+*   [2023-02-05] Ubuntu Linux 22.04 LTS (jammy) on WSL/Windows 11, ruby 3.2.0 (2022-12-25 revision a528908271) [x86_64-linux]
 
 <details>
 <summary>Older Environments</summary>

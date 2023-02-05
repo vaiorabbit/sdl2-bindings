@@ -10,12 +10,50 @@ if __FILE__ == $PROGRAM_NAME
   WINDOW_H = 240
   window = SDL.CreateWindow("1st SDL Window via sdl2-bindings", 0, 0, WINDOW_W, WINDOW_H, 0)
 
-  wminfo = SDL::SysWMinfo_cocoa.new
-  if SDL.GetWindowWMInfo(window, wminfo) == SDL::TRUE
-    pp wminfo[:subsystem], wminfo[:info][:cocoa][:window]
-  end
+  platform_id = case RbConfig::CONFIG['host_os']
+                when /mswin|msys|mingw|cygwin/
+                  :PLATFORM_WINDOWS
+                when /darwin/
+                  :PLATFORM_MACOSX
+                when /linux/
+                  :PLATFORM_LINUX
+                else
+                  raise RuntimeError, "Unknown OS: #{host_os.inspect}"
+                end
 
-  wmmsg = SDL::SysWMmsg_cocoa.new
+  wminfo = case platform_id
+           when :PLATFORM_WINDOWS
+             SDL::SysWMinfo_win.new
+           when :PLATFORM_MACOSX
+             SDL::SysWMinfo_cocoa.new
+           when :PLATFORM_LINUX
+             SDL::SysWMinfo_x11.new
+           else
+             raise RuntimeError, "Unknown OS: #{host_os.inspect}"
+           end
+  SDL.GetVersion(wminfo[:version].pointer)
+
+  # 1 == SDL_SYSWM_WINDOWS
+  # 2 == SDL_SYSWM_X11
+  # 4 == SDL_SYSWM_COCOA
+  # 6 == SDL_SYSWM_WAYLAND
+
+  if SDL.GetWindowWMInfo(window, wminfo) == SDL::TRUE
+    case platform_id
+    when :PLATFORM_WINDOWS
+      pp [wminfo[:subsystem], wminfo[:info][:win][:window]]
+    when :PLATFORM_MACOSX
+      pp [wminfo[:subsystem], wminfo[:info][:cocoa][:window]]
+    when :PLATFORM_LINUX
+      # TODO reconsntruct wminfo if we detect Wayland subsystem
+      pp [wminfo[:subsystem], wminfo[:info][:x11][:display]]
+    else
+      raise RuntimeError, "Unknown OS: #{host_os.inspect}"
+    end
+  else
+    p SDL.GetError().read_string
+    exit
+  end
 
   fpsdelay = 100;
 
@@ -35,7 +73,16 @@ if __FILE__ == $PROGRAM_NAME
           puts "\tSPACE key pressed."
         end
       when SDL::SYSWMEVENT
-        wmmsg = SDL::SysWMmsg_cocoa.new(event[:syswm][:msg])
+        wmmsg = case platform_id
+                when :PLATFORM_WINDOWS
+                  SDL::SysWMmsg_win.new(event[:syswm][:msg])
+                when :PLATFORM_MACOSX
+                  SDL::SysWMmsg_cocoa.new(event[:syswm][:msg])
+                when :PLATFORM_LINUX
+                  SDL::SysWMmsg_x11.new(event[:syswm][:msg])
+                else
+                  raise RuntimeError, "Unknown OS: #{host_os.inspect}"
+                end
         pp wmmsg
       end
     end

@@ -5,7 +5,8 @@ def load_sdl2_lib()
   when /darwin/
     SDL.load_lib('libSDL2.dylib') # '/usr/local/lib/libSDL2.dylib'
   when /linux/
-    SDL.load_lib('libSDL2.so') # not tested
+    # Tested on Ubuntu Linux
+    SDL.load_lib("/lib/#{RUBY_PLATFORM}-gnu/libSDL2.so")
   else
     raise RuntimeError, "Unsupported platform."
   end

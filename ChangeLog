@@ -1,3 +1,8 @@
+2023-02-05  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* lib/sdl2_syswm.rb: Added X11 support
+	* Added Linux (on WSL) as a tested environment
+
 2022-11-23  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* SDL 2.26.0 ( https://github.com/libsdl-org/SDL/releases/tag/release-2.26.0 )
