@@ -501,13 +501,23 @@ def collect_decl_struct(ctx, cursor, struct_name=None, typedef_name=None):
     struct_name = struct_name if struct_name != None else cursor.displayname
     if ctx.has_decl_struct(struct_name):
         return
+
     struct_info = StructInfo()
     struct_info.kind = cursor.kind # CursorKind.STRUCT_DECL or CursorKind.UNION_DECL
     struct_info.original_name = struct_name
 
+    #print(struct_name)
+    #print(typedef_name)
+    #print(struct_info.original_name)
+    #print(struct_info.api_name)
+
     # NOTE : unnamed struct/union will be collected at 'collect_decl_typedef'.
     # ex.) typedef union {void *ptr; int id;} nk_handle; (exposed as an unnamed struct/union here)
-    if struct_info.original_name == "":
+    # NOTE : [2023-04-09] unnamed structs/unions are also reported like:
+    # ex.) unnamed at ./SDL2/SDL_guid.h:55:9
+    unnamed_struct = struct_info.original_name == "" or "unnamed at" in struct_info.original_name
+
+    if unnamed_struct:
         # Definitions like 'typede struct (anonymous) {...} StructName' may cause to come here.
         # e.g.)
         # typedef struct

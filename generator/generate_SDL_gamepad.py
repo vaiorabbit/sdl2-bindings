@@ -1,25 +1,25 @@
 import sdl2_parser, sdl2_generator
 
 TYPEDEF_PREFIX_GAMEPAD = """
-  class GamepadButtonBind_value_hat < FFI::Struct
+  class GamepadBinding_value_hat < FFI::Struct
     layout(
         :hat, :int,
         :hat_mask, :int,
     )
   end
 
-  class GamepadButtonBind_value < FFI::Struct
+  class GamepadBinding_value < FFI::Struct
     layout(
         :button, :int,
         :axis, :int,
-        :hat, GamepadButtonBind_value_hat,
+        :hat, GamepadBinding_value_hat,
     )
   end
 
-  class GamepadButtonBind < FFI::Struct
+  class GamepadBinding < FFI::Struct
     layout(
         :bindType, :int,
-        :value, GamepadButtonBind_value,
+        :value, GamepadBinding_value,
     )
   end
 """
@@ -31,9 +31,9 @@ if __name__ == "__main__":
 
     # TODO : Merge anonymous structs into one union (e.g. SDL_RWops)
     #
-    # SDL_GamepadButtonBind is a bit complicated so I unfortunately have to
+    # SDL_GamepadBinding is a bit complicated so I unfortunately have to
     # substitute the parsed definition with my handwritten one.
-    ctx.decl_structs['SDL_GamepadButtonBind'] = None
+    ctx.decl_structs['SDL_GamepadBinding'] = None
 
     sdl2_generator.sanitize(ctx)
     sdl2_generator.generate(ctx,
