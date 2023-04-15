@@ -10,29 +10,29 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  INIT_TIMER = 0x00000001
-  INIT_AUDIO = 0x00000010
-  INIT_VIDEO = 0x00000020
-  INIT_JOYSTICK = 0x00000200
-  INIT_HAPTIC = 0x00001000
-  INIT_GAMECONTROLLER = 0x00002000
-  INIT_EVENTS = 0x00004000
-  INIT_SENSOR = 0x00008000
-  INIT_NOPARACHUTE = 0x00100000
-  INIT_EVERYTHING = ( INIT_TIMER | INIT_AUDIO | INIT_VIDEO | INIT_EVENTS | INIT_JOYSTICK | INIT_HAPTIC | INIT_GAMECONTROLLER | INIT_SENSOR )
+  INIT_EVERYTHING = INIT_TIMER | INIT_AUDIO | INIT_VIDEO | INIT_EVENTS | INIT_JOYSTICK | INIT_HAPTIC | INIT_GAMEPAD | INIT_SENSOR
 
   # Enum
 
+  INIT_TIMER = 1
+  INIT_AUDIO = 16
+  INIT_VIDEO = 32
+  INIT_JOYSTICK = 512
+  INIT_HAPTIC = 4096
+  INIT_GAMEPAD = 8192
+  INIT_EVENTS = 16384
+  INIT_SENSOR = 32768
 
   # Typedef
 
+  typedef :int, :SDL_InitFlags
 
   # Struct
 
 
   # Function
 
-  def self.setup_main_symbols(output_error = false)
+  def self.setup_init_symbols(output_error = false)
     symbols = [
       :SDL_Init,
       :SDL_InitSubSystem,

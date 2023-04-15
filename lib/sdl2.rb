@@ -3,18 +3,19 @@
 # * https://github.com/vaiorabbit/sdl2-bindings
 
 require 'ffi'
-require_relative 'sdl2_main.rb'
 require_relative 'sdl2_audio.rb'
+require_relative 'sdl2_assert.rb'
+require_relative 'sdl2_atomic.rb'
 require_relative 'sdl2_blendmode.rb'
 require_relative 'sdl2_clipboard.rb'
 require_relative 'sdl2_cpuinfo.rb'
 require_relative 'sdl2_error.rb'
 require_relative 'sdl2_events.rb'
 require_relative 'sdl2_filesystem.rb'
-require_relative 'sdl2_gamecontroller.rb'
-require_relative 'sdl2_gesture.rb'
+require_relative 'sdl2_gamepad.rb'
 require_relative 'sdl2_haptic.rb'
 require_relative 'sdl2_hints.rb'
+require_relative 'sdl2_init.rb'
 require_relative 'sdl2_joystick.rb'
 require_relative 'sdl2_keyboard.rb'
 require_relative 'sdl2_keycode.rb'
@@ -35,6 +36,7 @@ require_relative 'sdl2_stdinc.rb'
 require_relative 'sdl2_surface.rb'
 require_relative 'sdl2_syswm.rb'
 require_relative 'sdl2_timer.rb'
+require_relative 'sdl2_thread.rb'
 require_relative 'sdl2_touch.rb'
 require_relative 'sdl2_version.rb'
 require_relative 'sdl2_video.rb'
@@ -90,18 +92,19 @@ module SDL
   end
 
   def self.setup_symbols(output_error = false)
-    setup_main_symbols(output_error)
     setup_audio_symbols(output_error)
+    setup_assert_symbols(output_error)
+    setup_atomic_symbols(output_error)
     setup_blendmode_symbols(output_error)
     setup_clipboard_symbols(output_error)
     setup_cpuinfo_symbols(output_error)
     setup_error_symbols(output_error)
     setup_events_symbols(output_error)
     setup_filesystem_symbols(output_error)
-    setup_gamecontroller_symbols(output_error)
-    setup_gesture_symbols(output_error)
+    setup_gamepad_symbols(output_error)
     setup_haptic_symbols(output_error)
     setup_hints_symbols(output_error)
+    setup_init_symbols(output_error)
     setup_joystick_symbols(output_error)
     setup_keyboard_symbols(output_error)
     setup_keycode_symbols(output_error)
@@ -122,6 +125,7 @@ module SDL
     setup_syswm_symbols(output_error)
     setup_stdinc_symbols(output_error)
     setup_timer_symbols(output_error)
+    setup_thread_symbols(output_error)
     setup_touch_symbols(output_error)
     setup_version_symbols(output_error)
     setup_video_symbols(output_error)
