@@ -171,7 +171,7 @@ TYPEDEF_POSTFIX_SYSWM = """
 
 if __name__ == "__main__":
 
-    ctx = sdl2_parser.ParseContext('./SDL2/SDL_syswm.h')
+    ctx = sdl2_parser.ParseContext('./SDL3/SDL_syswm.h')
     sdl2_parser.execute(ctx)
 
     # TODO : generate union automatically

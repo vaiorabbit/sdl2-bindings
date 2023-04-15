@@ -7,7 +7,7 @@ Config.set_library_path("/opt/homebrew/opt/llvm/lib")
 
 ####################################################################################################
 
-def generate_type_mapping(headers_list_filename = './sdl2_headers_list.json', headers_dir = './SDL2'):
+def generate_type_mapping(headers_list_filename = './sdl2_headers_list.json', headers_dir = './SDL3'):
     headers_list_file = Path(headers_list_filename)
 
     if not headers_list_file.exists():
@@ -41,7 +41,7 @@ def generate_type_mapping(headers_list_filename = './sdl2_headers_list.json', he
     print("}", file = sys.stdout)
 
 
-def generate_define_list(headers_list_filename = './sdl2_headers_list.json', headers_dir = './SDL2', concatinate = True):
+def generate_define_list(headers_list_filename = './sdl2_headers_list.json', headers_dir = './SDL3', concatinate = True):
     headers_list_file = Path(headers_list_filename)
 
     if not headers_list_file.exists():
@@ -514,7 +514,7 @@ def collect_decl_struct(ctx, cursor, struct_name=None, typedef_name=None):
     # NOTE : unnamed struct/union will be collected at 'collect_decl_typedef'.
     # ex.) typedef union {void *ptr; int id;} nk_handle; (exposed as an unnamed struct/union here)
     # NOTE : [2023-04-09] unnamed structs/unions are also reported like:
-    # ex.) unnamed at ./SDL2/SDL_guid.h:55:9
+    # ex.) unnamed at ./SDL3/SDL_guid.h:55:9
     unnamed_struct = struct_info.original_name == "" or "unnamed at" in struct_info.original_name
 
     if unnamed_struct:

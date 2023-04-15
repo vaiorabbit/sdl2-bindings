@@ -16,7 +16,7 @@ TYPEDEF_PREFIX_RECT = """
 
 if __name__ == "__main__":
 
-    ctx = sdl2_parser.ParseContext('./SDL2/SDL_rect.h')
+    ctx = sdl2_parser.ParseContext('./SDL3/SDL_rect.h')
     sdl2_parser.execute(ctx)
 
     ctx.decl_functions['SDL_PointInRect'] = None

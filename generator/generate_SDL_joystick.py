@@ -6,7 +6,7 @@ TYPEDEF_PREFIX_JOYSTICK = """
 
 if __name__ == "__main__":
 
-    ctx = sdl2_parser.ParseContext('./SDL2/SDL_joystick.h')
+    ctx = sdl2_parser.ParseContext('./SDL3/SDL_joystick.h')
     sdl2_parser.execute(ctx)
 
     ctx.decl_structs['JoystickGUID'] = None

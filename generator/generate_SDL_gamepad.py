@@ -26,7 +26,7 @@ TYPEDEF_PREFIX_GAMEPAD = """
 
 if __name__ == "__main__":
 
-    ctx = sdl2_parser.ParseContext('./SDL2/SDL_gamepad.h')
+    ctx = sdl2_parser.ParseContext('./SDL3/SDL_gamepad.h')
     sdl2_parser.execute(ctx)
 
     # TODO : Merge anonymous structs into one union (e.g. SDL_RWops)
