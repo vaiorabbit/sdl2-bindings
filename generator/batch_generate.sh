@@ -1,6 +1,5 @@
 #!/usr/local/bin/zsh
 export PYTHONPATH=/opt/homebrew/opt/llvm/lib/python3.11/site-packages
-/opt/homebrew/bin/python3 generate_SDL.py > ../lib/sdl2_main.rb
 /opt/homebrew/bin/python3 generate_SDL_audio.py > ../lib/sdl2_audio.rb
 /opt/homebrew/bin/python3 generate_SDL_assert.py > ../lib/sdl2_assert.rb
 /opt/homebrew/bin/python3 generate_SDL_blendmode.py > ../lib/sdl2_blendmode.rb
@@ -10,7 +9,6 @@ export PYTHONPATH=/opt/homebrew/opt/llvm/lib/python3.11/site-packages
 /opt/homebrew/bin/python3 generate_SDL_events.py > ../lib/sdl2_events.rb
 /opt/homebrew/bin/python3 generate_SDL_filesystem.py > ../lib/sdl2_filesystem.rb
 /opt/homebrew/bin/python3 generate_SDL_gamepad.py > ../lib/sdl2_gamepad.rb
-/opt/homebrew/bin/python3 generate_SDL_gesture.py > ../lib/sdl2_gesture.rb
 /opt/homebrew/bin/python3 generate_SDL_guid.py > ../lib/sdl2_guid.rb
 /opt/homebrew/bin/python3 generate_SDL_haptic.py > ../lib/sdl2_haptic.rb
 /opt/homebrew/bin/python3 generate_SDL_hints.py > ../lib/sdl2_hints.rb

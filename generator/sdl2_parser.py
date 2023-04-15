@@ -619,7 +619,7 @@ def collect_decl_function(ctx, cursor):
         retval_info.type_api_name = match_obj.group(1)
     else:
         retval_info.type_api_name = retval_info.type_original_name
-    retval_info.type_kind = cursor.result_type.kind
+    retval_info.type_kind = cursor.result_type.get_canonical().kind
 
     func_info.retval = retval_info
 
@@ -669,7 +669,10 @@ def collect_decl(ctx, cursor):
 
 
 parser_arg = [
-    "-fsyntax-only" #, "-DDOXYGEN_SHOULD_IGNORE_THIS"
+    "-fsyntax-only", #, "-DDOXYGEN_SHOULD_IGNORE_THIS"
+    "-DDECLSPEC=",
+    "-DSDLCALL=",
+    "-I./",
 ]
 
 parser_opt = TranslationUnit.PARSE_SKIP_FUNCTION_BODIES | TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD | TranslationUnit.PARSE_INCOMPLETE
