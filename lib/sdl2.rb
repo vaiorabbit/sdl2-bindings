@@ -5,7 +5,6 @@
 require 'ffi'
 require_relative 'sdl2_audio.rb'
 require_relative 'sdl2_assert.rb'
-require_relative 'sdl2_atomic.rb'
 require_relative 'sdl2_blendmode.rb'
 require_relative 'sdl2_clipboard.rb'
 require_relative 'sdl2_cpuinfo.rb'
@@ -94,7 +93,6 @@ module SDL
   def self.setup_symbols(output_error = false)
     setup_audio_symbols(output_error)
     setup_assert_symbols(output_error)
-    setup_atomic_symbols(output_error)
     setup_blendmode_symbols(output_error)
     setup_clipboard_symbols(output_error)
     setup_cpuinfo_symbols(output_error)

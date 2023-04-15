@@ -23,7 +23,7 @@ def sanitize_macro(ctx):
     # 0x____u -> 0x____
     pattern = re.compile(r'(0x[0-9a-fA-F]+)u')
     for macro_name, macro_value in ctx.decl_macros.items():
-        if len(macro_value) != 1:
+        if macro_value == None or len(macro_value) != 1:
             continue
         m = re.search(pattern, macro_value[0])
         if m:
@@ -99,7 +99,9 @@ def generate_macrodefine(ctx, indent = ""):
                 macro_api_name = macro_name
             print(indent + "%s = %s" % (macro_api_name, macro_value[0]), file = sys.stdout)
 
-def generate_enum(ctx, indent = ""):
+def generate_enum(ctx, indent = "", enum_prefix = "", enum_postfix = ""):
+    if enum_prefix != "":
+        print(enum_prefix, file = sys.stdout)
     for enum_name, enum_value in ctx.decl_enums.items():
         if enum_value != None:
             for enum in enum_value:
@@ -111,6 +113,8 @@ def generate_enum(ctx, indent = ""):
                 else:
                     enum_api_name = enum[0]
                 print(indent + "%s = %s" % (enum_api_name, enum[1]), file = sys.stdout)
+    if enum_postfix != "":
+        print(enum_postfix, file = sys.stdout)
 
 def generate_typedef(ctx, indent = "", typedef_prefix="", typedef_postfix=""):
     if typedef_prefix != "":
@@ -202,7 +206,7 @@ def generate_function(ctx, indent = "", setup_method_name = ""):
     print(indent + "end", file = sys.stdout)
 
 
-def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, setup_method_name = "", typedef_prefix="", typedef_postfix=""):
+def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, setup_method_name = "", typedef_prefix="", typedef_postfix="", enum_prefix="", enum_postfix=""):
 
     print(prefix, file = sys.stdout)
 
@@ -219,7 +223,7 @@ def generate(ctx, prefix = PREFIX, postfix = POSTFIX, *, setup_method_name = "",
 
     # enum
     print(indent + "# Enum\n", file = sys.stdout)
-    generate_enum(ctx, indent)
+    generate_enum(ctx, indent, enum_prefix, enum_postfix)
     print("", file = sys.stdout)
 
     # typedef
