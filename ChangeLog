@@ -1,3 +1,7 @@
+2023-04-16  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* Fix parser bug
+
 2023-02-05  vaiorabbit  <http://twitter.com/vaiorabbit>
 
 	* lib/sdl2_syswm.rb: Added X11 support

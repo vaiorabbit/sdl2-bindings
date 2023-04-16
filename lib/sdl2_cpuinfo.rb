@@ -119,7 +119,7 @@ module SDL
       :SDL_HasLSX => :int,
       :SDL_HasLASX => :int,
       :SDL_GetSystemRAM => :int,
-      :SDL_SIMDGetAlignment => :size_t,
+      :SDL_SIMDGetAlignment => :ulong,
       :SDL_SIMDAlloc => :pointer,
       :SDL_SIMDRealloc => :pointer,
       :SDL_SIMDFree => :void,
