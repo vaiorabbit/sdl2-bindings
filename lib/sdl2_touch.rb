@@ -10,8 +10,6 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  TOUCH_MOUSEID = 4294967295
-  MOUSE_TOUCHID = -1
 
   # Enum
 

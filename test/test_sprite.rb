@@ -14,8 +14,8 @@ $texture = nil
 class Sprite
   attr_accessor :pos, :vel
   def initialize
-    @pos = SDL::Rect.new
-    @vel = SDL::Rect.new
+    @pos = SDL::FRect.new
+    @vel = SDL::FRect.new
   end
 end
 $sprites = nil
@@ -32,35 +32,39 @@ def load_sprite(file, renderer)
 
   format = SDL::PixelFormat.new(temp[:format])
   if format[:palette] != nil
-    SDL.SetColorKey(temp, 1, temp[:pixels].read(:uint))
+    SDL.SetSurfaceColorKey(temp, 1, temp[:pixels].read(:uint8))
   else
     case format[:BitsPerPixel]
-    when 15; SDL.SetColorKey(temp, 1, (temp[:pixels].read(:short)) & 0x00007FFF);
-    when 16; SDL.SetColorKey(temp, 1, (temp[:pixels].read(:short)) & 0x00007FFF);
-    when 24; SDL.SetColorKey(temp, 1, (temp[:pixels].read(:int)) & 0x00007FFF);
-    when 32; SDL.SetColorKey(temp, 1, (temp[:pixels].read(:int)));
+    when 15; SDL.SetSurfaceColorKey(temp, 1, (temp[:pixels].read(:uint16)) & 0x00007FFF)
+    when 16; SDL.SetSurfaceColorKey(temp, 1, (temp[:pixels].read(:uint16)))
+    when 24; SDL.SetSurfaceColorKey(temp, 1, (temp[:pixels].read(:uint32)) & 0x00FFFFFF)
+    when 32; SDL.SetSurfaceColorKey(temp, 1, (temp[:pixels].read(:uint32)))
     end
   end
 
   $texture.sprite = SDL.CreateTextureFromSurface(renderer, temp)
-  SDL.FreeSurface(temp)
+  SDL.DestroySurface(temp)
 end
 
 def move_sprite(renderer)
+  viewport = SDL::Rect.new
+  SDL.GetRenderViewport(renderer, viewport)
+  vw, vh = viewport[:w], viewport[:h]
+
   SDL.SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF)
   SDL.RenderClear(renderer)
 
   NUM_SPRITES.times do |i|
     $sprites[i].pos[:x] += $sprites[i].vel[:x]
-    if $sprites[i].pos[:x] < 0 || $sprites[i].pos[:x] > (WINDOW_W - $texture.w)
+    if $sprites[i].pos[:x] < 0 || $sprites[i].pos[:x] > (vw - $texture.w)
       $sprites[i].vel[:x] = -$sprites[i].vel[:x]
     end
     $sprites[i].pos[:y] += $sprites[i].vel[:y]
-    if $sprites[i].pos[:y] < 0 || $sprites[i].pos[:y] > (WINDOW_H - $texture.w)
+    if $sprites[i].pos[:y] < 0 || $sprites[i].pos[:y] > (vh - $texture.w)
       $sprites[i].vel[:y] = -$sprites[i].vel[:y]
     end
 
-    SDL.RenderCopy(renderer, $texture.sprite, nil, $sprites[i].pos)
+    SDL.RenderTexture(renderer, $texture.sprite, nil, $sprites[i].pos)
   end
   SDL.RenderPresent(renderer)
 end
@@ -70,11 +74,12 @@ if __FILE__ == $PROGRAM_NAME
   success = SDL.Init(SDL::INIT_EVERYTHING)
   exit if success < 0
 
-  SDL.SetHint(SDL::HINT_RENDER_DRIVER, "metal")
+  # SDL.SetHint(SDL::HINT_RENDER_DRIVER, "metal")
 
-  window = SDL.CreateWindow("Minimal Sprite Test via sdl2-bindings", 32, 32, WINDOW_W, WINDOW_H, 0)
+  window = SDL.CreateWindow("Minimal Sprite Test via sdl3-bindings", WINDOW_W, WINDOW_H, 0)
+  SDL.SetWindowPosition(window, 32, 32)
 
-  renderer = SDL.CreateRenderer(window, -1, 0)
+  renderer = SDL.CreateRenderer(window, nil, 0)
   if renderer != nil
     renderer_info = SDL::RendererInfo.new
     SDL.GetRendererInfo(renderer, renderer_info)
@@ -85,10 +90,10 @@ if __FILE__ == $PROGRAM_NAME
 
   $sprites = Array.new(NUM_SPRITES) { Sprite.new }
   NUM_SPRITES.times do |i|
-    $sprites[i].pos[:x] = WINDOW_W / 2 + 100*rand() - 50
-    $sprites[i].pos[:y] = WINDOW_H / 2 + 100*rand() - 50
-    $sprites[i].pos[:w] = $texture.w
-    $sprites[i].pos[:h] = $texture.h
+    $sprites[i].pos[:x] = (rand() % (WINDOW_W - $texture.w)).to_f
+    $sprites[i].pos[:y] = (rand() % (WINDOW_H - $texture.h)).to_f
+    $sprites[i].pos[:w] = $texture.w.to_f
+    $sprites[i].pos[:h] = $texture.h.to_f
     $sprites[i].vel[:x] = 20*rand() - 10
     $sprites[i].vel[:y] = 20*rand() - 10
   end
@@ -102,7 +107,7 @@ if __FILE__ == $PROGRAM_NAME
       # event_timestamp = event.common.timestamp
       # puts "Event : type=0x#{event_type.to_s(16)}, timestamp=#{event_timestamp}"
       case event_type
-      when SDL::KEYDOWN
+      when SDL::EVENT_KEY_DOWN
         if event[:key][:keysym][:sym] == SDL::SDLK_ESCAPE
           done = true
         end

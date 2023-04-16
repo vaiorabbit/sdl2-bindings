@@ -17,7 +17,7 @@ module SDL
   # Typedef
 
 
-  def self.PointInRect(p, r)
+  def self.PointInRectFloat(p, r)
     return ( (p.x >= r.x) && (p.x < (r.x + r.w)) && (p.y >= r.y) && (p.y < (r.y + r.h)) ) ? 1 : 0;
   end
 
@@ -25,7 +25,7 @@ module SDL
     return (!r.null? || (r.w <= 0) || (r.h <= 0)) ? 1 : 0
   end
 
-  def self.RectEquals(a, b)
+  def self.RectsEqual(a, b)
     return (!a.null? && !b.null? && (a.x == b.x) && (a.y == b.y) && (a.w == b.w) && (a.h == b.h)) ? 1 : 0
   end
 
@@ -69,68 +69,52 @@ module SDL
 
   def self.setup_rect_symbols(output_error = false)
     symbols = [
-      :SDL_HasIntersection,
-      :SDL_IntersectRect,
-      :SDL_UnionRect,
-      :SDL_EnclosePoints,
-      :SDL_IntersectRectAndLine,
-      :SDL_PointInFRect,
-      :SDL_FRectEmpty,
-      :SDL_FRectEqualsEpsilon,
-      :SDL_FRectEquals,
-      :SDL_HasIntersectionF,
-      :SDL_IntersectFRect,
-      :SDL_UnionFRect,
-      :SDL_EncloseFPoints,
-      :SDL_IntersectFRectAndLine,
+      :SDL_HasRectIntersection,
+      :SDL_GetRectIntersection,
+      :SDL_GetRectUnion,
+      :SDL_GetRectEnclosingPoints,
+      :SDL_GetRectAndLineIntersection,
+      :SDL_HasRectIntersectionFloat,
+      :SDL_GetRectIntersectionFloat,
+      :SDL_GetRectUnionFloat,
+      :SDL_GetRectEnclosingPointsFloat,
+      :SDL_GetRectAndLineIntersectionFloat,
     ]
     apis = {
-      :SDL_HasIntersection => :HasIntersection,
-      :SDL_IntersectRect => :IntersectRect,
-      :SDL_UnionRect => :UnionRect,
-      :SDL_EnclosePoints => :EnclosePoints,
-      :SDL_IntersectRectAndLine => :IntersectRectAndLine,
-      :SDL_PointInFRect => :PointInFRect,
-      :SDL_FRectEmpty => :FRectEmpty,
-      :SDL_FRectEqualsEpsilon => :FRectEqualsEpsilon,
-      :SDL_FRectEquals => :FRectEquals,
-      :SDL_HasIntersectionF => :HasIntersectionF,
-      :SDL_IntersectFRect => :IntersectFRect,
-      :SDL_UnionFRect => :UnionFRect,
-      :SDL_EncloseFPoints => :EncloseFPoints,
-      :SDL_IntersectFRectAndLine => :IntersectFRectAndLine,
+      :SDL_HasRectIntersection => :HasRectIntersection,
+      :SDL_GetRectIntersection => :GetRectIntersection,
+      :SDL_GetRectUnion => :GetRectUnion,
+      :SDL_GetRectEnclosingPoints => :GetRectEnclosingPoints,
+      :SDL_GetRectAndLineIntersection => :GetRectAndLineIntersection,
+      :SDL_HasRectIntersectionFloat => :HasRectIntersectionFloat,
+      :SDL_GetRectIntersectionFloat => :GetRectIntersectionFloat,
+      :SDL_GetRectUnionFloat => :GetRectUnionFloat,
+      :SDL_GetRectEnclosingPointsFloat => :GetRectEnclosingPointsFloat,
+      :SDL_GetRectAndLineIntersectionFloat => :GetRectAndLineIntersectionFloat,
     }
     args = {
-      :SDL_HasIntersection => [:pointer, :pointer],
-      :SDL_IntersectRect => [:pointer, :pointer, :pointer],
-      :SDL_UnionRect => [:pointer, :pointer, :pointer],
-      :SDL_EnclosePoints => [:pointer, :int, :pointer, :pointer],
-      :SDL_IntersectRectAndLine => [:pointer, :pointer, :pointer, :pointer, :pointer],
-      :SDL_PointInFRect => [:pointer, :pointer],
-      :SDL_FRectEmpty => [:pointer],
-      :SDL_FRectEqualsEpsilon => [:pointer, :pointer, :float],
-      :SDL_FRectEquals => [:pointer, :pointer],
-      :SDL_HasIntersectionF => [:pointer, :pointer],
-      :SDL_IntersectFRect => [:pointer, :pointer, :pointer],
-      :SDL_UnionFRect => [:pointer, :pointer, :pointer],
-      :SDL_EncloseFPoints => [:pointer, :int, :pointer, :pointer],
-      :SDL_IntersectFRectAndLine => [:pointer, :pointer, :pointer, :pointer, :pointer],
+      :SDL_HasRectIntersection => [:pointer, :pointer],
+      :SDL_GetRectIntersection => [:pointer, :pointer, :pointer],
+      :SDL_GetRectUnion => [:pointer, :pointer, :pointer],
+      :SDL_GetRectEnclosingPoints => [:pointer, :int, :pointer, :pointer],
+      :SDL_GetRectAndLineIntersection => [:pointer, :pointer, :pointer, :pointer, :pointer],
+      :SDL_HasRectIntersectionFloat => [:pointer, :pointer],
+      :SDL_GetRectIntersectionFloat => [:pointer, :pointer, :pointer],
+      :SDL_GetRectUnionFloat => [:pointer, :pointer, :pointer],
+      :SDL_GetRectEnclosingPointsFloat => [:pointer, :int, :pointer, :pointer],
+      :SDL_GetRectAndLineIntersectionFloat => [:pointer, :pointer, :pointer, :pointer, :pointer],
     }
     retvals = {
-      :SDL_HasIntersection => :int,
-      :SDL_IntersectRect => :int,
-      :SDL_UnionRect => :void,
-      :SDL_EnclosePoints => :int,
-      :SDL_IntersectRectAndLine => :int,
-      :SDL_PointInFRect => :int,
-      :SDL_FRectEmpty => :int,
-      :SDL_FRectEqualsEpsilon => :int,
-      :SDL_FRectEquals => :int,
-      :SDL_HasIntersectionF => :int,
-      :SDL_IntersectFRect => :int,
-      :SDL_UnionFRect => :void,
-      :SDL_EncloseFPoints => :int,
-      :SDL_IntersectFRectAndLine => :int,
+      :SDL_HasRectIntersection => :int,
+      :SDL_GetRectIntersection => :int,
+      :SDL_GetRectUnion => :int,
+      :SDL_GetRectEnclosingPoints => :int,
+      :SDL_GetRectAndLineIntersection => :int,
+      :SDL_HasRectIntersectionFloat => :int,
+      :SDL_GetRectIntersectionFloat => :int,
+      :SDL_GetRectUnionFloat => :int,
+      :SDL_GetRectEnclosingPointsFloat => :int,
+      :SDL_GetRectAndLineIntersectionFloat => :int,
     }
     symbols.each do |sym|
       begin

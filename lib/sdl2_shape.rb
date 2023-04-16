@@ -59,7 +59,7 @@ module SDL
       :SDL_GetShapedWindowMode => :GetShapedWindowMode,
     }
     args = {
-      :SDL_CreateShapedWindow => [:pointer, :uint, :uint, :uint, :uint, :uint],
+      :SDL_CreateShapedWindow => [:pointer, :int, :int, :uint],
       :SDL_IsShapedWindow => [:pointer],
       :SDL_SetWindowShape => [:pointer, :pointer, :pointer],
       :SDL_GetShapedWindowMode => [:pointer, :pointer],

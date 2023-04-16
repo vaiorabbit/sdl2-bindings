@@ -30,7 +30,6 @@ module SDL
       :SDL_HasRDTSC,
       :SDL_HasAltiVec,
       :SDL_HasMMX,
-      :SDL_Has3DNow,
       :SDL_HasSSE,
       :SDL_HasSSE2,
       :SDL_HasSSE3,
@@ -45,9 +44,6 @@ module SDL
       :SDL_HasLASX,
       :SDL_GetSystemRAM,
       :SDL_SIMDGetAlignment,
-      :SDL_SIMDAlloc,
-      :SDL_SIMDRealloc,
-      :SDL_SIMDFree,
     ]
     apis = {
       :SDL_GetCPUCount => :GetCPUCount,
@@ -55,7 +51,6 @@ module SDL
       :SDL_HasRDTSC => :HasRDTSC,
       :SDL_HasAltiVec => :HasAltiVec,
       :SDL_HasMMX => :HasMMX,
-      :SDL_Has3DNow => :Has3DNow,
       :SDL_HasSSE => :HasSSE,
       :SDL_HasSSE2 => :HasSSE2,
       :SDL_HasSSE3 => :HasSSE3,
@@ -70,9 +65,6 @@ module SDL
       :SDL_HasLASX => :HasLASX,
       :SDL_GetSystemRAM => :GetSystemRAM,
       :SDL_SIMDGetAlignment => :SIMDGetAlignment,
-      :SDL_SIMDAlloc => :SIMDAlloc,
-      :SDL_SIMDRealloc => :SIMDRealloc,
-      :SDL_SIMDFree => :SIMDFree,
     }
     args = {
       :SDL_GetCPUCount => [],
@@ -80,7 +72,6 @@ module SDL
       :SDL_HasRDTSC => [],
       :SDL_HasAltiVec => [],
       :SDL_HasMMX => [],
-      :SDL_Has3DNow => [],
       :SDL_HasSSE => [],
       :SDL_HasSSE2 => [],
       :SDL_HasSSE3 => [],
@@ -95,9 +86,6 @@ module SDL
       :SDL_HasLASX => [],
       :SDL_GetSystemRAM => [],
       :SDL_SIMDGetAlignment => [],
-      :SDL_SIMDAlloc => [:ulong],
-      :SDL_SIMDRealloc => [:pointer, :ulong],
-      :SDL_SIMDFree => [:pointer],
     }
     retvals = {
       :SDL_GetCPUCount => :int,
@@ -105,7 +93,6 @@ module SDL
       :SDL_HasRDTSC => :int,
       :SDL_HasAltiVec => :int,
       :SDL_HasMMX => :int,
-      :SDL_Has3DNow => :int,
       :SDL_HasSSE => :int,
       :SDL_HasSSE2 => :int,
       :SDL_HasSSE3 => :int,
@@ -119,10 +106,7 @@ module SDL
       :SDL_HasLSX => :int,
       :SDL_HasLASX => :int,
       :SDL_GetSystemRAM => :int,
-      :SDL_SIMDGetAlignment => :size_t,
-      :SDL_SIMDAlloc => :pointer,
-      :SDL_SIMDRealloc => :pointer,
-      :SDL_SIMDFree => :void,
+      :SDL_SIMDGetAlignment => :ulong,
     }
     symbols.each do |sym|
       begin

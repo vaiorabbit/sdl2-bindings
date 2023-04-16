@@ -41,11 +41,7 @@ module SDL
   PACKEDORDER_BGRA = 8
   ARRAYORDER_NONE = 0
   ARRAYORDER_RGB = 1
-  ARRAYORDER_RGBA = 2
-  ARRAYORDER_ARGB = 3
-  ARRAYORDER_BGR = 4
-  ARRAYORDER_BGRA = 5
-  ARRAYORDER_ABGR = 6
+  ARRAYORDER_BGR = 2
   PACKEDLAYOUT_NONE = 0
   PACKEDLAYOUT_332 = 1
   PACKEDLAYOUT_4444 = 2
@@ -81,7 +77,7 @@ module SDL
   PIXELFORMAT_RGB565 = 353701890
   PIXELFORMAT_BGR565 = 357896194
   PIXELFORMAT_RGB24 = 386930691
-  PIXELFORMAT_BGR24 = 390076419
+  PIXELFORMAT_BGR24 = 387979267
   PIXELFORMAT_XRGB8888 = 370546692
   PIXELFORMAT_RGB888 = 370546692
   PIXELFORMAT_RGBX8888 = 371595268
@@ -165,67 +161,63 @@ module SDL
   def self.setup_pixels_symbols(output_error = false)
     symbols = [
       :SDL_GetPixelFormatName,
-      :SDL_PixelFormatEnumToMasks,
-      :SDL_MasksToPixelFormatEnum,
-      :SDL_AllocFormat,
-      :SDL_FreeFormat,
-      :SDL_AllocPalette,
+      :SDL_GetMasksForPixelFormatEnum,
+      :SDL_GetPixelFormatEnumForMasks,
+      :SDL_CreatePixelFormat,
+      :SDL_DestroyPixelFormat,
+      :SDL_CreatePalette,
       :SDL_SetPixelFormatPalette,
       :SDL_SetPaletteColors,
-      :SDL_FreePalette,
+      :SDL_DestroyPalette,
       :SDL_MapRGB,
       :SDL_MapRGBA,
       :SDL_GetRGB,
       :SDL_GetRGBA,
-      :SDL_CalculateGammaRamp,
     ]
     apis = {
       :SDL_GetPixelFormatName => :GetPixelFormatName,
-      :SDL_PixelFormatEnumToMasks => :PixelFormatEnumToMasks,
-      :SDL_MasksToPixelFormatEnum => :MasksToPixelFormatEnum,
-      :SDL_AllocFormat => :AllocFormat,
-      :SDL_FreeFormat => :FreeFormat,
-      :SDL_AllocPalette => :AllocPalette,
+      :SDL_GetMasksForPixelFormatEnum => :GetMasksForPixelFormatEnum,
+      :SDL_GetPixelFormatEnumForMasks => :GetPixelFormatEnumForMasks,
+      :SDL_CreatePixelFormat => :CreatePixelFormat,
+      :SDL_DestroyPixelFormat => :DestroyPixelFormat,
+      :SDL_CreatePalette => :CreatePalette,
       :SDL_SetPixelFormatPalette => :SetPixelFormatPalette,
       :SDL_SetPaletteColors => :SetPaletteColors,
-      :SDL_FreePalette => :FreePalette,
+      :SDL_DestroyPalette => :DestroyPalette,
       :SDL_MapRGB => :MapRGB,
       :SDL_MapRGBA => :MapRGBA,
       :SDL_GetRGB => :GetRGB,
       :SDL_GetRGBA => :GetRGBA,
-      :SDL_CalculateGammaRamp => :CalculateGammaRamp,
     }
     args = {
       :SDL_GetPixelFormatName => [:uint],
-      :SDL_PixelFormatEnumToMasks => [:uint, :pointer, :pointer, :pointer, :pointer, :pointer],
-      :SDL_MasksToPixelFormatEnum => [:int, :uint, :uint, :uint, :uint],
-      :SDL_AllocFormat => [:uint],
-      :SDL_FreeFormat => [:pointer],
-      :SDL_AllocPalette => [:int],
+      :SDL_GetMasksForPixelFormatEnum => [:uint, :pointer, :pointer, :pointer, :pointer, :pointer],
+      :SDL_GetPixelFormatEnumForMasks => [:int, :uint, :uint, :uint, :uint],
+      :SDL_CreatePixelFormat => [:uint],
+      :SDL_DestroyPixelFormat => [:pointer],
+      :SDL_CreatePalette => [:int],
       :SDL_SetPixelFormatPalette => [:pointer, :pointer],
       :SDL_SetPaletteColors => [:pointer, :pointer, :int, :int],
-      :SDL_FreePalette => [:pointer],
+      :SDL_DestroyPalette => [:pointer],
       :SDL_MapRGB => [:pointer, :uchar, :uchar, :uchar],
       :SDL_MapRGBA => [:pointer, :uchar, :uchar, :uchar, :uchar],
       :SDL_GetRGB => [:uint, :pointer, :pointer, :pointer, :pointer],
       :SDL_GetRGBA => [:uint, :pointer, :pointer, :pointer, :pointer, :pointer],
-      :SDL_CalculateGammaRamp => [:float, :pointer],
     }
     retvals = {
       :SDL_GetPixelFormatName => :pointer,
-      :SDL_PixelFormatEnumToMasks => :int,
-      :SDL_MasksToPixelFormatEnum => :uint,
-      :SDL_AllocFormat => :pointer,
-      :SDL_FreeFormat => :void,
-      :SDL_AllocPalette => :pointer,
+      :SDL_GetMasksForPixelFormatEnum => :int,
+      :SDL_GetPixelFormatEnumForMasks => :uint,
+      :SDL_CreatePixelFormat => :pointer,
+      :SDL_DestroyPixelFormat => :void,
+      :SDL_CreatePalette => :pointer,
       :SDL_SetPixelFormatPalette => :int,
       :SDL_SetPaletteColors => :int,
-      :SDL_FreePalette => :void,
+      :SDL_DestroyPalette => :void,
       :SDL_MapRGB => :uint,
       :SDL_MapRGBA => :uint,
       :SDL_GetRGB => :void,
       :SDL_GetRGBA => :void,
-      :SDL_CalculateGammaRamp => :void,
     }
     symbols.each do |sym|
       begin

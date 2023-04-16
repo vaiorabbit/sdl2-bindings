@@ -235,7 +235,7 @@ module SDL
       :SDL_AddGamepadMappingsFromRW => [:pointer, :int],
       :SDL_GetNumGamepadMappings => [],
       :SDL_GetGamepadMappingForIndex => [:int],
-      :SDL_GetGamepadMappingForGUID => [JoystickGUID.by_value],
+      :SDL_GetGamepadMappingForGUID => [SDL_JoystickGUID],
       :SDL_GetGamepadMapping => [:pointer],
       :SDL_GetGamepads => [:pointer],
       :SDL_IsGamepad => [:uint],

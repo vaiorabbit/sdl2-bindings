@@ -16,16 +16,15 @@ module SDL
   RWOPS_JNIFILE = 3
   RWOPS_MEMORY = 4
   RWOPS_MEMORY_RO = 5
+  RW_SEEK_SET = 0
+  RW_SEEK_CUR = 1
+  RW_SEEK_END = 2
 
   # Enum
 
 
   # Typedef
 
-
-  RW_SEEK_SET = 0
-  RW_SEEK_CUR = 1
-  RW_SEEK_END = 2
 
   class RWops_mem < FFI::Struct
     layout(
@@ -111,11 +110,10 @@ module SDL
   def self.setup_rwops_symbols(output_error = false)
     symbols = [
       :SDL_RWFromFile,
-      :SDL_RWFromFP,
       :SDL_RWFromMem,
       :SDL_RWFromConstMem,
-      :SDL_AllocRW,
-      :SDL_FreeRW,
+      :SDL_CreateRW,
+      :SDL_DestroyRW,
       :SDL_RWsize,
       :SDL_RWseek,
       :SDL_RWtell,
@@ -141,11 +139,10 @@ module SDL
     ]
     apis = {
       :SDL_RWFromFile => :RWFromFile,
-      :SDL_RWFromFP => :RWFromFP,
       :SDL_RWFromMem => :RWFromMem,
       :SDL_RWFromConstMem => :RWFromConstMem,
-      :SDL_AllocRW => :AllocRW,
-      :SDL_FreeRW => :FreeRW,
+      :SDL_CreateRW => :CreateRW,
+      :SDL_DestroyRW => :DestroyRW,
       :SDL_RWsize => :RWsize,
       :SDL_RWseek => :RWseek,
       :SDL_RWtell => :RWtell,
@@ -171,16 +168,15 @@ module SDL
     }
     args = {
       :SDL_RWFromFile => [:pointer, :pointer],
-      :SDL_RWFromFP => [:pointer, :int],
       :SDL_RWFromMem => [:pointer, :int],
       :SDL_RWFromConstMem => [:pointer, :int],
-      :SDL_AllocRW => [],
-      :SDL_FreeRW => [:pointer],
+      :SDL_CreateRW => [],
+      :SDL_DestroyRW => [:pointer],
       :SDL_RWsize => [:pointer],
       :SDL_RWseek => [:pointer, :long_long, :int],
       :SDL_RWtell => [:pointer],
-      :SDL_RWread => [:pointer, :pointer, :ulong, :ulong],
-      :SDL_RWwrite => [:pointer, :pointer, :ulong, :ulong],
+      :SDL_RWread => [:pointer, :pointer, :long_long],
+      :SDL_RWwrite => [:pointer, :pointer, :long_long],
       :SDL_RWclose => [:pointer],
       :SDL_LoadFile_RW => [:pointer, :pointer, :int],
       :SDL_LoadFile => [:pointer, :pointer],
@@ -201,16 +197,15 @@ module SDL
     }
     retvals = {
       :SDL_RWFromFile => :pointer,
-      :SDL_RWFromFP => :pointer,
       :SDL_RWFromMem => :pointer,
       :SDL_RWFromConstMem => :pointer,
-      :SDL_AllocRW => :pointer,
-      :SDL_FreeRW => :void,
+      :SDL_CreateRW => :pointer,
+      :SDL_DestroyRW => :void,
       :SDL_RWsize => :long_long,
       :SDL_RWseek => :long_long,
       :SDL_RWtell => :long_long,
-      :SDL_RWread => :size_t,
-      :SDL_RWwrite => :size_t,
+      :SDL_RWread => :long_long,
+      :SDL_RWwrite => :long_long,
       :SDL_RWclose => :int,
       :SDL_LoadFile_RW => :pointer,
       :SDL_LoadFile => :pointer,
@@ -221,13 +216,13 @@ module SDL
       :SDL_ReadBE32 => :uint,
       :SDL_ReadLE64 => :ulong_long,
       :SDL_ReadBE64 => :ulong_long,
-      :SDL_WriteU8 => :size_t,
-      :SDL_WriteLE16 => :size_t,
-      :SDL_WriteBE16 => :size_t,
-      :SDL_WriteLE32 => :size_t,
-      :SDL_WriteBE32 => :size_t,
-      :SDL_WriteLE64 => :size_t,
-      :SDL_WriteBE64 => :size_t,
+      :SDL_WriteU8 => :ulong,
+      :SDL_WriteLE16 => :ulong,
+      :SDL_WriteBE16 => :ulong,
+      :SDL_WriteLE32 => :ulong,
+      :SDL_WriteBE32 => :ulong,
+      :SDL_WriteLE64 => :ulong,
+      :SDL_WriteBE64 => :ulong,
     }
     symbols.each do |sym|
       begin

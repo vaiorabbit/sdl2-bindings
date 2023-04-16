@@ -10,9 +10,9 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  MAJOR_VERSION = 2
-  MINOR_VERSION = 24
-  PATCHLEVEL = 1
+  MAJOR_VERSION = 3
+  MINOR_VERSION = 0
+  PATCHLEVEL = 0
 
   # Enum
 
@@ -37,22 +37,18 @@ module SDL
     symbols = [
       :SDL_GetVersion,
       :SDL_GetRevision,
-      :SDL_GetRevisionNumber,
     ]
     apis = {
       :SDL_GetVersion => :GetVersion,
       :SDL_GetRevision => :GetRevision,
-      :SDL_GetRevisionNumber => :GetRevisionNumber,
     }
     args = {
       :SDL_GetVersion => [:pointer],
       :SDL_GetRevision => [],
-      :SDL_GetRevisionNumber => [],
     }
     retvals = {
-      :SDL_GetVersion => :void,
+      :SDL_GetVersion => :int,
       :SDL_GetRevision => :pointer,
-      :SDL_GetRevisionNumber => :int,
     }
     symbols.each do |sym|
       begin

@@ -11,25 +11,23 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
+  SYSWM_CURRENT_VERSION = 1
   METALVIEW_TAG = 255
 
   # Enum
 
   SYSWM_UNKNOWN = 0
-  SYSWM_WINDOWS = 1
-  SYSWM_X11 = 2
-  SYSWM_DIRECTFB = 3
-  SYSWM_COCOA = 4
-  SYSWM_UIKIT = 5
-  SYSWM_WAYLAND = 6
-  SYSWM_MIR = 7
-  SYSWM_WINRT = 8
-  SYSWM_ANDROID = 9
-  SYSWM_VIVANTE = 10
-  SYSWM_OS2 = 11
-  SYSWM_HAIKU = 12
-  SYSWM_KMSDRM = 13
-  SYSWM_RISCOS = 14
+  SYSWM_ANDROID = 1
+  SYSWM_COCOA = 2
+  SYSWM_HAIKU = 3
+  SYSWM_KMSDRM = 4
+  SYSWM_RISCOS = 5
+  SYSWM_UIKIT = 6
+  SYSWM_VIVANTE = 7
+  SYSWM_WAYLAND = 8
+  SYSWM_WINDOWS = 9
+  SYSWM_WINRT = 10
+  SYSWM_X11 = 11
 
   # Typedef
 
@@ -216,7 +214,7 @@ module SDL
       :SDL_GetWindowWMInfo => :GetWindowWMInfo,
     }
     args = {
-      :SDL_GetWindowWMInfo => [:pointer, :pointer],
+      :SDL_GetWindowWMInfo => [:pointer, :pointer, :uint],
     }
     retvals = {
       :SDL_GetWindowWMInfo => :int,

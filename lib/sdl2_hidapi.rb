@@ -119,7 +119,7 @@ module SDL
       :SDL_hid_set_nonblocking => :int,
       :SDL_hid_send_feature_report => :int,
       :SDL_hid_get_feature_report => :int,
-      :SDL_hid_close => :void,
+      :SDL_hid_close => :int,
       :SDL_hid_get_manufacturer_string => :int,
       :SDL_hid_get_product_string => :int,
       :SDL_hid_get_serial_number_string => :int,

@@ -10,6 +10,11 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
+  MS_PER_SECOND = 1000
+  US_PER_SECOND = 1000000
+  NS_PER_SECOND = 1000000000
+  NS_PER_MS = 1000000
+  NS_PER_US = 1000
 
   # Enum
 
@@ -27,37 +32,41 @@ module SDL
   def self.setup_timer_symbols(output_error = false)
     symbols = [
       :SDL_GetTicks,
-      :SDL_GetTicks64,
+      :SDL_GetTicksNS,
       :SDL_GetPerformanceCounter,
       :SDL_GetPerformanceFrequency,
       :SDL_Delay,
+      :SDL_DelayNS,
       :SDL_AddTimer,
       :SDL_RemoveTimer,
     ]
     apis = {
       :SDL_GetTicks => :GetTicks,
-      :SDL_GetTicks64 => :GetTicks64,
+      :SDL_GetTicksNS => :GetTicksNS,
       :SDL_GetPerformanceCounter => :GetPerformanceCounter,
       :SDL_GetPerformanceFrequency => :GetPerformanceFrequency,
       :SDL_Delay => :Delay,
+      :SDL_DelayNS => :DelayNS,
       :SDL_AddTimer => :AddTimer,
       :SDL_RemoveTimer => :RemoveTimer,
     }
     args = {
       :SDL_GetTicks => [],
-      :SDL_GetTicks64 => [],
+      :SDL_GetTicksNS => [],
       :SDL_GetPerformanceCounter => [],
       :SDL_GetPerformanceFrequency => [],
       :SDL_Delay => [:uint],
+      :SDL_DelayNS => [:ulong_long],
       :SDL_AddTimer => [:uint, :SDL_TimerCallback, :pointer],
       :SDL_RemoveTimer => [:int],
     }
     retvals = {
-      :SDL_GetTicks => :uint,
-      :SDL_GetTicks64 => :ulong_long,
+      :SDL_GetTicks => :ulong_long,
+      :SDL_GetTicksNS => :ulong_long,
       :SDL_GetPerformanceCounter => :ulong_long,
       :SDL_GetPerformanceFrequency => :ulong_long,
       :SDL_Delay => :void,
+      :SDL_DelayNS => :void,
       :SDL_AddTimer => :int,
       :SDL_RemoveTimer => :int,
     }

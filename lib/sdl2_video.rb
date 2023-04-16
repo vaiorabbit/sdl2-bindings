@@ -15,9 +15,16 @@ module SDL
 
   # Enum
 
+  SYSTEM_THEME_UNKNOWN = 0
+  SYSTEM_THEME_LIGHT = 1
+  SYSTEM_THEME_DARK = 2
+  ORIENTATION_UNKNOWN = 0
+  ORIENTATION_LANDSCAPE = 1
+  ORIENTATION_LANDSCAPE_FLIPPED = 2
+  ORIENTATION_PORTRAIT = 3
+  ORIENTATION_PORTRAIT_FLIPPED = 4
   WINDOW_FULLSCREEN = 1
   WINDOW_OPENGL = 2
-  WINDOW_SHOWN = 4
   WINDOW_HIDDEN = 8
   WINDOW_BORDERLESS = 16
   WINDOW_RESIZABLE = 32
@@ -26,9 +33,7 @@ module SDL
   WINDOW_MOUSE_GRABBED = 256
   WINDOW_INPUT_FOCUS = 512
   WINDOW_MOUSE_FOCUS = 1024
-  WINDOW_FULLSCREEN_DESKTOP = 4097
   WINDOW_FOREIGN = 2048
-  WINDOW_ALLOW_HIGHDPI = 8192
   WINDOW_MOUSE_CAPTURE = 16384
   WINDOW_ALWAYS_ON_TOP = 32768
   WINDOW_SKIP_TASKBAR = 65536
@@ -38,35 +43,6 @@ module SDL
   WINDOW_KEYBOARD_GRABBED = 1048576
   WINDOW_VULKAN = 268435456
   WINDOW_METAL = 536870912
-  WINDOW_INPUT_GRABBED = 256
-  WINDOWEVENT_NONE = 0
-  WINDOWEVENT_SHOWN = 1
-  WINDOWEVENT_HIDDEN = 2
-  WINDOWEVENT_EXPOSED = 3
-  WINDOWEVENT_MOVED = 4
-  WINDOWEVENT_RESIZED = 5
-  WINDOWEVENT_SIZE_CHANGED = 6
-  WINDOWEVENT_MINIMIZED = 7
-  WINDOWEVENT_MAXIMIZED = 8
-  WINDOWEVENT_RESTORED = 9
-  WINDOWEVENT_ENTER = 10
-  WINDOWEVENT_LEAVE = 11
-  WINDOWEVENT_FOCUS_GAINED = 12
-  WINDOWEVENT_FOCUS_LOST = 13
-  WINDOWEVENT_CLOSE = 14
-  WINDOWEVENT_TAKE_FOCUS = 15
-  WINDOWEVENT_HIT_TEST = 16
-  WINDOWEVENT_ICCPROF_CHANGED = 17
-  WINDOWEVENT_DISPLAY_CHANGED = 18
-  DISPLAYEVENT_NONE = 0
-  DISPLAYEVENT_ORIENTATION = 1
-  DISPLAYEVENT_CONNECTED = 2
-  DISPLAYEVENT_DISCONNECTED = 3
-  ORIENTATION_UNKNOWN = 0
-  ORIENTATION_LANDSCAPE = 1
-  ORIENTATION_LANDSCAPE_FLIPPED = 2
-  ORIENTATION_PORTRAIT = 3
-  ORIENTATION_PORTRAIT_FLIPPED = 4
   FLASH_CANCEL = 0
   FLASH_BRIEFLY = 1
   FLASH_UNTIL_FOCUSED = 2
@@ -89,15 +65,15 @@ module SDL
   GL_RETAINED_BACKING = 16
   GL_CONTEXT_MAJOR_VERSION = 17
   GL_CONTEXT_MINOR_VERSION = 18
-  GL_CONTEXT_EGL = 19
-  GL_CONTEXT_FLAGS = 20
-  GL_CONTEXT_PROFILE_MASK = 21
-  GL_SHARE_WITH_CURRENT_CONTEXT = 22
-  GL_FRAMEBUFFER_SRGB_CAPABLE = 23
-  GL_CONTEXT_RELEASE_BEHAVIOR = 24
-  GL_CONTEXT_RESET_NOTIFICATION = 25
-  GL_CONTEXT_NO_ERROR = 26
-  GL_FLOATBUFFERS = 27
+  GL_CONTEXT_FLAGS = 19
+  GL_CONTEXT_PROFILE_MASK = 20
+  GL_SHARE_WITH_CURRENT_CONTEXT = 21
+  GL_FRAMEBUFFER_SRGB_CAPABLE = 22
+  GL_CONTEXT_RELEASE_BEHAVIOR = 23
+  GL_CONTEXT_RESET_NOTIFICATION = 24
+  GL_CONTEXT_NO_ERROR = 25
+  GL_FLOATBUFFERS = 26
+  GL_EGL_PLATFORM = 27
   GL_CONTEXT_PROFILE_CORE = 1
   GL_CONTEXT_PROFILE_COMPATIBILITY = 2
   GL_CONTEXT_PROFILE_ES = 4
@@ -122,12 +98,20 @@ module SDL
 
   # Typedef
 
-  typedef :int, :SDL_WindowFlags
-  typedef :int, :SDL_WindowEventID
-  typedef :int, :SDL_DisplayEventID
+  typedef :uint, :SDL_DisplayID
+  typedef :uint, :SDL_WindowID
+  typedef :int, :SDL_SystemTheme
   typedef :int, :SDL_DisplayOrientation
+  typedef :int, :SDL_WindowFlags
   typedef :int, :SDL_FlashOperation
   typedef :pointer, :SDL_GLContext
+  typedef :pointer, :SDL_EGLDisplay
+  typedef :pointer, :SDL_EGLConfig
+  typedef :pointer, :SDL_EGLSurface
+  typedef :long, :SDL_EGLAttrib
+  typedef :int, :SDL_EGLint
+  callback :SDL_EGLAttribArrayCallback, [], :pointer
+  callback :SDL_EGLIntArrayCallback, [], :pointer
   typedef :int, :SDL_GLattr
   typedef :int, :SDL_GLprofile
   typedef :int, :SDL_GLcontextFlag
@@ -140,10 +124,14 @@ module SDL
 
   class DisplayMode < FFI::Struct
     layout(
+      :displayID, :uint,
       :format, :uint,
-      :w, :int,
-      :h, :int,
-      :refresh_rate, :int,
+      :pixel_w, :int,
+      :pixel_h, :int,
+      :screen_w, :int,
+      :screen_h, :int,
+      :display_scale, :float,
+      :refresh_rate, :float,
       :driverdata, :pointer,
     )
   end
@@ -155,28 +143,27 @@ module SDL
     symbols = [
       :SDL_GetNumVideoDrivers,
       :SDL_GetVideoDriver,
-      :SDL_VideoInit,
-      :SDL_VideoQuit,
       :SDL_GetCurrentVideoDriver,
-      :SDL_GetNumVideoDisplays,
+      :SDL_GetSystemTheme,
+      :SDL_GetDisplays,
+      :SDL_GetPrimaryDisplay,
       :SDL_GetDisplayName,
       :SDL_GetDisplayBounds,
       :SDL_GetDisplayUsableBounds,
-      :SDL_GetDisplayDPI,
       :SDL_GetDisplayOrientation,
-      :SDL_GetNumDisplayModes,
-      :SDL_GetDisplayMode,
+      :SDL_GetFullscreenDisplayModes,
+      :SDL_GetClosestFullscreenDisplayMode,
       :SDL_GetDesktopDisplayMode,
       :SDL_GetCurrentDisplayMode,
-      :SDL_GetClosestDisplayMode,
-      :SDL_GetPointDisplayIndex,
-      :SDL_GetRectDisplayIndex,
-      :SDL_GetWindowDisplayIndex,
-      :SDL_SetWindowDisplayMode,
-      :SDL_GetWindowDisplayMode,
+      :SDL_GetDisplayForPoint,
+      :SDL_GetDisplayForRect,
+      :SDL_GetDisplayForWindow,
+      :SDL_SetWindowFullscreenMode,
+      :SDL_GetWindowFullscreenMode,
       :SDL_GetWindowICCProfile,
       :SDL_GetWindowPixelFormat,
       :SDL_CreateWindow,
+      :SDL_CreatePopupWindow,
       :SDL_CreateWindowFrom,
       :SDL_GetWindowID,
       :SDL_GetWindowFromID,
@@ -218,22 +205,19 @@ module SDL
       :SDL_GetGrabbedWindow,
       :SDL_SetWindowMouseRect,
       :SDL_GetWindowMouseRect,
-      :SDL_SetWindowBrightness,
-      :SDL_GetWindowBrightness,
       :SDL_SetWindowOpacity,
       :SDL_GetWindowOpacity,
       :SDL_SetWindowModalFor,
       :SDL_SetWindowInputFocus,
-      :SDL_SetWindowGammaRamp,
-      :SDL_GetWindowGammaRamp,
       :SDL_SetWindowHitTest,
       :SDL_FlashWindow,
       :SDL_DestroyWindow,
-      :SDL_IsScreenSaverEnabled,
+      :SDL_ScreenSaverEnabled,
       :SDL_EnableScreenSaver,
       :SDL_DisableScreenSaver,
       :SDL_GL_LoadLibrary,
       :SDL_GL_GetProcAddress,
+      :SDL_EGL_GetProcAddress,
       :SDL_GL_UnloadLibrary,
       :SDL_GL_ExtensionSupported,
       :SDL_GL_ResetAttributes,
@@ -243,7 +227,10 @@ module SDL
       :SDL_GL_MakeCurrent,
       :SDL_GL_GetCurrentWindow,
       :SDL_GL_GetCurrentContext,
-      :SDL_GL_GetDrawableSize,
+      :SDL_EGL_GetCurrentEGLDisplay,
+      :SDL_EGL_GetCurrentEGLConfig,
+      :SDL_EGL_GetWindowEGLSurface,
+      :SDL_EGL_SetEGLAttributeCallbacks,
       :SDL_GL_SetSwapInterval,
       :SDL_GL_GetSwapInterval,
       :SDL_GL_SwapWindow,
@@ -252,28 +239,27 @@ module SDL
     apis = {
       :SDL_GetNumVideoDrivers => :GetNumVideoDrivers,
       :SDL_GetVideoDriver => :GetVideoDriver,
-      :SDL_VideoInit => :VideoInit,
-      :SDL_VideoQuit => :VideoQuit,
       :SDL_GetCurrentVideoDriver => :GetCurrentVideoDriver,
-      :SDL_GetNumVideoDisplays => :GetNumVideoDisplays,
+      :SDL_GetSystemTheme => :GetSystemTheme,
+      :SDL_GetDisplays => :GetDisplays,
+      :SDL_GetPrimaryDisplay => :GetPrimaryDisplay,
       :SDL_GetDisplayName => :GetDisplayName,
       :SDL_GetDisplayBounds => :GetDisplayBounds,
       :SDL_GetDisplayUsableBounds => :GetDisplayUsableBounds,
-      :SDL_GetDisplayDPI => :GetDisplayDPI,
       :SDL_GetDisplayOrientation => :GetDisplayOrientation,
-      :SDL_GetNumDisplayModes => :GetNumDisplayModes,
-      :SDL_GetDisplayMode => :GetDisplayMode,
+      :SDL_GetFullscreenDisplayModes => :GetFullscreenDisplayModes,
+      :SDL_GetClosestFullscreenDisplayMode => :GetClosestFullscreenDisplayMode,
       :SDL_GetDesktopDisplayMode => :GetDesktopDisplayMode,
       :SDL_GetCurrentDisplayMode => :GetCurrentDisplayMode,
-      :SDL_GetClosestDisplayMode => :GetClosestDisplayMode,
-      :SDL_GetPointDisplayIndex => :GetPointDisplayIndex,
-      :SDL_GetRectDisplayIndex => :GetRectDisplayIndex,
-      :SDL_GetWindowDisplayIndex => :GetWindowDisplayIndex,
-      :SDL_SetWindowDisplayMode => :SetWindowDisplayMode,
-      :SDL_GetWindowDisplayMode => :GetWindowDisplayMode,
+      :SDL_GetDisplayForPoint => :GetDisplayForPoint,
+      :SDL_GetDisplayForRect => :GetDisplayForRect,
+      :SDL_GetDisplayForWindow => :GetDisplayForWindow,
+      :SDL_SetWindowFullscreenMode => :SetWindowFullscreenMode,
+      :SDL_GetWindowFullscreenMode => :GetWindowFullscreenMode,
       :SDL_GetWindowICCProfile => :GetWindowICCProfile,
       :SDL_GetWindowPixelFormat => :GetWindowPixelFormat,
       :SDL_CreateWindow => :CreateWindow,
+      :SDL_CreatePopupWindow => :CreatePopupWindow,
       :SDL_CreateWindowFrom => :CreateWindowFrom,
       :SDL_GetWindowID => :GetWindowID,
       :SDL_GetWindowFromID => :GetWindowFromID,
@@ -315,22 +301,19 @@ module SDL
       :SDL_GetGrabbedWindow => :GetGrabbedWindow,
       :SDL_SetWindowMouseRect => :SetWindowMouseRect,
       :SDL_GetWindowMouseRect => :GetWindowMouseRect,
-      :SDL_SetWindowBrightness => :SetWindowBrightness,
-      :SDL_GetWindowBrightness => :GetWindowBrightness,
       :SDL_SetWindowOpacity => :SetWindowOpacity,
       :SDL_GetWindowOpacity => :GetWindowOpacity,
       :SDL_SetWindowModalFor => :SetWindowModalFor,
       :SDL_SetWindowInputFocus => :SetWindowInputFocus,
-      :SDL_SetWindowGammaRamp => :SetWindowGammaRamp,
-      :SDL_GetWindowGammaRamp => :GetWindowGammaRamp,
       :SDL_SetWindowHitTest => :SetWindowHitTest,
       :SDL_FlashWindow => :FlashWindow,
       :SDL_DestroyWindow => :DestroyWindow,
-      :SDL_IsScreenSaverEnabled => :IsScreenSaverEnabled,
+      :SDL_ScreenSaverEnabled => :ScreenSaverEnabled,
       :SDL_EnableScreenSaver => :EnableScreenSaver,
       :SDL_DisableScreenSaver => :DisableScreenSaver,
       :SDL_GL_LoadLibrary => :GL_LoadLibrary,
       :SDL_GL_GetProcAddress => :GL_GetProcAddress,
+      :SDL_EGL_GetProcAddress => :EGL_GetProcAddress,
       :SDL_GL_UnloadLibrary => :GL_UnloadLibrary,
       :SDL_GL_ExtensionSupported => :GL_ExtensionSupported,
       :SDL_GL_ResetAttributes => :GL_ResetAttributes,
@@ -340,7 +323,10 @@ module SDL
       :SDL_GL_MakeCurrent => :GL_MakeCurrent,
       :SDL_GL_GetCurrentWindow => :GL_GetCurrentWindow,
       :SDL_GL_GetCurrentContext => :GL_GetCurrentContext,
-      :SDL_GL_GetDrawableSize => :GL_GetDrawableSize,
+      :SDL_EGL_GetCurrentEGLDisplay => :EGL_GetCurrentEGLDisplay,
+      :SDL_EGL_GetCurrentEGLConfig => :EGL_GetCurrentEGLConfig,
+      :SDL_EGL_GetWindowEGLSurface => :EGL_GetWindowEGLSurface,
+      :SDL_EGL_SetEGLAttributeCallbacks => :EGL_SetEGLAttributeCallbacks,
       :SDL_GL_SetSwapInterval => :GL_SetSwapInterval,
       :SDL_GL_GetSwapInterval => :GL_GetSwapInterval,
       :SDL_GL_SwapWindow => :GL_SwapWindow,
@@ -349,28 +335,27 @@ module SDL
     args = {
       :SDL_GetNumVideoDrivers => [],
       :SDL_GetVideoDriver => [:int],
-      :SDL_VideoInit => [:pointer],
-      :SDL_VideoQuit => [],
       :SDL_GetCurrentVideoDriver => [],
-      :SDL_GetNumVideoDisplays => [],
-      :SDL_GetDisplayName => [:int],
-      :SDL_GetDisplayBounds => [:int, :pointer],
-      :SDL_GetDisplayUsableBounds => [:int, :pointer],
-      :SDL_GetDisplayDPI => [:int, :pointer, :pointer, :pointer],
-      :SDL_GetDisplayOrientation => [:int],
-      :SDL_GetNumDisplayModes => [:int],
-      :SDL_GetDisplayMode => [:int, :int, :pointer],
-      :SDL_GetDesktopDisplayMode => [:int, :pointer],
-      :SDL_GetCurrentDisplayMode => [:int, :pointer],
-      :SDL_GetClosestDisplayMode => [:int, :pointer, :pointer],
-      :SDL_GetPointDisplayIndex => [:pointer],
-      :SDL_GetRectDisplayIndex => [:pointer],
-      :SDL_GetWindowDisplayIndex => [:pointer],
-      :SDL_SetWindowDisplayMode => [:pointer, :pointer],
-      :SDL_GetWindowDisplayMode => [:pointer, :pointer],
+      :SDL_GetSystemTheme => [],
+      :SDL_GetDisplays => [:pointer],
+      :SDL_GetPrimaryDisplay => [],
+      :SDL_GetDisplayName => [:uint],
+      :SDL_GetDisplayBounds => [:uint, :pointer],
+      :SDL_GetDisplayUsableBounds => [:uint, :pointer],
+      :SDL_GetDisplayOrientation => [:uint],
+      :SDL_GetFullscreenDisplayModes => [:uint, :pointer],
+      :SDL_GetClosestFullscreenDisplayMode => [:uint, :int, :int, :float],
+      :SDL_GetDesktopDisplayMode => [:uint],
+      :SDL_GetCurrentDisplayMode => [:uint],
+      :SDL_GetDisplayForPoint => [:pointer],
+      :SDL_GetDisplayForRect => [:pointer],
+      :SDL_GetDisplayForWindow => [:pointer],
+      :SDL_SetWindowFullscreenMode => [:pointer, :pointer],
+      :SDL_GetWindowFullscreenMode => [:pointer],
       :SDL_GetWindowICCProfile => [:pointer, :pointer],
       :SDL_GetWindowPixelFormat => [:pointer],
-      :SDL_CreateWindow => [:pointer, :int, :int, :int, :int, :uint],
+      :SDL_CreateWindow => [:pointer, :int, :int, :uint],
+      :SDL_CreatePopupWindow => [:pointer, :int, :int, :int, :int, :uint],
       :SDL_CreateWindowFrom => [:pointer],
       :SDL_GetWindowID => [:pointer],
       :SDL_GetWindowFromID => [:uint],
@@ -399,7 +384,7 @@ module SDL
       :SDL_MaximizeWindow => [:pointer],
       :SDL_MinimizeWindow => [:pointer],
       :SDL_RestoreWindow => [:pointer],
-      :SDL_SetWindowFullscreen => [:pointer, :uint],
+      :SDL_SetWindowFullscreen => [:pointer, :int],
       :SDL_GetWindowSurface => [:pointer],
       :SDL_UpdateWindowSurface => [:pointer],
       :SDL_UpdateWindowSurfaceRects => [:pointer, :pointer, :int],
@@ -412,22 +397,19 @@ module SDL
       :SDL_GetGrabbedWindow => [],
       :SDL_SetWindowMouseRect => [:pointer, :pointer],
       :SDL_GetWindowMouseRect => [:pointer],
-      :SDL_SetWindowBrightness => [:pointer, :float],
-      :SDL_GetWindowBrightness => [:pointer],
       :SDL_SetWindowOpacity => [:pointer, :float],
       :SDL_GetWindowOpacity => [:pointer, :pointer],
       :SDL_SetWindowModalFor => [:pointer, :pointer],
       :SDL_SetWindowInputFocus => [:pointer],
-      :SDL_SetWindowGammaRamp => [:pointer, :pointer, :pointer, :pointer],
-      :SDL_GetWindowGammaRamp => [:pointer, :pointer, :pointer, :pointer],
       :SDL_SetWindowHitTest => [:pointer, :SDL_HitTest, :pointer],
       :SDL_FlashWindow => [:pointer, :int],
       :SDL_DestroyWindow => [:pointer],
-      :SDL_IsScreenSaverEnabled => [],
+      :SDL_ScreenSaverEnabled => [],
       :SDL_EnableScreenSaver => [],
       :SDL_DisableScreenSaver => [],
       :SDL_GL_LoadLibrary => [:pointer],
       :SDL_GL_GetProcAddress => [:pointer],
+      :SDL_EGL_GetProcAddress => [:pointer],
       :SDL_GL_UnloadLibrary => [],
       :SDL_GL_ExtensionSupported => [:pointer],
       :SDL_GL_ResetAttributes => [],
@@ -437,94 +419,93 @@ module SDL
       :SDL_GL_MakeCurrent => [:pointer, :pointer],
       :SDL_GL_GetCurrentWindow => [],
       :SDL_GL_GetCurrentContext => [],
-      :SDL_GL_GetDrawableSize => [:pointer, :pointer, :pointer],
+      :SDL_EGL_GetCurrentEGLDisplay => [],
+      :SDL_EGL_GetCurrentEGLConfig => [],
+      :SDL_EGL_GetWindowEGLSurface => [:pointer],
+      :SDL_EGL_SetEGLAttributeCallbacks => [:SDL_EGLAttribArrayCallback, :SDL_EGLIntArrayCallback, :SDL_EGLIntArrayCallback],
       :SDL_GL_SetSwapInterval => [:int],
-      :SDL_GL_GetSwapInterval => [],
+      :SDL_GL_GetSwapInterval => [:pointer],
       :SDL_GL_SwapWindow => [:pointer],
       :SDL_GL_DeleteContext => [:pointer],
     }
     retvals = {
       :SDL_GetNumVideoDrivers => :int,
       :SDL_GetVideoDriver => :pointer,
-      :SDL_VideoInit => :int,
-      :SDL_VideoQuit => :void,
       :SDL_GetCurrentVideoDriver => :pointer,
-      :SDL_GetNumVideoDisplays => :int,
+      :SDL_GetSystemTheme => :int,
+      :SDL_GetDisplays => :pointer,
+      :SDL_GetPrimaryDisplay => :uint,
       :SDL_GetDisplayName => :pointer,
       :SDL_GetDisplayBounds => :int,
       :SDL_GetDisplayUsableBounds => :int,
-      :SDL_GetDisplayDPI => :int,
       :SDL_GetDisplayOrientation => :int,
-      :SDL_GetNumDisplayModes => :int,
-      :SDL_GetDisplayMode => :int,
-      :SDL_GetDesktopDisplayMode => :int,
-      :SDL_GetCurrentDisplayMode => :int,
-      :SDL_GetClosestDisplayMode => :pointer,
-      :SDL_GetPointDisplayIndex => :int,
-      :SDL_GetRectDisplayIndex => :int,
-      :SDL_GetWindowDisplayIndex => :int,
-      :SDL_SetWindowDisplayMode => :int,
-      :SDL_GetWindowDisplayMode => :int,
+      :SDL_GetFullscreenDisplayModes => :pointer,
+      :SDL_GetClosestFullscreenDisplayMode => :pointer,
+      :SDL_GetDesktopDisplayMode => :pointer,
+      :SDL_GetCurrentDisplayMode => :pointer,
+      :SDL_GetDisplayForPoint => :uint,
+      :SDL_GetDisplayForRect => :uint,
+      :SDL_GetDisplayForWindow => :uint,
+      :SDL_SetWindowFullscreenMode => :int,
+      :SDL_GetWindowFullscreenMode => :pointer,
       :SDL_GetWindowICCProfile => :pointer,
       :SDL_GetWindowPixelFormat => :uint,
       :SDL_CreateWindow => :pointer,
+      :SDL_CreatePopupWindow => :pointer,
       :SDL_CreateWindowFrom => :pointer,
       :SDL_GetWindowID => :uint,
       :SDL_GetWindowFromID => :pointer,
       :SDL_GetWindowFlags => :uint,
-      :SDL_SetWindowTitle => :void,
+      :SDL_SetWindowTitle => :int,
       :SDL_GetWindowTitle => :pointer,
-      :SDL_SetWindowIcon => :void,
+      :SDL_SetWindowIcon => :int,
       :SDL_SetWindowData => :pointer,
       :SDL_GetWindowData => :pointer,
-      :SDL_SetWindowPosition => :void,
-      :SDL_GetWindowPosition => :void,
-      :SDL_SetWindowSize => :void,
-      :SDL_GetWindowSize => :void,
+      :SDL_SetWindowPosition => :int,
+      :SDL_GetWindowPosition => :int,
+      :SDL_SetWindowSize => :int,
+      :SDL_GetWindowSize => :int,
       :SDL_GetWindowBordersSize => :int,
-      :SDL_GetWindowSizeInPixels => :void,
-      :SDL_SetWindowMinimumSize => :void,
-      :SDL_GetWindowMinimumSize => :void,
-      :SDL_SetWindowMaximumSize => :void,
-      :SDL_GetWindowMaximumSize => :void,
-      :SDL_SetWindowBordered => :void,
-      :SDL_SetWindowResizable => :void,
-      :SDL_SetWindowAlwaysOnTop => :void,
-      :SDL_ShowWindow => :void,
-      :SDL_HideWindow => :void,
-      :SDL_RaiseWindow => :void,
-      :SDL_MaximizeWindow => :void,
-      :SDL_MinimizeWindow => :void,
-      :SDL_RestoreWindow => :void,
+      :SDL_GetWindowSizeInPixels => :int,
+      :SDL_SetWindowMinimumSize => :int,
+      :SDL_GetWindowMinimumSize => :int,
+      :SDL_SetWindowMaximumSize => :int,
+      :SDL_GetWindowMaximumSize => :int,
+      :SDL_SetWindowBordered => :int,
+      :SDL_SetWindowResizable => :int,
+      :SDL_SetWindowAlwaysOnTop => :int,
+      :SDL_ShowWindow => :int,
+      :SDL_HideWindow => :int,
+      :SDL_RaiseWindow => :int,
+      :SDL_MaximizeWindow => :int,
+      :SDL_MinimizeWindow => :int,
+      :SDL_RestoreWindow => :int,
       :SDL_SetWindowFullscreen => :int,
       :SDL_GetWindowSurface => :pointer,
       :SDL_UpdateWindowSurface => :int,
       :SDL_UpdateWindowSurfaceRects => :int,
-      :SDL_SetWindowGrab => :void,
-      :SDL_SetWindowKeyboardGrab => :void,
-      :SDL_SetWindowMouseGrab => :void,
+      :SDL_SetWindowGrab => :int,
+      :SDL_SetWindowKeyboardGrab => :int,
+      :SDL_SetWindowMouseGrab => :int,
       :SDL_GetWindowGrab => :int,
       :SDL_GetWindowKeyboardGrab => :int,
       :SDL_GetWindowMouseGrab => :int,
       :SDL_GetGrabbedWindow => :pointer,
       :SDL_SetWindowMouseRect => :int,
       :SDL_GetWindowMouseRect => :pointer,
-      :SDL_SetWindowBrightness => :int,
-      :SDL_GetWindowBrightness => :float,
       :SDL_SetWindowOpacity => :int,
       :SDL_GetWindowOpacity => :int,
       :SDL_SetWindowModalFor => :int,
       :SDL_SetWindowInputFocus => :int,
-      :SDL_SetWindowGammaRamp => :int,
-      :SDL_GetWindowGammaRamp => :int,
       :SDL_SetWindowHitTest => :int,
       :SDL_FlashWindow => :int,
       :SDL_DestroyWindow => :void,
-      :SDL_IsScreenSaverEnabled => :int,
-      :SDL_EnableScreenSaver => :void,
-      :SDL_DisableScreenSaver => :void,
+      :SDL_ScreenSaverEnabled => :int,
+      :SDL_EnableScreenSaver => :int,
+      :SDL_DisableScreenSaver => :int,
       :SDL_GL_LoadLibrary => :int,
       :SDL_GL_GetProcAddress => :pointer,
+      :SDL_EGL_GetProcAddress => :pointer,
       :SDL_GL_UnloadLibrary => :void,
       :SDL_GL_ExtensionSupported => :int,
       :SDL_GL_ResetAttributes => :void,
@@ -534,11 +515,14 @@ module SDL
       :SDL_GL_MakeCurrent => :int,
       :SDL_GL_GetCurrentWindow => :pointer,
       :SDL_GL_GetCurrentContext => :pointer,
-      :SDL_GL_GetDrawableSize => :void,
+      :SDL_EGL_GetCurrentEGLDisplay => :pointer,
+      :SDL_EGL_GetCurrentEGLConfig => :pointer,
+      :SDL_EGL_GetWindowEGLSurface => :pointer,
+      :SDL_EGL_SetEGLAttributeCallbacks => :void,
       :SDL_GL_SetSwapInterval => :int,
       :SDL_GL_GetSwapInterval => :int,
-      :SDL_GL_SwapWindow => :void,
-      :SDL_GL_DeleteContext => :void,
+      :SDL_GL_SwapWindow => :int,
+      :SDL_GL_DeleteContext => :int,
     }
     symbols.each do |sym|
       begin

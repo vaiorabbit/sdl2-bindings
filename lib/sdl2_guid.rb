@@ -42,7 +42,7 @@ module SDL
       :SDL_GUIDFromString => [:pointer],
     }
     retvals = {
-      :SDL_GUIDToString => :void,
+      :SDL_GUIDToString => :int,
       :SDL_GUIDFromString => GUID.by_value,
     }
     symbols.each do |sym|

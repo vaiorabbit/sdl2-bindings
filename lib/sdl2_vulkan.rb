@@ -33,7 +33,6 @@ module SDL
       :SDL_Vulkan_UnloadLibrary,
       :SDL_Vulkan_GetInstanceExtensions,
       :SDL_Vulkan_CreateSurface,
-      :SDL_Vulkan_GetDrawableSize,
     ]
     apis = {
       :SDL_Vulkan_LoadLibrary => :Vulkan_LoadLibrary,
@@ -41,15 +40,13 @@ module SDL
       :SDL_Vulkan_UnloadLibrary => :Vulkan_UnloadLibrary,
       :SDL_Vulkan_GetInstanceExtensions => :Vulkan_GetInstanceExtensions,
       :SDL_Vulkan_CreateSurface => :Vulkan_CreateSurface,
-      :SDL_Vulkan_GetDrawableSize => :Vulkan_GetDrawableSize,
     }
     args = {
       :SDL_Vulkan_LoadLibrary => [:pointer],
       :SDL_Vulkan_GetVkGetInstanceProcAddr => [],
       :SDL_Vulkan_UnloadLibrary => [],
-      :SDL_Vulkan_GetInstanceExtensions => [:pointer, :pointer, :pointer],
+      :SDL_Vulkan_GetInstanceExtensions => [:pointer, :pointer],
       :SDL_Vulkan_CreateSurface => [:pointer, :pointer, :pointer],
-      :SDL_Vulkan_GetDrawableSize => [:pointer, :pointer, :pointer],
     }
     retvals = {
       :SDL_Vulkan_LoadLibrary => :int,
@@ -57,7 +54,6 @@ module SDL
       :SDL_Vulkan_UnloadLibrary => :void,
       :SDL_Vulkan_GetInstanceExtensions => :int,
       :SDL_Vulkan_CreateSurface => :int,
-      :SDL_Vulkan_GetDrawableSize => :void,
     }
     symbols.each do |sym|
       begin

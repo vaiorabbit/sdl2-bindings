@@ -10,10 +10,6 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  ICONV_ERROR = 4294967295
-  ICONV_E2BIG = 4294967294
-  ICONV_EILSEQ = 4294967293
-  ICONV_EINVAL = 4294967292
 
   # Enum
 
@@ -44,6 +40,7 @@ module SDL
   callback :SDL_realloc_func, [:pointer, :ulong], :pointer
   callback :SDL_free_func, [:pointer], :void
   typedef :pointer, :SDL_iconv_t
+  callback :SDL_FunctionPointer, [], :void
 
   # Struct
 
@@ -59,6 +56,8 @@ module SDL
       :SDL_GetOriginalMemoryFunctions,
       :SDL_GetMemoryFunctions,
       :SDL_SetMemoryFunctions,
+      :SDL_aligned_alloc,
+      :SDL_aligned_free,
       :SDL_GetNumAllocations,
       :SDL_getenv,
       :SDL_setenv,
@@ -160,6 +159,8 @@ module SDL
       :SDL_logf,
       :SDL_log10,
       :SDL_log10f,
+      :SDL_modf,
+      :SDL_modff,
       :SDL_pow,
       :SDL_powf,
       :SDL_round,
@@ -187,6 +188,8 @@ module SDL
       :SDL_GetOriginalMemoryFunctions => :GetOriginalMemoryFunctions,
       :SDL_GetMemoryFunctions => :GetMemoryFunctions,
       :SDL_SetMemoryFunctions => :SetMemoryFunctions,
+      :SDL_aligned_alloc => :aligned_alloc,
+      :SDL_aligned_free => :aligned_free,
       :SDL_GetNumAllocations => :GetNumAllocations,
       :SDL_getenv => :getenv,
       :SDL_setenv => :setenv,
@@ -288,6 +291,8 @@ module SDL
       :SDL_logf => :logf,
       :SDL_log10 => :log10,
       :SDL_log10f => :log10f,
+      :SDL_modf => :modf,
+      :SDL_modff => :modff,
       :SDL_pow => :pow,
       :SDL_powf => :powf,
       :SDL_round => :round,
@@ -315,6 +320,8 @@ module SDL
       :SDL_GetOriginalMemoryFunctions => [:pointer, :pointer, :pointer, :pointer],
       :SDL_GetMemoryFunctions => [:pointer, :pointer, :pointer, :pointer],
       :SDL_SetMemoryFunctions => [:SDL_malloc_func, :SDL_calloc_func, :SDL_realloc_func, :SDL_free_func],
+      :SDL_aligned_alloc => [:ulong, :ulong],
+      :SDL_aligned_free => [:pointer],
       :SDL_GetNumAllocations => [],
       :SDL_getenv => [:pointer],
       :SDL_setenv => [:pointer, :pointer, :int],
@@ -416,6 +423,8 @@ module SDL
       :SDL_logf => [:float],
       :SDL_log10 => [:double],
       :SDL_log10f => [:float],
+      :SDL_modf => [:double, :pointer],
+      :SDL_modff => [:float, :pointer],
       :SDL_pow => [:double, :double],
       :SDL_powf => [:float, :float],
       :SDL_round => [:double],
@@ -443,6 +452,8 @@ module SDL
       :SDL_GetOriginalMemoryFunctions => :void,
       :SDL_GetMemoryFunctions => :void,
       :SDL_SetMemoryFunctions => :int,
+      :SDL_aligned_alloc => :pointer,
+      :SDL_aligned_free => :void,
       :SDL_GetNumAllocations => :int,
       :SDL_getenv => :pointer,
       :SDL_setenv => :int,
@@ -469,19 +480,19 @@ module SDL
       :SDL_memcpy => :pointer,
       :SDL_memmove => :pointer,
       :SDL_memcmp => :int,
-      :SDL_wcslen => :size_t,
-      :SDL_wcslcpy => :size_t,
-      :SDL_wcslcat => :size_t,
+      :SDL_wcslen => :ulong,
+      :SDL_wcslcpy => :ulong,
+      :SDL_wcslcat => :ulong,
       :SDL_wcsdup => :pointer,
       :SDL_wcsstr => :pointer,
       :SDL_wcscmp => :int,
       :SDL_wcsncmp => :int,
       :SDL_wcscasecmp => :int,
       :SDL_wcsncasecmp => :int,
-      :SDL_strlen => :size_t,
-      :SDL_strlcpy => :size_t,
-      :SDL_utf8strlcpy => :size_t,
-      :SDL_strlcat => :size_t,
+      :SDL_strlen => :ulong,
+      :SDL_strlcpy => :ulong,
+      :SDL_utf8strlcpy => :ulong,
+      :SDL_strlcat => :ulong,
       :SDL_strdup => :pointer,
       :SDL_strrev => :pointer,
       :SDL_strupr => :pointer,
@@ -491,8 +502,8 @@ module SDL
       :SDL_strstr => :pointer,
       :SDL_strcasestr => :pointer,
       :SDL_strtokr => :pointer,
-      :SDL_utf8strlen => :size_t,
-      :SDL_utf8strnlen => :size_t,
+      :SDL_utf8strlen => :ulong,
+      :SDL_utf8strnlen => :ulong,
       :SDL_itoa => :pointer,
       :SDL_uitoa => :pointer,
       :SDL_ltoa => :pointer,
@@ -544,6 +555,8 @@ module SDL
       :SDL_logf => :float,
       :SDL_log10 => :double,
       :SDL_log10f => :float,
+      :SDL_modf => :double,
+      :SDL_modff => :float,
       :SDL_pow => :double,
       :SDL_powf => :float,
       :SDL_round => :double,
@@ -560,7 +573,7 @@ module SDL
       :SDL_tanf => :float,
       :SDL_iconv_open => :pointer,
       :SDL_iconv_close => :int,
-      :SDL_iconv => :size_t,
+      :SDL_iconv => :ulong,
       :SDL_iconv_string => :pointer,
     }
     symbols.each do |sym|

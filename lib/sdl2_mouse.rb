@@ -36,6 +36,7 @@ module SDL
 
   # Typedef
 
+  typedef :uint, :SDL_MouseID
   typedef :int, :SDL_SystemCursor
   typedef :int, :SDL_MouseWheelDirection
 
@@ -61,8 +62,10 @@ module SDL
       :SDL_SetCursor,
       :SDL_GetCursor,
       :SDL_GetDefaultCursor,
-      :SDL_FreeCursor,
+      :SDL_DestroyCursor,
       :SDL_ShowCursor,
+      :SDL_HideCursor,
+      :SDL_CursorVisible,
     ]
     apis = {
       :SDL_GetMouseFocus => :GetMouseFocus,
@@ -80,16 +83,18 @@ module SDL
       :SDL_SetCursor => :SetCursor,
       :SDL_GetCursor => :GetCursor,
       :SDL_GetDefaultCursor => :GetDefaultCursor,
-      :SDL_FreeCursor => :FreeCursor,
+      :SDL_DestroyCursor => :DestroyCursor,
       :SDL_ShowCursor => :ShowCursor,
+      :SDL_HideCursor => :HideCursor,
+      :SDL_CursorVisible => :CursorVisible,
     }
     args = {
       :SDL_GetMouseFocus => [],
       :SDL_GetMouseState => [:pointer, :pointer],
       :SDL_GetGlobalMouseState => [:pointer, :pointer],
       :SDL_GetRelativeMouseState => [:pointer, :pointer],
-      :SDL_WarpMouseInWindow => [:pointer, :int, :int],
-      :SDL_WarpMouseGlobal => [:int, :int],
+      :SDL_WarpMouseInWindow => [:pointer, :float, :float],
+      :SDL_WarpMouseGlobal => [:float, :float],
       :SDL_SetRelativeMouseMode => [:int],
       :SDL_CaptureMouse => [:int],
       :SDL_GetRelativeMouseMode => [],
@@ -99,8 +104,10 @@ module SDL
       :SDL_SetCursor => [:pointer],
       :SDL_GetCursor => [],
       :SDL_GetDefaultCursor => [],
-      :SDL_FreeCursor => [:pointer],
-      :SDL_ShowCursor => [:int],
+      :SDL_DestroyCursor => [:pointer],
+      :SDL_ShowCursor => [],
+      :SDL_HideCursor => [],
+      :SDL_CursorVisible => [],
     }
     retvals = {
       :SDL_GetMouseFocus => :pointer,
@@ -115,11 +122,13 @@ module SDL
       :SDL_CreateCursor => :pointer,
       :SDL_CreateColorCursor => :pointer,
       :SDL_CreateSystemCursor => :pointer,
-      :SDL_SetCursor => :void,
+      :SDL_SetCursor => :int,
       :SDL_GetCursor => :pointer,
       :SDL_GetDefaultCursor => :pointer,
-      :SDL_FreeCursor => :void,
+      :SDL_DestroyCursor => :void,
       :SDL_ShowCursor => :int,
+      :SDL_HideCursor => :int,
+      :SDL_CursorVisible => :int,
     }
     symbols.each do |sym|
       begin

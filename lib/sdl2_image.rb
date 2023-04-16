@@ -10,9 +10,9 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  IMAGE_MAJOR_VERSION = 2
-  IMAGE_MINOR_VERSION = 6
-  IMAGE_PATCHLEVEL = 2
+  IMAGE_MAJOR_VERSION = 3
+  IMAGE_MINOR_VERSION = 0
+  IMAGE_PATCHLEVEL = 0
 
   # Enum
 
@@ -102,6 +102,7 @@ module SDL
       :IMG_LoadAnimationTyped_RW,
       :IMG_FreeAnimation,
       :IMG_LoadGIFAnimation_RW,
+      :IMG_LoadWEBPAnimation_RW,
     ]
     apis = {
       :IMG_Linked_Version => :IMG_Linked_Version,
@@ -162,6 +163,7 @@ module SDL
       :IMG_LoadAnimationTyped_RW => :IMG_LoadAnimationTyped_RW,
       :IMG_FreeAnimation => :IMG_FreeAnimation,
       :IMG_LoadGIFAnimation_RW => :IMG_LoadGIFAnimation_RW,
+      :IMG_LoadWEBPAnimation_RW => :IMG_LoadWEBPAnimation_RW,
     }
     args = {
       :IMG_Linked_Version => [],
@@ -222,6 +224,7 @@ module SDL
       :IMG_LoadAnimationTyped_RW => [:pointer, :int, :pointer],
       :IMG_FreeAnimation => [:pointer],
       :IMG_LoadGIFAnimation_RW => [:pointer],
+      :IMG_LoadWEBPAnimation_RW => [:pointer],
     }
     retvals = {
       :IMG_Linked_Version => :pointer,
@@ -282,6 +285,7 @@ module SDL
       :IMG_LoadAnimationTyped_RW => :pointer,
       :IMG_FreeAnimation => :void,
       :IMG_LoadGIFAnimation_RW => :pointer,
+      :IMG_LoadWEBPAnimation_RW => :pointer,
     }
     symbols.each do |sym|
       begin

@@ -45,13 +45,13 @@ module SDL
       :SDL_GetKeyName,
       :SDL_GetKeyFromName,
       :SDL_StartTextInput,
-      :SDL_IsTextInputActive,
+      :SDL_TextInputActive,
       :SDL_StopTextInput,
       :SDL_ClearComposition,
-      :SDL_IsTextInputShown,
+      :SDL_TextInputShown,
       :SDL_SetTextInputRect,
       :SDL_HasScreenKeyboardSupport,
-      :SDL_IsScreenKeyboardShown,
+      :SDL_ScreenKeyboardShown,
     ]
     apis = {
       :SDL_GetKeyboardFocus => :GetKeyboardFocus,
@@ -66,13 +66,13 @@ module SDL
       :SDL_GetKeyName => :GetKeyName,
       :SDL_GetKeyFromName => :GetKeyFromName,
       :SDL_StartTextInput => :StartTextInput,
-      :SDL_IsTextInputActive => :IsTextInputActive,
+      :SDL_TextInputActive => :TextInputActive,
       :SDL_StopTextInput => :StopTextInput,
       :SDL_ClearComposition => :ClearComposition,
-      :SDL_IsTextInputShown => :IsTextInputShown,
+      :SDL_TextInputShown => :TextInputShown,
       :SDL_SetTextInputRect => :SetTextInputRect,
       :SDL_HasScreenKeyboardSupport => :HasScreenKeyboardSupport,
-      :SDL_IsScreenKeyboardShown => :IsScreenKeyboardShown,
+      :SDL_ScreenKeyboardShown => :ScreenKeyboardShown,
     }
     args = {
       :SDL_GetKeyboardFocus => [],
@@ -87,13 +87,13 @@ module SDL
       :SDL_GetKeyName => [:int],
       :SDL_GetKeyFromName => [:pointer],
       :SDL_StartTextInput => [],
-      :SDL_IsTextInputActive => [],
+      :SDL_TextInputActive => [],
       :SDL_StopTextInput => [],
       :SDL_ClearComposition => [],
-      :SDL_IsTextInputShown => [],
+      :SDL_TextInputShown => [],
       :SDL_SetTextInputRect => [:pointer],
       :SDL_HasScreenKeyboardSupport => [],
-      :SDL_IsScreenKeyboardShown => [:pointer],
+      :SDL_ScreenKeyboardShown => [:pointer],
     }
     retvals = {
       :SDL_GetKeyboardFocus => :pointer,
@@ -108,13 +108,13 @@ module SDL
       :SDL_GetKeyName => :pointer,
       :SDL_GetKeyFromName => :int,
       :SDL_StartTextInput => :void,
-      :SDL_IsTextInputActive => :int,
+      :SDL_TextInputActive => :int,
       :SDL_StopTextInput => :void,
       :SDL_ClearComposition => :void,
-      :SDL_IsTextInputShown => :int,
-      :SDL_SetTextInputRect => :void,
+      :SDL_TextInputShown => :int,
+      :SDL_SetTextInputRect => :int,
       :SDL_HasScreenKeyboardSupport => :int,
-      :SDL_IsScreenKeyboardShown => :int,
+      :SDL_ScreenKeyboardShown => :int,
     }
     symbols.each do |sym|
       begin
