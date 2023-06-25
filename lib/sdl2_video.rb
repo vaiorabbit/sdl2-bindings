@@ -62,6 +62,7 @@ module SDL
   DISPLAYEVENT_ORIENTATION = 1
   DISPLAYEVENT_CONNECTED = 2
   DISPLAYEVENT_DISCONNECTED = 3
+  DISPLAYEVENT_MOVED = 4
   ORIENTATION_UNKNOWN = 0
   ORIENTATION_LANDSCAPE = 1
   ORIENTATION_LANDSCAPE_FLIPPED = 2
@@ -206,9 +207,11 @@ module SDL
       :SDL_MinimizeWindow,
       :SDL_RestoreWindow,
       :SDL_SetWindowFullscreen,
+      :SDL_HasWindowSurface,
       :SDL_GetWindowSurface,
       :SDL_UpdateWindowSurface,
       :SDL_UpdateWindowSurfaceRects,
+      :SDL_DestroyWindowSurface,
       :SDL_SetWindowGrab,
       :SDL_SetWindowKeyboardGrab,
       :SDL_SetWindowMouseGrab,
@@ -303,9 +306,11 @@ module SDL
       :SDL_MinimizeWindow => :MinimizeWindow,
       :SDL_RestoreWindow => :RestoreWindow,
       :SDL_SetWindowFullscreen => :SetWindowFullscreen,
+      :SDL_HasWindowSurface => :HasWindowSurface,
       :SDL_GetWindowSurface => :GetWindowSurface,
       :SDL_UpdateWindowSurface => :UpdateWindowSurface,
       :SDL_UpdateWindowSurfaceRects => :UpdateWindowSurfaceRects,
+      :SDL_DestroyWindowSurface => :DestroyWindowSurface,
       :SDL_SetWindowGrab => :SetWindowGrab,
       :SDL_SetWindowKeyboardGrab => :SetWindowKeyboardGrab,
       :SDL_SetWindowMouseGrab => :SetWindowMouseGrab,
@@ -400,9 +405,11 @@ module SDL
       :SDL_MinimizeWindow => [:pointer],
       :SDL_RestoreWindow => [:pointer],
       :SDL_SetWindowFullscreen => [:pointer, :uint],
+      :SDL_HasWindowSurface => [:pointer],
       :SDL_GetWindowSurface => [:pointer],
       :SDL_UpdateWindowSurface => [:pointer],
       :SDL_UpdateWindowSurfaceRects => [:pointer, :pointer, :int],
+      :SDL_DestroyWindowSurface => [:pointer],
       :SDL_SetWindowGrab => [:pointer, :int],
       :SDL_SetWindowKeyboardGrab => [:pointer, :int],
       :SDL_SetWindowMouseGrab => [:pointer, :int],
@@ -497,9 +504,11 @@ module SDL
       :SDL_MinimizeWindow => :void,
       :SDL_RestoreWindow => :void,
       :SDL_SetWindowFullscreen => :int,
+      :SDL_HasWindowSurface => :int,
       :SDL_GetWindowSurface => :pointer,
       :SDL_UpdateWindowSurface => :int,
       :SDL_UpdateWindowSurfaceRects => :int,
+      :SDL_DestroyWindowSurface => :int,
       :SDL_SetWindowGrab => :void,
       :SDL_SetWindowKeyboardGrab => :void,
       :SDL_SetWindowMouseGrab => :void,
