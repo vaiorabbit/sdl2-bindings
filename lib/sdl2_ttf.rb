@@ -133,6 +133,7 @@ module SDL
       :TTF_SetScript,
       :TTF_SetFontDirection,
       :TTF_SetFontScriptName,
+      :TTF_IsFontScalable,
     ]
     apis = {
       :TTF_Linked_Version => :TTF_Linked_Version,
@@ -222,6 +223,7 @@ module SDL
       :TTF_SetScript => :TTF_SetScript,
       :TTF_SetFontDirection => :TTF_SetFontDirection,
       :TTF_SetFontScriptName => :TTF_SetFontScriptName,
+      :TTF_IsFontScalable => :TTF_IsFontScalable,
     }
     args = {
       :TTF_Linked_Version => [],
@@ -311,6 +313,7 @@ module SDL
       :TTF_SetScript => [:int],
       :TTF_SetFontDirection => [:pointer, :int],
       :TTF_SetFontScriptName => [:pointer, :pointer],
+      :TTF_IsFontScalable => [:pointer],
     }
     retvals = {
       :TTF_Linked_Version => :pointer,
@@ -400,6 +403,7 @@ module SDL
       :TTF_SetScript => :int,
       :TTF_SetFontDirection => :int,
       :TTF_SetFontScriptName => :int,
+      :TTF_IsFontScalable => :int,
     }
     symbols.each do |sym|
       begin

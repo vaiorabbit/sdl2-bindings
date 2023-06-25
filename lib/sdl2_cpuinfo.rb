@@ -27,7 +27,6 @@ module SDL
     symbols = [
       :SDL_GetCPUCount,
       :SDL_GetCPUCacheLineSize,
-      :SDL_HasRDTSC,
       :SDL_HasAltiVec,
       :SDL_HasMMX,
       :SDL_HasSSE,
@@ -48,7 +47,6 @@ module SDL
     apis = {
       :SDL_GetCPUCount => :GetCPUCount,
       :SDL_GetCPUCacheLineSize => :GetCPUCacheLineSize,
-      :SDL_HasRDTSC => :HasRDTSC,
       :SDL_HasAltiVec => :HasAltiVec,
       :SDL_HasMMX => :HasMMX,
       :SDL_HasSSE => :HasSSE,
@@ -69,7 +67,6 @@ module SDL
     args = {
       :SDL_GetCPUCount => [],
       :SDL_GetCPUCacheLineSize => [],
-      :SDL_HasRDTSC => [],
       :SDL_HasAltiVec => [],
       :SDL_HasMMX => [],
       :SDL_HasSSE => [],
@@ -90,7 +87,6 @@ module SDL
     retvals = {
       :SDL_GetCPUCount => :int,
       :SDL_GetCPUCacheLineSize => :int,
-      :SDL_HasRDTSC => :int,
       :SDL_HasAltiVec => :int,
       :SDL_HasMMX => :int,
       :SDL_HasSSE => :int,

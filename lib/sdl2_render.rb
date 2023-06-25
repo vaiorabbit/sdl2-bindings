@@ -29,11 +29,10 @@ module SDL
   FLIP_HORIZONTAL = 1
   FLIP_VERTICAL = 2
   LOGICAL_PRESENTATION_DISABLED = 0
-  LOGICAL_PRESENTATION_MATCH = 1
-  LOGICAL_PRESENTATION_STRETCH = 2
-  LOGICAL_PRESENTATION_LETTERBOX = 3
-  LOGICAL_PRESENTATION_OVERSCAN = 4
-  LOGICAL_PRESENTATION_INTEGER_SCALE = 5
+  LOGICAL_PRESENTATION_STRETCH = 1
+  LOGICAL_PRESENTATION_LETTERBOX = 2
+  LOGICAL_PRESENTATION_OVERSCAN = 3
+  LOGICAL_PRESENTATION_INTEGER_SCALE = 4
 
   # Typedef
 
@@ -78,7 +77,6 @@ module SDL
       :SDL_GetRenderer,
       :SDL_GetRenderWindow,
       :SDL_GetRendererInfo,
-      :SDL_GetRenderWindowSize,
       :SDL_GetRenderOutputSize,
       :SDL_GetCurrentRenderOutputSize,
       :SDL_CreateTexture,
@@ -152,7 +150,6 @@ module SDL
       :SDL_GetRenderer => :GetRenderer,
       :SDL_GetRenderWindow => :GetRenderWindow,
       :SDL_GetRendererInfo => :GetRendererInfo,
-      :SDL_GetRenderWindowSize => :GetRenderWindowSize,
       :SDL_GetRenderOutputSize => :GetRenderOutputSize,
       :SDL_GetCurrentRenderOutputSize => :GetCurrentRenderOutputSize,
       :SDL_CreateTexture => :CreateTexture,
@@ -226,7 +223,6 @@ module SDL
       :SDL_GetRenderer => [:pointer],
       :SDL_GetRenderWindow => [:pointer],
       :SDL_GetRendererInfo => [:pointer, :pointer],
-      :SDL_GetRenderWindowSize => [:pointer, :pointer, :pointer],
       :SDL_GetRenderOutputSize => [:pointer, :pointer, :pointer],
       :SDL_GetCurrentRenderOutputSize => [:pointer, :pointer, :pointer],
       :SDL_CreateTexture => [:pointer, :uint, :int, :int, :int],
@@ -300,7 +296,6 @@ module SDL
       :SDL_GetRenderer => :pointer,
       :SDL_GetRenderWindow => :pointer,
       :SDL_GetRendererInfo => :int,
-      :SDL_GetRenderWindowSize => :int,
       :SDL_GetRenderOutputSize => :int,
       :SDL_GetCurrentRenderOutputSize => :int,
       :SDL_CreateTexture => :pointer,

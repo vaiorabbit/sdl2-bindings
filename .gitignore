@@ -1,4 +1,6 @@
+generator/bak
 generator/*SDL2/SDL*
 generator/*SDL2/*h
+third_party/bak
 third_party/SDL*
 third_party/intermediate*

@@ -32,7 +32,7 @@ module SDL
   EVENT_DISPLAY_CONNECTED = 338
   EVENT_DISPLAY_DISCONNECTED = 339
   EVENT_DISPLAY_MOVED = 340
-  EVENT_DISPLAY_SCALE_CHANGED = 341
+  EVENT_DISPLAY_CONTENT_SCALE_CHANGED = 341
   EVENT_DISPLAY_FIRST = 337
   EVENT_DISPLAY_LAST = 341
   EVENT_SYSWM = 513
@@ -54,8 +54,10 @@ module SDL
   EVENT_WINDOW_HIT_TEST = 529
   EVENT_WINDOW_ICCPROF_CHANGED = 530
   EVENT_WINDOW_DISPLAY_CHANGED = 531
+  EVENT_WINDOW_DISPLAY_SCALE_CHANGED = 532
+  EVENT_WINDOW_DESTROYED = 533
   EVENT_WINDOW_FIRST = 514
-  EVENT_WINDOW_LAST = 531
+  EVENT_WINDOW_LAST = 533
   EVENT_KEY_DOWN = 768
   EVENT_KEY_UP = 769
   EVENT_TEXT_EDITING = 770
@@ -73,6 +75,7 @@ module SDL
   EVENT_JOYSTICK_ADDED = 1541
   EVENT_JOYSTICK_REMOVED = 1542
   EVENT_JOYSTICK_BATTERY_UPDATED = 1543
+  EVENT_JOYSTICK_UPDATE_COMPLETE = 1544
   EVENT_GAMEPAD_AXIS_MOTION = 1616
   EVENT_GAMEPAD_BUTTON_DOWN = 1617
   EVENT_GAMEPAD_BUTTON_UP = 1618
@@ -83,10 +86,12 @@ module SDL
   EVENT_GAMEPAD_TOUCHPAD_MOTION = 1623
   EVENT_GAMEPAD_TOUCHPAD_UP = 1624
   EVENT_GAMEPAD_SENSOR_UPDATE = 1625
+  EVENT_GAMEPAD_UPDATE_COMPLETE = 1626
   EVENT_FINGER_DOWN = 1792
   EVENT_FINGER_UP = 1793
   EVENT_FINGER_MOTION = 1794
   EVENT_CLIPBOARD_UPDATE = 2304
+  EVENT_CLIPBOARD_CANCELLED = 2305
   EVENT_DROP_FILE = 4096
   EVENT_DROP_TEXT = 4097
   EVENT_DROP_BEGIN = 4098
@@ -109,6 +114,15 @@ module SDL
   typedef :int, :SDL_EventType
   typedef :int, :SDL_eventaction
   callback :SDL_EventFilter, [:pointer, :pointer], :int
+
+  class ClipboardEvent < FFI::Struct
+    layout(
+      :type, :uint,
+      :timestamp, :ulong_long,
+      :userdata, :pointer,
+    )
+  end
+
 
   # Struct
 
@@ -376,6 +390,14 @@ module SDL
     )
   end
 
+  class ClipboardCancelled < FFI::Struct
+    layout(
+      :type, :uint,
+      :timestamp, :ulong_long,
+      :userdata, :pointer,
+    )
+  end
+
   class SensorEvent < FFI::Struct
     layout(
       :type, :uint,
@@ -449,6 +471,7 @@ module SDL
       :syswm, SysWMEvent,
       :tfinger, TouchFingerEvent,
       :drop, DropEvent,
+      :clipboard, ClipboardEvent,
       :padding, [:uchar, 128],
     )
   end

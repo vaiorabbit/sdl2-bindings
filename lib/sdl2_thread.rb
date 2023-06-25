@@ -40,10 +40,10 @@ module SDL
       :SDL_SetThreadPriority,
       :SDL_WaitThread,
       :SDL_DetachThread,
-      :SDL_TLSCreate,
-      :SDL_TLSGet,
-      :SDL_TLSSet,
-      :SDL_TLSCleanup,
+      :SDL_CreateTLS,
+      :SDL_GetTLS,
+      :SDL_SetTLS,
+      :SDL_CleanupTLS,
     ]
     apis = {
       :SDL_CreateThread => :CreateThread,
@@ -54,10 +54,10 @@ module SDL
       :SDL_SetThreadPriority => :SetThreadPriority,
       :SDL_WaitThread => :WaitThread,
       :SDL_DetachThread => :DetachThread,
-      :SDL_TLSCreate => :TLSCreate,
-      :SDL_TLSGet => :TLSGet,
-      :SDL_TLSSet => :TLSSet,
-      :SDL_TLSCleanup => :TLSCleanup,
+      :SDL_CreateTLS => :CreateTLS,
+      :SDL_GetTLS => :GetTLS,
+      :SDL_SetTLS => :SetTLS,
+      :SDL_CleanupTLS => :CleanupTLS,
     }
     args = {
       :SDL_CreateThread => [:SDL_ThreadFunction, :pointer, :pointer],
@@ -68,10 +68,10 @@ module SDL
       :SDL_SetThreadPriority => [:int],
       :SDL_WaitThread => [:pointer, :pointer],
       :SDL_DetachThread => [:pointer],
-      :SDL_TLSCreate => [],
-      :SDL_TLSGet => [:uint],
-      :SDL_TLSSet => [:uint, :pointer, :pointer],
-      :SDL_TLSCleanup => [],
+      :SDL_CreateTLS => [],
+      :SDL_GetTLS => [:uint],
+      :SDL_SetTLS => [:uint, :pointer, :pointer],
+      :SDL_CleanupTLS => [],
     }
     retvals = {
       :SDL_CreateThread => :pointer,
@@ -82,10 +82,10 @@ module SDL
       :SDL_SetThreadPriority => :int,
       :SDL_WaitThread => :void,
       :SDL_DetachThread => :void,
-      :SDL_TLSCreate => :uint,
-      :SDL_TLSGet => :pointer,
-      :SDL_TLSSet => :int,
-      :SDL_TLSCleanup => :void,
+      :SDL_CreateTLS => :uint,
+      :SDL_GetTLS => :pointer,
+      :SDL_SetTLS => :int,
+      :SDL_CleanupTLS => :void,
     }
     symbols.each do |sym|
       begin

@@ -10,7 +10,6 @@ module SDL
   extend FFI::Library
   # Define/Macro
 
-  ASSERT_LEVEL = 2
 
   # Enum
 

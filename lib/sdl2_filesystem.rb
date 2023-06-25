@@ -13,9 +13,21 @@ module SDL
 
   # Enum
 
+  FOLDER_HOME = 0
+  FOLDER_DESKTOP = 1
+  FOLDER_DOCUMENTS = 2
+  FOLDER_DOWNLOADS = 3
+  FOLDER_MUSIC = 4
+  FOLDER_PICTURES = 5
+  FOLDER_PUBLICSHARE = 6
+  FOLDER_SAVEDGAMES = 7
+  FOLDER_SCREENSHOTS = 8
+  FOLDER_TEMPLATES = 9
+  FOLDER_VIDEOS = 10
 
   # Typedef
 
+  typedef :int, :SDL_Folder
 
   # Struct
 
@@ -26,18 +38,22 @@ module SDL
     symbols = [
       :SDL_GetBasePath,
       :SDL_GetPrefPath,
+      :SDL_GetPath,
     ]
     apis = {
       :SDL_GetBasePath => :GetBasePath,
       :SDL_GetPrefPath => :GetPrefPath,
+      :SDL_GetPath => :GetPath,
     }
     args = {
       :SDL_GetBasePath => [],
       :SDL_GetPrefPath => [:pointer, :pointer],
+      :SDL_GetPath => [:int],
     }
     retvals = {
       :SDL_GetBasePath => :pointer,
       :SDL_GetPrefPath => :pointer,
+      :SDL_GetPath => :pointer,
     }
     symbols.each do |sym|
       begin

@@ -13,9 +13,15 @@ module SDL
 
   # Enum
 
+  HID_API_BUS_UNKNOWN = 0
+  HID_API_BUS_USB = 1
+  HID_API_BUS_BLUETOOTH = 2
+  HID_API_BUS_I2C = 3
+  HID_API_BUS_SPI = 4
 
   # Typedef
 
+  typedef :int, :SDL_hid_bus_type
 
   # Struct
 
@@ -34,6 +40,7 @@ module SDL
       :interface_class, :int,
       :interface_subclass, :int,
       :interface_protocol, :int,
+      :bus_type, :int,
       :next, :pointer,
     )
   end
@@ -56,11 +63,14 @@ module SDL
       :SDL_hid_set_nonblocking,
       :SDL_hid_send_feature_report,
       :SDL_hid_get_feature_report,
+      :SDL_hid_get_input_report,
       :SDL_hid_close,
       :SDL_hid_get_manufacturer_string,
       :SDL_hid_get_product_string,
       :SDL_hid_get_serial_number_string,
       :SDL_hid_get_indexed_string,
+      :SDL_hid_get_device_info,
+      :SDL_hid_get_report_descriptor,
       :SDL_hid_ble_scan,
     ]
     apis = {
@@ -77,11 +87,14 @@ module SDL
       :SDL_hid_set_nonblocking => :hid_set_nonblocking,
       :SDL_hid_send_feature_report => :hid_send_feature_report,
       :SDL_hid_get_feature_report => :hid_get_feature_report,
+      :SDL_hid_get_input_report => :hid_get_input_report,
       :SDL_hid_close => :hid_close,
       :SDL_hid_get_manufacturer_string => :hid_get_manufacturer_string,
       :SDL_hid_get_product_string => :hid_get_product_string,
       :SDL_hid_get_serial_number_string => :hid_get_serial_number_string,
       :SDL_hid_get_indexed_string => :hid_get_indexed_string,
+      :SDL_hid_get_device_info => :hid_get_device_info,
+      :SDL_hid_get_report_descriptor => :hid_get_report_descriptor,
       :SDL_hid_ble_scan => :hid_ble_scan,
     }
     args = {
@@ -91,18 +104,21 @@ module SDL
       :SDL_hid_enumerate => [:ushort, :ushort],
       :SDL_hid_free_enumeration => [:pointer],
       :SDL_hid_open => [:ushort, :ushort, :pointer],
-      :SDL_hid_open_path => [:pointer, :int],
+      :SDL_hid_open_path => [:pointer],
       :SDL_hid_write => [:pointer, :pointer, :ulong],
       :SDL_hid_read_timeout => [:pointer, :pointer, :ulong, :int],
       :SDL_hid_read => [:pointer, :pointer, :ulong],
       :SDL_hid_set_nonblocking => [:pointer, :int],
       :SDL_hid_send_feature_report => [:pointer, :pointer, :ulong],
       :SDL_hid_get_feature_report => [:pointer, :pointer, :ulong],
+      :SDL_hid_get_input_report => [:pointer, :pointer, :ulong],
       :SDL_hid_close => [:pointer],
       :SDL_hid_get_manufacturer_string => [:pointer, :pointer, :ulong],
       :SDL_hid_get_product_string => [:pointer, :pointer, :ulong],
       :SDL_hid_get_serial_number_string => [:pointer, :pointer, :ulong],
       :SDL_hid_get_indexed_string => [:pointer, :int, :pointer, :ulong],
+      :SDL_hid_get_device_info => [:pointer],
+      :SDL_hid_get_report_descriptor => [:pointer, :pointer, :ulong],
       :SDL_hid_ble_scan => [:int],
     }
     retvals = {
@@ -119,11 +135,14 @@ module SDL
       :SDL_hid_set_nonblocking => :int,
       :SDL_hid_send_feature_report => :int,
       :SDL_hid_get_feature_report => :int,
+      :SDL_hid_get_input_report => :int,
       :SDL_hid_close => :int,
       :SDL_hid_get_manufacturer_string => :int,
       :SDL_hid_get_product_string => :int,
       :SDL_hid_get_serial_number_string => :int,
       :SDL_hid_get_indexed_string => :int,
+      :SDL_hid_get_device_info => :pointer,
+      :SDL_hid_get_report_descriptor => :int,
       :SDL_hid_ble_scan => :void,
     }
     symbols.each do |sym|

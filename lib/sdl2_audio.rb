@@ -32,6 +32,7 @@ module SDL
   AUDIO_ALLOW_FORMAT_CHANGE = 0x00000002
   AUDIO_ALLOW_CHANNELS_CHANGE = 0x00000004
   AUDIO_ALLOW_SAMPLES_CHANGE = 0x00000008
+  AUDIO_ALLOW_ANY_CHANGE = (AUDIO_ALLOW_FREQUENCY_CHANGE | AUDIO_ALLOW_FORMAT_CHANGE | AUDIO_ALLOW_CHANNELS_CHANGE | AUDIO_ALLOW_SAMPLES_CHANGE)
   MIX_MAXVOLUME = 128
 
   # Enum
@@ -81,6 +82,8 @@ module SDL
       :SDL_PauseAudioDevice,
       :SDL_LoadWAV_RW,
       :SDL_CreateAudioStream,
+      :SDL_GetAudioStreamFormat,
+      :SDL_SetAudioStreamFormat,
       :SDL_PutAudioStreamData,
       :SDL_GetAudioStreamData,
       :SDL_GetAudioStreamAvailable,
@@ -111,6 +114,8 @@ module SDL
       :SDL_PauseAudioDevice => :PauseAudioDevice,
       :SDL_LoadWAV_RW => :LoadWAV_RW,
       :SDL_CreateAudioStream => :CreateAudioStream,
+      :SDL_GetAudioStreamFormat => :GetAudioStreamFormat,
+      :SDL_SetAudioStreamFormat => :SetAudioStreamFormat,
       :SDL_PutAudioStreamData => :PutAudioStreamData,
       :SDL_GetAudioStreamData => :GetAudioStreamData,
       :SDL_GetAudioStreamAvailable => :GetAudioStreamAvailable,
@@ -140,7 +145,9 @@ module SDL
       :SDL_PlayAudioDevice => [:uint],
       :SDL_PauseAudioDevice => [:uint],
       :SDL_LoadWAV_RW => [:pointer, :int, :pointer, :pointer, :pointer],
-      :SDL_CreateAudioStream => [:ushort, :uchar, :int, :ushort, :uchar, :int],
+      :SDL_CreateAudioStream => [:ushort, :int, :int, :ushort, :int, :int],
+      :SDL_GetAudioStreamFormat => [:pointer, :pointer, :pointer, :pointer, :pointer, :pointer, :pointer],
+      :SDL_SetAudioStreamFormat => [:pointer, :ushort, :int, :int, :ushort, :int, :int],
       :SDL_PutAudioStreamData => [:pointer, :pointer, :int],
       :SDL_GetAudioStreamData => [:pointer, :pointer, :int],
       :SDL_GetAudioStreamAvailable => [:pointer],
@@ -171,6 +178,8 @@ module SDL
       :SDL_PauseAudioDevice => :int,
       :SDL_LoadWAV_RW => :pointer,
       :SDL_CreateAudioStream => :pointer,
+      :SDL_GetAudioStreamFormat => :int,
+      :SDL_SetAudioStreamFormat => :int,
       :SDL_PutAudioStreamData => :int,
       :SDL_GetAudioStreamData => :int,
       :SDL_GetAudioStreamAvailable => :int,

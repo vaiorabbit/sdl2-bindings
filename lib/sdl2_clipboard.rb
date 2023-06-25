@@ -16,6 +16,7 @@ module SDL
 
   # Typedef
 
+  callback :SDL_ClipboardDataCallback, [:pointer, :pointer, :pointer], :pointer
 
   # Struct
 
@@ -30,6 +31,10 @@ module SDL
       :SDL_SetPrimarySelectionText,
       :SDL_GetPrimarySelectionText,
       :SDL_HasPrimarySelectionText,
+      :SDL_SetClipboardData,
+      :SDL_GetClipboardUserdata,
+      :SDL_GetClipboardData,
+      :SDL_HasClipboardData,
     ]
     apis = {
       :SDL_SetClipboardText => :SetClipboardText,
@@ -38,6 +43,10 @@ module SDL
       :SDL_SetPrimarySelectionText => :SetPrimarySelectionText,
       :SDL_GetPrimarySelectionText => :GetPrimarySelectionText,
       :SDL_HasPrimarySelectionText => :HasPrimarySelectionText,
+      :SDL_SetClipboardData => :SetClipboardData,
+      :SDL_GetClipboardUserdata => :GetClipboardUserdata,
+      :SDL_GetClipboardData => :GetClipboardData,
+      :SDL_HasClipboardData => :HasClipboardData,
     }
     args = {
       :SDL_SetClipboardText => [:pointer],
@@ -46,6 +55,10 @@ module SDL
       :SDL_SetPrimarySelectionText => [:pointer],
       :SDL_GetPrimarySelectionText => [],
       :SDL_HasPrimarySelectionText => [],
+      :SDL_SetClipboardData => [:SDL_ClipboardDataCallback, :ulong, :pointer, :pointer],
+      :SDL_GetClipboardUserdata => [],
+      :SDL_GetClipboardData => [:pointer, :pointer],
+      :SDL_HasClipboardData => [:pointer],
     }
     retvals = {
       :SDL_SetClipboardText => :int,
@@ -54,6 +67,10 @@ module SDL
       :SDL_SetPrimarySelectionText => :int,
       :SDL_GetPrimarySelectionText => :pointer,
       :SDL_HasPrimarySelectionText => :int,
+      :SDL_SetClipboardData => :int,
+      :SDL_GetClipboardUserdata => :pointer,
+      :SDL_GetClipboardData => :pointer,
+      :SDL_HasClipboardData => :int,
     }
     symbols.each do |sym|
       begin
