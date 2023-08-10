@@ -12,7 +12,7 @@ module SDL
 
   MAJOR_VERSION = 2
   MINOR_VERSION = 28
-  PATCHLEVEL = 0
+  PATCHLEVEL = 2
 
   # Enum
 
