@@ -25,6 +25,7 @@ module SDL
   ORIENTATION_PORTRAIT_FLIPPED = 4
   WINDOW_FULLSCREEN = 1
   WINDOW_OPENGL = 2
+  WINDOW_OCCLUDED = 4
   WINDOW_HIDDEN = 8
   WINDOW_BORDERLESS = 16
   WINDOW_RESIZABLE = 32
@@ -37,7 +38,6 @@ module SDL
   WINDOW_HIGH_PIXEL_DENSITY = 8192
   WINDOW_MOUSE_CAPTURE = 16384
   WINDOW_ALWAYS_ON_TOP = 32768
-  WINDOW_SKIP_TASKBAR = 65536
   WINDOW_UTILITY = 131072
   WINDOW_TOOLTIP = 262144
   WINDOW_POPUP_MENU = 524288
@@ -45,6 +45,7 @@ module SDL
   WINDOW_VULKAN = 268435456
   WINDOW_METAL = 536870912
   WINDOW_TRANSPARENT = 1073741824
+  WINDOW_NOT_FOCUSABLE = 2147483648
   FLASH_CANCEL = 0
   FLASH_BRIEFLY = 1
   FLASH_UNTIL_FOCUSED = 2
@@ -173,12 +174,11 @@ module SDL
       :SDL_GetWindowID,
       :SDL_GetWindowFromID,
       :SDL_GetWindowParent,
+      :SDL_GetWindowProperties,
       :SDL_GetWindowFlags,
       :SDL_SetWindowTitle,
       :SDL_GetWindowTitle,
       :SDL_SetWindowIcon,
-      :SDL_SetWindowData,
-      :SDL_GetWindowData,
       :SDL_SetWindowPosition,
       :SDL_GetWindowPosition,
       :SDL_SetWindowSize,
@@ -217,6 +217,8 @@ module SDL
       :SDL_GetWindowOpacity,
       :SDL_SetWindowModalFor,
       :SDL_SetWindowInputFocus,
+      :SDL_SetWindowFocusable,
+      :SDL_ShowWindowSystemMenu,
       :SDL_SetWindowHitTest,
       :SDL_FlashWindow,
       :SDL_DestroyWindow,
@@ -277,12 +279,11 @@ module SDL
       :SDL_GetWindowID => :GetWindowID,
       :SDL_GetWindowFromID => :GetWindowFromID,
       :SDL_GetWindowParent => :GetWindowParent,
+      :SDL_GetWindowProperties => :GetWindowProperties,
       :SDL_GetWindowFlags => :GetWindowFlags,
       :SDL_SetWindowTitle => :SetWindowTitle,
       :SDL_GetWindowTitle => :GetWindowTitle,
       :SDL_SetWindowIcon => :SetWindowIcon,
-      :SDL_SetWindowData => :SetWindowData,
-      :SDL_GetWindowData => :GetWindowData,
       :SDL_SetWindowPosition => :SetWindowPosition,
       :SDL_GetWindowPosition => :GetWindowPosition,
       :SDL_SetWindowSize => :SetWindowSize,
@@ -321,6 +322,8 @@ module SDL
       :SDL_GetWindowOpacity => :GetWindowOpacity,
       :SDL_SetWindowModalFor => :SetWindowModalFor,
       :SDL_SetWindowInputFocus => :SetWindowInputFocus,
+      :SDL_SetWindowFocusable => :SetWindowFocusable,
+      :SDL_ShowWindowSystemMenu => :ShowWindowSystemMenu,
       :SDL_SetWindowHitTest => :SetWindowHitTest,
       :SDL_FlashWindow => :FlashWindow,
       :SDL_DestroyWindow => :DestroyWindow,
@@ -381,12 +384,11 @@ module SDL
       :SDL_GetWindowID => [:pointer],
       :SDL_GetWindowFromID => [:uint],
       :SDL_GetWindowParent => [:pointer],
+      :SDL_GetWindowProperties => [:pointer],
       :SDL_GetWindowFlags => [:pointer],
       :SDL_SetWindowTitle => [:pointer, :pointer],
       :SDL_GetWindowTitle => [:pointer],
       :SDL_SetWindowIcon => [:pointer, :pointer],
-      :SDL_SetWindowData => [:pointer, :pointer, :pointer],
-      :SDL_GetWindowData => [:pointer, :pointer],
       :SDL_SetWindowPosition => [:pointer, :int, :int],
       :SDL_GetWindowPosition => [:pointer, :pointer, :pointer],
       :SDL_SetWindowSize => [:pointer, :int, :int],
@@ -425,6 +427,8 @@ module SDL
       :SDL_GetWindowOpacity => [:pointer, :pointer],
       :SDL_SetWindowModalFor => [:pointer, :pointer],
       :SDL_SetWindowInputFocus => [:pointer],
+      :SDL_SetWindowFocusable => [:pointer, :int],
+      :SDL_ShowWindowSystemMenu => [:pointer, :int, :int],
       :SDL_SetWindowHitTest => [:pointer, :SDL_HitTest, :pointer],
       :SDL_FlashWindow => [:pointer, :int],
       :SDL_DestroyWindow => [:pointer],
@@ -485,12 +489,11 @@ module SDL
       :SDL_GetWindowID => :uint,
       :SDL_GetWindowFromID => :pointer,
       :SDL_GetWindowParent => :pointer,
+      :SDL_GetWindowProperties => :uint,
       :SDL_GetWindowFlags => :uint,
       :SDL_SetWindowTitle => :int,
       :SDL_GetWindowTitle => :pointer,
       :SDL_SetWindowIcon => :int,
-      :SDL_SetWindowData => :pointer,
-      :SDL_GetWindowData => :pointer,
       :SDL_SetWindowPosition => :int,
       :SDL_GetWindowPosition => :int,
       :SDL_SetWindowSize => :int,
@@ -529,6 +532,8 @@ module SDL
       :SDL_GetWindowOpacity => :int,
       :SDL_SetWindowModalFor => :int,
       :SDL_SetWindowInputFocus => :int,
+      :SDL_SetWindowFocusable => :int,
+      :SDL_ShowWindowSystemMenu => :int,
       :SDL_SetWindowHitTest => :int,
       :SDL_FlashWindow => :int,
       :SDL_DestroyWindow => :void,

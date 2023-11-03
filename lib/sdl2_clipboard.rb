@@ -17,6 +17,7 @@ module SDL
   # Typedef
 
   callback :SDL_ClipboardDataCallback, [:pointer, :pointer, :pointer], :pointer
+  callback :SDL_ClipboardCleanupCallback, [:pointer], :void
 
   # Struct
 
@@ -32,7 +33,7 @@ module SDL
       :SDL_GetPrimarySelectionText,
       :SDL_HasPrimarySelectionText,
       :SDL_SetClipboardData,
-      :SDL_GetClipboardUserdata,
+      :SDL_ClearClipboardData,
       :SDL_GetClipboardData,
       :SDL_HasClipboardData,
     ]
@@ -44,7 +45,7 @@ module SDL
       :SDL_GetPrimarySelectionText => :GetPrimarySelectionText,
       :SDL_HasPrimarySelectionText => :HasPrimarySelectionText,
       :SDL_SetClipboardData => :SetClipboardData,
-      :SDL_GetClipboardUserdata => :GetClipboardUserdata,
+      :SDL_ClearClipboardData => :ClearClipboardData,
       :SDL_GetClipboardData => :GetClipboardData,
       :SDL_HasClipboardData => :HasClipboardData,
     }
@@ -55,8 +56,8 @@ module SDL
       :SDL_SetPrimarySelectionText => [:pointer],
       :SDL_GetPrimarySelectionText => [],
       :SDL_HasPrimarySelectionText => [],
-      :SDL_SetClipboardData => [:SDL_ClipboardDataCallback, :ulong, :pointer, :pointer],
-      :SDL_GetClipboardUserdata => [],
+      :SDL_SetClipboardData => [:SDL_ClipboardDataCallback, :SDL_ClipboardCleanupCallback, :pointer, :pointer, :ulong],
+      :SDL_ClearClipboardData => [],
       :SDL_GetClipboardData => [:pointer, :pointer],
       :SDL_HasClipboardData => [:pointer],
     }
@@ -68,7 +69,7 @@ module SDL
       :SDL_GetPrimarySelectionText => :pointer,
       :SDL_HasPrimarySelectionText => :int,
       :SDL_SetClipboardData => :int,
-      :SDL_GetClipboardUserdata => :pointer,
+      :SDL_ClearClipboardData => :int,
       :SDL_GetClipboardData => :pointer,
       :SDL_HasClipboardData => :int,
     }

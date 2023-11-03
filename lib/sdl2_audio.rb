@@ -11,56 +11,37 @@ module SDL
   # Define/Macro
 
   AUDIO_MASK_BITSIZE = 0xFF
-  AUDIO_MASK_DATATYPE = 1 << 8
-  AUDIO_MASK_ENDIAN = 1 << 12
   AUDIO_MASK_SIGNED = 1 << 15
   AUDIO_U8 = 0x0008
   AUDIO_S8 = 0x8008
-  AUDIO_S16LSB = 0x8010
-  AUDIO_S16MSB = 0x9010
-  AUDIO_S16 = AUDIO_S16LSB
-  AUDIO_S32LSB = 0x8020
-  AUDIO_S32MSB = 0x9020
-  AUDIO_S32 = AUDIO_S32LSB
-  AUDIO_F32LSB = 0x8120
-  AUDIO_F32MSB = 0x9120
-  AUDIO_F32 = AUDIO_F32LSB
-  AUDIO_S16SYS = AUDIO_S16LSB
-  AUDIO_S32SYS = AUDIO_S32LSB
-  AUDIO_F32SYS = AUDIO_F32LSB
-  AUDIO_ALLOW_FREQUENCY_CHANGE = 0x00000001
-  AUDIO_ALLOW_FORMAT_CHANGE = 0x00000002
-  AUDIO_ALLOW_CHANNELS_CHANGE = 0x00000004
-  AUDIO_ALLOW_SAMPLES_CHANGE = 0x00000008
-  AUDIO_ALLOW_ANY_CHANGE = (AUDIO_ALLOW_FREQUENCY_CHANGE | AUDIO_ALLOW_FORMAT_CHANGE | AUDIO_ALLOW_CHANNELS_CHANGE | AUDIO_ALLOW_SAMPLES_CHANGE)
+  AUDIO_S16LE = 0x8010
+  AUDIO_S16BE = 0x9010
+  AUDIO_S32LE = 0x8020
+  AUDIO_S32BE = 0x9020
+  AUDIO_F32LE = 0x8120
+  AUDIO_F32BE = 0x9120
+  AUDIO_S16 = AUDIO_S16LE
+  AUDIO_S32 = AUDIO_S32LE
+  AUDIO_F32 = AUDIO_F32LE
   MIX_MAXVOLUME = 128
 
   # Enum
 
-  AUDIO_STOPPED = 0
-  AUDIO_PLAYING = 1
-  AUDIO_PAUSED = 2
 
   # Typedef
 
   typedef :ushort, :SDL_AudioFormat
-  callback :SDL_AudioCallback, [:pointer, :pointer, :int], :void
   typedef :uint, :SDL_AudioDeviceID
-  typedef :int, :SDL_AudioStatus
+  callback :SDL_AudioStreamCallback, [:pointer, :pointer, :int, :int], :void
+  callback :SDL_AudioPostmixCallback, [:pointer, :pointer, :pointer, :int], :void
 
   # Struct
 
   class AudioSpec < FFI::Struct
     layout(
-      :freq, :int,
       :format, :ushort,
-      :channels, :uchar,
-      :silence, :uchar,
-      :samples, :ushort,
-      :padding, :ushort,
-      :size, :uint,
-      :callback, :pointer,
-      :userdata, :pointer,
+      :channels, :int,
+      :freq, :int,
     )
   end
 
@@ -72,129 +53,173 @@ module SDL
       :SDL_GetNumAudioDrivers,
       :SDL_GetAudioDriver,
       :SDL_GetCurrentAudioDriver,
-      :SDL_GetNumAudioDevices,
+      :SDL_GetAudioOutputDevices,
+      :SDL_GetAudioCaptureDevices,
       :SDL_GetAudioDeviceName,
-      :SDL_GetAudioDeviceSpec,
-      :SDL_GetDefaultAudioInfo,
+      :SDL_GetAudioDeviceFormat,
       :SDL_OpenAudioDevice,
-      :SDL_GetAudioDeviceStatus,
-      :SDL_PlayAudioDevice,
       :SDL_PauseAudioDevice,
-      :SDL_LoadWAV_RW,
+      :SDL_ResumeAudioDevice,
+      :SDL_AudioDevicePaused,
+      :SDL_CloseAudioDevice,
+      :SDL_BindAudioStreams,
+      :SDL_BindAudioStream,
+      :SDL_UnbindAudioStreams,
+      :SDL_UnbindAudioStream,
+      :SDL_GetAudioStreamDevice,
       :SDL_CreateAudioStream,
+      :SDL_GetAudioStreamProperties,
       :SDL_GetAudioStreamFormat,
       :SDL_SetAudioStreamFormat,
+      :SDL_GetAudioStreamFrequencyRatio,
+      :SDL_SetAudioStreamFrequencyRatio,
       :SDL_PutAudioStreamData,
       :SDL_GetAudioStreamData,
       :SDL_GetAudioStreamAvailable,
+      :SDL_GetAudioStreamQueued,
       :SDL_FlushAudioStream,
       :SDL_ClearAudioStream,
+      :SDL_LockAudioStream,
+      :SDL_UnlockAudioStream,
+      :SDL_SetAudioStreamGetCallback,
+      :SDL_SetAudioStreamPutCallback,
       :SDL_DestroyAudioStream,
+      :SDL_OpenAudioDeviceStream,
+      :SDL_SetAudioPostmixCallback,
+      :SDL_LoadWAV_RW,
+      :SDL_LoadWAV,
       :SDL_MixAudioFormat,
-      :SDL_QueueAudio,
-      :SDL_DequeueAudio,
-      :SDL_GetQueuedAudioSize,
-      :SDL_ClearQueuedAudio,
-      :SDL_LockAudioDevice,
-      :SDL_UnlockAudioDevice,
-      :SDL_CloseAudioDevice,
       :SDL_ConvertAudioSamples,
+      :SDL_GetSilenceValueForFormat,
     ]
     apis = {
       :SDL_GetNumAudioDrivers => :GetNumAudioDrivers,
       :SDL_GetAudioDriver => :GetAudioDriver,
       :SDL_GetCurrentAudioDriver => :GetCurrentAudioDriver,
-      :SDL_GetNumAudioDevices => :GetNumAudioDevices,
+      :SDL_GetAudioOutputDevices => :GetAudioOutputDevices,
+      :SDL_GetAudioCaptureDevices => :GetAudioCaptureDevices,
       :SDL_GetAudioDeviceName => :GetAudioDeviceName,
-      :SDL_GetAudioDeviceSpec => :GetAudioDeviceSpec,
-      :SDL_GetDefaultAudioInfo => :GetDefaultAudioInfo,
+      :SDL_GetAudioDeviceFormat => :GetAudioDeviceFormat,
       :SDL_OpenAudioDevice => :OpenAudioDevice,
-      :SDL_GetAudioDeviceStatus => :GetAudioDeviceStatus,
-      :SDL_PlayAudioDevice => :PlayAudioDevice,
       :SDL_PauseAudioDevice => :PauseAudioDevice,
-      :SDL_LoadWAV_RW => :LoadWAV_RW,
+      :SDL_ResumeAudioDevice => :ResumeAudioDevice,
+      :SDL_AudioDevicePaused => :AudioDevicePaused,
+      :SDL_CloseAudioDevice => :CloseAudioDevice,
+      :SDL_BindAudioStreams => :BindAudioStreams,
+      :SDL_BindAudioStream => :BindAudioStream,
+      :SDL_UnbindAudioStreams => :UnbindAudioStreams,
+      :SDL_UnbindAudioStream => :UnbindAudioStream,
+      :SDL_GetAudioStreamDevice => :GetAudioStreamDevice,
       :SDL_CreateAudioStream => :CreateAudioStream,
+      :SDL_GetAudioStreamProperties => :GetAudioStreamProperties,
       :SDL_GetAudioStreamFormat => :GetAudioStreamFormat,
       :SDL_SetAudioStreamFormat => :SetAudioStreamFormat,
+      :SDL_GetAudioStreamFrequencyRatio => :GetAudioStreamFrequencyRatio,
+      :SDL_SetAudioStreamFrequencyRatio => :SetAudioStreamFrequencyRatio,
       :SDL_PutAudioStreamData => :PutAudioStreamData,
       :SDL_GetAudioStreamData => :GetAudioStreamData,
       :SDL_GetAudioStreamAvailable => :GetAudioStreamAvailable,
+      :SDL_GetAudioStreamQueued => :GetAudioStreamQueued,
       :SDL_FlushAudioStream => :FlushAudioStream,
       :SDL_ClearAudioStream => :ClearAudioStream,
+      :SDL_LockAudioStream => :LockAudioStream,
+      :SDL_UnlockAudioStream => :UnlockAudioStream,
+      :SDL_SetAudioStreamGetCallback => :SetAudioStreamGetCallback,
+      :SDL_SetAudioStreamPutCallback => :SetAudioStreamPutCallback,
       :SDL_DestroyAudioStream => :DestroyAudioStream,
+      :SDL_OpenAudioDeviceStream => :OpenAudioDeviceStream,
+      :SDL_SetAudioPostmixCallback => :SetAudioPostmixCallback,
+      :SDL_LoadWAV_RW => :LoadWAV_RW,
+      :SDL_LoadWAV => :LoadWAV,
       :SDL_MixAudioFormat => :MixAudioFormat,
-      :SDL_QueueAudio => :QueueAudio,
-      :SDL_DequeueAudio => :DequeueAudio,
-      :SDL_GetQueuedAudioSize => :GetQueuedAudioSize,
-      :SDL_ClearQueuedAudio => :ClearQueuedAudio,
-      :SDL_LockAudioDevice => :LockAudioDevice,
-      :SDL_UnlockAudioDevice => :UnlockAudioDevice,
-      :SDL_CloseAudioDevice => :CloseAudioDevice,
       :SDL_ConvertAudioSamples => :ConvertAudioSamples,
+      :SDL_GetSilenceValueForFormat => :GetSilenceValueForFormat,
     }
     args = {
       :SDL_GetNumAudioDrivers => [],
       :SDL_GetAudioDriver => [:int],
       :SDL_GetCurrentAudioDriver => [],
-      :SDL_GetNumAudioDevices => [:int],
-      :SDL_GetAudioDeviceName => [:int, :int],
-      :SDL_GetAudioDeviceSpec => [:int, :int, :pointer],
-      :SDL_GetDefaultAudioInfo => [:pointer, :pointer, :int],
-      :SDL_OpenAudioDevice => [:pointer, :int, :pointer, :pointer, :int],
-      :SDL_GetAudioDeviceStatus => [:uint],
-      :SDL_PlayAudioDevice => [:uint],
+      :SDL_GetAudioOutputDevices => [:pointer],
+      :SDL_GetAudioCaptureDevices => [:pointer],
+      :SDL_GetAudioDeviceName => [:uint],
+      :SDL_GetAudioDeviceFormat => [:uint, :pointer, :pointer],
+      :SDL_OpenAudioDevice => [:uint, :pointer],
       :SDL_PauseAudioDevice => [:uint],
-      :SDL_LoadWAV_RW => [:pointer, :int, :pointer, :pointer, :pointer],
-      :SDL_CreateAudioStream => [:ushort, :int, :int, :ushort, :int, :int],
-      :SDL_GetAudioStreamFormat => [:pointer, :pointer, :pointer, :pointer, :pointer, :pointer, :pointer],
-      :SDL_SetAudioStreamFormat => [:pointer, :ushort, :int, :int, :ushort, :int, :int],
+      :SDL_ResumeAudioDevice => [:uint],
+      :SDL_AudioDevicePaused => [:uint],
+      :SDL_CloseAudioDevice => [:uint],
+      :SDL_BindAudioStreams => [:uint, :pointer, :int],
+      :SDL_BindAudioStream => [:uint, :pointer],
+      :SDL_UnbindAudioStreams => [:pointer, :int],
+      :SDL_UnbindAudioStream => [:pointer],
+      :SDL_GetAudioStreamDevice => [:pointer],
+      :SDL_CreateAudioStream => [:pointer, :pointer],
+      :SDL_GetAudioStreamProperties => [:pointer],
+      :SDL_GetAudioStreamFormat => [:pointer, :pointer, :pointer],
+      :SDL_SetAudioStreamFormat => [:pointer, :pointer, :pointer],
+      :SDL_GetAudioStreamFrequencyRatio => [:pointer],
+      :SDL_SetAudioStreamFrequencyRatio => [:pointer, :float],
       :SDL_PutAudioStreamData => [:pointer, :pointer, :int],
       :SDL_GetAudioStreamData => [:pointer, :pointer, :int],
       :SDL_GetAudioStreamAvailable => [:pointer],
+      :SDL_GetAudioStreamQueued => [:pointer],
       :SDL_FlushAudioStream => [:pointer],
       :SDL_ClearAudioStream => [:pointer],
+      :SDL_LockAudioStream => [:pointer],
+      :SDL_UnlockAudioStream => [:pointer],
+      :SDL_SetAudioStreamGetCallback => [:pointer, :SDL_AudioStreamCallback, :pointer],
+      :SDL_SetAudioStreamPutCallback => [:pointer, :SDL_AudioStreamCallback, :pointer],
       :SDL_DestroyAudioStream => [:pointer],
+      :SDL_OpenAudioDeviceStream => [:uint, :pointer, :SDL_AudioStreamCallback, :pointer],
+      :SDL_SetAudioPostmixCallback => [:uint, :SDL_AudioPostmixCallback, :pointer],
+      :SDL_LoadWAV_RW => [:pointer, :int, :pointer, :pointer, :pointer],
+      :SDL_LoadWAV => [:pointer, :pointer, :pointer, :pointer],
       :SDL_MixAudioFormat => [:pointer, :pointer, :ushort, :uint, :int],
-      :SDL_QueueAudio => [:uint, :pointer, :uint],
-      :SDL_DequeueAudio => [:uint, :pointer, :uint],
-      :SDL_GetQueuedAudioSize => [:uint],
-      :SDL_ClearQueuedAudio => [:uint],
-      :SDL_LockAudioDevice => [:uint],
-      :SDL_UnlockAudioDevice => [:uint],
-      :SDL_CloseAudioDevice => [:uint],
-      :SDL_ConvertAudioSamples => [:ushort, :uchar, :int, :pointer, :int, :ushort, :uchar, :int, :pointer, :pointer],
+      :SDL_ConvertAudioSamples => [:pointer, :pointer, :int, :pointer, :pointer, :pointer],
+      :SDL_GetSilenceValueForFormat => [:ushort],
     }
     retvals = {
       :SDL_GetNumAudioDrivers => :int,
       :SDL_GetAudioDriver => :pointer,
       :SDL_GetCurrentAudioDriver => :pointer,
-      :SDL_GetNumAudioDevices => :int,
+      :SDL_GetAudioOutputDevices => :pointer,
+      :SDL_GetAudioCaptureDevices => :pointer,
       :SDL_GetAudioDeviceName => :pointer,
-      :SDL_GetAudioDeviceSpec => :int,
-      :SDL_GetDefaultAudioInfo => :int,
+      :SDL_GetAudioDeviceFormat => :int,
       :SDL_OpenAudioDevice => :uint,
-      :SDL_GetAudioDeviceStatus => :int,
-      :SDL_PlayAudioDevice => :int,
       :SDL_PauseAudioDevice => :int,
-      :SDL_LoadWAV_RW => :pointer,
+      :SDL_ResumeAudioDevice => :int,
+      :SDL_AudioDevicePaused => :int,
+      :SDL_CloseAudioDevice => :void,
+      :SDL_BindAudioStreams => :int,
+      :SDL_BindAudioStream => :int,
+      :SDL_UnbindAudioStreams => :void,
+      :SDL_UnbindAudioStream => :void,
+      :SDL_GetAudioStreamDevice => :uint,
       :SDL_CreateAudioStream => :pointer,
+      :SDL_GetAudioStreamProperties => :uint,
       :SDL_GetAudioStreamFormat => :int,
       :SDL_SetAudioStreamFormat => :int,
+      :SDL_GetAudioStreamFrequencyRatio => :float,
+      :SDL_SetAudioStreamFrequencyRatio => :int,
       :SDL_PutAudioStreamData => :int,
       :SDL_GetAudioStreamData => :int,
       :SDL_GetAudioStreamAvailable => :int,
+      :SDL_GetAudioStreamQueued => :int,
       :SDL_FlushAudioStream => :int,
       :SDL_ClearAudioStream => :int,
+      :SDL_LockAudioStream => :int,
+      :SDL_UnlockAudioStream => :int,
+      :SDL_SetAudioStreamGetCallback => :int,
+      :SDL_SetAudioStreamPutCallback => :int,
       :SDL_DestroyAudioStream => :void,
+      :SDL_OpenAudioDeviceStream => :pointer,
+      :SDL_SetAudioPostmixCallback => :int,
+      :SDL_LoadWAV_RW => :int,
+      :SDL_LoadWAV => :int,
       :SDL_MixAudioFormat => :int,
-      :SDL_QueueAudio => :int,
-      :SDL_DequeueAudio => :uint,
-      :SDL_GetQueuedAudioSize => :uint,
-      :SDL_ClearQueuedAudio => :int,
-      :SDL_LockAudioDevice => :int,
-      :SDL_UnlockAudioDevice => :void,
-      :SDL_CloseAudioDevice => :void,
       :SDL_ConvertAudioSamples => :int,
+      :SDL_GetSilenceValueForFormat => :int,
     }
     symbols.each do |sym|
       begin

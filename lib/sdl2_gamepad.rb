@@ -15,7 +15,7 @@ module SDL
   # Enum
 
   GAMEPAD_TYPE_UNKNOWN = 0
-  GAMEPAD_TYPE_VIRTUAL = 1
+  GAMEPAD_TYPE_STANDARD = 1
   GAMEPAD_TYPE_XBOX360 = 2
   GAMEPAD_TYPE_XBOXONE = 3
   GAMEPAD_TYPE_PS3 = 4
@@ -25,9 +25,7 @@ module SDL
   GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_LEFT = 8
   GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT = 9
   GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR = 10
-  GAMEPAD_TYPE_AMAZON_LUNA = 11
-  GAMEPAD_TYPE_GOOGLE_STADIA = 12
-  GAMEPAD_TYPE_NVIDIA_SHIELD = 13
+  GAMEPAD_TYPE_MAX = 11
   GAMEPAD_BUTTON_INVALID = -1
   GAMEPAD_BUTTON_A = 0
   GAMEPAD_BUTTON_B = 1
@@ -45,10 +43,10 @@ module SDL
   GAMEPAD_BUTTON_DPAD_LEFT = 13
   GAMEPAD_BUTTON_DPAD_RIGHT = 14
   GAMEPAD_BUTTON_MISC1 = 15
-  GAMEPAD_BUTTON_PADDLE1 = 16
-  GAMEPAD_BUTTON_PADDLE2 = 17
-  GAMEPAD_BUTTON_PADDLE3 = 18
-  GAMEPAD_BUTTON_PADDLE4 = 19
+  GAMEPAD_BUTTON_RIGHT_PADDLE1 = 16
+  GAMEPAD_BUTTON_LEFT_PADDLE1 = 17
+  GAMEPAD_BUTTON_RIGHT_PADDLE2 = 18
+  GAMEPAD_BUTTON_LEFT_PADDLE2 = 19
   GAMEPAD_BUTTON_TOUCHPAD = 20
   GAMEPAD_BUTTON_MAX = 21
   GAMEPAD_AXIS_INVALID = -1
@@ -103,10 +101,13 @@ module SDL
     symbols = [
       :SDL_AddGamepadMapping,
       :SDL_AddGamepadMappingsFromRW,
+      :SDL_AddGamepadMappingsFromFile,
+      :SDL_ReloadGamepadMappings,
       :SDL_GetNumGamepadMappings,
       :SDL_GetGamepadMappingForIndex,
       :SDL_GetGamepadMappingForGUID,
       :SDL_GetGamepadMapping,
+      :SDL_SetGamepadMapping,
       :SDL_GetGamepads,
       :SDL_IsGamepad,
       :SDL_GetGamepadInstanceName,
@@ -117,13 +118,17 @@ module SDL
       :SDL_GetGamepadInstanceProduct,
       :SDL_GetGamepadInstanceProductVersion,
       :SDL_GetGamepadInstanceType,
+      :SDL_GetRealGamepadInstanceType,
       :SDL_GetGamepadInstanceMapping,
       :SDL_OpenGamepad,
       :SDL_GetGamepadFromInstanceID,
       :SDL_GetGamepadFromPlayerIndex,
+      :SDL_GetGamepadProperties,
+      :SDL_GetGamepadInstanceID,
       :SDL_GetGamepadName,
       :SDL_GetGamepadPath,
       :SDL_GetGamepadType,
+      :SDL_GetRealGamepadType,
       :SDL_GetGamepadPlayerIndex,
       :SDL_SetGamepadPlayerIndex,
       :SDL_GetGamepadVendor,
@@ -131,19 +136,21 @@ module SDL
       :SDL_GetGamepadProductVersion,
       :SDL_GetGamepadFirmwareVersion,
       :SDL_GetGamepadSerial,
+      :SDL_GetGamepadPowerLevel,
       :SDL_GamepadConnected,
       :SDL_GetGamepadJoystick,
       :SDL_SetGamepadEventsEnabled,
       :SDL_GamepadEventsEnabled,
+      :SDL_GetGamepadBindings,
       :SDL_UpdateGamepads,
+      :SDL_GetGamepadTypeFromString,
+      :SDL_GetGamepadStringForType,
       :SDL_GetGamepadAxisFromString,
       :SDL_GetGamepadStringForAxis,
-      :SDL_GetGamepadBindForAxis,
       :SDL_GamepadHasAxis,
       :SDL_GetGamepadAxis,
       :SDL_GetGamepadButtonFromString,
       :SDL_GetGamepadStringForButton,
-      :SDL_GetGamepadBindForButton,
       :SDL_GamepadHasButton,
       :SDL_GetGamepadButton,
       :SDL_GetNumGamepadTouchpads,
@@ -168,10 +175,13 @@ module SDL
     apis = {
       :SDL_AddGamepadMapping => :AddGamepadMapping,
       :SDL_AddGamepadMappingsFromRW => :AddGamepadMappingsFromRW,
+      :SDL_AddGamepadMappingsFromFile => :AddGamepadMappingsFromFile,
+      :SDL_ReloadGamepadMappings => :ReloadGamepadMappings,
       :SDL_GetNumGamepadMappings => :GetNumGamepadMappings,
       :SDL_GetGamepadMappingForIndex => :GetGamepadMappingForIndex,
       :SDL_GetGamepadMappingForGUID => :GetGamepadMappingForGUID,
       :SDL_GetGamepadMapping => :GetGamepadMapping,
+      :SDL_SetGamepadMapping => :SetGamepadMapping,
       :SDL_GetGamepads => :GetGamepads,
       :SDL_IsGamepad => :IsGamepad,
       :SDL_GetGamepadInstanceName => :GetGamepadInstanceName,
@@ -182,13 +192,17 @@ module SDL
       :SDL_GetGamepadInstanceProduct => :GetGamepadInstanceProduct,
       :SDL_GetGamepadInstanceProductVersion => :GetGamepadInstanceProductVersion,
       :SDL_GetGamepadInstanceType => :GetGamepadInstanceType,
+      :SDL_GetRealGamepadInstanceType => :GetRealGamepadInstanceType,
       :SDL_GetGamepadInstanceMapping => :GetGamepadInstanceMapping,
       :SDL_OpenGamepad => :OpenGamepad,
       :SDL_GetGamepadFromInstanceID => :GetGamepadFromInstanceID,
       :SDL_GetGamepadFromPlayerIndex => :GetGamepadFromPlayerIndex,
+      :SDL_GetGamepadProperties => :GetGamepadProperties,
+      :SDL_GetGamepadInstanceID => :GetGamepadInstanceID,
       :SDL_GetGamepadName => :GetGamepadName,
       :SDL_GetGamepadPath => :GetGamepadPath,
       :SDL_GetGamepadType => :GetGamepadType,
+      :SDL_GetRealGamepadType => :GetRealGamepadType,
       :SDL_GetGamepadPlayerIndex => :GetGamepadPlayerIndex,
       :SDL_SetGamepadPlayerIndex => :SetGamepadPlayerIndex,
       :SDL_GetGamepadVendor => :GetGamepadVendor,
@@ -196,19 +210,21 @@ module SDL
       :SDL_GetGamepadProductVersion => :GetGamepadProductVersion,
       :SDL_GetGamepadFirmwareVersion => :GetGamepadFirmwareVersion,
       :SDL_GetGamepadSerial => :GetGamepadSerial,
+      :SDL_GetGamepadPowerLevel => :GetGamepadPowerLevel,
       :SDL_GamepadConnected => :GamepadConnected,
       :SDL_GetGamepadJoystick => :GetGamepadJoystick,
       :SDL_SetGamepadEventsEnabled => :SetGamepadEventsEnabled,
       :SDL_GamepadEventsEnabled => :GamepadEventsEnabled,
+      :SDL_GetGamepadBindings => :GetGamepadBindings,
       :SDL_UpdateGamepads => :UpdateGamepads,
+      :SDL_GetGamepadTypeFromString => :GetGamepadTypeFromString,
+      :SDL_GetGamepadStringForType => :GetGamepadStringForType,
       :SDL_GetGamepadAxisFromString => :GetGamepadAxisFromString,
       :SDL_GetGamepadStringForAxis => :GetGamepadStringForAxis,
-      :SDL_GetGamepadBindForAxis => :GetGamepadBindForAxis,
       :SDL_GamepadHasAxis => :GamepadHasAxis,
       :SDL_GetGamepadAxis => :GetGamepadAxis,
       :SDL_GetGamepadButtonFromString => :GetGamepadButtonFromString,
       :SDL_GetGamepadStringForButton => :GetGamepadStringForButton,
-      :SDL_GetGamepadBindForButton => :GetGamepadBindForButton,
       :SDL_GamepadHasButton => :GamepadHasButton,
       :SDL_GetGamepadButton => :GetGamepadButton,
       :SDL_GetNumGamepadTouchpads => :GetNumGamepadTouchpads,
@@ -233,10 +249,13 @@ module SDL
     args = {
       :SDL_AddGamepadMapping => [:pointer],
       :SDL_AddGamepadMappingsFromRW => [:pointer, :int],
+      :SDL_AddGamepadMappingsFromFile => [:pointer],
+      :SDL_ReloadGamepadMappings => [],
       :SDL_GetNumGamepadMappings => [],
       :SDL_GetGamepadMappingForIndex => [:int],
       :SDL_GetGamepadMappingForGUID => [JoystickGUID.by_value],
       :SDL_GetGamepadMapping => [:pointer],
+      :SDL_SetGamepadMapping => [:uint, :pointer],
       :SDL_GetGamepads => [:pointer],
       :SDL_IsGamepad => [:uint],
       :SDL_GetGamepadInstanceName => [:uint],
@@ -247,13 +266,17 @@ module SDL
       :SDL_GetGamepadInstanceProduct => [:uint],
       :SDL_GetGamepadInstanceProductVersion => [:uint],
       :SDL_GetGamepadInstanceType => [:uint],
+      :SDL_GetRealGamepadInstanceType => [:uint],
       :SDL_GetGamepadInstanceMapping => [:uint],
       :SDL_OpenGamepad => [:uint],
       :SDL_GetGamepadFromInstanceID => [:uint],
       :SDL_GetGamepadFromPlayerIndex => [:int],
+      :SDL_GetGamepadProperties => [:pointer],
+      :SDL_GetGamepadInstanceID => [:pointer],
       :SDL_GetGamepadName => [:pointer],
       :SDL_GetGamepadPath => [:pointer],
       :SDL_GetGamepadType => [:pointer],
+      :SDL_GetRealGamepadType => [:pointer],
       :SDL_GetGamepadPlayerIndex => [:pointer],
       :SDL_SetGamepadPlayerIndex => [:pointer, :int],
       :SDL_GetGamepadVendor => [:pointer],
@@ -261,19 +284,21 @@ module SDL
       :SDL_GetGamepadProductVersion => [:pointer],
       :SDL_GetGamepadFirmwareVersion => [:pointer],
       :SDL_GetGamepadSerial => [:pointer],
+      :SDL_GetGamepadPowerLevel => [:pointer],
       :SDL_GamepadConnected => [:pointer],
       :SDL_GetGamepadJoystick => [:pointer],
       :SDL_SetGamepadEventsEnabled => [:int],
       :SDL_GamepadEventsEnabled => [],
+      :SDL_GetGamepadBindings => [:pointer, :pointer],
       :SDL_UpdateGamepads => [],
+      :SDL_GetGamepadTypeFromString => [:pointer],
+      :SDL_GetGamepadStringForType => [:int],
       :SDL_GetGamepadAxisFromString => [:pointer],
       :SDL_GetGamepadStringForAxis => [:int],
-      :SDL_GetGamepadBindForAxis => [:pointer, :int],
       :SDL_GamepadHasAxis => [:pointer, :int],
       :SDL_GetGamepadAxis => [:pointer, :int],
       :SDL_GetGamepadButtonFromString => [:pointer],
       :SDL_GetGamepadStringForButton => [:int],
-      :SDL_GetGamepadBindForButton => [:pointer, :int],
       :SDL_GamepadHasButton => [:pointer, :int],
       :SDL_GetGamepadButton => [:pointer, :int],
       :SDL_GetNumGamepadTouchpads => [:pointer],
@@ -298,10 +323,13 @@ module SDL
     retvals = {
       :SDL_AddGamepadMapping => :int,
       :SDL_AddGamepadMappingsFromRW => :int,
+      :SDL_AddGamepadMappingsFromFile => :int,
+      :SDL_ReloadGamepadMappings => :int,
       :SDL_GetNumGamepadMappings => :int,
       :SDL_GetGamepadMappingForIndex => :pointer,
       :SDL_GetGamepadMappingForGUID => :pointer,
       :SDL_GetGamepadMapping => :pointer,
+      :SDL_SetGamepadMapping => :int,
       :SDL_GetGamepads => :pointer,
       :SDL_IsGamepad => :int,
       :SDL_GetGamepadInstanceName => :pointer,
@@ -312,13 +340,17 @@ module SDL
       :SDL_GetGamepadInstanceProduct => :ushort,
       :SDL_GetGamepadInstanceProductVersion => :ushort,
       :SDL_GetGamepadInstanceType => :int,
+      :SDL_GetRealGamepadInstanceType => :int,
       :SDL_GetGamepadInstanceMapping => :pointer,
       :SDL_OpenGamepad => :pointer,
       :SDL_GetGamepadFromInstanceID => :pointer,
       :SDL_GetGamepadFromPlayerIndex => :pointer,
+      :SDL_GetGamepadProperties => :uint,
+      :SDL_GetGamepadInstanceID => :uint,
       :SDL_GetGamepadName => :pointer,
       :SDL_GetGamepadPath => :pointer,
       :SDL_GetGamepadType => :int,
+      :SDL_GetRealGamepadType => :int,
       :SDL_GetGamepadPlayerIndex => :int,
       :SDL_SetGamepadPlayerIndex => :int,
       :SDL_GetGamepadVendor => :ushort,
@@ -326,19 +358,21 @@ module SDL
       :SDL_GetGamepadProductVersion => :ushort,
       :SDL_GetGamepadFirmwareVersion => :ushort,
       :SDL_GetGamepadSerial => :pointer,
+      :SDL_GetGamepadPowerLevel => :int,
       :SDL_GamepadConnected => :int,
       :SDL_GetGamepadJoystick => :pointer,
       :SDL_SetGamepadEventsEnabled => :void,
       :SDL_GamepadEventsEnabled => :int,
+      :SDL_GetGamepadBindings => :pointer,
       :SDL_UpdateGamepads => :void,
+      :SDL_GetGamepadTypeFromString => :int,
+      :SDL_GetGamepadStringForType => :pointer,
       :SDL_GetGamepadAxisFromString => :int,
       :SDL_GetGamepadStringForAxis => :pointer,
-      :SDL_GetGamepadBindForAxis => GamepadBinding.by_value,
       :SDL_GamepadHasAxis => :int,
       :SDL_GetGamepadAxis => :short,
       :SDL_GetGamepadButtonFromString => :int,
       :SDL_GetGamepadStringForButton => :pointer,
-      :SDL_GetGamepadBindForButton => GamepadBinding.by_value,
       :SDL_GamepadHasButton => :int,
       :SDL_GetGamepadButton => :uchar,
       :SDL_GetNumGamepadTouchpads => :int,

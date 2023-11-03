@@ -1,15 +1,15 @@
 import sdl2_parser, sdl2_generator
 
-# TODO : naming convention
-TYPEDEF_POSTFIX_EVENTS = """
-  class ClipboardEvent < FFI::Struct
-    layout(
-      :type, :uint,
-      :timestamp, :ulong_long,
-      :userdata, :pointer,
-    )
-  end
-"""
+# # TODO : naming convention
+# TYPEDEF_POSTFIX_EVENTS = """
+#   class ClipboardEvent < FFI::Struct
+#     layout(
+#       :type, :uint,
+#       :timestamp, :ulong_long,
+#       :userdata, :pointer,
+#     )
+#   end
+# """
 
 if __name__ == "__main__":
 
@@ -22,6 +22,5 @@ if __name__ == "__main__":
     sdl2_generator.sanitize(ctx)
     sdl2_generator.generate(ctx,
                             prefix = sdl2_generator.PREFIX + "require_relative 'sdl2_keyboard'\n",
-                            typedef_postfix = TYPEDEF_POSTFIX_EVENTS,
                             setup_method_name = 'events'
     )

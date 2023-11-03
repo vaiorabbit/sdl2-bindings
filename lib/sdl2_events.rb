@@ -29,8 +29,8 @@ module SDL
   EVENT_LOCALE_CHANGED = 263
   EVENT_SYSTEM_THEME_CHANGED = 264
   EVENT_DISPLAY_ORIENTATION = 337
-  EVENT_DISPLAY_CONNECTED = 338
-  EVENT_DISPLAY_DISCONNECTED = 339
+  EVENT_DISPLAY_ADDED = 338
+  EVENT_DISPLAY_REMOVED = 339
   EVENT_DISPLAY_MOVED = 340
   EVENT_DISPLAY_CONTENT_SCALE_CHANGED = 341
   EVENT_DISPLAY_FIRST = 337
@@ -55,9 +55,10 @@ module SDL
   EVENT_WINDOW_ICCPROF_CHANGED = 530
   EVENT_WINDOW_DISPLAY_CHANGED = 531
   EVENT_WINDOW_DISPLAY_SCALE_CHANGED = 532
-  EVENT_WINDOW_DESTROYED = 533
+  EVENT_WINDOW_OCCLUDED = 533
+  EVENT_WINDOW_DESTROYED = 534
   EVENT_WINDOW_FIRST = 514
-  EVENT_WINDOW_LAST = 533
+  EVENT_WINDOW_LAST = 534
   EVENT_KEY_DOWN = 768
   EVENT_KEY_UP = 769
   EVENT_TEXT_EDITING = 770
@@ -91,7 +92,6 @@ module SDL
   EVENT_FINGER_UP = 1793
   EVENT_FINGER_MOTION = 1794
   EVENT_CLIPBOARD_UPDATE = 2304
-  EVENT_CLIPBOARD_CANCELLED = 2305
   EVENT_DROP_FILE = 4096
   EVENT_DROP_TEXT = 4097
   EVENT_DROP_BEGIN = 4098
@@ -99,6 +99,7 @@ module SDL
   EVENT_DROP_POSITION = 4100
   EVENT_AUDIO_DEVICE_ADDED = 4352
   EVENT_AUDIO_DEVICE_REMOVED = 4353
+  EVENT_AUDIO_DEVICE_FORMAT_CHANGED = 4354
   EVENT_SENSOR_UPDATE = 4608
   EVENT_RENDER_TARGETS_RESET = 8192
   EVENT_RENDER_DEVICE_RESET = 8193
@@ -114,15 +115,6 @@ module SDL
   typedef :int, :SDL_EventType
   typedef :int, :SDL_eventaction
   callback :SDL_EventFilter, [:pointer, :pointer], :int
-
-  class ClipboardEvent < FFI::Struct
-    layout(
-      :type, :uint,
-      :timestamp, :ulong_long,
-      :userdata, :pointer,
-    )
-  end
-
 
   # Struct
 
@@ -390,11 +382,10 @@ module SDL
     )
   end
 
-  class ClipboardCancelled < FFI::Struct
+  class ClipboardEvent < FFI::Struct
     layout(
       :type, :uint,
       :timestamp, :ulong_long,
-      :userdata, :pointer,
     )
   end
 

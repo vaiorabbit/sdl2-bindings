@@ -38,22 +38,22 @@ module SDL
     symbols = [
       :SDL_GetBasePath,
       :SDL_GetPrefPath,
-      :SDL_GetPath,
+      :SDL_GetUserFolder,
     ]
     apis = {
       :SDL_GetBasePath => :GetBasePath,
       :SDL_GetPrefPath => :GetPrefPath,
-      :SDL_GetPath => :GetPath,
+      :SDL_GetUserFolder => :GetUserFolder,
     }
     args = {
       :SDL_GetBasePath => [],
       :SDL_GetPrefPath => [:pointer, :pointer],
-      :SDL_GetPath => [:int],
+      :SDL_GetUserFolder => [:int],
     }
     retvals = {
       :SDL_GetBasePath => :pointer,
       :SDL_GetPrefPath => :pointer,
-      :SDL_GetPath => :pointer,
+      :SDL_GetUserFolder => :pointer,
     }
     symbols.each do |sym|
       begin

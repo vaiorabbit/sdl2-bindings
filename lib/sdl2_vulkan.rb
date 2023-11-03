@@ -45,14 +45,14 @@ module SDL
       :SDL_Vulkan_LoadLibrary => [:pointer],
       :SDL_Vulkan_GetVkGetInstanceProcAddr => [],
       :SDL_Vulkan_UnloadLibrary => [],
-      :SDL_Vulkan_GetInstanceExtensions => [:pointer, :pointer],
+      :SDL_Vulkan_GetInstanceExtensions => [:pointer],
       :SDL_Vulkan_CreateSurface => [:pointer, :pointer, :pointer],
     }
     retvals = {
       :SDL_Vulkan_LoadLibrary => :int,
       :SDL_Vulkan_GetVkGetInstanceProcAddr => :pointer,
       :SDL_Vulkan_UnloadLibrary => :void,
-      :SDL_Vulkan_GetInstanceExtensions => :int,
+      :SDL_Vulkan_GetInstanceExtensions => :pointer,
       :SDL_Vulkan_CreateSurface => :int,
     }
     symbols.each do |sym|
