@@ -3,7 +3,7 @@
 # sdl2-bindings : Yet another SDL2 wrapper for Ruby #
 
 *   Created : 2015-09-19
-*   Last modified : 2023-08-10
+*   Last modified : 2023-12-09
 
 ## Features ##
 
@@ -25,7 +25,7 @@ See the project below to learn how to use this library:
 
 *   [2023-08-10]
     *   SDL : 2.28.2~
-    *   SDL_image : 2.6.3
+    *   SDL_image : 2.8.0
     *   SDL_mixer : 2.6.3
     *   SDL_ttf : 2.20.2
     *   SDL2_gfx : 1.0.4
@@ -104,19 +104,28 @@ See the project below to learn how to use this library:
     *   SDL_ttf : 2.20.2
     *   SDL2_gfx : 1.0.4
     *   SDL_sound : 2.0.1
+*   [2023-08-10]
+    *   SDL : 2.28.2~
+    *   SDL_image : 2.6.3
+    *   SDL_mixer : 2.6.3
+    *   SDL_ttf : 2.20.2
+    *   SDL2_gfx : 1.0.4
+    *   SDL_sound : 2.0.1
+
 
 </details>
 
 ## Supported Environments ##
 
+*   [2023-12-09] macOS Sonoma (14.0) ruby 3.2.1 (2023-02-08 revision 31819e82c8) [arm64-darwin22]
 *   [2023-01-07] Windows 11 (22H2), ruby 3.2.0 (2022-12-25 revision a528908271) [x64-mingw-ucrt]
-*   [2023-01-07] macOS Ventura (13.2.1) ruby 3.2.1 (2023-02-08 revision 31819e82c8) [arm64-darwin22]
 *   [2022-10-09] Debian 11 (bullseye) on ASUS Chromebook Detachable CZ1, ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [aarch64-linux]
 *   [2023-02-05] Ubuntu Linux 22.04 LTS (jammy) on WSL/Windows 11, ruby 3.2.0 (2022-12-25 revision a528908271) [x86_64-linux]
 
 <details>
 <summary>Older Environments</summary>
 
+*   [2023-01-07] macOS Ventura (13.2.1) ruby 3.2.1 (2023-02-08 revision 31819e82c8) [arm64-darwin22]
 *   [2022-04-29] Windows 10 (21H1), ruby 3.1.1p18 (2022-02-18 revision 53f5fc4236) [x64-mingw-ucrt]
 *   [2022-10-09] macOS Monterey (12.5.1), ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [arm64-darwin21]
 *   [2022-07-31] macOS Monterey (12.4), ruby 3.1.0p0 (2021-12-25 revision fb4df44d16) [arm64-darwin21]

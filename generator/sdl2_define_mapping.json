@@ -543,8 +543,8 @@
     , "TTF_GetError" : null
     , "SDL_IMAGE_H_" : null
     , "SDL_IMAGE_MAJOR_VERSION" : "2"
-    , "SDL_IMAGE_MINOR_VERSION" : "6"
-    , "SDL_IMAGE_PATCHLEVEL" : "2"
+    , "SDL_IMAGE_MINOR_VERSION" : "8"
+    , "SDL_IMAGE_PATCHLEVEL" : "0"
     , "SDL_IMAGE_VERSION" : null
     , "SDL_IMAGE_COMPILEDVERSION" : null
     , "SDL_IMAGE_VERSION_ATLEAST" : null
