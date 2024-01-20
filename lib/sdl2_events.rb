@@ -62,6 +62,8 @@ module SDL
   CONTROLLERTOUCHPADMOTION = 1623
   CONTROLLERTOUCHPADUP = 1624
   CONTROLLERSENSORUPDATE = 1625
+  CONTROLLERUPDATECOMPLETE_RESERVED_FOR_SDL3 = 1626
+  CONTROLLERSTEAMHANDLEUPDATED = 1627
   FINGERDOWN = 1792
   FINGERUP = 1793
   FINGERMOTION = 1794
@@ -417,13 +419,6 @@ module SDL
   end
 
   class QuitEvent < FFI::Struct
-    layout(
-      :type, :uint,
-      :timestamp, :uint,
-    )
-  end
-
-  class OSEvent < FFI::Struct
     layout(
       :type, :uint,
       :timestamp, :uint,

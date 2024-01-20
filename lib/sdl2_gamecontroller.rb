@@ -28,6 +28,7 @@ module SDL
   CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT = 11
   CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT = 12
   CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR = 13
+  CONTROLLER_TYPE_MAX = 14
   CONTROLLER_BINDTYPE_NONE = 0
   CONTROLLER_BINDTYPE_BUTTON = 1
   CONTROLLER_BINDTYPE_AXIS = 2
@@ -125,6 +126,7 @@ module SDL
       :SDL_GameControllerGetProductVersion,
       :SDL_GameControllerGetFirmwareVersion,
       :SDL_GameControllerGetSerial,
+      :SDL_GameControllerGetSteamHandle,
       :SDL_GameControllerGetAttached,
       :SDL_GameControllerGetJoystick,
       :SDL_GameControllerEventState,
@@ -184,6 +186,7 @@ module SDL
       :SDL_GameControllerGetProductVersion => :GameControllerGetProductVersion,
       :SDL_GameControllerGetFirmwareVersion => :GameControllerGetFirmwareVersion,
       :SDL_GameControllerGetSerial => :GameControllerGetSerial,
+      :SDL_GameControllerGetSteamHandle => :GameControllerGetSteamHandle,
       :SDL_GameControllerGetAttached => :GameControllerGetAttached,
       :SDL_GameControllerGetJoystick => :GameControllerGetJoystick,
       :SDL_GameControllerEventState => :GameControllerEventState,
@@ -243,6 +246,7 @@ module SDL
       :SDL_GameControllerGetProductVersion => [:pointer],
       :SDL_GameControllerGetFirmwareVersion => [:pointer],
       :SDL_GameControllerGetSerial => [:pointer],
+      :SDL_GameControllerGetSteamHandle => [:pointer],
       :SDL_GameControllerGetAttached => [:pointer],
       :SDL_GameControllerGetJoystick => [:pointer],
       :SDL_GameControllerEventState => [:int],
@@ -302,6 +306,7 @@ module SDL
       :SDL_GameControllerGetProductVersion => :ushort,
       :SDL_GameControllerGetFirmwareVersion => :ushort,
       :SDL_GameControllerGetSerial => :pointer,
+      :SDL_GameControllerGetSteamHandle => :ulong_long,
       :SDL_GameControllerGetAttached => :int,
       :SDL_GameControllerGetJoystick => :pointer,
       :SDL_GameControllerEventState => :int,

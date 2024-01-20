@@ -24,10 +24,10 @@ See the project below to learn how to use this library:
 ## Target version ##
 
 *   [2024-01-20]
-    *   SDL : 2.28.5~
+    *   SDL : 2.29.1~
     *   SDL_image : 2.8.2
     *   SDL_mixer : 2.7.2
-    *   SDL_ttf : 2.20.2
+    *   SDL_ttf : 2.21.2
     *   SDL2_gfx : 1.0.4
     *   SDL_sound : 2.0.2
 

@@ -11,8 +11,8 @@ module SDL
   # Define/Macro
 
   MAJOR_VERSION = 2
-  MINOR_VERSION = 28
-  PATCHLEVEL = 5
+  MINOR_VERSION = 29
+  PATCHLEVEL = 1
 
   # Enum
 
