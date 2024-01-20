@@ -3,12 +3,12 @@
 #
 # Ref.: https://github.com/malkia/ufo/blob/master/build/OSX/glfw.sh
 #
-curl -L -O https://github.com/libsdl-org/SDL/releases/download/release-2.28.1/SDL2-2.28.1.zip
-unzip SDL2-2.28.1.zip
-cd SDL2-2.28.1/
+curl -L -O https://github.com/libsdl-org/SDL/releases/download/release-2.28.5/SDL2-2.28.5.zip
+unzip SDL2-2.28.5.zip
+cd SDL2-2.28.5/
 mkdir build
 cd build
-export MACOSX_DEPLOYMENT_TARGET=12.1
+export MACOSX_DEPLOYMENT_TARGET=14.0
 cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_OSX_ARCHITECTURES="x86_64;arm64" -D BUILD_SHARED_LIBS=ON -D CMAKE_C_COMPILER=clang ../
 make
 

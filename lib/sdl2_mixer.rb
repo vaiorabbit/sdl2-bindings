@@ -11,11 +11,11 @@ module SDL
   # Define/Macro
 
   MIXER_MAJOR_VERSION = 2
-  MIXER_MINOR_VERSION = 6
+  MIXER_MINOR_VERSION = 7
   MIXER_PATCHLEVEL = 2
   MIX_CHANNELS = 8
   MIX_DEFAULT_FREQUENCY = 44100
-  MIX_DEFAULT_FORMAT = AUDIO_S16LSB
+  MIX_DEFAULT_FORMAT = AUDIO_S16SYS
   MIX_DEFAULT_CHANNELS = 2
   MIX_CHANNEL_POST = -2
   MIX_EFFECTSMAXSPEED = "MIX_EFFECTSMAXSPEED"
@@ -28,6 +28,7 @@ module SDL
   MIX_INIT_OGG = 16
   MIX_INIT_MID = 32
   MIX_INIT_OPUS = 64
+  MIX_INIT_WAVPACK = 128
   MIX_NO_FADING = 0
   MIX_FADING_OUT = 1
   MIX_FADING_IN = 2
@@ -42,6 +43,8 @@ module SDL
   MUS_FLAC = 8
   MUS_MODPLUG_UNUSED = 9
   MUS_OPUS = 10
+  MUS_WAVPACK = 11
+  MUS_GME = 12
 
   # Typedef
 
@@ -72,6 +75,7 @@ module SDL
       :Mix_Quit,
       :Mix_OpenAudio,
       :Mix_OpenAudioDevice,
+      :Mix_PauseAudio,
       :Mix_QuerySpec,
       :Mix_AllocateChannels,
       :Mix_LoadWAV_RW,
@@ -143,6 +147,8 @@ module SDL
       :Mix_RewindMusic,
       :Mix_PausedMusic,
       :Mix_ModMusicJumpToOrder,
+      :Mix_StartTrack,
+      :Mix_GetNumTracks,
       :Mix_SetMusicPosition,
       :Mix_GetMusicPosition,
       :Mix_MusicDuration,
@@ -168,6 +174,7 @@ module SDL
       :Mix_Quit => :Mix_Quit,
       :Mix_OpenAudio => :Mix_OpenAudio,
       :Mix_OpenAudioDevice => :Mix_OpenAudioDevice,
+      :Mix_PauseAudio => :Mix_PauseAudio,
       :Mix_QuerySpec => :Mix_QuerySpec,
       :Mix_AllocateChannels => :Mix_AllocateChannels,
       :Mix_LoadWAV_RW => :Mix_LoadWAV_RW,
@@ -239,6 +246,8 @@ module SDL
       :Mix_RewindMusic => :Mix_RewindMusic,
       :Mix_PausedMusic => :Mix_PausedMusic,
       :Mix_ModMusicJumpToOrder => :Mix_ModMusicJumpToOrder,
+      :Mix_StartTrack => :Mix_StartTrack,
+      :Mix_GetNumTracks => :Mix_GetNumTracks,
       :Mix_SetMusicPosition => :Mix_SetMusicPosition,
       :Mix_GetMusicPosition => :Mix_GetMusicPosition,
       :Mix_MusicDuration => :Mix_MusicDuration,
@@ -264,6 +273,7 @@ module SDL
       :Mix_Quit => [],
       :Mix_OpenAudio => [:int, :ushort, :int, :int],
       :Mix_OpenAudioDevice => [:int, :ushort, :int, :int, :pointer, :int],
+      :Mix_PauseAudio => [:int],
       :Mix_QuerySpec => [:pointer, :pointer, :pointer],
       :Mix_AllocateChannels => [:int],
       :Mix_LoadWAV_RW => [:pointer, :int],
@@ -335,6 +345,8 @@ module SDL
       :Mix_RewindMusic => [],
       :Mix_PausedMusic => [],
       :Mix_ModMusicJumpToOrder => [:int],
+      :Mix_StartTrack => [:pointer, :int],
+      :Mix_GetNumTracks => [:pointer],
       :Mix_SetMusicPosition => [:double],
       :Mix_GetMusicPosition => [:pointer],
       :Mix_MusicDuration => [:pointer],
@@ -360,6 +372,7 @@ module SDL
       :Mix_Quit => :void,
       :Mix_OpenAudio => :int,
       :Mix_OpenAudioDevice => :int,
+      :Mix_PauseAudio => :void,
       :Mix_QuerySpec => :int,
       :Mix_AllocateChannels => :int,
       :Mix_LoadWAV_RW => :pointer,
@@ -431,6 +444,8 @@ module SDL
       :Mix_RewindMusic => :void,
       :Mix_PausedMusic => :int,
       :Mix_ModMusicJumpToOrder => :int,
+      :Mix_StartTrack => :int,
+      :Mix_GetNumTracks => :int,
       :Mix_SetMusicPosition => :int,
       :Mix_GetMusicPosition => :double,
       :Mix_MusicDuration => :double,

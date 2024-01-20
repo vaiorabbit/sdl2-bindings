@@ -12,7 +12,7 @@ module SDL
 
   SOUND_VER_MAJOR = 2
   SOUND_VER_MINOR = 0
-  SOUND_VER_PATCH = 1
+  SOUND_VER_PATCH = 2
 
   # Enum
 
