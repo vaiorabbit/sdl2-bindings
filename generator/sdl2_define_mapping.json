@@ -536,8 +536,8 @@
     , "SDL_vulkan_h_" : null
     , "SDL_TTF_H_" : null
     , "SDL_TTF_MAJOR_VERSION" : "2"
-    , "SDL_TTF_MINOR_VERSION" : "21"
-    , "SDL_TTF_PATCHLEVEL" : "2"
+    , "SDL_TTF_MINOR_VERSION" : "22"
+    , "SDL_TTF_PATCHLEVEL" : "0"
     , "SDL_TTF_VERSION" : null
     , "TTF_MAJOR_VERSION" : null
     , "TTF_MINOR_VERSION" : null
@@ -572,8 +572,8 @@
     , "SDL_IMAGE_VERSION_ATLEAST" : null
     , "SDL_MIXER_H_" : null
     , "SDL_MIXER_MAJOR_VERSION" : "2"
-    , "SDL_MIXER_MINOR_VERSION" : "7"
-    , "SDL_MIXER_PATCHLEVEL" : "2"
+    , "SDL_MIXER_MINOR_VERSION" : "8"
+    , "SDL_MIXER_PATCHLEVEL" : "0"
     , "SDL_MIXER_VERSION" : null
     , "MIX_MAJOR_VERSION" : null
     , "MIX_MINOR_VERSION" : null
